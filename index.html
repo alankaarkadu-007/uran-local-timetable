@@ -36,6 +36,16 @@ select{width:100%;padding:10px;margin:8px 0;font-size:15px}
 .next{background:#e8f5e9}
 .clock{font-size:14px;margin-top:6px}
 
+.badge{
+  background:#ff9800;
+  color:#fff;
+  font-size:12px;
+  padding:2px 6px;
+  border-radius:12px;
+  margin-left:6px;
+}
+
+
 /* Menu */
 .menu{
   position:absolute;
@@ -96,7 +106,7 @@ select{width:100%;padding:10px;margin:8px 0;font-size:15px}
   <option value="URAN">Uran</option>
   <option value="DRGI">Dronagiri</option>
   <option value="NESA">Nhava Sheva</option>
-  <option value="SEMK">Shematikhar</option>
+  <option value="SEMK">Shemti Khar</option>
   <option value="GAVHAN">Gavhan</option>
   <option value="KARP">Kharkopar</option>
   <option value="BMDR">Baman Dongri</option>
@@ -125,7 +135,7 @@ const clock=document.getElementById('clock');
 const menuBox=document.getElementById('menuBox');
 
 const stations={
- URAN:'Uran',DRGI:'Dronagiri',NESA:'Nhava Sheva',SEMK:'Shematikhar',
+ URAN:'Uran',DRGI:'Dronagiri',NESA:'Nhava Sheva',SEMK:'Shemti Khar',
  GAVHAN:'Gavhan',KARP:'Kharkopar',BMDR:'Baman Dongri',TRGR:'Targhar',
  KILE:'Killa',BEPR:'Belapur CBD',SWDV:'Seawood Darave',NEU:'Nerul'
 };
@@ -264,11 +274,14 @@ function render(){
 
  /* -------- LIST (FULL TIMETABLE) -------- */
  list.innerHTML = rows.map((r,i)=>`
-   <div class="train ${i===nextIdx?'highlight':''}">
-     <span>${to12h(r.time)}</span>
-     <span>${r.no}</span>
-   </div>
- `).join('');
+  <div class="train ${i===nextIdx?'highlight':''}">
+    <span>
+      ${to12h(r.time)}
+      ${i===nextIdx ? '<span class="badge">⭐ NEXT</span>' : ''}
+    </span>
+    <span>${r.no}</span>
+  </div>
+`).join('');
 
  /* -------- NEXT TRAIN CARD -------- */
  const n = rows[nextIdx];
@@ -278,11 +291,11 @@ function render(){
    ? (1440 - nowMin + n.m)
    : (n.m - nowMin);
 
- nextTrain.innerHTML =
- `🚆 Next Train: <b>${to12h(n.time)}</b> ${isTomorrow?'(Tomorrow)':''}<br>
-  ⏳ Arriving in ${formatArrival(remainingMin)}<br>
-  🚉 Platform No.: ${pf}<br>
-  🔢 Train No.: ${n.no}`;
+nextTrain.innerHTML =
+`🚆 Next Train ⭐ <b>${to12h(n.time)}</b> ${isTomorrow?'(Tomorrow)':''}<br>
+ ⏳ Arriving in ${formatArrival(remainingMin)}<br>
+ 🚉 Platform No.: ${pf}<br>
+ 🔢 Train No.: ${n.no}`;
 }
 
 route.onchange=render;
@@ -320,22 +333,24 @@ function updateClock(){
 }
 updateClock();
 setInterval(updateClock,1000);
-setInterval(render,1000);
+
+let lastMinute = new Date().getMinutes();
+
+setInterval(() => {
+  const now = new Date();
+  if(now.getMinutes() !== lastMinute){
+    lastMinute = now.getMinutes();
+    render(); // only when minute changes
+  }
+}, 1000);
 
 /* ================= SERVICE WORKER ================= */
-if('serviceWorker' in navigator){
-  window.addEventListener('load', ()=>{
-    navigator.serviceWorker.register('sw.js');
-  });
+if('serviceWorker'in navigator){
+ window.addEventListener('load',()=>{
+  navigator.serviceWorker.register('sw.js');
+ });
 }
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
