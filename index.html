@@ -45,6 +45,59 @@ select{width:100%;padding:10px;margin:8px 0;font-size:15px}
   margin-left:6px;
 }
 
+/* RecyclerView style list */
+.recycler {
+  margin-top:12px;
+  max-height:60vh;
+  overflow-y:auto;
+}
+
+.rv-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px 8px;
+  border-bottom:1px solid #eee;
+}
+
+.rv-item:last-child{
+  border-bottom:none;
+}
+
+.rv-left{
+  display:flex;
+  flex-direction:column;
+}
+
+.rv-time{
+  font-size:16px;
+  font-weight:600;
+}
+
+.rv-sub{
+  font-size:12px;
+  color:#666;
+}
+
+.rv-no{
+  font-size:14px;
+  color:#333;
+}
+
+/* Next train highlight */
+.rv-next{
+  background:#e8f5e9;
+  border-left:4px solid #2e7d32;
+}
+
+/* Smooth scroll */
+.recycler::-webkit-scrollbar{
+  width:6px;
+}
+.recycler::-webkit-scrollbar-thumb{
+  background:#ccc;
+  border-radius:4px;
+}
 
 /* Menu */
 .menu{
@@ -121,7 +174,7 @@ select{width:100%;padding:10px;margin:8px 0;font-size:15px}
   Route आणि Station निवडा
 </div>
 
-<div class="card" id="list"></div>
+<div class="card recycler" id="list"></div>
 
 </div>
 
@@ -272,16 +325,33 @@ function render(){
    isTomorrow = true;
  }
 
+setTimeout(()=>{
+  const nextEl = document.querySelector('.rv-next');
+  if(nextEl){
+    nextEl.scrollIntoView({behavior:'smooth',block:'center'});
+  }
+},200);
+
  /* -------- LIST (FULL TIMETABLE) -------- */
- list.innerHTML = rows.map((r,i)=>`
-  <div class="train ${i===nextIdx?'highlight':''}">
-    <span>
-      ${to12h(r.time)}
-      ${i===nextIdx ? '<span class="badge">⭐ NEXT</span>' : ''}
-    </span>
-    <span>${r.no}</span>
+ list.innerHTML = rows.map((r,i)=>{
+  const isNext = i === nextIdx;
+  return `
+  <div class="rv-item ${isNext?'rv-next':''}">
+    <div class="rv-left">
+      <div class="rv-time">
+        ${to12h(r.time)}
+        ${isNext ? '<span class="badge">⭐ NEXT</span>' : ''}
+      </div>
+      <div class="rv-sub">
+        ${stations[station.value]} Station
+      </div>
+    </div>
+    <div class="rv-no">
+      ${r.no}
+    </div>
   </div>
-`).join('');
+  `;
+}).join('');
 
  /* -------- NEXT TRAIN CARD -------- */
  const n = rows[nextIdx];
