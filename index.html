@@ -135,12 +135,11 @@ select{width:100%;padding:10px;margin:8px 0;font-size:15px}
   <div>Designed & Developed by Dr. Alankar Kadu</div>
   <div class="clock" id="clock"></div>
 
-  <div class="menu" id="menuBtn">☰
-    <div class="menu-box" id="menuBox">
-      <div onclick="openAlarm()">⏰ Set Alarm</div>
-      <div onclick="enableNotification()">🔔 Notifications</div>
-      <div onclick="manualUpdate()">🔄 Update App</div>
-    </div>
+  <div class="menu-box" id="menuBox">
+  <div onclick="toggleLanguage()">🌐 Language: <span id="langLabel">English</span></div>
+  <div onclick="manualUpdate()">🔄 Update App</div>
+</div>
+
   </div>
 </header>
 
@@ -164,9 +163,9 @@ select{width:100%;padding:10px;margin:8px 0;font-size:15px}
   <option value="KARP">Kharkopar</option>
   <option value="BMDR">Baman Dongri</option>
   <option value="TRGR">Targhar</option>
-  <option value="KILE">Killa</option>
+  <option value="KILE">Killa (Proposed)</option>
   <option value="BEPR">Belapur CBD</option>
-  <option value="SWDV">Seawood Darave</option>
+  <option value="SWDV">Seawood Darave Karave</option>
   <option value="NEU">Nerul</option>
 </select>
 
@@ -179,6 +178,36 @@ select{width:100%;padding:10px;margin:8px 0;font-size:15px}
 </div>
 
 <script>
+
+/* ===== LANGUAGE ===== */
+let lang = 'en'; // default English
+
+const uiText = {
+  en:{
+    selectRoute:'Select Route',
+    selectStation:'Boarding Station',
+    nextTrain:'Next Train',
+    arriving:'Arriving in',
+    platform:'Platform No.'
+  },
+  mr:{
+    selectRoute:'रूट निवडा',
+    selectStation:'स्टेशन निवडा',
+    nextTrain:'पुढची ट्रेन',
+    arriving:'येण्यास वेळ',
+    platform:'प्लॅटफॉर्म क्रमांक'
+  }
+};
+
+function toggleLanguage(){
+  lang = lang === 'en' ? 'mr' : 'en';
+  document.getElementById('langLabel').innerText =
+    lang === 'en' ? 'English' : 'मराठी';
+
+  updateStationsByRoute();
+  render();
+}
+
 /* ================= BASIC ================= */
 const route=document.getElementById('route');
 const station=document.getElementById('station');
@@ -188,9 +217,18 @@ const clock=document.getElementById('clock');
 const menuBox=document.getElementById('menuBox');
 
 const stations={
- URAN:'Uran',DRGI:'Dronagiri',NESA:'Nhava Sheva',SEMK:'Shemti Khar',
- GAVHAN:'Gavhan',KARP:'Kharkopar',BMDR:'Baman Dongri',TRGR:'Targhar',
- KILE:'Killa',BEPR:'Belapur CBD',SWDV:'Seawood Darave',NEU:'Nerul'
+ URAN:{en:'Uran (उरण)',mr:'उरण (Uran)'},
+ DRGI:{en:'Dronagiri (द्रोणागिरी)',mr:'द्रोणागिरी (Dronagiri)'},
+ NESA:{en:'Nhava Sheva (न्हावा शेवा)',mr:'न्हावा शेवा (Nhava Sheva)'},
+ SEMK:{en:'Shemti Khar (शेमटी खार)',mr:'शेमटी खार (Shemti Khar)'},
+ GAVHAN:{en:'Gavhan (गव्हाण)',mr:'गव्हाण (Gavhan)'},
+ KARP:{en:'Kharkopar (खारकोपर)',mr:'खारकोपर (Kharkopar)'},
+ BMDR:{en:'Baman Dongri (बामण डोंगरी)',mr:'बामण डोंगरी (Baman Dongri)'},
+ TRGR:{en:'Targhar (तरघर)',mr:'तरघर (Targhar)'},
+ KILE:{en:'Killa (Proposed)',mr:'किल्ला (प्रस्तावित)'},
+ BEPR:{en:'Belapur CBD',mr:'बेलापूर CBD'},
+ SWDV:{en:'Seawood Darave Karave',mr:'सीवूड दारावे करावे'},
+ NEU:{en:'Nerul (नेरूळ)',mr:'नेरूळ (Nerul)'}
 };
 
 function toMin(t){
@@ -291,6 +329,27 @@ const platforms = {
 
 };
 
+const routeStations = {
+  U2N: ['URAN','DRGI','NESA','SEMK','GAVHAN','KARP','BMDR','TRGR','KILE','SWDV','NEU'],
+  N2U: ['NEU','SWDV','KILE','TRGR','BMDR','KARP','GAVHAN','SEMK','NESA','DRGI','URAN'],
+  U2B: ['URAN','DRGI','NESA','SEMK','GAVHAN','KARP','BMDR','TRGR','KILE','BEPR'],
+  B2U: ['BEPR','KILE','TRGR','BMDR','KARP','GAVHAN','SEMK','NESA','DRGI','URAN']
+};
+
+function updateStationsByRoute(){
+  station.innerHTML =
+    '<option value="">Boarding Station / स्टेशन</option>';
+
+  if(!route.value) return;
+
+  routeStations[route.value].forEach(code=>{
+    const opt=document.createElement('option');
+    opt.value=code;
+opt.textContent = stations[code][lang];
+    station.appendChild(opt);
+  });
+}
+
 /* ================= RENDER ================= */
 function render(){
  if(!route.value || !station.value){
@@ -342,9 +401,9 @@ setTimeout(()=>{
         ${to12h(r.time)}
         ${isNext ? '<span class="badge">⭐ NEXT</span>' : ''}
       </div>
-      <div class="rv-sub">
-        ${stations[station.value]} Station
-      </div>
+  <div class="rv-sub">
+  ${stations[station.value][lang]} Station
+</div>
     </div>
     <div class="rv-no">
       ${r.no}
@@ -362,13 +421,17 @@ setTimeout(()=>{
    : (n.m - nowMin);
 
 nextTrain.innerHTML =
-`🚆 Next Train ⭐ <b>${to12h(n.time)}</b> ${isTomorrow?'(Tomorrow)':''}<br>
- ⏳ Arriving in ${formatArrival(remainingMin)}<br>
- 🚉 Platform No.: ${pf}<br>
+`🚆 ${uiText[lang].nextTrain} ⭐ <b>${to12h(n.time)}</b> ${isTomorrow?'(Tomorrow)':''}<br>
+ ⏳ ${uiText[lang].arriving} ${formatArrival(remainingMin)}<br>
+ 🚉 ${uiText[lang].platform}: ${pf}<br>
  🔢 Train No.: ${n.no}`;
 }
 
-route.onchange=render;
+route.onchange=()=>{
+  updateStationsByRoute();
+  render();
+};
+
 station.onchange=render;
 
 /* ================= MENU ================= */
