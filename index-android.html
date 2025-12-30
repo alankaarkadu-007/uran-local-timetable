@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Uran – Belapur – Nerul Local Timetable</title>
+
+<!-- PWA -->
+<style>
+body{font-family:Arial,Helvetica,sans-serif;margin:0;background:#f4f6f8}
+header{background:#b71c1c;color:#fff;padding:14px;text-align:center;position:relative}
+.container{padding:14px}
+select{width:100%;padding:10px;margin:8px 0;font-size:15px}
+
+.card{
+  background:#fff;
+  border-radius:8px;
+  padding:12px;
+  margin-top:12px;
+  box-shadow:0 2px 6px rgba(0,0,0,.1)
+}
+
+.train{
+  display:flex;
+  justify-content:space-between;
+  padding:6px 0;
+  border-bottom:1px solid #eee
+}
+.train:last-child{border-bottom:none}
+
+.highlight{background:#d9f7d9;font-weight:bold}
+.next{background:#e8f5e9}
+.clock{font-size:14px;margin-top:6px}
+
+/* Menu */
+.menu{
+  position:absolute;
+  right:12px;
+  top:14px;
+  font-size:22px;
+  cursor:pointer;
+}
+.menu-box{
+  display:none;
+  position:absolute;
+  right:0;
+  top:28px;
+  background:#fff;
+  color:#000;
+  border-radius:6px;
+  box-shadow:0 2px 8px rgba(0,0,0,.2);
+  width:200px;
+  z-index:100;
+}
+.menu-box div{
+  padding:10px;
+  border-bottom:1px solid #eee;
+  cursor:pointer;
+}
+.menu-box div:hover{background:#f4f4f4}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h2>🚆 Uran – Belapur – Nerul Local Timetable</h2>
+  <div>Designed & Developed by Dr. Alankar Kadu</div>
+  <div class="clock" id="clock"></div>
+
+  <div class="menu" id="menuBtn">☰
+    <div class="menu-box" id="menuBox">
+      <div onclick="openAlarm()">⏰ Set Alarm</div>
+      <div onclick="enableNotification()">🔔 Notifications</div>
+      <div onclick="manualUpdate()">🔄 Update App</div>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+<select id="route">
+  <option value="">Select Route / रूट निवडा</option>
+  <option value="U2N">Uran → Nerul</option>
+  <option value="N2U">Nerul → Uran</option>
+  <option value="U2B">Uran → Belapur</option>
+  <option value="B2U">Belapur → Uran</option>
+</select>
+
+<select id="station">
+  <option value="">Boarding Station / स्टेशन</option>
+  <option value="URAN">Uran</option>
+  <option value="DRGI">Dronagiri</option>
+  <option value="NESA">Nhava Sheva</option>
+  <option value="SEMK">Shematikhar</option>
+  <option value="GAVHAN">Gavhan</option>
+  <option value="KARP">Kharkopar</option>
+  <option value="BMDR">Baman Dongri</option>
+  <option value="TRGR">Targhar</option>
+  <option value="KILE">Killa</option>
+  <option value="BEPR">Belapur CBD</option>
+  <option value="SWDV">Seawood Darave</option>
+  <option value="NEU">Nerul</option>
+</select>
+
+<div class="card next" id="nextTrain">
+  Route आणि Station निवडा
+</div>
+
+<div class="card" id="list"></div>
+
+</div>
+
+<script>
+/* ================= BASIC ================= */
+const route=document.getElementById('route');
+const station=document.getElementById('station');
+const nextTrain=document.getElementById('nextTrain');
+const list=document.getElementById('list');
+const clock=document.getElementById('clock');
+const menuBox=document.getElementById('menuBox');
+
+const stations={
+ URAN:'Uran',DRGI:'Dronagiri',NESA:'Nhava Sheva',SEMK:'Shematikhar',
+ GAVHAN:'Gavhan',KARP:'Kharkopar',BMDR:'Baman Dongri',TRGR:'Targhar',
+ KILE:'Killa',BEPR:'Belapur CBD',SWDV:'Seawood Darave',NEU:'Nerul'
+};
+
+function toMin(t){
+  const [h,m]=t.split(':').map(Number);
+  return h*60+m;
+}
+function to12h(t){
+  let [h,m]=t.split(':').map(Number);
+  const ap=h>=12?'PM':'AM';
+  h=h%12||12;
+  return `${h}:${m.toString().padStart(2,'0')} ${ap}`;
+}
+function formatArrival(min){
+  if(min<60) return min+" min";
+  const h=Math.floor(min/60),m=min%60;
+  return h+" hr "+(m?m+" min":"");
+}
+
+/* ================= FULL TIMETABLE DATA ================= */
+const trains = [
+/* U2N */
+{no:99602,route:'U2N',stops:{URAN:'06:10',DRGI:'06:12',NESA:'06:15',SEMK:'06:18',GAVHAN:'06:22',KARP:'06:26',BMDR:'06:30',TRGR:'06:33',KILE:'06:36',SWDV:'06:38',NEU:'06:44'}},
+{no:99604,route:'U2N',stops:{URAN:'07:15',DRGI:'07:17',NESA:'07:20',SEMK:'07:23',GAVHAN:'07:27',KARP:'07:31',BMDR:'07:35',TRGR:'07:38',KILE:'07:41',SWDV:'07:43',NEU:'07:49'}},
+{no:99606,route:'U2N',stops:{URAN:'08:15',DRGI:'08:17',NESA:'08:20',SEMK:'08:23',GAVHAN:'08:27',KARP:'08:31',BMDR:'08:35',TRGR:'08:38',KILE:'08:41',SWDV:'08:43',NEU:'08:49'}},
+{no:99608,route:'U2N',stops:{URAN:'09:15',DRGI:'09:17',NESA:'09:20',SEMK:'09:23',GAVHAN:'09:27',KARP:'09:31',BMDR:'09:35',TRGR:'09:38',KILE:'09:41',SWDV:'09:43',NEU:'09:49'}},
+{no:99610,route:'U2N',stops:{URAN:'10:15',DRGI:'10:17',NESA:'10:20',SEMK:'10:23',GAVHAN:'10:27',KARP:'10:31',BMDR:'10:35',TRGR:'10:38',KILE:'10:41',SWDV:'10:43',NEU:'10:49'}},
+{no:99612,route:'U2N',stops:{URAN:'12:15',DRGI:'12:17',NESA:'12:20',SEMK:'12:23',GAVHAN:'12:27',KARP:'12:31',BMDR:'12:35',TRGR:'12:38',KILE:'12:41',SWDV:'12:43',NEU:'12:49'}},
+{no:99614,route:'U2N',stops:{URAN:'14:15',DRGI:'14:17',NESA:'14:20',SEMK:'14:23',GAVHAN:'14:27',KARP:'14:31',BMDR:'14:35',TRGR:'14:38',KILE:'14:41',SWDV:'14:43',NEU:'14:49'}},
+{no:99616,route:'U2N',stops:{URAN:'16:15',DRGI:'16:17',NESA:'16:20',SEMK:'16:23',GAVHAN:'16:27',KARP:'16:31',BMDR:'16:35',TRGR:'16:38',KILE:'16:41',SWDV:'16:43',NEU:'16:49'}},
+{no:99618,route:'U2N',stops:{URAN:'18:00',DRGI:'18:02',NESA:'18:05',SEMK:'18:08',GAVHAN:'18:12',KARP:'18:16',BMDR:'18:20',TRGR:'18:23',KILE:'18:26',SWDV:'18:28',NEU:'18:34'}},
+{no:99620,route:'U2N',stops:{URAN:'19:05',DRGI:'19:07',NESA:'19:10',SEMK:'19:13',GAVHAN:'19:17',KARP:'19:21',BMDR:'19:25',TRGR:'19:28',KILE:'19:31',SWDV:'19:33',NEU:'19:39'}},
+{no:99622,route:'U2N',stops:{URAN:'20:05',DRGI:'20:07',NESA:'20:10',SEMK:'20:13',GAVHAN:'20:17',KARP:'20:21',BMDR:'20:25',TRGR:'20:28',KILE:'20:31',SWDV:'20:33',NEU:'20:39'}},
+{no:99624,route:'U2N',stops:{URAN:'21:35',DRGI:'21:37',NESA:'21:40',SEMK:'21:43',GAVHAN:'21:47',KARP:'21:51',BMDR:'21:55',TRGR:'21:58',KILE:'22:01',SWDV:'22:03',NEU:'22:09'}},
+
+/* N2U */
+{no:99601,route:'N2U',stops:{NEU:'06:15',SWDV:'06:19',KILE:'06:21',TRGR:'06:25',BMDR:'06:28',KARP:'06:32',GAVHAN:'06:36',SEMK:'06:40',NESA:'06:43',DRGI:'06:46',URAN:'06:49'}},
+{no:99603,route:'N2U',stops:{NEU:'07:15',SWDV:'07:19',KILE:'07:21',TRGR:'07:25',BMDR:'07:28',KARP:'07:32',GAVHAN:'07:36',SEMK:'07:40',NESA:'07:43',DRGI:'07:46',URAN:'07:49'}},
+{no:99605,route:'N2U',stops:{NEU:'08:15',SWDV:'08:19',KILE:'08:21',TRGR:'08:25',BMDR:'08:28',KARP:'08:32',GAVHAN:'08:36',SEMK:'08:40',NESA:'08:43',DRGI:'08:46',URAN:'08:49'}},
+{no:99607,route:'N2U',stops:{NEU:'09:15',SWDV:'09:19',KILE:'09:21',TRGR:'09:25',BMDR:'09:28',KARP:'09:32',GAVHAN:'09:36',SEMK:'09:40',NESA:'09:43',DRGI:'09:46',URAN:'09:49'}},
+{no:99609,route:'N2U',stops:{NEU:'10:45',SWDV:'10:49',KILE:'10:51',TRGR:'10:55',BMDR:'10:58',KARP:'11:02',GAVHAN:'11:06',SEMK:'11:10',NESA:'11:13',DRGI:'11:16',URAN:'11:19'}},
+{no:99611,route:'N2U',stops:{NEU:'13:45',SWDV:'13:49',KILE:'13:51',TRGR:'13:55',BMDR:'13:58',KARP:'14:02',GAVHAN:'14:06',SEMK:'14:10',NESA:'14:13',DRGI:'14:16',URAN:'14:19'}},
+{no:99613,route:'N2U',stops:{NEU:'15:45',SWDV:'15:49',KILE:'15:51',TRGR:'15:55',BMDR:'15:58',KARP:'16:02',GAVHAN:'16:06',SEMK:'16:10',NESA:'16:13',DRGI:'16:16',URAN:'16:19'}},
+{no:99615,route:'N2U',stops:{NEU:'17:30',SWDV:'17:34',KILE:'17:36',TRGR:'17:40',BMDR:'17:43',KARP:'17:47',GAVHAN:'17:51',SEMK:'17:55',NESA:'17:58',DRGI:'18:01',URAN:'18:04'}},
+{no:99617,route:'N2U',stops:{NEU:'18:00',SWDV:'18:04',KILE:'18:06',TRGR:'18:10',BMDR:'18:13',KARP:'18:17',GAVHAN:'18:21',SEMK:'18:25',NESA:'18:28',DRGI:'18:31',URAN:'18:34'}},
+{no:99619,route:'N2U',stops:{NEU:'19:00',SWDV:'19:04',KILE:'19:06',TRGR:'19:10',BMDR:'19:13',KARP:'19:17',GAVHAN:'19:21',SEMK:'19:25',NESA:'19:28',DRGI:'19:31',URAN:'19:34'}},
+{no:99621,route:'N2U',stops:{NEU:'20:00',SWDV:'20:04',KILE:'20:06',TRGR:'20:10',BMDR:'20:13',KARP:'20:17',GAVHAN:'20:21',SEMK:'20:25',NESA:'20:28',DRGI:'20:31',URAN:'20:34'}},
+{no:99623,route:'N2U',stops:{NEU:'21:30',SWDV:'21:34',KILE:'21:36',TRGR:'21:40',BMDR:'21:43',KARP:'21:47',GAVHAN:'21:51',SEMK:'21:55',NESA:'21:58',DRGI:'22:01',URAN:'22:04'}},
+
+/* U2B */
+{no:99702,route:'U2B',stops:{URAN:'05:30',DRGI:'05:32',NESA:'05:35',SEMK:'05:38',GAVHAN:'05:42',KARP:'05:46',BMDR:'05:50',TRGR:'05:53',KILE:'05:57',BEPR:'06:03'}},
+{no:99704,route:'U2B',stops:{URAN:'06:40',DRGI:'06:42',NESA:'06:45',SEMK:'06:48',GAVHAN:'06:52',KARP:'06:56',BMDR:'07:00',TRGR:'07:03',KILE:'07:07',BEPR:'07:13'}},
+{no:99706,route:'U2B',stops:{URAN:'07:45',DRGI:'07:47',NESA:'07:50',SEMK:'07:53',GAVHAN:'07:57',KARP:'08:01',BMDR:'08:05',TRGR:'08:08',KILE:'08:12',BEPR:'08:18'}},
+{no:99708,route:'U2B',stops:{URAN:'08:45',DRGI:'08:47',NESA:'08:50',SEMK:'08:53',GAVHAN:'08:57',KARP:'09:01',BMDR:'09:05',TRGR:'09:08',KILE:'09:12',BEPR:'09:18'}},
+{no:99710,route:'U2B',stops:{URAN:'09:45',DRGI:'09:47',NESA:'09:50',SEMK:'09:53',GAVHAN:'09:57',KARP:'10:01',BMDR:'10:05',TRGR:'10:08',KILE:'10:12',BEPR:'10:18'}},
+{no:99712,route:'U2B',stops:{URAN:'11:15',DRGI:'11:17',NESA:'11:20',SEMK:'11:23',GAVHAN:'11:27',KARP:'11:31',BMDR:'11:35',TRGR:'11:38',KILE:'11:42',BEPR:'11:48'}},
+{no:99714,route:'U2B',stops:{URAN:'13:15',DRGI:'13:17',NESA:'13:20',SEMK:'13:23',GAVHAN:'13:27',KARP:'13:31',BMDR:'13:35',TRGR:'13:38',KILE:'13:42',BEPR:'13:48'}},
+{no:99716,route:'U2B',stops:{URAN:'15:15',DRGI:'15:17',NESA:'15:20',SEMK:'15:23',GAVHAN:'15:27',KARP:'15:31',BMDR:'15:35',TRGR:'15:38',KILE:'15:42',BEPR:'15:48'}},
+{no:99718,route:'U2B',stops:{URAN:'17:15',DRGI:'17:17',NESA:'17:20',SEMK:'17:23',GAVHAN:'17:27',KARP:'17:31',BMDR:'17:35',TRGR:'17:38',KILE:'17:42',BEPR:'17:48'}},
+{no:99720,route:'U2B',stops:{URAN:'18:35',DRGI:'18:37',NESA:'18:40',SEMK:'18:43',GAVHAN:'18:47',KARP:'18:51',BMDR:'18:55',TRGR:'18:58',KILE:'19:02',BEPR:'19:08'}},
+{no:99722,route:'U2B',stops:{URAN:'19:35',DRGI:'19:37',NESA:'19:40',SEMK:'19:43',GAVHAN:'19:47',KARP:'19:51',BMDR:'19:55',TRGR:'19:58',KILE:'20:02',BEPR:'20:08'}},
+{no:99724,route:'U2B',stops:{URAN:'20:50',DRGI:'20:52',NESA:'20:55',SEMK:'20:58',GAVHAN:'21:02',KARP:'21:06',BMDR:'21:10',TRGR:'21:13',KILE:'21:17',BEPR:'21:23'}},
+{no:99726,route:'U2B',stops:{URAN:'22:30',DRGI:'22:32',NESA:'22:35',SEMK:'22:38',GAVHAN:'22:42',KARP:'22:46',BMDR:'22:50',TRGR:'22:53',KILE:'22:57',BEPR:'23:03'}},
+
+/* B2U */
+{no:99701,route:'B2U',stops:{BEPR:'05:30',KILE:'05:35',TRGR:'05:39',BMDR:'05:42',KARP:'05:46',GAVHAN:'05:50',SEMK:'05:54',NESA:'05:57',DRGI:'06:00',URAN:'06:03'}},
+{no:99703,route:'B2U',stops:{BEPR:'06:45',KILE:'06:50',TRGR:'06:54',BMDR:'06:57',KARP:'07:01',GAVHAN:'07:05',SEMK:'07:09',NESA:'07:12',DRGI:'07:15',URAN:'07:18'}},
+{no:99705,route:'B2U',stops:{BEPR:'07:45',KILE:'07:50',TRGR:'07:54',BMDR:'07:57',KARP:'08:01',GAVHAN:'08:05',SEMK:'08:09',NESA:'08:12',DRGI:'08:15',URAN:'08:18'}},
+{no:99707,route:'B2U',stops:{BEPR:'08:45',KILE:'08:50',TRGR:'08:54',BMDR:'08:57',KARP:'09:01',GAVHAN:'09:05',SEMK:'09:09',NESA:'09:12',DRGI:'09:15',URAN:'09:18'}},
+{no:99709,route:'B2U',stops:{BEPR:'09:45',KILE:'09:50',TRGR:'09:54',BMDR:'09:57',KARP:'10:01',GAVHAN:'10:05',SEMK:'10:09',NESA:'10:12',DRGI:'10:15',URAN:'10:18'}},
+{no:99711,route:'B2U',stops:{BEPR:'11:30',KILE:'11:35',TRGR:'11:39',BMDR:'11:42',KARP:'11:46',GAVHAN:'11:50',SEMK:'11:54',NESA:'11:57',DRGI:'12:00',URAN:'12:03'}},
+{no:99713,route:'B2U',stops:{BEPR:'13:00',KILE:'13:05',TRGR:'13:09',BMDR:'13:12',KARP:'13:16',GAVHAN:'13:20',SEMK:'13:24',NESA:'13:27',DRGI:'13:30',URAN:'13:33'}},
+{no:99715,route:'B2U',stops:{BEPR:'14:45',KILE:'14:50',TRGR:'14:54',BMDR:'14:57',KARP:'15:01',GAVHAN:'15:05',SEMK:'15:09',NESA:'15:12',DRGI:'15:15',URAN:'15:18'}},
+{no:99717,route:'B2U',stops:{BEPR:'17:00',KILE:'17:05',TRGR:'17:09',BMDR:'17:12',KARP:'17:16',GAVHAN:'17:20',SEMK:'17:24',NESA:'17:27',DRGI:'17:30',URAN:'17:33'}},
+{no:99719,route:'B2U',stops:{BEPR:'18:30',KILE:'18:35',TRGR:'18:39',BMDR:'18:42',KARP:'18:46',GAVHAN:'18:50',SEMK:'18:54',NESA:'18:57',DRGI:'19:00',URAN:'19:03'}},
+{no:99721,route:'B2U',stops:{BEPR:'19:30',KILE:'19:35',TRGR:'19:39',BMDR:'19:42',KARP:'19:46',GAVHAN:'19:50',SEMK:'19:54',NESA:'19:57',DRGI:'20:00',URAN:'20:03'}},
+{no:99723,route:'B2U',stops:{BEPR:'20:45',KILE:'20:50',TRGR:'20:54',BMDR:'20:57',KARP:'21:01',GAVHAN:'21:05',SEMK:'21:09',NESA:'21:12',DRGI:'21:15',URAN:'21:18'}},
+{no:99725,route:'B2U',stops:{BEPR:'22:30',KILE:'22:35',TRGR:'22:39',BMDR:'22:42',KARP:'22:46',GAVHAN:'22:50',SEMK:'22:54',NESA:'22:57',DRGI:'23:00',URAN:'23:03'}}
+];
+
+// ================= PLATFORM DATA =================
+// Route wise platform numbers
+const platforms = {
+  N2U: {   // Nerul → Uran
+    NEU:  '5/6 (Both)',SWDV: '3 (Both)',TRGR: '1 (Both)',BMDR: '1 (Both)',KARP: '1 (Both)',GAVHAN:'1 (Both)',SEMK: '1 (Both)',NESA: '1 (Both)',DRGI:  '1 (Both)',URAN: '1/2 (Both)'
+  },
+// Uran → Nerul
+  U2N: {
+    URAN:  '1/2 (Both)',DRGI:  '2 (Both)',NESA:  '2 (Both)',SEMK:  '2 (Both)',GAVHAN:'2 (Both)',KARP:  '2 (Both)',BMDR:  '2 (Both)',TRGR:  '2 (Both)',SWDV:  '4 (Both)',NEU:   '5/6 (Both)'
+  },
+// Uran → Belapur
+  U2B: {
+    URAN:  '1/2 (Both)',DRGI:  '2 (Both)',NESA:  '2 (Both)',SEMK:  '2 (Both)',GAVHAN:'2 (Both)',KARP:  '2 (Both)',BMDR:  '2 (Both)',TRGR:  '2 (Both)',KILE:  '2 (Both)',BEPR:  '4 (Both)'
+  },
+// Belapur → Uran
+  B2U: {
+    BEPR:  '4 (Both)',KILE:  '1 (Both)',TRGR:  '1 (Both)',BMDR:  '1 (Both)',KARP:  '1 (Both)',GAVHAN:'1 (Both)',SEMK:  '1 (Both)',NESA:  '1 (Both)',DRGI:  '1 (Both)',URAN:  '1/2 (Both)'
+  }
+
+};
+
+/* ================= RENDER ================= */
+function render(){
+ if(!route.value || !station.value){
+   list.innerHTML='';
+   nextTrain.innerHTML='Route आणि Station निवडा';
+   return;
+ }
+
+ const now = new Date();
+ const nowMin = now.getHours()*60 + now.getMinutes();
+
+ const rows = trains
+   .filter(t => t.route === route.value && t.stops[station.value])
+   .map(t => ({
+     no: t.no,
+     time: t.stops[station.value],
+     m: toMin(t.stops[station.value])
+   }))
+   .sort((a,b)=>a.m-b.m);
+
+ if(rows.length === 0){
+   nextTrain.innerHTML='No trains available';
+   list.innerHTML='';
+   return;
+ }
+
+ let nextIdx = rows.findIndex(r => r.m >= nowMin);
+ let isTomorrow = false;
+
+ if(nextIdx === -1){
+   nextIdx = 0;        // उद्याची पहिली train
+   isTomorrow = true;
+ }
+
+ /* -------- LIST (FULL TIMETABLE) -------- */
+ list.innerHTML = rows.map((r,i)=>`
+   <div class="train ${i===nextIdx?'highlight':''}">
+     <span>${to12h(r.time)}</span>
+     <span>${r.no}</span>
+   </div>
+ `).join('');
+
+ /* -------- NEXT TRAIN CARD -------- */
+ const n = rows[nextIdx];
+ const pf = (platforms[route.value]||{})[station.value] || '—';
+
+ const remainingMin = isTomorrow
+   ? (1440 - nowMin + n.m)
+   : (n.m - nowMin);
+
+ nextTrain.innerHTML =
+ `🚆 Next Train: <b>${to12h(n.time)}</b> ${isTomorrow?'(Tomorrow)':''}<br>
+  ⏳ Arriving in ${formatArrival(remainingMin)}<br>
+  🚉 Platform No.: ${pf}<br>
+  🔢 Train No.: ${n.no}`;
+}
+
+route.onchange=render;
+station.onchange=render;
+
+/* ================= MENU ================= */
+document.getElementById('menuBtn').onclick=()=>{
+ menuBox.style.display=menuBox.style.display==='block'?'none':'block';
+};
+
+function openAlarm(){
+ const m=prompt("Alarm किती मिनिटांनी?");
+ if(m)setTimeout(()=>alert("🚆 Train Reminder"),m*60000);
+}
+function enableNotification(){
+ if("Notification"in window){
+  Notification.requestPermission().then(p=>{
+   if(p==="granted") new Notification("🚆 Notifications Enabled");
+  });
+ }
+}
+function manualUpdate(){
+ if('serviceWorker'in navigator){
+  navigator.serviceWorker.getRegistrations().then(r=>{
+   r.forEach(sw=>sw.unregister());
+   location.reload();
+  });
+ }
+}
+
+/* ================= CLOCK ================= */
+function updateClock(){
+ clock.innerText='🕒 Current Time: '+
+ new Date().toLocaleTimeString('en-IN',{hour12:true});
+}
+updateClock();
+setInterval(updateClock,1000);
+setInterval(render,1000);
+
+/* ================= SERVICE WORKER ================= */
+  window.addEventListener('load', ()=>{
+  });
+
+</body>
+</html>
+
+
+
+
+
+
