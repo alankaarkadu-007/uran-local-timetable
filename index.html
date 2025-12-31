@@ -202,7 +202,8 @@ select{width:100%;padding:10px;margin:8px 0;font-size:15px}
 <script>
 
 /* ===== LANGUAGE ===== */
-let lang = 'en'; // default English
+// ===== LANGUAGE (remembered) =====
+let lang = localStorage.getItem('appLang') || 'en'; // default English
 
 const uiText = {
   en:{
@@ -223,12 +224,24 @@ const uiText = {
 
 function toggleLanguage(){
   lang = lang === 'en' ? 'mr' : 'en';
+
+  // remember selection
+  localStorage.setItem('appLang', lang);
+
   document.getElementById('langLabel').innerText =
     lang === 'en' ? 'English' : 'मराठी';
 
   updateStationsByRoute();
   render();
 }
+
+// Apply saved language on load
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('langLabel').innerText =
+    lang === 'en' ? 'English' : 'मराठी';
+
+  updateStationsByRoute();
+});
 
 /* ================= BASIC ================= */
 const route=document.getElementById('route');
