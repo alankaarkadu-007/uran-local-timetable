@@ -210,14 +210,16 @@ const uiText = {
     selectStation:'Boarding Station',
     nextTrain:'Next Train',
     arriving:'Arriving in',
-    platform:'Platform No.'
+    platform:'Platform No.',
+    trainNo:'Train No.'
   },
   mr:{
     selectRoute:'रूट निवडा',
     selectStation:'स्टेशन निवडा',
     nextTrain:'पुढची ट्रेन',
     arriving:'येण्यास वेळ',
-    platform:'प्लॅटफॉर्म क्रमांक'
+    platform:'प्लॅटफॉर्म क्रमांक',
+    trainNo:'ट्रेन क्रमांक'
   }
 };
 
@@ -457,7 +459,7 @@ nextTrain.innerHTML =
 `🚆 ${uiText[lang].nextTrain} ⭐ <b>${to12h(n.time)}</b> ${isTomorrow?'(Tomorrow)':''}<br>
  ⏳ ${uiText[lang].arriving} ${formatArrival(remainingMin)}<br>
  🚉 ${uiText[lang].platform}: ${pf}<br>
- 🔢 Train No.: ${n.no}`;
+ 🔢 ${uiText[lang].trainNo}: ${n.no}`;
 }
 
 route.onchange=()=>{
