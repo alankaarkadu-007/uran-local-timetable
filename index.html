@@ -185,7 +185,6 @@ select{width:100%;padding:10px;margin:8px 0;font-size:15px}
   <option value="KARP">Kharkopar</option>
   <option value="BMDR">Baman Dongri</option>
   <option value="TRGR">Targhar</option>
-  <option value="KILE">Killa (Proposed)</option>
   <option value="BEPR">Belapur CBD</option>
   <option value="SWDV">Seawood Darave Karave</option>
   <option value="NEU">Nerul</option>
@@ -260,7 +259,6 @@ const stations={
  KARP:{en:'Kharkopar (खारकोपर)',mr:'खारकोपर (Kharkopar)'},
  BMDR:{en:'Baman Dongri (बामण डोंगरी)',mr:'बामण डोंगरी (Baman Dongri)'},
  TRGR:{en:'Targhar (तरघर)',mr:'तरघर (Targhar)'},
- KILE:{en:'Killa (Proposed)',mr:'किल्ला (प्रस्तावित)'},
  BEPR:{en:'Belapur CBD',mr:'बेलापूर CBD'},
  SWDV:{en:'Seawood Darave Karave',mr:'सीवूड दारावे करावे'},
  NEU:{en:'Nerul (नेरूळ)',mr:'नेरूळ (Nerul)'}
@@ -355,20 +353,20 @@ const platforms = {
   },
 // Uran → Belapur
   U2B: {
-    URAN:  '1/2 (Both)',DRGI:  '2 (Both)',NESA:  '2 (Both)',SEMK:  '2 (Both)',GAVHAN:'2 (Both)',KARP:  '2 (Both)',BMDR:  '2 (Both)',TRGR:  '2 (Both)',KILE:  '2 (Both)',BEPR:  '4 (Both)'
+    URAN:  '1/2 (Both)',DRGI:  '2 (Both)',NESA:  '2 (Both)',SEMK:  '2 (Both)',GAVHAN:'2 (Both)',KARP:  '2 (Both)',BMDR:  '2 (Both)',TRGR:  '2 (Both)',BEPR:  '4 (Both)'
   },
 // Belapur → Uran
   B2U: {
-    BEPR:  '4 (Both)',KILE:  '1 (Both)',TRGR:  '1 (Both)',BMDR:  '1 (Both)',KARP:  '1 (Both)',GAVHAN:'1 (Both)',SEMK:  '1 (Both)',NESA:  '1 (Both)',DRGI:  '1 (Both)',URAN:  '1/2 (Both)'
+    BEPR:  '4 (Both)',TRGR:  '1 (Both)',BMDR:  '1 (Both)',KARP:  '1 (Both)',GAVHAN:'1 (Both)',SEMK:  '1 (Both)',NESA:  '1 (Both)',DRGI:  '1 (Both)',URAN:  '1/2 (Both)'
   }
 
 };
 
 const routeStations = {
-  U2N: ['URAN','DRGI','NESA','SEMK','GAVHAN','KARP','BMDR','TRGR','KILE','SWDV','NEU'],
-  N2U: ['NEU','SWDV','KILE','TRGR','BMDR','KARP','GAVHAN','SEMK','NESA','DRGI','URAN'],
-  U2B: ['URAN','DRGI','NESA','SEMK','GAVHAN','KARP','BMDR','TRGR','KILE','BEPR'],
-  B2U: ['BEPR','KILE','TRGR','BMDR','KARP','GAVHAN','SEMK','NESA','DRGI','URAN']
+  U2N: ['URAN','DRGI','NESA','SEMK','GAVHAN','KARP','BMDR','TRGR','SWDV','NEU'],
+  N2U: ['NEU','SWDV','TRGR','BMDR','KARP','GAVHAN','SEMK','NESA','DRGI','URAN'],
+  U2B: ['URAN','DRGI','NESA','SEMK','GAVHAN','KARP','BMDR','TRGR','BEPR'],
+  B2U: ['BEPR','TRGR','BMDR','KARP','GAVHAN','SEMK','NESA','DRGI','URAN']
 };
 
 function updateStationsByRoute(){
