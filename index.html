@@ -172,6 +172,16 @@ select{width:100%;padding:10px;margin:8px 0;font-size:15px}
   font-size:14px;   /* 👈 font smaller */
 }
 .menu-box div:hover{background:#f4f4f4}
+
+.last-train{
+  background:#fff3e0;
+  border-left:4px solid #e53935;
+}
+
+.last-train .badge{
+  background:#e53935;
+}
+
 </style>
 </head>
 
@@ -447,6 +457,8 @@ function render(){
    isTomorrow = true;
  }
 
+const isLastTrainToday = (!isTomorrow && nextIdx === rows.length - 1);
+
 setTimeout(()=>{
   const nextEl = document.querySelector('.rv-next');
   if(nextEl){
@@ -458,7 +470,7 @@ setTimeout(()=>{
  list.innerHTML = rows.map((r,i)=>{
   const isNext = i === nextIdx;
   return `
-  <div class="rv-item ${isNext?'rv-next':''}">
+  <div class="rv-item ${isNext?'rv-next':''} ${isLastTrainToday && isNext ? 'last-train' : ''}">
     <div class="rv-left">
       <div class="rv-time">
         ${to12h(r.time)}
@@ -483,11 +495,19 @@ setTimeout(()=>{
    ? (1440 - nowMin + n.m)
    : (n.m - nowMin);
 
-nextTrain.innerHTML =
-`
-<div class="next">
-  🚆 ${uiText[lang].nextTrain} ⭐ <b>${to12h(n.time)}</b> ${isTomorrow?'(Tomorrow)':''}
+nextTrain.innerHTML = `
+<div class="next" style="${isLastTrainToday ? 'background:linear-gradient(135deg,#b71c1c,#e53935);border-left:5px solid #ffeb3b;' : ''}">
+  🚆 ${uiText[lang].nextTrain} ⭐ <b>${to12h(n.time)}</b>
+  ${isTomorrow ? (lang==='mr'?'(उद्या)':'(Tomorrow)') : ''}
 </div>
+
+${isLastTrainToday ? `
+<div style="margin-top:6px;font-size:14px;font-weight:600;color:#b71c1c">
+  ⚠️ ${lang==='mr'
+    ? 'आजची ही शेवटची ट्रेन आहे'
+    : 'This is the LAST train for today'}
+</div>` : ''}
+
 <small style="display:block;margin-top:6px;color:#555;font-size:15px">
   ⏳ ${uiText[lang].arriving} ${formatArrival(remainingMin)}<br>
   🚉 ${uiText[lang].platform}: ${pf}<br>
