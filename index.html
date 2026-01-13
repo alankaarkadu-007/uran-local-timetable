@@ -34,8 +34,36 @@ select{width:100%;padding:10px;margin:8px 0;font-size:15px}
 
 .highlight{background:#d9f7d9;font-weight:bold}
 .next{
-  background:linear-gradient(135deg,#e8f5e9,#c8e6c9);
-  border-left:5px solid #2e7d32;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+
+  background:linear-gradient(135deg,#1b5e20,#2e7d32,#43a047);
+  color:#fff;
+
+  border-radius:8px;
+  padding:4px 10px;
+
+  border-left:5px solid #ffd54f;
+  box-shadow:0 2px 6px rgba(0,0,0,.25);
+
+  font-size:15px;
+  font-weight:600;
+}
+
+.next b{
+  font-weight:700;
+  font-size:16px;
+  background:none;
+  border:none;
+  box-shadow:none;
+  padding:0;
+  margin:0;
+}
+
+.next span,
+.next small{
+  color:#e8f5e9;
 }
 
 .rv-next{
@@ -176,7 +204,7 @@ select{width:100%;padding:10px;margin:8px 0;font-size:15px}
 </select>
 
 <select id="station">
-  <option value="">Boarding Station / स्टेशन</option>
+  <option value="">Boarding Station / स्टेशन निवडा</option>
   <option value="URAN">Uran</option>
   <option value="DRGI">Dronagiri</option>
   <option value="NESA">Nhava Sheva</option>
@@ -190,9 +218,9 @@ select{width:100%;padding:10px;margin:8px 0;font-size:15px}
   <option value="NEU">Nerul</option>
 </select>
 
-<div class="card next" id="nextTrain">
-  Route आणि Station निवडा
-</div>
+<div class="card" id="nextTrain"> 
+ 
+</div> 
 
 <div class="card recycler" id="list"></div>
 
@@ -373,7 +401,7 @@ const routeStations = {
 
 function updateStationsByRoute(){
   station.innerHTML =
-    '<option value="">Boarding Station / स्टेशन</option>';
+    '<option value="">Boarding Station / स्टेशन निवडा</option>';
 
   if(!route.value) return;
 
@@ -389,7 +417,7 @@ opt.textContent = stations[code][lang];
 function render(){
  if(!route.value || !station.value){
    list.innerHTML='';
-   nextTrain.innerHTML='Route आणि Station निवडा';
+   nextTrain.innerHTML='';
    return;
  }
 
@@ -456,12 +484,17 @@ setTimeout(()=>{
    : (n.m - nowMin);
 
 nextTrain.innerHTML =
-`🚆 ${uiText[lang].nextTrain} ⭐ <b>${to12h(n.time)}</b> ${isTomorrow?'(Tomorrow)':''}<br>
- ⏳ ${uiText[lang].arriving} ${formatArrival(remainingMin)}<br>
- 🚉 ${uiText[lang].platform}: ${pf}<br>
- 🔢 ${uiText[lang].trainNo}: ${n.no}`;
+`
+<div class="next">
+  🚆 ${uiText[lang].nextTrain} ⭐ <b>${to12h(n.time)}</b> ${isTomorrow?'(Tomorrow)':''}
+</div>
+<small style="display:block;margin-top:6px;color:#555;font-size:15px">
+  ⏳ ${uiText[lang].arriving} ${formatArrival(remainingMin)}<br>
+  🚉 ${uiText[lang].platform}: ${pf}<br>
+  🔢 ${uiText[lang].trainNo}: ${n.no}
+</small>
+`;
 }
-
 route.onchange=()=>{
   updateStationsByRoute();
   render();
