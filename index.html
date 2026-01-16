@@ -12,7 +12,13 @@
 
 <style>
 body{font-family:Arial,Helvetica,sans-serif;margin:0;background:#f4f6f8}
-header{background:#b71c1c;color:#fff;padding:14px;text-align:center;position:relative}
+header{background:#b71c1c;color:#fff;padding:8px;text-align:center;position:relative}
+
+header h2{
+  margin:4px 0;   /* 👈 default margin हटवला */
+  font-size:18px; /* optional – थोडा compact */
+}
+
 .container{padding:14px}
 select{width:100%;padding:10px;margin:8px 0;font-size:15px}
 
@@ -140,9 +146,9 @@ select{width:100%;padding:10px;margin:8px 0;font-size:15px}
 }
 
 .credit{
-  font-size:12px;       /* 👈 छोटा, neat */
+  font-size:11px;       /* 👈 छोटा, neat */
   opacity:0.85;
-  margin-top:4px;
+  margin-top:2px;
 }
 
 /* Menu */
@@ -188,7 +194,7 @@ select{width:100%;padding:10px;margin:8px 0;font-size:15px}
 <body>
 
 <header>
-  <h2>🚆 Uran – Belapur – Nerul Local Timetable</h2>
+  <h2>🚆 Uran Local Timetable</h2>
 <div class="credit">
   Designed & Developed by Dr. Alankar Kadu. (Sonari, Uran)
 </div>
@@ -243,22 +249,29 @@ select{width:100%;padding:10px;margin:8px 0;font-size:15px}
 let lang = localStorage.getItem('appLang') || 'en'; // default English
 
 const uiText = {
-  en:{
-    selectRoute:'Select Route',
-    selectStation:'Boarding Station',
-    nextTrain:'Next Train',
-    arriving:'Arriving in',
-    platform:'Platform No.',
-    trainNo:'Train No.'
-  },
-  mr:{
-    selectRoute:'रूट निवडा',
-    selectStation:'स्टेशन निवडा',
-    nextTrain:'पुढची ट्रेन',
-    arriving:'येण्यास वेळ',
-    platform:'प्लॅटफॉर्म क्रमांक',
-    trainNo:'ट्रेन क्रमांक'
-  }
+ en:{
+  selectRoute:'Select Route',
+  selectStation:'Boarding Station',
+  nextTrain:'Next Train',
+  arriving:'Arriving in',
+  platform:'Platform No.',
+  trainNo:'Train No.',
+  progress:'Arriving Progress',
+  lastCrossed:'Last crossed',
+  estimated:'Estimated based on timetable'
+},
+mr:{
+  selectRoute:'रूट निवडा',
+  selectStation:'स्टेशन निवडा',
+  nextTrain:'पुढची ट्रेन',
+  arriving:'येण्यास वेळ',
+  platform:'प्लॅटफॉर्म क्रमांक',
+  trainNo:'ट्रेन क्रमांक',
+  progress:'पोहोचण्याची प्रगती',
+  lastCrossed:'शेवटचे ओलांडलेले स्टेशन',
+  estimated:'वेळापत्रकावर आधारित अंदाज'
+}
+
 };
 
 function toggleLanguage(){
@@ -281,6 +294,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   updateStationsByRoute();
 });
+
+/* ===== PROGRESS ANIMATION STATE ===== */
+let animatedProgress = 0;
+let progressTimer = null;
+let lastTrainKey = null;
 
 /* ================= BASIC ================= */
 const route=document.getElementById('route');
@@ -466,30 +484,49 @@ setTimeout(()=>{
   }
 },200);
 
- /* -------- LIST (FULL TIMETABLE) -------- */
- list.innerHTML = rows.map((r,i)=>{
-  const isNext = i === nextIdx;
-  return `
-  <div class="rv-item ${isNext?'rv-next':''} ${isLastTrainToday && isNext ? 'last-train' : ''}">
+const listHeader = `
+  <div class="rv-item" style="font-weight:700;background:#f5f5f5;border-bottom:2px solid #ddd">
     <div class="rv-left">
-      <div class="rv-time">
-        ${to12h(r.time)}
-        ${isNext ? '<span class="badge">⭐ NEXT</span>' : ''}
-      </div>
-  <div class="rv-sub">
-  ${stations[station.value][lang]} Station
-</div>
+      <div class="rv-time">⏰ Time</div>
     </div>
-    <div class="rv-no">
-      ${r.no}
-    </div>
+    <div class="rv-no">🚆 Train No.</div>
   </div>
-  `;
-}).join('');
+`;
+
+ /* -------- LIST (FULL TIMETABLE) -------- */
+list.innerHTML =
+  listHeader +
+  rows.map((r,i)=>{
+    const isNext = i === nextIdx;
+    return `
+    <div class="rv-item ${isNext?'rv-next':''} ${isLastTrainToday && isNext ? 'last-train' : ''}">
+      <div class="rv-left">
+        <div class="rv-time">
+          ${to12h(r.time)}
+          ${isNext ? '<span class="badge">⭐ NEXT</span>' : ''}
+        </div>
+        <div class="rv-sub">
+          ${stations[station.value][lang]} Station
+        </div>
+      </div>
+      <div class="rv-no">
+        ${r.no}
+      </div>
+    </div>
+    `;
+  }).join('');
 
  /* -------- NEXT TRAIN CARD -------- */
  const n = rows[nextIdx];
  const pf = (platforms[route.value]||{})[station.value] || '—';
+
+// Reset animation ONLY when train changes
+const trainKey = route.value + '-' + station.value + '-' + n.no;
+
+if (trainKey !== lastTrainKey) {
+  animatedProgress = 0;
+  lastTrainKey = trainKey;
+}
 
  const remainingMin = isTomorrow
    ? (1440 - nowMin + n.m)
@@ -510,10 +547,117 @@ ${isLastTrainToday ? `
 
 <small style="display:block;margin-top:6px;color:#555;font-size:15px">
   ⏳ ${uiText[lang].arriving} ${formatArrival(remainingMin)}<br>
-  🚉 ${uiText[lang].platform}: ${pf}<br>
-  🔢 ${uiText[lang].trainNo}: ${n.no}
+  🚉 ${uiText[lang].platform}: ${pf}
 </small>
 `;
+
+/* ===== PROGRESS BAR SIMULATION ===== */
+
+// 1️⃣ Find full train object
+const fullTrain = trains.find(t =>
+  t.no === n.no && t.route === route.value
+);
+
+if(fullTrain && !isTomorrow){
+
+  const stops = fullTrain.stops;
+  const stopCodes = Object.keys(stops);
+
+  // 2️⃣ Start & End time (USER-CENTRIC)
+const routeOrder = routeStations[route.value];
+const userIdx = routeOrder.indexOf(station.value);
+
+// Safety check
+if(userIdx <= 0) return;
+
+// journey only till USER station
+const journeyStops = routeOrder.slice(0, userIdx + 1);
+
+// start = route start, end = USER station
+const startTime = toMin(stops[journeyStops[0]]);
+const endTime   = toMin(stops[journeyStops[journeyStops.length - 1]]);
+
+  // 3️⃣ If train is between START and USER station
+if(nowMin >= startTime && nowMin <= endTime){
+
+    const total = endTime - startTime;
+    const elapsed = nowMin - startTime;
+
+    let progress = Math.round((elapsed / total) * 100);
+    progress = Math.max(0, Math.min(progress, 100));
+const targetProgress = progress;
+
+// Initialise animated progress on first load
+if (animatedProgress === 0) {
+  animatedProgress = targetProgress - 1; // start just behind
+  if (animatedProgress < 0) animatedProgress = 0;
+}
+
+   // 4️⃣ Last crossed station (only till USER station)
+let crossedStation = journeyStops[0];
+
+journeyStops.forEach(code => {
+  if(toMin(stops[code]) <= nowMin){
+    crossedStation = code;
+  }
+});
+
+    // 5️⃣ Append progress bar HTML
+    nextTrain.innerHTML += `
+    <div style="margin-top:10px">
+     <div style="font-size:13px;margin-bottom:4px">
+  🚦 ${uiText[lang].progress}:
+  	<span id="progressText">${Math.floor(animatedProgress)}%</span>
+	</div>
+
+      <div style="width:100%;height:8px;background:#e0e0e0;border-radius:6px;overflow:hidden">
+       <div id="progressFill" style="
+  width:0%;
+  height:100%;
+  background:linear-gradient(90deg,#4caf50,#81c784);">
+</div>
+      </div>
+
+<div style="font-size:12px;margin-top:4px;color:#444">
+  🚉 ${uiText[lang].lastCrossed}:
+  ${stations[crossedStation]?.[lang] || crossedStation}
+</div>
+
+<div style="font-size:11px;color:#777;margin-top:2px">
+  ⓘ ${uiText[lang].estimated}
+</div>
+    </div>
+    `;
+/* ===== SMOOTH CONTINUOUS ANIMATION ===== */
+
+clearInterval(progressTimer);
+
+const progressFill = document.getElementById('progressFill');
+
+// Smooth forward animation (no reset)
+progressTimer = setInterval(() => {
+
+  if (animatedProgress < targetProgress) {
+    animatedProgress += 0.2;
+    if (animatedProgress > targetProgress) {
+      animatedProgress = targetProgress;
+    }
+  }
+
+  progressFill.style.width = animatedProgress + '%';
+
+document.getElementById('progressText').innerText =
+  Math.floor(animatedProgress) + '%';
+
+  if (animatedProgress >= targetProgress) {
+    clearInterval(progressTimer);
+  }
+
+}, 1000);
+
+  }
+}
+
 }
 route.onchange=()=>{
   updateStationsByRoute();
