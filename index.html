@@ -188,6 +188,40 @@ select{width:100%;padding:10px;margin:8px 0;font-size:15px}
   background:#e53935;
 }
 
+.alt-route{
+  background:#e3f2fd;
+  border-left:4px solid #1976d2;
+}
+.alt-route .badge{
+  background:#1976d2;
+font-size:14px;
+  font-weight:700;
+}
+.alt-sub{
+  font-size:12px;
+  color:#444;
+}
+
+/* ===== TIME BLINK ===== */
+@keyframes timeBlinkSlow {
+  0%,100% { opacity:1; }
+  50% { opacity:0; }
+}
+
+@keyframes timeBlinkFast {
+  0%,100% { opacity:1; }
+  50% { opacity:0; }
+}
+
+.time-blink{
+  font-weight:700;
+  animation: timeBlinkSlow 1.2s infinite;
+}
+
+.time-blink.fast{
+  animation: timeBlinkFast 0.6s infinite;
+}
+
 </style>
 </head>
 
@@ -322,6 +356,16 @@ const stations={
  NEU:{en:'Nerul (नेरूळ)',mr:'नेरूळ (Nerul)'}
 };
 
+function getRouteText(routeCode){
+  const map = {
+    U2N: 'Uran → Nerul',
+    N2U: 'Nerul → Uran',
+    U2B: 'Uran → Belapur',
+    B2U: 'Belapur → Uran'
+  };
+  return map[routeCode] || routeCode;
+}
+
 function toMin(t){
   const [h,m]=t.split(':').map(Number);
   return h*60+m;
@@ -441,6 +485,64 @@ opt.textContent = stations[code][lang];
   });
 }
 
+/* ===== FIND BEST ALTERNATIVE SAME PLATFORM TRAIN ===== */
+function findAlternativeTrain(){
+
+  const selRoute = route.value;
+  const selStation = station.value;
+  const nowMin =
+    new Date().getHours()*60 + new Date().getMinutes();
+
+  const selPlatform =
+    (platforms[selRoute] || {})[selStation];
+
+  if(!selPlatform) return null;
+
+  const selStops = routeStations[selRoute];
+  const selIdx = selStops.indexOf(selStation);
+  if(selIdx === -1) return null;
+
+  const selForward = selStops.slice(selIdx + 1);
+
+  let bestAlt = null;
+
+  trains.forEach(t => {
+
+    if(t.route === selRoute) return;
+    if(!t.stops[selStation]) return;
+
+    const pf =
+      (platforms[t.route] || {})[selStation];
+    if(pf !== selPlatform) return;
+
+    const timeMin = toMin(t.stops[selStation]);
+    if(timeMin < nowMin) return;
+
+    const altStops = routeStations[t.route];
+    const altIdx = altStops.indexOf(selStation);
+    if(altIdx === -1) return;
+
+    const altForward = altStops.slice(altIdx + 1);
+
+    const useful = altForward.some(s =>
+      selForward.includes(s)
+    );
+
+    if(!useful) return;
+
+    if(!bestAlt || timeMin < bestAlt.m){
+      bestAlt = {
+        route: t.route,
+        time: t.stops[selStation],
+        m: timeMin
+      };
+    }
+
+  });
+
+  return bestAlt;
+}
+
 /* ================= RENDER ================= */
 function render(){
  if(!route.value || !station.value){
@@ -460,6 +562,7 @@ function render(){
      m: toMin(t.stops[station.value])
    }))
    .sort((a,b)=>a.m-b.m);
+const altTrain = findAlternativeTrain();
 
  if(rows.length === 0){
    nextTrain.innerHTML='No trains available';
@@ -498,22 +601,41 @@ list.innerHTML =
   listHeader +
   rows.map((r,i)=>{
     const isNext = i === nextIdx;
-    return `
-    <div class="rv-item ${isNext?'rv-next':''} ${isLastTrainToday && isNext ? 'last-train' : ''}">
-      <div class="rv-left">
-        <div class="rv-time">
-          ${to12h(r.time)}
-          ${isNext ? '<span class="badge">⭐ NEXT</span>' : ''}
-        </div>
-        <div class="rv-sub">
-          ${stations[station.value][lang]} Station
-        </div>
-      </div>
-      <div class="rv-no">
-        ${r.no}
-      </div>
+   const showAlt =
+  altTrain &&
+  i === nextIdx &&
+  altTrain.m < r.m;
+
+return `
+${showAlt ? `
+<div class="rv-item alt-route">
+  <div class="rv-left">
+    <div class="rv-time">
+      ${to12h(altTrain.time)}
+      <span class="badge">
+        ${getRouteText(altTrain.route)}
+      </span>
     </div>
-    `;
+  </div>
+</div>
+` : ''}
+
+<div class="rv-item ${isNext?'rv-next':''} ${isLastTrainToday && isNext ? 'last-train' : ''}">
+  <div class="rv-left">
+    <div class="rv-time">
+      ${to12h(r.time)}
+      ${isNext ? '<span class="badge">⭐ NEXT</span>' : ''}
+    </div>
+    <div class="rv-sub">
+      ${stations[station.value][lang]} Station
+    </div>
+  </div>
+  <div class="rv-no">
+    ${r.no}
+  </div>
+</div>
+`;
+
   }).join('');
 
  /* -------- NEXT TRAIN CARD -------- */
@@ -532,6 +654,13 @@ if (trainKey !== lastTrainKey) {
    ? (1440 - nowMin + n.m)
    : (n.m - nowMin);
 
+const timeClass =
+  remainingMin <= 3
+    ? 'time-blink fast'
+    : remainingMin <= 10
+      ? 'time-blink'
+      : '';
+
 nextTrain.innerHTML = `
 <div class="next" style="${isLastTrainToday ? 'background:linear-gradient(135deg,#b71c1c,#e53935);border-left:5px solid #ffeb3b;' : ''}">
   🚆 ${uiText[lang].nextTrain} ⭐ <b>${to12h(n.time)}</b>
@@ -546,7 +675,10 @@ ${isLastTrainToday ? `
 </div>` : ''}
 
 <small style="display:block;margin-top:6px;color:#555;font-size:15px">
-  ⏳ ${uiText[lang].arriving} ${formatArrival(remainingMin)}<br>
+⏳ ${uiText[lang].arriving}
+   <span class="${timeClass}">
+     <b>${formatArrival(remainingMin)}</b>
+   </span><br>
   🚉 ${uiText[lang].platform}: ${pf}
 </small>
 `;
@@ -681,10 +813,6 @@ document.getElementById('menuBtn').onclick=()=>{
  menuBox.style.display=menuBox.style.display==='block'?'none':'block';
 };
 
-function openAlarm(){
- const m=prompt("Alarm किती मिनिटांनी?");
- if(m)setTimeout(()=>alert("🚆 Train Reminder"),m*60000);
-}
 function enableNotification(){
  if("Notification"in window){
   Notification.requestPermission().then(p=>{
