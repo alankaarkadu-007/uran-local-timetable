@@ -485,6 +485,13 @@ opt.textContent = stations[code][lang];
   });
 }
 
+function stationExistsInRoute(routeCode, stationCode){
+  return (
+    routeStations[routeCode] &&
+    routeStations[routeCode].includes(stationCode)
+  );
+}
+
 /* ===== FIND BEST ALTERNATIVE SAME PLATFORM TRAIN ===== */
 function findAlternativeTrain(){
 
@@ -608,7 +615,8 @@ list.innerHTML =
 
 return `
 ${showAlt ? `
-<div class="rv-item alt-route">
+<div class="rv-item alt-route"
+     onclick="applyAltRoute('${altTrain.route}')">
   <div class="rv-left">
     <div class="rv-time">
       ${to12h(altTrain.time)}
@@ -791,8 +799,33 @@ document.getElementById('progressText').innerText =
 }
 
 }
-route.onchange=()=>{
+
+function applyAltRoute(newRoute){
+
+  const currentStation = station.value;
+
+  route.value = newRoute;
   updateStationsByRoute();
+
+  // जर station त्या route मध्ये असेल तर keep करा
+  if (currentStation && stationExistsInRoute(newRoute, currentStation)) {
+    station.value = currentStation;
+  }
+
+  render();
+}
+
+route.onchange = () => {
+
+  const prevStation = station.value; // आधी select केलेला station लक्षात ठेवा
+
+  updateStationsByRoute();
+
+  // जर तो station नवीन route मध्ये असेल तर reset करू नका
+  if (prevStation && stationExistsInRoute(route.value, prevStation)) {
+    station.value = prevStation;
+  }
+
   render();
 };
 
