@@ -846,6 +846,13 @@ function setNextTrainAlarmExact(minBefore){
 
   if (window.Android && Android.setExactTrainAlarm) {
     Android.setExactTrainAlarm(triggerAtMillis, title, msg);
+	   if (Android.showToast) {
+    Android.showToast(
+      "🔔 Alarm set for " +
+      to12h(next.time) +
+      " (" + minBefore + " min before)"
+    );
+  }
   } else {
     alert("Android bridge not available");
   }
@@ -940,6 +947,7 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
 
