@@ -236,6 +236,10 @@ font-size:14px;
 
   <div class="menu" id="menuBtn">☰
   <div class="menu-box" id="menuBox">
+	  
+	  <div onclick="setNextTrainAlarm(10)">🔔 Next Train Alarm (10 min before)</div>
+    <div onclick="setNextTrainAlarm(5)">🔔 Next Train Alarm (5 min before)</div>
+	  
     <div onclick="toggleLanguage()">🌐 Language: <span id="langLabel">English</span></div>
     <div onclick="manualUpdate()">🔄 Update App</div>
   </div>
@@ -890,3 +894,4 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
