@@ -890,12 +890,55 @@ if('serviceWorker'in navigator){
   navigator.serviceWorker.register('sw.js');
  });
 }
-	function setNextTrainAlarm(minBefore){
-  const title = "🚆 Uran Local Train";
-  const msg = "Next train reminder (" + minBefore + " min before)";
+	function setNextTrainAlarmExact(minBefore){
+  // Safety checks
+  if (!route.value || !station.value) {
+    alert("Please select route and station");
+    return;
+  }
 
-  if (window.Android && Android.setNextTrainAlarm) {
-    Android.setNextTrainAlarm(minBefore, title, msg);
+  // Find next train (reuse your existing render logic idea)
+  const now = new Date();
+  const nowMin = now.getHours()*60 + now.getMinutes();
+
+  const rows = trains
+    .filter(t => t.route === route.value && t.stops[station.value])
+    .map(t => ({
+      no: t.no,
+      time: t.stops[station.value], // "HH:mm"
+      m: toMin(t.stops[station.value])
+    }))
+    .sort((a,b)=>a.m-b.m);
+
+  if (!rows.length) {
+    alert("No trains available");
+    return;
+  }
+
+  let next = rows.find(r => r.m >= nowMin) || rows[0];
+
+  // Build exact Date for today (or tomorrow if wrapped)
+  let [hh, mm] = next.time.split(":").map(Number);
+  let alarmDate = new Date();
+  alarmDate.setHours(hh, mm, 0, 0);
+
+  // If wrapped to tomorrow
+  if (next.m < nowMin) {
+    alarmDate.setDate(alarmDate.getDate() + 1);
+  }
+
+  // Subtract minutesBefore
+  alarmDate = new Date(alarmDate.getTime() - minBefore*60*1000);
+
+  const triggerAtMillis = alarmDate.getTime();
+
+  const title = "🚆 Uran Local Train";
+  const msg =
+    `Next train ${to12h(next.time)} from ${stations[station.value][lang]} ` +
+    `(${minBefore} min before)`;
+
+  if (window.Android && Android.setExactTrainAlarm) {
+    Android.setExactTrainAlarm(triggerAtMillis, title, msg);
   } else {
     alert("Android bridge not available");
   }
@@ -904,5 +947,6 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
