@@ -890,8 +890,19 @@ if('serviceWorker'in navigator){
   navigator.serviceWorker.register('sw.js');
  });
 }
+	function setNextTrainAlarm(minBefore){
+  const title = "🚆 Uran Local Train";
+  const msg = "Next train reminder (" + minBefore + " min before)";
+
+  if (window.Android && Android.setNextTrainAlarm) {
+    Android.setNextTrainAlarm(minBefore, title, msg);
+  } else {
+    alert("Android bridge not available");
+  }
+}
 </script>
 
 </body>
 </html>
+
 
