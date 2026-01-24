@@ -369,13 +369,10 @@ font-size:14px;
   ⏰ Alarm – 5 min before
 </button>
 
-<button class="alarm-btn blue" onclick="openCustomAlarm()">
-  ⚙️ Custom Alarm…
-</button>
   </div>
 
   <div style="margin-bottom:10px">
-    <input id="customMin" type="number" min="1" placeholder="Custom minutes (eg. 7)"
+    <input id="customMin" type="number" min="1" max="60" placeholder="Custom minutes (eg. 7)"
       style="width:100%;padding:10px;font-size:15px">
   </div>
 
@@ -980,7 +977,25 @@ function setNextTrainAlarmExact(minBefore){
     alert("Please select route and station");
     return;
   }
+const customInput = document.getElementById("customMin");
 
+if (customInput) {
+  customInput.addEventListener("change", () => {
+    const m = parseInt(customInput.value);
+
+    if (isNaN(m) || m <= 0 || m > 60) {
+      alert("Please enter minutes between 1 and 60");
+      return;
+    }
+
+    setNextTrainAlarmExact(m);
+
+    // ✅ User confirmation (UX)
+    if (window.Android && Android.showToast) {
+      Android.showToast("🔔 Custom alarm set (" + m + " min before)");
+    }
+  });
+}
   const now = new Date();
   const nowMin = now.getHours()*60 + now.getMinutes();
 
