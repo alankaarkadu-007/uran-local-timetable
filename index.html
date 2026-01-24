@@ -222,6 +222,105 @@ font-size:14px;
   animation: timeBlinkFast 0.6s infinite;
 }
 
+/* ===== ALARM MENU UI ===== */
+.menu-box{
+  background: linear-gradient(135deg,#263238,#37474f);
+  color:#fff;
+  border-radius:12px;
+  box-shadow:0 6px 18px rgba(0,0,0,.45);
+  padding:6px 0;
+  overflow:hidden;
+}
+
+/* Menu items */
+.menu-box div{
+  padding:12px 14px;
+  border-bottom:1px solid rgba(255,255,255,.15);
+  cursor:pointer;
+  font-size:15px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+/* Remove last border */
+.menu-box div:last-child{
+  border-bottom:none;
+}
+
+/* Hover / tap effect */
+.menu-box div:hover{
+  background:rgba(255,255,255,.12);
+}
+
+/* Alarm specific highlight */
+.menu-box .alarm{
+  background:linear-gradient(135deg,#1b5e20,#2e7d32);
+  font-weight:600;
+}
+
+/* Custom alarm */
+.menu-box .custom{
+  background:linear-gradient(135deg,#01579b,#0277bd);
+}
+
+/* Language / update (soft) */
+.menu-box .soft{
+  background:rgba(255,255,255,.08);
+}
+
+/* Emoji size fix */
+.menu-box span{
+  font-size:18px;
+}
+
+/* ===== ALARM BUTTONS (MENU) ===== */
+.alarm-btn{
+  width:100%;
+  padding:12px;
+  margin:6px 0;
+  border:none;
+  border-radius:10px;
+  font-size:15px;
+  font-weight:600;
+  color:#fff;
+  cursor:pointer;
+  box-shadow:0 4px 10px rgba(0,0,0,.35);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+}
+
+/* Green = normal alarm */
+.alarm-btn.green{
+  background:linear-gradient(135deg,#1b5e20,#2e7d32,#43a047);
+}
+
+/* Blue = custom alarm */
+.alarm-btn.blue{
+  background:linear-gradient(135deg,#01579b,#0277bd);
+}
+
+/* Tap feedback */
+.alarm-btn:active{
+  transform:scale(0.97);
+}
+
+/* ===== Custom Alarm Input Fix ===== */
+#customMin{
+  width: 100%;
+  max-width: 200px;      /* 👈 screen बाहेर जाणार नाही */
+  margin: 8px auto;      /* 👈 center align */
+  display: block;
+
+  padding: 10px 12px;
+  font-size: 14px;
+
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
 </style>
 </head>
 
@@ -237,8 +336,7 @@ font-size:14px;
   <div class="menu" id="menuBtn">☰
   <div class="menu-box" id="menuBox">
 	  
-	  <div onclick="setNextTrainAlarmExact(10)">🔔 Next Train Alarm (10 min before)</div>
-    <div onclick="setNextTrainAlarmExact(5)">🔔 Next Train Alarm (5 min before)</div>
+	<div onclick="openAlarmMenu()">⏰ Set Train Alarm</div>
 	  
     <div onclick="toggleLanguage()">🌐 Language: <span id="langLabel">English</span></div>
     <div onclick="manualUpdate()">🔄 Update App</div>
@@ -246,6 +344,54 @@ font-size:14px;
 </div>
 
 </header>
+<!-- ===== ALARM POPUP ===== -->
+<div id="alarmPopup" style="
+  display:none;
+  position:fixed;
+  left:0; right:0; bottom:0;
+  background:#fff;
+  border-radius:16px 16px 0 0;
+  box-shadow:0 -4px 12px rgba(0,0,0,.3);
+  padding:16px;
+  z-index:999;
+">
+
+  <div style="font-size:16px;font-weight:700;margin-bottom:10px">
+    ⏰ Set Train Alarm
+  </div>
+
+  <div style="display:flex;gap:10px;margin-bottom:12px">
+    <button class="alarm-btn green" onclick="setQuickAlarm(10)">
+  ⏰ Alarm – 10 min before
+</button>
+
+<button class="alarm-btn green" onclick="setQuickAlarm(5)">
+  ⏰ Alarm – 5 min before
+</button>
+
+<button class="alarm-btn blue" onclick="openCustomAlarm()">
+  ⚙️ Custom Alarm…
+</button>
+  </div>
+
+  <div style="margin-bottom:10px">
+    <input id="customMin" type="number" min="1" placeholder="Custom minutes (eg. 7)"
+      style="width:100%;padding:10px;font-size:15px">
+  </div>
+
+  <button onclick="setCustomAlarm()" style="width:100%;padding:10px">
+    ⏱️ Set Custom Alarm
+  </button>
+
+  <div onclick="closeAlarmMenu()" style="
+    text-align:center;
+    margin-top:10px;
+    color:#b71c1c;
+    font-weight:600;
+    cursor:pointer">
+    Cancel
+  </div>
+</div>
 
 <div class="container">
 
@@ -552,6 +698,33 @@ function findAlternativeTrain(){
   });
 
   return bestAlt;
+}
+
+function openAlarmMenu(){
+  document.getElementById('alarmPopup').style.display = 'block';
+}
+
+function closeAlarmMenu(){
+  document.getElementById('alarmPopup').style.display = 'none';
+}
+
+function setQuickAlarm(min){
+  closeAlarmMenu();
+  setNextTrainAlarmExact(min);
+}
+
+function setCustomAlarm(){
+  const min = parseInt(
+    document.getElementById('customMin').value
+  );
+
+  if(!min || min <= 0){
+    alert("Please enter valid minutes");
+    return;
+  }
+
+  closeAlarmMenu();
+  setNextTrainAlarmExact(min);
 }
 
 /* ================= RENDER ================= */
@@ -947,10 +1120,3 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
-
-
-
-
-
-
-
