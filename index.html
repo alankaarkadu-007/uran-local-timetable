@@ -439,7 +439,8 @@ const uiText = {
   trainNo:'Train No.',
   progress:'Arriving Progress',
   lastCrossed:'Last crossed',
-  estimated:'Estimated based on timetable'
+  estimated:'Estimated based on timetable',
+arrived:'Arrived at'
 },
 mr:{
   selectRoute:'रूट निवडा',
@@ -450,7 +451,8 @@ mr:{
   trainNo:'ट्रेन क्रमांक',
   progress:'पोहोचण्याची प्रगती',
   lastCrossed:'शेवटचे ओलांडलेले स्टेशन',
-  estimated:'वेळापत्रकावर आधारित अंदाज'
+  estimated:'वेळापत्रकावर आधारित अंदाज',
+arrived:'पोहोचले'
 }
 
 };
@@ -931,8 +933,11 @@ journeyStops.forEach(code => {
       </div>
 
 <div style="font-size:12px;margin-top:4px;color:#444">
-  🚉 ${uiText[lang].lastCrossed}:
-  ${stations[crossedStation]?.[lang] || crossedStation}
+  🚉 ${
+    remainingMin <= 0 && targetProgress >= 100
+      ? `${uiText[lang].arrived}: <b>${stations[station.value][lang]}</b>`
+      : `${uiText[lang].lastCrossed}: <b>${stations[crossedStation]?.[lang] || crossedStation}</b>`
+  }
 </div>
 
 <div style="font-size:11px;color:#777;margin-top:2px">
