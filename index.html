@@ -805,7 +805,8 @@ ${showAlt ? `
 </div>
 ` : ''}
 
-<div class="rv-item ${isNext?'rv-next':''} ${isLastTrainToday && isNext ? 'last-train' : ''}">
+<div class="rv-item ${isNext?'rv-next':''} ${isLastTrainToday && isNext ? 'last-train' : ''}"
+     onclick="openRouteDetail(${r.no}, '${route.value}')">
   <div class="rv-left">
     <div class="rv-time">
       ${to12h(r.time)}
@@ -1132,6 +1133,78 @@ setInterval(() => {
   }
 }, 1000);
 
+function openRouteDetail(trainNo, routeCode){
+
+  const screen = document.getElementById('routeDetailScreen');
+  const content = document.getElementById('routeDetailContent');
+
+  const train = trains.find(t =>
+    t.no == trainNo && t.route === routeCode
+  );
+
+  if(!train) return;
+
+  const routeOrder = routeStations[routeCode];
+
+  content.innerHTML = routeOrder.map(code => {
+
+    if(!train.stops[code]) return '';
+
+    const time = train.stops[code];
+
+    return `
+      <div style="
+        display:flex;
+        align-items:center;
+        margin:18px 0;
+      ">
+
+        <div style="
+          width:70px;
+          font-size:18px;
+          color:#00ff00;
+        ">
+          ${to12h(time)}
+        </div>
+
+        <div style="
+          width:18px;
+          height:18px;
+          background:#fff;
+          border-radius:50%;
+          margin:0 20px;
+        "></div>
+
+        <div>
+          <div style="font-size:22px;font-weight:600">
+            ${stations[code]?.[lang] || code}
+          </div>
+
+          <div style="font-size:14px;color:#aaa">
+            Platform ${(platforms[routeCode]||{})[code] || ''}
+          </div>
+        </div>
+
+      </div>
+    `;
+
+  }).join('');
+
+  screen.style.display = 'block';
+
+  history.pushState({page:"routeDetail"}, "");
+}
+function closeRouteDetail(){
+  document.getElementById('routeDetailScreen').style.display = 'none';
+  history.back();
+}
+window.onpopstate = function(){
+  const screen = document.getElementById('routeDetailScreen');
+  if(screen.style.display === 'block'){
+    screen.style.display = 'none';
+  }
+};
+
 /* ================= SERVICE WORKER ================= */
 if('serviceWorker'in navigator){
  window.addEventListener('load',()=>{
@@ -1140,8 +1213,29 @@ if('serviceWorker'in navigator){
 }
 </script>
 
+<!-- ===== ROUTE DETAIL SCREEN ===== -->
+<div id="routeDetailScreen" style="
+  display:none;
+  position:fixed;
+  top:0;left:0;right:0;bottom:0;
+  background:#000;
+  color:#fff;
+  z-index:2000;
+  overflow-y:auto;
+  padding:20px;
+">
+
+  <div style="font-size:18px;font-weight:700;margin-bottom:20px">
+    <span onclick="closeRouteDetail()" style="cursor:pointer;color:#00ff00">
+      ⬅ Back
+    </span>
+  </div>
+
+  <div id="routeDetailContent"></div>
+
+</div>
+
 </body>
 </html>
-
 
 
