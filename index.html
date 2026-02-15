@@ -217,7 +217,9 @@ font-size:14px;
   font-weight:700;
   animation: timeBlinkSlow 1.2s infinite;
 }
-
+.time-alert{
+  color:#e53935;   /* Strong Red */
+}
 .time-blink.fast{
   animation: timeBlinkFast 0.6s infinite;
 }
@@ -839,9 +841,9 @@ if (trainKey !== lastTrainKey) {
 
 const timeClass =
   remainingMin <= 3
-    ? 'time-blink fast'
+    ? 'time-blink fast time-alert'
     : remainingMin <= 10
-      ? 'time-blink'
+      ? 'time-blink time-alert'
       : '';
 
 nextTrain.innerHTML = `
@@ -1140,5 +1142,6 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
