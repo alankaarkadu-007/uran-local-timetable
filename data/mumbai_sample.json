@@ -6,9 +6,9 @@
       "train_no": 12345,
       "route": "CSMT → Panvel",
       "stops": [
-        {"station":"CSMT","time":"09:30","platform":1},
-        {"station":"KURL","time":"09:45","platform":3},
-        {"station":"DADR","time":"09:55","platform":2}
+        {"station":"CSMT","time":"17:30","platform":1},
+        {"station":"KURL","time":"10:45","platform":3},
+        {"station":"DADR","time":"12:55","platform":2}
       ]
     },
     {
@@ -17,7 +17,7 @@
       "stops": [
         {"station":"CSMT","time":"09:40","platform":2},
         {"station":"KURL","time":"09:55","platform":4},
-        {"station":"TNA","time":"10:20","platform":5}
+        {"station":"TNA","time":"17:20","platform":5}
       ]
     }
   ]
