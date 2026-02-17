@@ -1250,8 +1250,8 @@ function processMumbaiStation(){
         const [h,m] = stop.time.split(":").map(Number);
         const trainMin = h*60 + m;
 
-        if(trainMin >= nowMin){
-
+       if(true){
+		   
           if(!platformMap[stop.platform] ||
              trainMin < platformMap[stop.platform].timeMin){
 
@@ -1468,4 +1468,5 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
