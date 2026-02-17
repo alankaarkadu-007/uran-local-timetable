@@ -18,18 +18,19 @@
         {"station":"TUH","time":"13:35","platform":"2 BOTH"},
         {"station":"KPHN","time":"13:39","platform":"2 BOTH"},
         {"station":"GNSL","time":"13:42","platform":"2 BOTH"},
-        {"station":"RABE","time":"13:35","platform":"2 BOTH"},
+        {"station":"RABE","time":"13:45","platform":"2 BOTH"},
         {"station":"AIRL","time":"13:48","platform":"2 BOTH"},
         {"station":"DIGH","time":"13:51","platform":"3 LEFT"},
-        {"station":"TNA","time":"23:56","platform":"9/10"}
+        {"station":"TNA","time":"13:56","platform":"9/10"}
       ]
     },
     {
       "train_no": 22331,
       "route": "CSMT → Panvel",
       "stops": [
-        {"station":"CSMT","time":"09:40","platform":"2"},
-        {"station":"KURL","time":"09:55","platform":"4"}
+        {"station":"CSMT","time":"22:55","platform":"2"},
+        {"station":"KURL","time":"22:59","platform":"4"},
+        {"station":"PNVL","time":"23:00","platform":"3"}
         ]
     }
   ]
