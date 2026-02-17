@@ -18,7 +18,7 @@
         {"station":"TUH","time":"13:35","platform":2 BOTH},
         {"station":"KPHN","time":"13:39","platform":2 BOTH},
         {"station":"GNSL","time":"13:42","platform":2 BOTH},
-        {"station":"RABE","time":"13:45","platform":2 BOTH},
+        {"station":"RABE","time":"18:35","platform":2 BOTH},
         {"station":"AIRL","time":"13:48","platform":2 BOTH},
         {"station":"DIGH","time":"13:51","platform":3 LEFT},
         {"station":"TNA","time":"13:56","platform":9/10},
