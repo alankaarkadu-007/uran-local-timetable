@@ -1211,7 +1211,14 @@ setInterval(() => {
   const now = new Date();
   if(now.getMinutes() !== lastMinute){
     lastMinute = now.getMinutes();
-    render(); // only when minute changes
+
+    if(currentMode === "uran"){
+      render();
+    } 
+    else if(currentMode === "mumbai"){
+      loadMumbaiStationData();
+    }
+
   }
 }, 1000);
 
@@ -1469,6 +1476,7 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
 
