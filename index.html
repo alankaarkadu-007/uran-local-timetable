@@ -337,6 +337,10 @@ font-size:14px;
 
   <div class="menu" id="menuBtn">☰
   <div class="menu-box" id="menuBox">
+	
+	<div onclick="enableMumbaiMode()">🛰 Mumbai Mode</div>
+
+	<div onclick="enableUranMode()">🚆 Uran Mode</div>
 	  
 	<div onclick="openAlarmMenu()">⏰ Set Train Alarm</div>
 	  
@@ -492,6 +496,12 @@ const nextTrain=document.getElementById('nextTrain');
 const list=document.getElementById('list');
 const clock=document.getElementById('clock');
 const menuBox=document.getElementById('menuBox');
+
+// ===== MODE SYSTEM =====
+let currentMode = "uran";  // default mode
+
+// ===== MUMBAI DATA CACHE =====
+let mumbaiData = null;
 
 const stations={
  URAN:{en:'Uran (उरण)',mr:'उरण (Uran)'},
@@ -1082,7 +1092,14 @@ route.onchange = () => {
   render();
 };
 
-station.onchange=render;
+station.onchange = function(){
+  if(currentMode === "uran"){
+     render();
+  } 
+  else if(currentMode === "mumbai"){
+     loadMumbaiStationData();
+  }
+};
 
 /* ================= MENU ================= */
 // Hide menu when clicking outside
@@ -1115,6 +1132,71 @@ function manualUpdate(){
  }
 }
 
+// ===== MUMBAI MODE =====
+function enableMumbaiMode(){
+
+  currentMode = "mumbai";
+
+  menuBox.style.display = 'none';
+
+  // Header text change
+  document.querySelector("header h2").innerText = 
+    "🚇 Mumbai Local Mode";
+
+  // Hide Route dropdown
+  document.getElementById("route").style.display = "none";
+
+  // Reset station dropdown
+  station.innerHTML = 
+    '<option value="">Select Mumbai Station</option>';
+
+  // Temporary demo stations
+  const demoStations = [
+    {code:"CSMT", name:"CSMT"},
+    {code:"KURL", name:"Kurla"},
+    {code:"DADR", name:"Dadar"},
+    {code:"TNA", name:"Thane"}
+  ];
+
+  demoStations.forEach(s=>{
+    const opt = document.createElement("option");
+    opt.value = s.code;
+    opt.textContent = s.name;
+    station.appendChild(opt);
+  });
+
+  // Clear previous Uran data
+  nextTrain.innerHTML = "";
+  list.innerHTML = "";
+
+}
+
+function enableUranMode(){
+
+  currentMode = "uran";
+
+  // Close menu
+  menuBox.style.display = 'none';
+
+  // Header reset
+  document.querySelector("header h2").innerText = 
+    "🚆 Uran Local Timetable";
+
+  // Show route dropdown again
+  document.getElementById("route").style.display = "block";
+
+  // Reset route selection
+  route.value = "";
+
+  // Reset station dropdown
+  station.innerHTML = 
+    '<option value="">Boarding Station / स्टेशन निवडा</option>';
+
+  // Clear data display
+  nextTrain.innerHTML = "";
+  list.innerHTML = "";
+}
+
 /* ================= CLOCK ================= */
 function updateClock(){
  clock.innerText='🕒 Current Time: '+
@@ -1132,6 +1214,102 @@ setInterval(() => {
     render(); // only when minute changes
   }
 }, 1000);
+
+// ===== MUMBAI STATION DATA LOADER =====
+function loadMumbaiStationData(){
+
+  if(!station.value) return;
+
+  if(!mumbaiData){
+    fetch("data/mumbai_sample.json")
+      .then(res => res.json())
+      .then(data=>{
+        mumbaiData = data;
+        processMumbaiStation();
+      });
+  } else {
+    processMumbaiStation();
+  }
+}
+
+function processMumbaiStation(){
+
+  const selectedStation = station.value;
+
+  const now = new Date();
+  const nowMin = now.getHours()*60 + now.getMinutes();
+
+  const platformMap = {};
+
+  mumbaiData.trains.forEach(train=>{
+
+    train.stops.forEach(stop=>{
+
+      if(stop.station === selectedStation){
+
+        const [h,m] = stop.time.split(":").map(Number);
+        const trainMin = h*60 + m;
+
+        if(trainMin >= nowMin){
+
+          if(!platformMap[stop.platform] ||
+             trainMin < platformMap[stop.platform].timeMin){
+
+            platformMap[stop.platform] = {
+              train_no: train.train_no,
+              route: train.route,
+              time: stop.time,
+              timeMin: trainMin
+            };
+          }
+        }
+
+      }
+
+    });
+
+  });
+
+  renderMumbaiPlatforms(platformMap);
+}
+
+function renderMumbaiPlatforms(platformMap){
+
+  nextTrain.innerHTML = `
+    <div style="font-size:18px;font-weight:700">
+      🚇 Platform Wise Next Trains
+    </div>
+  `;
+
+  const sortedPlatforms = Object.keys(platformMap)
+    .sort((a,b)=>a-b);
+
+  list.innerHTML = sortedPlatforms.map(p=>{
+
+    const t = platformMap[p];
+
+    const now = new Date();
+    const nowMin = now.getHours()*60 + now.getMinutes();
+    const remaining = t.timeMin - nowMin;
+
+    return `
+      <div class="rv-item rv-next">
+        <div class="rv-left">
+          <div class="rv-time">
+            Platform ${p}
+          </div>
+          <div class="rv-sub">
+            ${t.route}
+          </div>
+        </div>
+        <div class="rv-no">
+          ${t.time} <br>
+          <small>${remaining} min</small>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
 
 function openRouteDetail(trainNo, routeCode){
 
@@ -1290,5 +1468,4 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
-
 
