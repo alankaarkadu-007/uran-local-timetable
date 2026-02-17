@@ -1235,7 +1235,6 @@ function loadMumbaiStationData(){
 function processMumbaiStation(){
 
   const selectedStation = station.value;
-
   const now = new Date();
   const nowMin = now.getHours()*60 + now.getMinutes();
 
@@ -1248,24 +1247,22 @@ function processMumbaiStation(){
       if(stop.station === selectedStation){
 
         const [h,m] = stop.time.split(":").map(Number);
-        const trainMin = h*60 + m;
+        let trainMin = h*60 + m;
 
-       let adjustedMin = trainMin;
+        // Tomorrow adjustment
+        if(trainMin < nowMin){
+          trainMin += 1440;
+        }
 
-if(trainMin < nowMin){
-   adjustedMin += 1440; // tomorrow
-}
-   
-          if(!platformMap[stop.platform] ||
-             trainMin < platformMap[stop.platform].timeMin){
+        if(!platformMap[stop.platform] ||
+           trainMin < platformMap[stop.platform].timeMin){
 
-            platformMap[stop.platform] = {
-              train_no: train.train_no,
-              route: train.route,
-              time: stop.time,
-              timeMin: trainMin
-            };
-          }
+          platformMap[stop.platform] = {
+            train_no: train.train_no,
+            route: train.route,
+            time: stop.time,
+            timeMin: trainMin
+          };
         }
 
       }
@@ -1472,6 +1469,7 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
 
