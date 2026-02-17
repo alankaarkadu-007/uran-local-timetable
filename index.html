@@ -1323,7 +1323,7 @@ function processMumbaiStation(){
         </div>
       </div>
       <div class="rv-no">
-        ${remaining} min
+        ${formatArrival(remaining)}
       </div>
     </div>
   `;
@@ -1366,7 +1366,7 @@ function renderMumbaiPlatforms(platformMap){
         </div>
         <div class="rv-no">
           ${t.time} <br>
-          <small>${remaining} min</small>
+          <small>${formatArrival(remaining)}</small>
         </div>
       </div>
     `;
@@ -1530,6 +1530,7 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
 
