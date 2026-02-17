@@ -1245,7 +1245,7 @@ function processMumbaiStation(){
   const now = new Date();
   const nowMin = now.getHours()*60 + now.getMinutes();
 
-  const platformMap = {};
+  let nextTrainOverall = null;
 
   mumbaiData.trains.forEach(train=>{
 
@@ -1254,23 +1254,22 @@ function processMumbaiStation(){
       if(stop.station === selectedStation){
 
         const [h,m] = stop.time.split(":").map(Number);
-        let trainMin = h*60 + m;
+        const trainMin = h*60 + m;
 
-        // Tomorrow adjustment
-		  let adjustedMin = trainMin;
-        if(trainMin < nowMin){
-          trainMin += 1440;
-        }
+        // ONLY today upcoming trains
+        if(trainMin >= nowMin){
 
-        if(!platformMap[stop.platform] ||
-           trainMin < platformMap[stop.platform].timeMin){
+          if(!nextTrainOverall || trainMin < nextTrainOverall.timeMin){
 
-          platformMap[stop.platform] = {
-            train_no: train.train_no,
-            route: train.route,
-            time: stop.time,
-            timeMin: trainMin
-          };
+            nextTrainOverall = {
+              platform: stop.platform,
+              train_no: train.train_no,
+              route: train.route,
+              time: stop.time,
+              timeMin: trainMin
+            };
+          }
+
         }
 
       }
@@ -1279,7 +1278,7 @@ function processMumbaiStation(){
 
   });
 
-  renderMumbaiPlatforms(platformMap);
+  renderSingleMumbaiTrain(nextTrainOverall);
 }
 
 function renderMumbaiPlatforms(platformMap){
@@ -1483,6 +1482,7 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
 
