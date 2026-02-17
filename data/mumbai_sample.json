@@ -1,0 +1,24 @@
+{
+  "stations": ["CSMT", "KURL", "DADR", "TNA"],
+
+  "trains": [
+    {
+      "train_no": 12345,
+      "route": "CSMT → Panvel",
+      "stops": [
+        {"station":"CSMT","time":"09:30","platform":1},
+        {"station":"KURL","time":"09:45","platform":3},
+        {"station":"DADR","time":"09:55","platform":2}
+      ]
+    },
+    {
+      "train_no": 22331,
+      "route": "CSMT → Thane",
+      "stops": [
+        {"station":"CSMT","time":"09:40","platform":2},
+        {"station":"KURL","time":"09:55","platform":4},
+        {"station":"TNA","time":"10:20","platform":5}
+      ]
+    }
+  ]
+}
