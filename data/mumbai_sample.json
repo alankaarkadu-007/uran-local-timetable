@@ -1,14 +1,27 @@
 {
-  "stations": ["CSMT", "KURL", "DADR", "TNA"],
+  "stations": ["PNVL", "KNDS", "MANR", "KHAG", "BEPR", "SWDV", "NEU", "JNJ", "VSH", "SNPD", "TUH", "KPHN", "GNSL", "RABE", "AIRL", "DIGH", "TNA"
+],
 
   "trains": [
     {
-      "train_no": 12345,
-      "route": "CSMT → Panvel",
+      "train_no": 99036,
+      "route": "Panvel → Thane",
       "stops": [
-        {"station":"CSMT","time":"17:30","platform":1},
-        {"station":"KURL","time":"10:45","platform":3},
-        {"station":"DADR","time":"12:55","platform":2}
+        {"station":"PNVL","time":"13:04","platform":0},
+        {"station":"KNDS","time":"13:09","platform":2 RIGHT},
+        {"station":"MANR","time":"13:12","platform":4 BOTH},
+        {"station":"KHAG","time":"13:15","platform":2 BOTH},
+        {"station":"BEPR","time":"13:19","platform":3 BOTH},
+        {"station":"SWDW","time":"13:23","platform":2 RIGHT},
+        {"station":"NEU","time":"13:27","platform":2 BOTH},
+        {"station":"JNJ","time":"13:31","platform":2 BOTH},
+        {"station":"TUH","time":"13:35","platform":2 BOTH},
+        {"station":"KPHN","time":"13:39","platform":2 BOTH},
+        {"station":"GNSL","time":"13:42","platform":2 BOTH},
+        {"station":"RABE","time":"13:45","platform":2 BOTH},
+        {"station":"AIRL","time":"13:48","platform":2 BOTH},
+        {"station":"DIGH","time":"13:51","platform":3 LEFT},
+        {"station":"TNA","time":"13:56","platform":9/10},
       ]
     },
     {
