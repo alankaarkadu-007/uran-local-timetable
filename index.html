@@ -1281,6 +1281,41 @@ function processMumbaiStation(){
   renderSingleMumbaiTrain(nextTrainOverall);
 }
 
+	function renderSingleMumbaiTrain(train){
+
+  if(!train){
+    nextTrain.innerHTML = "No more trains today";
+    list.innerHTML = "";
+    return;
+  }
+
+  const now = new Date();
+  const nowMin = now.getHours()*60 + now.getMinutes();
+  const remaining = train.timeMin - nowMin;
+
+  nextTrain.innerHTML = `
+    <div class="next">
+      🚇 Next Train ⭐ <b>${train.time}</b>
+    </div>
+  `;
+
+  list.innerHTML = `
+    <div class="rv-item rv-next">
+      <div class="rv-left">
+        <div class="rv-time">
+          Platform ${train.platform}
+        </div>
+        <div class="rv-sub">
+          ${train.route}
+        </div>
+      </div>
+      <div class="rv-no">
+        ${remaining} min
+      </div>
+    </div>
+  `;
+}
+
 function renderMumbaiPlatforms(platformMap){
 
   if(Object.keys(platformMap).length === 0){
@@ -1482,6 +1517,7 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
 
