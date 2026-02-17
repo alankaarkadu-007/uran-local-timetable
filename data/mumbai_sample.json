@@ -1,5 +1,5 @@
 {
-  "stations": ["PNVL", "KNDS", "MANR", "KHAG", "BEPR", "SWDV", "NEU", "JNJ", "VSH", "SNPD", "TUH", "KPHN", "GNSL", "RABE", "AIRL", "DIGH", "TNA"
+  "stations": ["CSMT","PNVL", "KNDS", "MANR", "KHAG", "BEPR", "SWDV", "NEU", "JNJ", "VSH", "SNPD", "TUH", "KPHN", "GNSL", "RABE", "AIRL", "DIGH", "TNA"
 ],
 
   "trains": [
@@ -26,11 +26,11 @@
     },
     {
       "train_no": 22331,
-      "route": "CSMT → Thane",
+      "route": "CSMT → Panvel",
       "stops": [
         {"station":"CSMT","time":"09:40","platform":2},
         {"station":"KURL","time":"09:55","platform":4},
-        {"station":"TNA","time":"18:20","platform":5}
+        {"station":"TTD","time":"18:20","platform":5}
       ]
     }
   ]
