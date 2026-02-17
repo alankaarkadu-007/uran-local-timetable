@@ -7,7 +7,7 @@
       "train_no": 99036,
       "route": "Panvel → Thane",
       "stops": [
-        {"station":"PNVL","time":"13:04","platform":0},
+        {"station":"PNVL","time":"13:04","platform":"0"},
         {"station":"KNDS","time":"13:09","platform":"2 RIGHT"},
         {"station":"MANR","time":"13:12","platform":"4 BOTH"},
         {"station":"KHAG","time":"13:15","platform":"2 BOTH"},
@@ -28,10 +28,9 @@
       "train_no": 22331,
       "route": "CSMT → Panvel",
       "stops": [
-        {"station":"CSMT","time":"09:40","platform":2},
-        {"station":"KURL","time":"09:55","platform":4},
-        {"station":"BLPR","time":"18:20","platform":5}
-      ]
+        {"station":"CSMT","time":"09:40","platform":"2"},
+        {"station":"KURL","time":"09:55","platform":"4"}
+        ]
     }
   ]
 }
