@@ -1257,6 +1257,7 @@ function processMumbaiStation(){
         let trainMin = h*60 + m;
 
         // Tomorrow adjustment
+		  let adjustedMin = trainMin;
         if(trainMin < nowMin){
           trainMin += 1440;
         }
@@ -1283,6 +1284,12 @@ function processMumbaiStation(){
 
 function renderMumbaiPlatforms(platformMap){
 
+  if(Object.keys(platformMap).length === 0){
+    nextTrain.innerHTML = "No upcoming trains";
+    list.innerHTML = "";
+    return;
+  }
+
   nextTrain.innerHTML = `
     <div style="font-size:18px;font-weight:700">
       🚇 Platform Wise Next Trains
@@ -1292,12 +1299,12 @@ function renderMumbaiPlatforms(platformMap){
   const sortedPlatforms = Object.keys(platformMap)
     .sort((a,b)=>a-b);
 
+  const now = new Date();
+  const nowMin = now.getHours()*60 + now.getMinutes();
+
   list.innerHTML = sortedPlatforms.map(p=>{
 
     const t = platformMap[p];
-
-    const now = new Date();
-    const nowMin = now.getHours()*60 + now.getMinutes();
     const remaining = t.timeMin - nowMin;
 
     return `
@@ -1476,6 +1483,7 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
 
