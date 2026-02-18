@@ -1294,7 +1294,7 @@ function processMumbaiStation(){
   renderSingleMumbaiTrain(nextTrainOverall);
 }
 
-	function renderSingleMumbaiTrain(train){
+function renderSingleMumbaiTrain(train){
 
   if(!train){
     nextTrain.innerHTML = "No more trains today";
@@ -1306,11 +1306,8 @@ function processMumbaiStation(){
   const nowMin = now.getHours()*60 + now.getMinutes();
   const remaining = train.timeMin - nowMin;
 
-  nextTrain.innerHTML = `
-    <div class="next">
-      🚇 Next Train ⭐ <b>${train.time}</b>
-    </div>
-  `;
+  // 🔥 REMOVE NEXT TRAIN HEADER COMPLETELY
+  nextTrain.innerHTML = "";
 
   list.innerHTML = `
     <div class="rv-item rv-next">
@@ -1323,7 +1320,8 @@ function processMumbaiStation(){
         </div>
       </div>
       <div class="rv-no">
-        ${formatArrival(remaining)}
+        ${train.time} <br>
+        <small>${formatArrival(remaining)}</small>
       </div>
     </div>
   `;
@@ -1530,6 +1528,7 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
 
