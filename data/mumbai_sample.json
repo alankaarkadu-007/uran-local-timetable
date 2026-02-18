@@ -28,21 +28,21 @@
       "train_no": 99001,
       "route": "Thane → Panvel",
       "stops": [
- {"station":"TNA","time":"00:05","platform":"2 BOTH"},
-{"station":"DIGH","time":"00:10","platform":"2 BOTH"},
-{"station":"AIRL","time":"00:13","platform":"2 BOTH"},
-{"station":"RABE","time":"00:16","platform":"2 BOTH"},
-{"station":"GNSL","time":"00:19","platform":"2 BOTH"},
-{"station":"KPHN","time":"00:22","platform":"2 BOTH"},
-{"station":"TUH","time":"00:26","platform":"2 BOTH"},
-{"station":"JNJ","time":"00:30","platform":"2 BOTH"},
-{"station":"NEU","time":"00:34","platform":"2 BOTH"},
-{"station":"SWDV","time":"00:38","platform":"2 BOTH"},
-{"station":"BEPR","time":"00:42","platform":"2 BOTH"},
-{"station":"KHAG","time":"00:46","platform":"2 BOTH"},
-{"station":"MANR","time":"00:49","platform":"2 BOTH"},
-{"station":"KNDS","time":"00:52","platform":"2 BOTH"},
-{"station":"PNVL","time":"00:57","platform":"2 BOTH"}
+ {"station":"TNA","time":"00:05","platform":"9/10"},
+{"station":"DIGH","time":"00:10","platform":"2 LEFT"},
+{"station":"AIRL","time":"00:13","platform":"1 BOTH"},
+{"station":"RABE","time":"00:16","platform":"1 BOTH"},
+{"station":"GNSL","time":"00:19","platform":"1 BOTH"},
+{"station":"KPHN","time":"00:22","platform":"1 BOTH"},
+{"station":"TUH","time":"00:26","platform":"1 BOTH"},
+{"station":"JNJ","time":"00:30","platform":"1 BOTH"},
+{"station":"NEU","time":"00:34","platform":"1 BOTH"},
+{"station":"SWDV","time":"00:38","platform":"1 BOTH"},
+{"station":"BEPR","time":"00:42","platform":"1 BOTH"},
+{"station":"KHAG","time":"00:46","platform":"1 BOTH"},
+{"station":"MANR","time":"00:49","platform":"3 BOTH"},
+{"station":"KNDS","time":"00:52","platform":"1 BOTH"},
+{"station":"PNVL","time":"00:57","platform":"0"}
 ]
     }
   ]
