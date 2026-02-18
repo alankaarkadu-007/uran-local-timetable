@@ -25,6 +25,174 @@
       ]
     },
     {
+      "train_no": 99002,
+      "route": "Panvel → Thane",
+      "stops": [
+        {"station":"PNVL","time":"04:33","platform":"0"},
+{"station":"KNDS","time":"04:38","platform":"2 RIGHT"},
+{"station":"MANR","time":"04:41","platform":"4 BOTH"},
+{"station":"KHAG","time":"04:44","platform":"2 BOTH"},
+{"station":"BEPR","time":"04:48","platform":"3 BOTH"},
+{"station":"SWDV","time":"04:52","platform":"2 RIGHT"},
+{"station":"NEU","time":"04:56","platform":"2 BOTH"},
+{"station":"JNJ","time":"05:00","platform":"2 BOTH"},
+{"station":"TUH","time":"05:04","platform":"2 BOTH"},
+{"station":"KPHN","time":"05:08","platform":"2 BOTH"},
+{"station":"GNSL","time":"05:11","platform":"2 BOTH"},
+{"station":"RABE","time":"05:14","platform":"2 BOTH"},
+{"station":"AIRL","time":"05:17","platform":"2 BOTH"},
+{"station":"DIGH","time":"05:20","platform":"3 LEFT"},
+{"station":"TNA","time":"05:25","platform":"9/10"}
+      ]
+    },
+    {
+      "train_no": 99004,
+      "route": "Panvel → Thane",
+      "stops": [
+        {"station":"PNVL","time":"04:53","platform":"0"},
+{"station":"KNDS","time":"04:58","platform":"2 RIGHT"},
+{"station":"MANR","time":"05:01","platform":"4 BOTH"},
+{"station":"KHAG","time":"05:04","platform":"2 BOTH"},
+{"station":"BEPR","time":"05:08","platform":"3 BOTH"},
+{"station":"SWDV","time":"05:12","platform":"2 RIGHT"},
+{"station":"NEU","time":"05:16","platform":"2 BOTH"},
+{"station":"JNJ","time":"05:20","platform":"2 BOTH"},
+{"station":"TUH","time":"05:24","platform":"2 BOTH"},
+{"station":"KPHN","time":"05:28","platform":"2 BOTH"},
+{"station":"GNSL","time":"05:31","platform":"2 BOTH"},
+{"station":"RABE","time":"05:34","platform":"2 BOTH"},
+{"station":"AIRL","time":"05:37","platform":"2 BOTH"},
+{"station":"DIGH","time":"05:40","platform":"3 LEFT"},
+{"station":"TNA","time":"05:45","platform":"9/10"}
+      ]
+    },
+    {
+      "train_no": 99006,
+      "route": "Panvel → Thane",
+      "stops": [
+        {"station":"PNVL","time":"05:21","platform":"0"},
+{"station":"KNDS","time":"05:26","platform":"2 RIGHT"},
+{"station":"MANR","time":"05:29","platform":"4 BOTH"},
+{"station":"KHAG","time":"05:32","platform":"2 BOTH"},
+{"station":"BEPR","time":"05:36","platform":"3 BOTH"},
+{"station":"SWDV","time":"05:40","platform":"2 RIGHT"},
+{"station":"NEU","time":"05:44","platform":"2 BOTH"},
+{"station":"JNJ","time":"05:48","platform":"2 BOTH"},
+{"station":"TUH","time":"05:52","platform":"2 BOTH"},
+{"station":"KPHN","time":"05:56","platform":"2 BOTH"},
+{"station":"GNSL","time":"05:59","platform":"2 BOTH"},
+{"station":"RABE","time":"06:02","platform":"2 BOTH"},
+{"station":"AIRL","time":"06:05","platform":"2 BOTH"},
+{"station":"DIGH","time":"06:08","platform":"3 LEFT"},
+{"station":"TNA","time":"06:13","platform":"9/10"}
+      ]
+    },
+    {
+      "train_no": 99008,
+      "route": "Panvel → Thane",
+      "stops": [
+        {"station":"PNVL","time":"05:44","platform":"0"},
+{"station":"KNDS","time":"05:49","platform":"2 RIGHT"},
+{"station":"MANR","time":"05:52","platform":"4 BOTH"},
+{"station":"KHAG","time":"05:55","platform":"2 BOTH"},
+{"station":"BEPR","time":"05:59","platform":"3 BOTH"},
+{"station":"SWDV","time":"06:03","platform":"2 RIGHT"},
+{"station":"NEU","time":"06:07","platform":"2 BOTH"},
+{"station":"JNJ","time":"06:11","platform":"2 BOTH"},
+{"station":"TUH","time":"06:15","platform":"2 BOTH"},
+{"station":"KPHN","time":"06:19","platform":"2 BOTH"},
+{"station":"GNSL","time":"06:22","platform":"2 BOTH"},
+{"station":"RABE","time":"06:25","platform":"2 BOTH"},
+{"station":"AIRL","time":"06:28","platform":"2 BOTH"},
+{"station":"DIGH","time":"06:31","platform":"3 LEFT"},
+{"station":"TNA","time":"06:38","platform":"9/10"}
+      ]
+    },
+    {
+      "train_no": 99010,
+      "route": "Panvel → Thane",
+      "stops": [
+        {"station":"PNVL","time":"06:13","platform":"0"},
+{"station":"KNDS","time":"06:18","platform":"2 RIGHT"},
+{"station":"MANR","time":"06:21","platform":"4 BOTH"},
+{"station":"KHAG","time":"06:24","platform":"2 BOTH"},
+{"station":"BEPR","time":"06:28","platform":"3 BOTH"},
+{"station":"SWDV","time":"06:32","platform":"2 RIGHT"},
+{"station":"NEU","time":"06:36","platform":"2 BOTH"},
+{"station":"JNJ","time":"06:40","platform":"2 BOTH"},
+{"station":"TUH","time":"06:44","platform":"2 BOTH"},
+{"station":"KPHN","time":"06:48","platform":"2 BOTH"},
+{"station":"GNSL","time":"06:51","platform":"2 BOTH"},
+{"station":"RABE","time":"06:54","platform":"2 BOTH"},
+{"station":"AIRL","time":"06:57","platform":"2 BOTH"},
+{"station":"DIGH","time":"07:00","platform":"3 LEFT"},
+{"station":"TNA","time":"07:05","platform":"9/10"}
+      ]
+    },
+    {
+      "train_no": 99012,
+      "route": "Panvel → Thane",
+      "stops": [
+        {"station":"PNVL","time":"06:37","platform":"0"},
+{"station":"KNDS","time":"06:42","platform":"2 RIGHT"},
+{"station":"MANR","time":"06:45","platform":"4 BOTH"},
+{"station":"KHAG","time":"06:48","platform":"2 BOTH"},
+{"station":"BEPR","time":"06:52","platform":"3 BOTH"},
+{"station":"SWDV","time":"06:56","platform":"2 RIGHT"},
+{"station":"NEU","time":"07:00","platform":"2 BOTH"},
+{"station":"JNJ","time":"07:04","platform":"2 BOTH"},
+{"station":"TUH","time":"07:08","platform":"2 BOTH"},
+{"station":"KPHN","time":"07:12","platform":"2 BOTH"},
+{"station":"GNSL","time":"07:15","platform":"2 BOTH"},
+{"station":"RABE","time":"07:18","platform":"2 BOTH"},
+{"station":"AIRL","time":"07:21","platform":"2 BOTH"},
+{"station":"DIGH","time":"07:24","platform":"3 LEFT"},
+{"station":"TNA","time":"07:29","platform":"9/10"}
+      ]
+    },
+    {
+      "train_no": 99014,
+      "route": "Panvel → Thane",
+      "stops": [
+        {"station":"PNVL","time":"07:01","platform":"0"},
+{"station":"KNDS","time":"07:06","platform":"2 RIGHT"},
+{"station":"MANR","time":"07:09","platform":"4 BOTH"},
+{"station":"KHAG","time":"07:12","platform":"2 BOTH"},
+{"station":"BEPR","time":"07:16","platform":"3 BOTH"},
+{"station":"SWDV","time":"07:20","platform":"2 RIGHT"},
+{"station":"NEU","time":"07:24","platform":"2 BOTH"},
+{"station":"JNJ","time":"07:28","platform":"2 BOTH"},
+{"station":"TUH","time":"07:32","platform":"2 BOTH"},
+{"station":"KPHN","time":"07:36","platform":"2 BOTH"},
+{"station":"GNSL","time":"07:39","platform":"2 BOTH"},
+{"station":"RABE","time":"07:42","platform":"2 BOTH"},
+{"station":"AIRL","time":"07:45","platform":"2 BOTH"},
+{"station":"DIGH","time":"07:48","platform":"3 LEFT"},
+{"station":"TNA","time":"07:53","platform":"9/10"}
+      ]
+    },
+    {
+      "train_no": 99016,
+      "route": "Panvel → Thane",
+      "stops": [
+        {"station":"PNVL","time":"07:18","platform":"0"},
+{"station":"KNDS","time":"07:23","platform":"2 RIGHT"},
+{"station":"MANR","time":"07:26","platform":"4 BOTH"},
+{"station":"KHAG","time":"07:29","platform":"2 BOTH"},
+{"station":"BEPR","time":"07:33","platform":"3 BOTH"},
+{"station":"SWDV","time":"07:37","platform":"2 RIGHT"},
+{"station":"NEU","time":"07:41","platform":"2 BOTH"},
+{"station":"JNJ","time":"07:45","platform":"2 BOTH"},
+{"station":"TUH","time":"07:51","platform":"2 BOTH"},
+{"station":"KPHN","time":"07:55","platform":"2 BOTH"},
+{"station":"GNSL","time":"07:58","platform":"2 BOTH"},
+{"station":"RABE","time":"08:01","platform":"2 BOTH"},
+{"station":"AIRL","time":"08:04","platform":"2 BOTH"},
+{"station":"DIGH","time":"08:07","platform":"3 LEFT"},
+{"station":"TNA","time":"08:12","platform":"9/10"}
+      ]
+    },
+    {
       "train_no": 99001,
       "route": "Thane → Panvel",
       "stops": [
