@@ -1349,7 +1349,7 @@ function renderMumbaiPlatforms(platformMap){
   `;
 
   const sortedPlatforms = Object.keys(platformMap)
-    .sort((a,b)=>a-b);
+    .sort((a,b)=>parseInt(a) - parseInt(b));
 
   const now = new Date();
   const nowMin = now.getHours()*60 + now.getMinutes();
@@ -1535,6 +1535,7 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
 
