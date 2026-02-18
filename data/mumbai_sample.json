@@ -4,27 +4,6 @@
 
   "trains": [
     {
-      "train_no": 99036,
-      "route": "Panvel → Thane",
-      "stops": [
-        {"station":"PNVL","time":"13:04","platform":"0"},
-        {"station":"KNDS","time":"13:09","platform":"2 RIGHT"},
-        {"station":"MANR","time":"13:12","platform":"4 BOTH"},
-        {"station":"KHAG","time":"13:15","platform":"2 BOTH"},
-        {"station":"BEPR","time":"13:19","platform":"3 BOTH"},
-        {"station":"SWDV","time":"13:23","platform":"2 RIGHT"},
-        {"station":"NEU","time":"13:27","platform":"2 BOTH"},
-        {"station":"JNJ","time":"13:31","platform":"2 BOTH"},
-        {"station":"TUH","time":"13:35","platform":"2 BOTH"},
-        {"station":"KPHN","time":"13:39","platform":"2 BOTH"},
-        {"station":"GNSL","time":"13:42","platform":"2 BOTH"},
-        {"station":"RABE","time":"13:45","platform":"2 BOTH"},
-        {"station":"AIRL","time":"13:48","platform":"2 BOTH"},
-        {"station":"DIGH","time":"13:51","platform":"3 LEFT"},
-        {"station":"TNA","time":"13:56","platform":"9/10"}
-      ]
-    },
-    {
       "train_no": 99002,
       "route": "Panvel → Thane",
       "stops": [
@@ -190,6 +169,27 @@
 {"station":"AIRL","time":"08:04","platform":"2 BOTH"},
 {"station":"DIGH","time":"08:07","platform":"3 LEFT"},
 {"station":"TNA","time":"08:12","platform":"9/10"}
+      ]
+    },
+    {
+      "train_no": 99036,
+      "route": "Panvel → Thane",
+      "stops": [
+        {"station":"PNVL","time":"13:04","platform":"0"},
+        {"station":"KNDS","time":"13:09","platform":"2 RIGHT"},
+        {"station":"MANR","time":"13:12","platform":"4 BOTH"},
+        {"station":"KHAG","time":"13:15","platform":"2 BOTH"},
+        {"station":"BEPR","time":"13:19","platform":"3 BOTH"},
+        {"station":"SWDV","time":"13:23","platform":"2 RIGHT"},
+        {"station":"NEU","time":"13:27","platform":"2 BOTH"},
+        {"station":"JNJ","time":"13:31","platform":"2 BOTH"},
+        {"station":"TUH","time":"13:35","platform":"2 BOTH"},
+        {"station":"KPHN","time":"13:39","platform":"2 BOTH"},
+        {"station":"GNSL","time":"13:42","platform":"2 BOTH"},
+        {"station":"RABE","time":"13:45","platform":"2 BOTH"},
+        {"station":"AIRL","time":"13:48","platform":"2 BOTH"},
+        {"station":"DIGH","time":"13:51","platform":"3 LEFT"},
+        {"station":"TNA","time":"13:56","platform":"9/10"}
       ]
     },
     {
