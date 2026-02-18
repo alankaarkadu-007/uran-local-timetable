@@ -7,21 +7,7 @@
       "train_no": 99002,
       "route": "Panvel → Thane",
       "stops": [
-        {"station":"PNVL","time":"04:33","platform":"0"},
-{"station":"KNDS","time":"04:38","platform":"2 RIGHT"},
-{"station":"MANR","time":"04:41","platform":"4 BOTH"},
-{"station":"KHAG","time":"04:44","platform":"2 BOTH"},
-{"station":"BEPR","time":"04:48","platform":"3 BOTH"},
-{"station":"SWDV","time":"04:52","platform":"2 RIGHT"},
-{"station":"NEU","time":"04:56","platform":"2 BOTH"},
-{"station":"JNJ","time":"05:00","platform":"2 BOTH"},
-{"station":"TUH","time":"05:04","platform":"2 BOTH"},
-{"station":"KPHN","time":"05:08","platform":"2 BOTH"},
-{"station":"GNSL","time":"05:11","platform":"2 BOTH"},
-{"station":"RABE","time":"05:14","platform":"2 BOTH"},
-{"station":"AIRL","time":"05:17","platform":"2 BOTH"},
-{"station":"DIGH","time":"05:20","platform":"3 LEFT"},
-{"station":"TNA","time":"05:25","platform":"9/10"}
+        {"station":"PNVL","time":"04:33","platform":"0"},{"station":"KNDS","time":"04:38","platform":"2 RIGHT"},{"station":"MANR","time":"04:41","platform":"4 BOTH"},{"station":"KHAG","time":"04:44","platform":"2 BOTH"},{"station":"BEPR","time":"04:48","platform":"3 BOTH"},{"station":"SWDV","time":"04:52","platform":"2 RIGHT"},{"station":"NEU","time":"04:56","platform":"2 BOTH"},{"station":"JNJ","time":"05:00","platform":"2 BOTH"},{"station":"TUH","time":"05:04","platform":"2 BOTH"},{"station":"KPHN","time":"05:08","platform":"2 BOTH"},{"station":"GNSL","time":"05:11","platform":"2 BOTH"},{"station":"RABE","time":"05:14","platform":"2 BOTH"},{"station":"AIRL","time":"05:17","platform":"2 BOTH"},{"station":"DIGH","time":"05:20","platform":"3 LEFT"},{"station":"TNA","time":"05:25","platform":"9/10"}
       ]
     },
     {
@@ -295,6 +281,21 @@
 {"station":"MANR","time":"08:48","platform":"3 BOTH"},
 {"station":"KNDS","time":"08:51","platform":"1 BOTH"},
 {"station":"PNVL","time":"08:56","platform":"0"}
+]
+    },
+    {
+      "train_no": 99401,
+      "route": "Thane → Vashi",
+      "stops": [
+{"station":"TNA","time":"05:25","platform":"9/10"},
+{"station":"DIGH","time":"05:30","platform":"2 LEFT"},
+{"station":"AIRL","time":"05:33","platform":"1 BOTH"},
+{"station":"RABE","time":"05:36","platform":"1 BOTH"},
+{"station":"GNSL","time":"05:39","platform":"1 BOTH"},
+{"station":"KPHN","time":"05:42","platform":"1 BOTH"},
+{"station":"TUH","time":"05:46","platform":"3 BOTH"},
+{"station":"SNPD","time":"05:50","platform":"2 BOTH"},
+{"station":"VSH","time":"05:54","platform":"1/2 BOTH"}
 ]
     }
   ]
