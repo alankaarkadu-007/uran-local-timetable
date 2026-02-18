@@ -1267,23 +1267,29 @@ function processMumbaiStation(){
       if(stop.station === selectedStation){
 
         const [h,m] = stop.time.split(":").map(Number);
-        let trainMin = h*60 + m;
+        const originalMin = h*60 + m;
 
-        // Midnight rollover fix
-        if(trainMin < nowMin){
-          trainMin += 1440;
+        let adjustedMin = originalMin;
+
+        // If already passed today, treat as next day
+        if(originalMin < nowMin){
+          adjustedMin += 1440;
         }
 
-        // If platform not yet stored OR earlier than stored one
-        if(
-          !platformMap[stop.platform] ||
-          trainMin < platformMap[stop.platform].timeMin
-        ){
-          platformMap[stop.platform] = {
-            route: train.route,
-            time: stop.time,
-            timeMin: trainMin
-          };
+        // 🔥 ONLY consider trains that are within next 24 hours
+        if(adjustedMin - nowMin <= 1440){
+
+          if(
+            !platformMap[stop.platform] ||
+            adjustedMin < platformMap[stop.platform].timeMin
+          ){
+            platformMap[stop.platform] = {
+              route: train.route,
+              time: stop.time,
+              timeMin: adjustedMin
+            };
+          }
+
         }
 
       }
@@ -1529,6 +1535,7 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
 
