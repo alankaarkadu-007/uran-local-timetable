@@ -1258,31 +1258,32 @@ function processMumbaiStation(){
   const now = new Date();
   const nowMin = now.getHours()*60 + now.getMinutes();
 
-  let nextTrainOverall = null;
+  let platformMap = {};
 
-  mumbaiData.trains.forEach(train=>{
+  mumbaiData.trains.forEach(train => {
 
-    train.stops.forEach(stop=>{
+    train.stops.forEach(stop => {
 
       if(stop.station === selectedStation){
 
         const [h,m] = stop.time.split(":").map(Number);
-        const trainMin = h*60 + m;
+        let trainMin = h*60 + m;
 
-        // ONLY today upcoming trains
-        if(trainMin >= nowMin){
+        // Midnight rollover fix
+        if(trainMin < nowMin){
+          trainMin += 1440;
+        }
 
-          if(!nextTrainOverall || trainMin < nextTrainOverall.timeMin){
-
-            nextTrainOverall = {
-              platform: stop.platform,
-              train_no: train.train_no,
-              route: train.route,
-              time: stop.time,
-              timeMin: trainMin
-            };
-          }
-
+        // If platform not yet stored OR earlier than stored one
+        if(
+          !platformMap[stop.platform] ||
+          trainMin < platformMap[stop.platform].timeMin
+        ){
+          platformMap[stop.platform] = {
+            route: train.route,
+            time: stop.time,
+            timeMin: trainMin
+          };
         }
 
       }
@@ -1291,7 +1292,7 @@ function processMumbaiStation(){
 
   });
 
-  renderSingleMumbaiTrain(nextTrainOverall);
+  renderMumbaiPlatforms(platformMap);
 }
 
 function renderSingleMumbaiTrain(train){
@@ -1528,6 +1529,7 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
 
