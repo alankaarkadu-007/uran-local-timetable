@@ -502,6 +502,7 @@ let currentMode = "uran";  // default mode
 
 // ===== MUMBAI DATA CACHE =====
 let mumbaiData = null;
+let sundayWarning = false;
 
 const stations={
  URAN:{en:'Uran (उरण)',mr:'उरण (Uran)'},
@@ -1252,8 +1253,27 @@ function loadMumbaiStationData(){
   }
 }
 
-function processMumbaiStation(){
+function isTrainRunningToday(train){
 
+  const today = new Date().getDay(); 
+  // 0 = Sunday, 1 = Monday ... 6 = Saturday
+
+  if(!train.runs_on || train.runs_on === "Daily"){
+    return true;
+  }
+
+  if(train.runs_on === "Mon-Sat"){
+    return today !== 0; // Sunday ला false
+  }
+
+  return true;
+}
+	
+function processMumbaiStation(){
+	
+sundayWarning = false;   // Reset every time
+const today = new Date().getDay();
+	
   const selectedStation = station.value;
   const now = new Date();
   const nowMin = now.getHours()*60 + now.getMinutes();
@@ -1261,7 +1281,14 @@ function processMumbaiStation(){
   let platformMap = {};
 
   mumbaiData.trains.forEach(train => {
+if(!isTrainRunningToday(train)){
 
+   if(today === 0 && train.runs_on === "Mon-Sat"){
+       sundayWarning = true;
+   }
+
+   return;
+}
     train.stops.forEach(stop => {
 
       if(stop.station === selectedStation){
@@ -1304,11 +1331,17 @@ function processMumbaiStation(){
 function renderSingleMumbaiTrain(train){
 
   if(!train){
-    nextTrain.innerHTML = "No more trains today";
-    list.innerHTML = "";
-    return;
+
+  let msg = "No more trains today";
+
+  if(sundayWarning){
+     msg += "<br><small style='color:red'>Will not run on Sunday / Holiday</small>";
   }
 
+  nextTrain.innerHTML = msg;
+  list.innerHTML = "";
+  return;
+}
   const now = new Date();
   const nowMin = now.getHours()*60 + now.getMinutes();
   const remaining = train.timeMin - nowMin;
@@ -1535,6 +1568,7 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
 
