@@ -424,6 +424,86 @@
       {"station":"SNPD","time":"08:32","platform":"2 BOTH"},
       {"station":"VSH","time":"08:37","platform":"1/2 BOTH"}
     ]
+  },
+    {
+    "train_no": 99201,
+    "route": "Thane → Nerul",
+    "runs_on": "Daily",
+    "stops": [
+      {"station":"TNA","time":"05:40","platform":"9/10"},
+      {"station":"DIGH","time":"05:45","platform":"2 LEFT"},
+      {"station":"AIRL","time":"05:48","platform":"1 BOTH"},
+      {"station":"RABE","time":"05:51","platform":"1 BOTH"},
+      {"station":"GNSL","time":"05:54","platform":"1 BOTH"},
+      {"station":"KPHN","time":"05:57","platform":"1 BOTH"},
+      {"station":"TUH","time":"06:01","platform":"1 BOTH"},
+      {"station":"JNJ","time":"06:05","platform":"1 BOTH"},
+      {"station":"NEU","time":"06:10","platform":"1 BOTH"}
+    ]
+  },
+  {
+    "train_no": 99203,
+    "route": "Thane → Nerul",
+    "runs_on": "Daily",
+    "stops": [
+      {"station":"TNA","time":"06:27","platform":"9/10"},
+      {"station":"DIGH","time":"06:32","platform":"2 LEFT"},
+      {"station":"AIRL","time":"06:35","platform":"1 BOTH"},
+      {"station":"RABE","time":"06:38","platform":"1 BOTH"},
+      {"station":"GNSL","time":"06:41","platform":"1 BOTH"},
+      {"station":"KPHN","time":"06:44","platform":"1 BOTH"},
+      {"station":"TUH","time":"06:48","platform":"1 BOTH"},
+      {"station":"JNJ","time":"06:52","platform":"1 BOTH"},
+      {"station":"NEU","time":"06:57","platform":"1 BOTH"}
+    ]
+  },
+  {
+    "train_no": 99205,
+    "route": "Thane → Nerul",
+    "runs_on": "Mon-Sat",
+    "stops": [
+      {"station":"TNA","time":"06:46","platform":"9/10"},
+      {"station":"DIGH","time":"06:51","platform":"2 LEFT"},
+      {"station":"AIRL","time":"06:54","platform":"1 BOTH"},
+      {"station":"RABE","time":"06:57","platform":"1 BOTH"},
+      {"station":"GNSL","time":"07:00","platform":"1 BOTH"},
+      {"station":"KPHN","time":"07:03","platform":"1 BOTH"},
+      {"station":"TUH","time":"07:07","platform":"1 BOTH"},
+      {"station":"JNJ","time":"07:11","platform":"1 BOTH"},
+      {"station":"NEU","time":"07:18","platform":"1 BOTH"}
+    ]
+  },
+  {
+    "train_no": 99207,
+    "route": "Thane → Nerul",
+    "runs_on": "Daily",
+    "stops": [
+      {"station":"TNA","time":"07:23","platform":"9/10"},
+      {"station":"DIGH","time":"07:28","platform":"2 LEFT"},
+      {"station":"AIRL","time":"07:31","platform":"1 BOTH"},
+      {"station":"RABE","time":"07:34","platform":"1 BOTH"},
+      {"station":"GNSL","time":"07:37","platform":"1 BOTH"},
+      {"station":"KPHN","time":"07:40","platform":"1 BOTH"},
+      {"station":"TUH","time":"07:44","platform":"1 BOTH"},
+      {"station":"JNJ","time":"07:48","platform":"1 BOTH"},
+      {"station":"NEU","time":"07:53","platform":"1 BOTH"}
+    ]
+  },
+  {
+    "train_no": 99209,
+    "route": "Thane → Nerul",
+    "runs_on": "Daily",
+    "stops": [
+      {"station":"TNA","time":"07:43","platform":"9/10"},
+      {"station":"DIGH","time":"07:48","platform":"2 LEFT"},
+      {"station":"AIRL","time":"07:51","platform":"1 BOTH"},
+      {"station":"RABE","time":"07:54","platform":"1 BOTH"},
+      {"station":"GNSL","time":"07:57","platform":"1 BOTH"},
+      {"station":"KPHN","time":"08:00","platform":"1 BOTH"},
+      {"station":"TUH","time":"08:04","platform":"1 BOTH"},
+      {"station":"JNJ","time":"08:08","platform":"1 BOTH"},
+      {"station":"NEU","time":"08:13","platform":"1 BOTH"}
+    ]
   }
   ]
 }
