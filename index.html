@@ -1360,7 +1360,7 @@ function renderSingleMumbaiTrain(train){
         </div>
       </div>
       <div class="rv-no">
-        ${train.time} <br>
+        ${to12h(train.time)} <br>
         <small>${formatArrival(remaining)}</small>
       </div>
     </div>
@@ -1568,6 +1568,7 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
 
