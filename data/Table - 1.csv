@@ -1,0 +1,34 @@
+Route,Station,Platform
+Thane ? Panvel,Thane,9/10
+Thane ? Panvel,DIGH,2 LEFT
+Thane ? Panvel,AIRL,1 BOTH
+Thane ? Panvel,RABE,1 BOTH
+Thane ? Panvel,GNSL,1 BOTH
+Thane ? Panvel,KPHN,1 BOTH
+Thane ? Panvel,TUH,1 BOTH
+Thane ? Panvel,JNJ,1 BOTH
+Thane ? Panvel,NEU,1 BOTH
+Thane ? Panvel,SWDV,1 BOTH
+Thane ? Panvel,BEPR,1 BOTH
+Thane ? Panvel,KHAG,1 BOTH
+Thane ? Panvel,MANR,3 BOTH
+Thane ? Panvel,KNDS,1 BOTH
+Thane ? Panvel,PNVL,
+Thane ? Vashi,Thane,9/10
+Thane ? Vashi,DIGH,2 LEFT
+Thane ? Vashi,AIRL,1 BOTH
+Thane ? Vashi,RABE,1 BOTH
+Thane ? Vashi,GNSL,1 BOTH
+Thane ? Vashi,KPHN,1 BOTH
+Thane ? Vashi,TUH,3 BOTH
+Thane ? Vashi,SNPD,2 BOTH
+Thane ? Vashi,VSH,1/2 BOTH
+Thane ? Nerul,Thane,9/10
+Thane ? Nerul,DIGH,2 LEFT
+Thane ? Nerul,AIRL,1 BOTH
+Thane ? Nerul,RABE,1 BOTH
+Thane ? Nerul,GNSL,1 BOTH
+Thane ? Nerul,KPHN,1 BOTH
+Thane ? Nerul,TUH,1 BOTH
+Thane ? Nerul,JNJ,1 BOTH
+Thane ? Nerul,NEU,1 BOTH
