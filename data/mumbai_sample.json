@@ -297,6 +297,133 @@
 {"station":"SNPD","time":"05:50","platform":"2 BOTH"},
 {"station":"VSH","time":"05:54","platform":"1/2 BOTH"}
 ]
-    }
+    },
+    {
+  "train_no": 99403,
+  "route": "Thane → Vashi",
+  "stops": [
+    {"station":"TNA","time":"05:53","platform":"9/10"},
+    {"station":"DIGH","time":"05:58","platform":"2 LEFT"},
+    {"station":"AIRL","time":"06:01","platform":"1 BOTH"},
+    {"station":"RABE","time":"06:04","platform":"1 BOTH"},
+    {"station":"GNSL","time":"06:07","platform":"1 BOTH"},
+    {"station":"KPHN","time":"06:10","platform":"1 BOTH"},
+    {"station":"TUH","time":"06:14","platform":"3 BOTH"},
+    {"station":"SNPD","time":"06:18","platform":"2 BOTH"},
+    {"station":"VSH","time":"06:22","platform":"1/2 BOTH"}
+  ]
+},
+  {
+    "train_no": 99405,
+    "route": "Thane → Vashi",
+    "runs_on": "Daily",
+    "stops": [
+      {"station":"TNA","time":"06:09","platform":"9/10"},
+      {"station":"DIGH","time":"06:14","platform":"2 LEFT"},
+      {"station":"AIRL","time":"06:17","platform":"1 BOTH"},
+      {"station":"RABE","time":"06:20","platform":"1 BOTH"},
+      {"station":"GNSL","time":"06:23","platform":"1 BOTH"},
+      {"station":"KPHN","time":"06:26","platform":"1 BOTH"},
+      {"station":"TUH","time":"06:30","platform":"3 BOTH"},
+      {"station":"SNPD","time":"06:34","platform":"2 BOTH"},
+      {"station":"VSH","time":"06:38","platform":"1/2 BOTH"}
+    ]
+  },
+  {
+    "train_no": 99407,
+    "route": "Thane → Vashi",
+    "runs_on": "Daily",
+    "stops": [
+      {"station":"TNA","time":"06:39","platform":"9/10"},
+      {"station":"DIGH","time":"06:44","platform":"2 LEFT"},
+      {"station":"AIRL","time":"06:47","platform":"1 BOTH"},
+      {"station":"RABE","time":"06:50","platform":"1 BOTH"},
+      {"station":"GNSL","time":"06:53","platform":"1 BOTH"},
+      {"station":"KPHN","time":"06:56","platform":"1 BOTH"},
+      {"station":"TUH","time":"07:00","platform":"3 BOTH"},
+      {"station":"SNPD","time":"07:04","platform":"2 BOTH"},
+      {"station":"VSH","time":"07:08","platform":"1/2 BOTH"}
+    ]
+  },
+  {
+    "train_no": 99409,
+    "route": "Thane → Vashi",
+    "runs_on": "Daily",
+    "stops": [
+      {"station":"TNA","time":"06:59","platform":"9/10"},
+      {"station":"DIGH","time":"07:04","platform":"2 LEFT"},
+      {"station":"AIRL","time":"07:07","platform":"1 BOTH"},
+      {"station":"RABE","time":"07:10","platform":"1 BOTH"},
+      {"station":"GNSL","time":"07:13","platform":"1 BOTH"},
+      {"station":"KPHN","time":"07:16","platform":"1 BOTH"},
+      {"station":"TUH","time":"07:20","platform":"3 BOTH"},
+      {"station":"SNPD","time":"07:24","platform":"2 BOTH"},
+      {"station":"VSH","time":"07:28","platform":"1/2 BOTH"}
+    ]
+  },
+  {
+    "train_no": 99411,
+    "route": "Thane → Vashi",
+    "runs_on": "Daily",
+    "stops": [
+      {"station":"TNA","time":"07:17","platform":"9/10"},
+      {"station":"DIGH","time":"07:22","platform":"2 LEFT"},
+      {"station":"AIRL","time":"07:25","platform":"1 BOTH"},
+      {"station":"RABE","time":"07:28","platform":"1 BOTH"},
+      {"station":"GNSL","time":"07:31","platform":"1 BOTH"},
+      {"station":"KPHN","time":"07:34","platform":"1 BOTH"},
+      {"station":"TUH","time":"07:38","platform":"3 BOTH"},
+      {"station":"SNPD","time":"07:42","platform":"2 BOTH"},
+      {"station":"VSH","time":"07:46","platform":"1/2 BOTH"}
+    ]
+  },
+  {
+    "train_no": 99413,
+    "route": "Thane → Vashi",
+    "runs_on": "Daily",
+    "stops": [
+      {"station":"TNA","time":"07:35","platform":"9/10"},
+      {"station":"DIGH","time":"07:40","platform":"2 LEFT"},
+      {"station":"AIRL","time":"07:43","platform":"1 BOTH"},
+      {"station":"RABE","time":"07:46","platform":"1 BOTH"},
+      {"station":"GNSL","time":"07:49","platform":"1 BOTH"},
+      {"station":"KPHN","time":"07:52","platform":"1 BOTH"},
+      {"station":"TUH","time":"07:56","platform":"3 BOTH"},
+      {"station":"SNPD","time":"08:00","platform":"2 BOTH"},
+      {"station":"VSH","time":"08:04","platform":"1/2 BOTH"}
+    ]
+  },
+  {
+    "train_no": 99415,
+    "route": "Thane → Vashi",
+    "runs_on": "Daily",
+    "stops": [
+      {"station":"TNA","time":"07:53","platform":"9/10"},
+      {"station":"DIGH","time":"07:58","platform":"2 LEFT"},
+      {"station":"AIRL","time":"08:01","platform":"1 BOTH"},
+      {"station":"RABE","time":"08:04","platform":"1 BOTH"},
+      {"station":"GNSL","time":"08:07","platform":"1 BOTH"},
+      {"station":"KPHN","time":"08:10","platform":"1 BOTH"},
+      {"station":"TUH","time":"08:14","platform":"3 BOTH"},
+      {"station":"SNPD","time":"08:18","platform":"2 BOTH"},
+      {"station":"VSH","time":"08:22","platform":"1/2 BOTH"}
+    ]
+  },
+  {
+    "train_no": 99417,
+    "route": "Thane → Vashi",
+    "runs_on": "Mon-Sat",
+    "stops": [
+      {"station":"TNA","time":"08:07","platform":"9/10"},
+      {"station":"DIGH","time":"08:12","platform":"2 LEFT"},
+      {"station":"AIRL","time":"08:15","platform":"1 BOTH"},
+      {"station":"RABE","time":"08:18","platform":"1 BOTH"},
+      {"station":"GNSL","time":"08:21","platform":"1 BOTH"},
+      {"station":"KPHN","time":"08:24","platform":"1 BOTH"},
+      {"station":"TUH","time":"08:28","platform":"3 BOTH"},
+      {"station":"SNPD","time":"08:32","platform":"2 BOTH"},
+      {"station":"VSH","time":"08:37","platform":"1/2 BOTH"}
+    ]
+  }
   ]
 }
