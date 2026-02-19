@@ -1370,10 +1370,17 @@ function renderSingleMumbaiTrain(train){
 function renderMumbaiPlatforms(platformMap){
 
   if(Object.keys(platformMap).length === 0){
-    nextTrain.innerHTML = "No upcoming trains";
-    list.innerHTML = "";
-    return;
+
+  let msg = "No upcoming trains";
+
+  if(sundayWarning){
+     msg += "<br><small style='color:red'>Will not run on Sunday / Holiday</small>";
   }
+
+  nextTrain.innerHTML = msg;
+  list.innerHTML = "";
+  return;
+}
 
   nextTrain.innerHTML = `
     <div style="font-size:18px;font-weight:700">
@@ -1382,7 +1389,9 @@ function renderMumbaiPlatforms(platformMap){
   `;
 
   const sortedPlatforms = Object.keys(platformMap)
-    .sort((a,b)=>parseInt(a) - parseInt(b));
+    .sort((a,b)=>{
+  return a.localeCompare(b, undefined, {numeric:true});
+});
 
   const now = new Date();
   const nowMin = now.getHours()*60 + now.getMinutes();
@@ -1403,7 +1412,7 @@ function renderMumbaiPlatforms(platformMap){
           </div>
         </div>
         <div class="rv-no">
-          ${t.time} <br>
+          ${to12h(t.time)} <br>
           <small>${formatArrival(remaining)}</small>
         </div>
       </div>
@@ -1568,6 +1577,7 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
 
