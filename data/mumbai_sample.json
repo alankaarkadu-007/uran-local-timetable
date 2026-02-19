@@ -6,6 +6,7 @@
     {
       "train_no": 99002,
       "route": "Panvel → Thane",
+      "runs_on": "Daily",
       "stops": [
         {"station":"PNVL","time":"04:33","platform":"0"},{"station":"KNDS","time":"04:38","platform":"2 RIGHT"},{"station":"MANR","time":"04:41","platform":"4 BOTH"},{"station":"KHAG","time":"04:44","platform":"2 BOTH"},{"station":"BEPR","time":"04:48","platform":"3 BOTH"},{"station":"SWDV","time":"04:52","platform":"2 RIGHT"},{"station":"NEU","time":"04:56","platform":"2 BOTH"},{"station":"JNJ","time":"05:00","platform":"2 BOTH"},{"station":"TUH","time":"05:04","platform":"2 BOTH"},{"station":"KPHN","time":"05:08","platform":"2 BOTH"},{"station":"GNSL","time":"05:11","platform":"2 BOTH"},{"station":"RABE","time":"05:14","platform":"2 BOTH"},{"station":"AIRL","time":"05:17","platform":"2 BOTH"},{"station":"DIGH","time":"05:20","platform":"3 LEFT"},{"station":"TNA","time":"05:25","platform":"9/10"}
       ]
@@ -13,6 +14,7 @@
     {
       "train_no": 99004,
       "route": "Panvel → Thane",
+      "runs_on": "Daily",
       "stops": [
         {"station":"PNVL","time":"04:53","platform":"0"},
 {"station":"KNDS","time":"04:58","platform":"2 RIGHT"},
@@ -34,6 +36,7 @@
     {
       "train_no": 99006,
       "route": "Panvel → Thane",
+      "runs_on": "Daily",
       "stops": [
         {"station":"PNVL","time":"05:21","platform":"0"},
 {"station":"KNDS","time":"05:26","platform":"2 RIGHT"},
@@ -55,6 +58,7 @@
     {
       "train_no": 99008,
       "route": "Panvel → Thane",
+      "runs_on": "Daily",
       "stops": [
         {"station":"PNVL","time":"05:44","platform":"0"},
 {"station":"KNDS","time":"05:49","platform":"2 RIGHT"},
@@ -76,6 +80,7 @@
     {
       "train_no": 99010,
       "route": "Panvel → Thane",
+      "runs_on": "Daily",
       "stops": [
         {"station":"PNVL","time":"06:13","platform":"0"},
 {"station":"KNDS","time":"06:18","platform":"2 RIGHT"},
@@ -97,6 +102,7 @@
     {
       "train_no": 99012,
       "route": "Panvel → Thane",
+      "runs_on": "Daily",
       "stops": [
         {"station":"PNVL","time":"06:37","platform":"0"},
 {"station":"KNDS","time":"06:42","platform":"2 RIGHT"},
@@ -118,6 +124,7 @@
     {
       "train_no": 99014,
       "route": "Panvel → Thane",
+      "runs_on": "Daily",
       "stops": [
         {"station":"PNVL","time":"07:01","platform":"0"},
 {"station":"KNDS","time":"07:06","platform":"2 RIGHT"},
@@ -139,6 +146,7 @@
     {
       "train_no": 99016,
       "route": "Panvel → Thane",
+      "runs_on": "Daily",
       "stops": [
         {"station":"PNVL","time":"07:18","platform":"0"},
 {"station":"KNDS","time":"07:23","platform":"2 RIGHT"},
@@ -160,6 +168,7 @@
     {
       "train_no": 99036,
       "route": "Panvel → Thane",
+      "runs_on": "Daily",
       "stops": [
         {"station":"PNVL","time":"13:04","platform":"0"},
         {"station":"KNDS","time":"13:09","platform":"2 RIGHT"},
@@ -181,6 +190,7 @@
     {
       "train_no": 99001,
       "route": "Thane → Panvel",
+      "runs_on": "Daily",
       "stops": [
  {"station":"TNA","time":"00:05","platform":"9/10"},
 {"station":"DIGH","time":"00:10","platform":"2 LEFT"},
@@ -202,6 +212,7 @@
     {
       "train_no": 99003,
       "route": "Thane → Panvel",
+      "runs_on": "Daily",
       "stops": [
  {"station":"TNA","time":"05:12","platform":"9/10"},
 {"station":"DIGH","time":"05:17","platform":"2 LEFT"},
@@ -223,6 +234,7 @@
     {
       "train_no": 99005,
       "route": "Thane → Panvel",
+      "runs_on": "Daily",
       "stops": [
  {"station":"TNA","time":"06:20","platform":"9/10"},
 {"station":"DIGH","time":"06:25","platform":"2 LEFT"},
@@ -244,6 +256,7 @@
     {
       "train_no": 99007,
       "route": "Thane → Panvel",
+      "runs_on": "Daily",
       "stops": [
  {"station":"TNA","time":"07:04","platform":"9/10"},
 {"station":"DIGH","time":"07:09","platform":"2 LEFT"},
@@ -265,6 +278,7 @@
     {
       "train_no": 99009,
       "route": "Thane → Panvel",
+      "runs_on": "Daily",
       "stops": [
  {"station":"TNA","time":"08:03","platform":"9/10"},
 {"station":"DIGH","time":"08:08","platform":"2 LEFT"},
@@ -286,6 +300,7 @@
     {
       "train_no": 99401,
       "route": "Thane → Vashi",
+      "runs_on": "Daily",
       "stops": [
 {"station":"TNA","time":"05:25","platform":"9/10"},
 {"station":"DIGH","time":"05:30","platform":"2 LEFT"},
@@ -301,6 +316,7 @@
     {
   "train_no": 99403,
   "route": "Thane → Vashi",
+      "runs_on": "Daily",
   "stops": [
     {"station":"TNA","time":"05:53","platform":"9/10"},
     {"station":"DIGH","time":"05:58","platform":"2 LEFT"},
