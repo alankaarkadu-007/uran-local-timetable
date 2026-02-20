@@ -1343,11 +1343,13 @@ function processMumbaiFromCSV(){
 
   let platformMap = {};
 
-  const stationRow = timetableData.find(
-    r => r["Train No."] === selectedStation
-  );
+ const stationRows = timetableData.filter(
+  r => r["Train No."] === selectedStation
+);
 
-  if(!stationRow) return;
+if(stationRows.length === 0) return;
+
+stationRows.forEach(stationRow => {
 
   Object.keys(stationRow).forEach(trainNo => {
 
@@ -1390,6 +1392,8 @@ function processMumbaiFromCSV(){
     }
 
   });
+
+});
 
   renderMumbaiPlatforms(platformMap);
 }
@@ -1642,6 +1646,7 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
 
