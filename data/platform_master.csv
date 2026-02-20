@@ -1,0 +1,67 @@
+route,station,platform
+Thane - Panvel,TNA,9/10*
+Thane - Panvel,DIGH,2 LEFT
+Thane - Panvel,AIRL,1 BOTH
+Thane - Panvel,RABE,1 BOTH
+Thane - Panvel,GNSL,1 BOTH
+Thane - Panvel,KPHN,1 BOTH
+Thane - Panvel,TUH,1 BOTH
+Thane - Panvel,JNJ,1 BOTH
+Thane - Panvel,NEU,1 BOTH
+Thane - Panvel,SWDV,1 BOTH
+Thane - Panvel,BEPR,1 BOTH
+Thane - Panvel,KHAG,1 BOTH
+Thane - Panvel,MANR,3 BOTH
+Thane - Panvel,KNDS,1 BOTH
+Thane - Panvel,PNVL,
+Thane - Vashi,TNA,9/10*
+Thane - Vashi,DIGH,2 LEFT
+Thane - Vashi,AIRL,1 BOTH
+Thane - Vashi,RABE,1 BOTH
+Thane - Vashi,GNSL,1 BOTH
+Thane - Vashi,KPHN,1 BOTH
+Thane - Vashi,TUH,3 BOTH
+Thane - Vashi,SNPD,2 BOTH
+Thane - Vashi,VSH,1/2 BOTH
+Thane - Nerul,TNA,9/10*
+Thane - Nerul,DIGH,2 LEFT
+Thane - Nerul,AIRL,1 BOTH
+Thane - Nerul,RABE,1 BOTH
+Thane - Nerul,GNSL,1 BOTH
+Thane - Nerul,KPHN,1 BOTH
+Thane - Nerul,TUH,1 BOTH
+Thane - Nerul,JNJ,1 BOTH
+Thane - Nerul,NEU,1 BOTH
+Panvel - Thane,PNVL,
+Panvel - Thane,KNDS,2 RIGHT
+Panvel - Thane,MANR,4 BOTH
+Panvel - Thane,KHAG,2 BOTH
+Panvel - Thane,BEPR,3 BOTH
+Panvel - Thane,SWDV,2 RIGHT
+Panvel - Thane,NEU,2 BOTH
+Panvel - Thane,JNJ,2 BOTH
+Panvel - Thane,TUH,2 BOTH
+Panvel - Thane,KPHN,2 BOTH
+Panvel - Thane,GNSL,2 BOTH
+Panvel - Thane,RABE,2 BOTH
+Panvel - Thane,AIRL,2 BOTH
+Panvel - Thane,DIGH,3 LEFT
+Panvel - Thane,TNA,9/10*
+Vashi - Thane,VSH,1/2 BOTH
+Vashi - Thane,SNPD,1 BOTH
+Vashi - Thane,TUH,4 BOTH
+Vashi - Thane,KPHN,2 BOTH
+Vashi - Thane,GNSL,2 BOTH
+Vashi - Thane,RABE,2 BOTH
+Vashi - Thane,AIRL,2 BOTH
+Vashi - Thane,DIGH,3 LEFT
+Vashi - Thane,TNA,9/10*
+Nerul - Thane ,NEU,1 BOTH
+Nerul - Thane ,JNJ,2 BOTH
+Nerul - Thane ,TUH,2 BOTH
+Nerul - Thane ,KPHN,2 BOTH
+Nerul - Thane ,GNSL,2 BOTH
+Nerul - Thane ,RABE,2 BOTH
+Nerul - Thane ,AIRL,2 BOTH
+Nerul - Thane ,DIGH,3 LEFT
+Nerul - Thane ,TNA,9/10*
