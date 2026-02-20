@@ -9,7 +9,8 @@ const FILES_TO_CACHE = [
   // 🔥 CSV DATA FILES
   './data/train_master.csv',
   './data/platform_master.csv',
-  './data/timetables/table-1.csv'
+  './data/timetables/table-1.csv',
+  './data/timetables/table-2.csv'
 ];
 
 /* ===== INSTALL ===== */
