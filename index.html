@@ -352,11 +352,17 @@ font-size:14px;
   <div class="menu" id="menuBtn">☰
   <div class="menu-box" id="menuBox">
 	
-	<div onclick="enableMumbaiMode()">🛰 Mumbai Mode</div>
+	<div onclick="event.stopPropagation(); closeMenu(); enableMumbaiMode();">
+🛰 Mumbai Mode
+</div>
 
-	<div onclick="enableUranMode()">🚆 Uran Mode</div>
+	<div onclick="event.stopPropagation(); closeMenu(); enableUranMode();">
+🚆 Uran Mode
+</div>
 	  
-	<div onclick="closeMenu(); openAlarmMenu()">⏰ Set Train Alarm</div>
+	<div onclick="event.stopPropagation(); closeMenu(); openAlarmMenu();">
+⏰ Set Train Alarm
+</div>
 	  
     <div onclick="toggleLanguage()">🌐 Language: <span id="langLabel">English</span></div>
     <div onclick="manualUpdate()">🔄 Update App</div>
@@ -1149,8 +1155,10 @@ document.addEventListener('click', function(e){
   }
 });
 
-document.getElementById('menuBtn').onclick=()=>{
- menuBox.style.display=menuBox.style.display==='block'?'none':'block';
+document.getElementById('menuBtn').onclick=(e)=>{
+  e.stopPropagation();
+  menuBox.style.display =
+    menuBox.style.display === 'block' ? 'none' : 'block';
 };
 
 function enableNotification(){
@@ -1634,6 +1642,7 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
 
