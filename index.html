@@ -1131,6 +1131,13 @@ station.onchange = function(){
   }
 };
 
+	function closeMenu(){
+  const box = document.getElementById('menuBox');
+  if(box){
+    box.style.display = 'none';
+  }
+}
+	
 /* ================= MENU ================= */
 // Hide menu when clicking outside
 document.addEventListener('click', function(e){
@@ -1165,7 +1172,9 @@ function manualUpdate(){
 // ===== MUMBAI MODE =====
 function enableMumbaiMode(){
 
-	document.body.classList.add("mumbai-theme");
+  closeMenu(); // 🔥 FIRST CLOSE MENU
+
+  document.body.classList.add("mumbai-theme");
 
   currentMode = "mumbai";
 
@@ -1218,12 +1227,11 @@ function enableMumbaiMode(){
 
 function enableUranMode(){
 
-	document.body.classList.remove("mumbai-theme");
+  closeMenu(); // 🔥 FIRST CLOSE MENU
+
+  document.body.classList.remove("mumbai-theme");
 
   currentMode = "uran";
-
-  // Close menu
-  menuBox.style.display = 'none';
 
   // Header reset
   document.querySelector("header h2").innerText = 
@@ -1628,6 +1636,7 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
 
