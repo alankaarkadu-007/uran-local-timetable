@@ -356,7 +356,7 @@ font-size:14px;
 
 	<div onclick="enableUranMode()">🚆 Uran Mode</div>
 	  
-	<div onclick="openAlarmMenu()">⏰ Set Train Alarm</div>
+	<div onclick="closeMenu(); openAlarmMenu()">⏰ Set Train Alarm</div>
 	  
     <div onclick="toggleLanguage()">🌐 Language: <span id="langLabel">English</span></div>
     <div onclick="manualUpdate()">🔄 Update App</div>
@@ -1178,9 +1178,7 @@ function enableMumbaiMode(){
 
   currentMode = "mumbai";
 
-  menuBox.style.display = 'none';
-
-  // Header text change
+   // Header text change
   document.querySelector("header h2").innerText = 
     "🚇 Mumbai Local Mode";
 
@@ -1636,6 +1634,7 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
 
