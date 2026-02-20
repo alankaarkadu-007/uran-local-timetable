@@ -1274,21 +1274,38 @@ function loadMumbaiStationData(){
 
   if(!station.value) return;
 
+  // 🔥 Prepare all timetable fetch promises (table-1 to table-14)
+  const timetableFiles = [];
+
+  for(let i = 1; i <= 14; i++){
+    timetableFiles.push(
+      fetch(`data/timetables/table-${i}.csv`)
+        .then(r => r.text())
+    );
+  }
+
   Promise.all([
     fetch("data/train_master.csv").then(r=>r.text()),
     fetch("data/platform_master.csv").then(r=>r.text()),
-    fetch("data/timetables/table-1.csv").then(r=>r.text())
+    ...timetableFiles
   ])
-  .then(([trainCSV, platformCSV, timetableCSV]) => {
+  .then(([trainCSV, platformCSV, ...timetableCSVs]) => {
 
     trainMaster = parseCSV(trainCSV);
     platformMaster = parseCSV(platformCSV);
-    timetableData = parseCSV(timetableCSV);
+
+    // 🔥 Merge ALL timetable files
+    timetableData = [];
+
+    timetableCSVs.forEach(csv => {
+      const parsed = parseCSV(csv);
+      timetableData = timetableData.concat(parsed);
+    });
 
     processMumbaiFromCSV();
-
   });
 }
+
 function isTrainRunningToday(train){
 
   const today = new Date().getDay();
@@ -1611,6 +1628,7 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
 
