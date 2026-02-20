@@ -448,7 +448,9 @@ font-size:14px;
 /* ===== LANGUAGE ===== */
 // ===== LANGUAGE (remembered) =====
 let lang = localStorage.getItem('appLang') || 'en'; // default English
-
+let trainMaster = [];
+let platformMaster = [];
+let timetableData = null;
 const uiText = {
  en:{
   selectRoute:'Select Route',
@@ -557,7 +559,20 @@ function formatArrival(min){
   const h=Math.floor(min/60),m=min%60;
   return h+" hr "+(m?m+" min":"");
 }
+/* ===== CSV PARSER ===== */
+function parseCSV(text){
+  const rows = text.trim().split("\n");
+  const headers = rows[0].split(",");
 
+  return rows.slice(1).map(row=>{
+    const values = row.split(",");
+    let obj = {};
+    headers.forEach((h,i)=>{
+      obj[h.trim()] = values[i] ? values[i].trim() : "";
+    });
+    return obj;
+  });
+}
 /* ================= FULL TIMETABLE DATA ================= */
 const trains = [
 /* U2N */
@@ -1259,93 +1274,94 @@ function loadMumbaiStationData(){
 
   if(!station.value) return;
 
-  if(!mumbaiData){
-    fetch("data/mumbai_sample.json")
-      .then(res => res.json())
-      .then(data=>{
-        mumbaiData = data;
-        processMumbaiStation();
-      });
-  } else {
-    processMumbaiStation();
-  }
-}
+  Promise.all([
+    fetch("data/train_master.csv").then(r=>r.text()),
+    fetch("data/platform_master.csv").then(r=>r.text()),
+    fetch("data/timetables/table-1.csv").then(r=>r.text())
+  ])
+  .then(([trainCSV, platformCSV, timetableCSV]) => {
 
+    trainMaster = parseCSV(trainCSV);
+    platformMaster = parseCSV(platformCSV);
+    timetableData = parseCSV(timetableCSV);
+
+    processMumbaiFromCSV();
+
+  });
+}
 function isTrainRunningToday(train){
 
-  const today = new Date().getDay(); 
-  // 0 = Sunday, 1 = Monday ... 6 = Saturday
+  const today = new Date().getDay();
 
   if(!train.runs_on || train.runs_on === "Daily"){
     return true;
   }
 
   if(train.runs_on === "Mon-Sat"){
-    return today !== 0; // Sunday ला false
+    return today !== 0;
   }
 
   return true;
 }
 	
-function processMumbaiStation(){
-	
-sundayWarning = false;   // Reset every time
-const today = new Date().getDay();
-	
+function processMumbaiFromCSV(){
+
   const selectedStation = station.value;
   const now = new Date();
   const nowMin = now.getHours()*60 + now.getMinutes();
 
   let platformMap = {};
 
-  mumbaiData.trains.forEach(train => {
-if(!isTrainRunningToday(train)){
+  const stationRow = timetableData.find(
+    r => r["Train No."] === selectedStation
+  );
 
-   if(today === 0 && train.runs_on === "Mon-Sat"){
-       sundayWarning = true;
-   }
+  if(!stationRow) return;
 
-   return;
-}
-    train.stops.forEach(stop => {
+  Object.keys(stationRow).forEach(trainNo => {
 
-      if(stop.station === selectedStation){
+    if(trainNo === "Train No.") return;
 
-        const [h,m] = stop.time.split(":").map(Number);
-        const originalMin = h*60 + m;
+    const time = stationRow[trainNo];
+    if(!time) return;
 
-        let adjustedMin = originalMin;
+    const trainMeta = trainMaster.find(
+      t => t.train_no == trainNo
+    );
 
-        // If already passed today, treat as next day
-        if(originalMin < nowMin){
-          adjustedMin += 1440;
-        }
+    if(!trainMeta) return;
 
-        // 🔥 ONLY consider trains that are within next 24 hours
-        if(adjustedMin - nowMin <= 1440){
+    if(!isTrainRunningToday(trainMeta)) return;
 
-          if(
-            !platformMap[stop.platform] ||
-            adjustedMin < platformMap[stop.platform].timeMin
-          ){
-            platformMap[stop.platform] = {
-              route: train.route,
-              time: stop.time,
-              timeMin: adjustedMin
-            };
-          }
+    const [h,m] = time.split(":").map(Number);
+    let trainMin = h*60 + m;
 
-        }
+    if(trainMin < nowMin){
+      trainMin += 1440;
+    }
 
-      }
+    const platformRow = platformMaster.find(
+      p => p.route === trainMeta.route &&
+           p.station === selectedStation
+    );
 
-    });
+    const platform = platformRow ? platformRow.platform : "";
+
+    if(
+      !platformMap[platform] ||
+      trainMin < platformMap[platform].timeMin
+    ){
+      platformMap[platform] = {
+        route: trainMeta.route,
+        time: time,
+        timeMin: trainMin
+      };
+    }
 
   });
 
   renderMumbaiPlatforms(platformMap);
 }
-
 function renderSingleMumbaiTrain(train){
 
   if(!train){
@@ -1595,6 +1611,7 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
 
