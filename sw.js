@@ -1,29 +1,10 @@
-const CACHE_VERSION = 'v20';   // 🔥 version increment करा
+const CACHE_VERSION = 'v21';   // 🔥 version increment करा
 const CACHE_NAME = `uran-local-${CACHE_VERSION}`;
 
 const FILES_TO_CACHE = [
   './',
   './index.html',
   './manifest.json',
-
-  // 🔥 CSV DATA FILES
-  './data/train_master.csv',
-  './data/platform_master.csv',
-  './data/timetables/table-1.csv',
-  './data/timetables/table-2.csv',
-  './data/timetables/table-3.csv',
-  './data/timetables/table-4.csv',
-  './data/timetables/table-5.csv',
-  './data/timetables/table-6.csv',
-  './data/timetables/table-7.csv',
-  './data/timetables/table-8.csv',
-  './data/timetables/table-9.csv',
-  './data/timetables/table-10.csv',
-  './data/timetables/table-11.csv',
-  './data/timetables/table-12.csv',
-  './data/timetables/table-13.csv',
-  './data/timetables/table-14.csv',
-  './data/timetables/table-19.csv'
 ];
 
 /* ===== INSTALL ===== */
