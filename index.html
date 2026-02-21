@@ -1291,12 +1291,13 @@ function loadMumbaiStationData(){
   // 🔥 Prepare all timetable fetch promises (table-1 to table-14)
   const timetableFiles = [];
 
-  for(let i = 1; i <= 19; i++){
-    timetableFiles.push(
-      fetch(`data/timetables/table-${i}.csv`)
-        .then(r => r.text())
-    );
-  }
+for(let i = 1; i <= 60; i++){   // 60 ठेवले future safe साठी
+  timetableFiles.push(
+    fetch(`data/timetables/table-${i}.csv`)
+      .then(r => r.ok ? r.text() : null)
+      .catch(()=> null)
+  );
+}
 
   Promise.all([
     fetch("data/train_master.csv").then(r=>r.text()),
@@ -1312,9 +1313,10 @@ function loadMumbaiStationData(){
     timetableData = [];
 
     timetableCSVs.forEach(csv => {
-      const parsed = parseCSV(csv);
-      timetableData = timetableData.concat(parsed);
-    });
+  if(!csv) return;   // Skip missing files
+  const parsed = parseCSV(csv);
+  timetableData = timetableData.concat(parsed);
+});
 
     processMumbaiFromCSV();
   });
@@ -1646,6 +1648,7 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
 
