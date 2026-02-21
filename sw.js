@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'v18';   // 🔥 version increment करा
+const CACHE_VERSION = 'v19';   // 🔥 version increment करा
 const CACHE_NAME = `uran-local-${CACHE_VERSION}`;
 
 const FILES_TO_CACHE = [
@@ -22,7 +22,8 @@ const FILES_TO_CACHE = [
   './data/timetables/table-11.csv',
   './data/timetables/table-12.csv',
   './data/timetables/table-13.csv',
-  './data/timetables/table-14.csv'
+  './data/timetables/table-14.csv',
+  './data/timetables/table-19.csv'
 ];
 
 /* ===== INSTALL ===== */
