@@ -1518,18 +1518,27 @@ stationRows.forEach(stationRow => {
 
   const container = document.getElementById("stationList");
 
-  container.innerHTML = list.map(st => `
-    <div class="station-item"
-         onclick="selectMumbaiStation('${st}')">
-      ${st}
-    </div>
-  `).join('');
+  container.innerHTML = list.map(st => {
+
+    // find matching option from dropdown
+    const option = Array.from(station.options)
+      .find(o => o.textContent === st);
+
+    if(!option) return "";
+
+    return `
+      <div class="station-item"
+           onclick="selectMumbaiStation('${option.value}', '${st}')">
+        ${st}
+      </div>
+    `;
+  }).join('');
 }
-	function selectMumbaiStation(code){
+	function selectMumbaiStation(code, name){
 
-  station.value = code;
+  station.value = code;   // now correct code like VSH
 
-  document.getElementById("stationSearch").value = code;
+  document.getElementById("stationSearch").value = name;
 
   loadMumbaiStationData();
 }
@@ -1782,6 +1791,7 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
 
