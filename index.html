@@ -351,6 +351,13 @@ font-size:14px;
 }
 
 #stationSearch{
+  width:100%;
+  box-sizing:border-box;   /* 🔥 important */
+  padding:10px;
+  font-size:15px;
+  border-radius:8px;
+  border:none;
+  outline:none;
   background:#222;
   color:#fff;
 }
@@ -549,6 +556,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   updateStationsByRoute();
 	const searchInput = document.getElementById("stationSearch");
+	// 🔥 Show station list when clicking search box
+if(searchInput){
+  searchInput.addEventListener("focus", function(){
+    document.getElementById("stationList").style.display = "block";
+  });
+}
 
 if(searchInput){
   searchInput.addEventListener("input", function(){
@@ -566,6 +579,7 @@ if(search === ""){
 }
 
     renderStationList(filtered);
+	  document.getElementById("stationList").style.display = "block";
   });
 }
 });
@@ -1536,9 +1550,15 @@ stationRows.forEach(stationRow => {
 }
 	function selectMumbaiStation(code, name){
 
-  station.value = code;   // now correct code like VSH
+  station.value = code;
 
-  document.getElementById("stationSearch").value = name;
+  const searchInput = document.getElementById("stationSearch");
+  const stationList = document.getElementById("stationList");
+
+  searchInput.value = name;
+
+  // 🔥 Collapse list after selection
+  stationList.style.display = "none";
 
   loadMumbaiStationData();
 }
@@ -1791,6 +1811,7 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
 
