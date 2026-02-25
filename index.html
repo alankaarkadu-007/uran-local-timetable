@@ -548,17 +548,26 @@ document.addEventListener('DOMContentLoaded', () => {
     lang === 'en' ? 'English' : 'मराठी';
 
   updateStationsByRoute();
-});
-document.getElementById("stationSearch")
-.addEventListener("input", function(){
+	const searchInput = document.getElementById("stationSearch");
 
-  const search = this.value.toLowerCase();
+if(searchInput){
+  searchInput.addEventListener("input", function(){
 
-  const filtered = mumbaiStationsMaster.filter(st =>
-    st.toLowerCase().startsWith(search)
+    const search = this.value.toLowerCase();
+
+    let filtered;
+
+if(search === ""){
+  filtered = mumbaiStationsMaster;
+}else{
+  filtered = mumbaiStationsMaster.filter(st =>
+    st.toLowerCase().includes(search)
   );
+}
 
-  renderStationList(filtered);
+    renderStationList(filtered);
+  });
+}
 });
 /* ===== PROGRESS ANIMATION STATE ===== */
 let animatedProgress = 0;
@@ -579,6 +588,21 @@ let currentMode = "uran";  // default mode
 // ===== MUMBAI DATA CACHE =====
 let mumbaiData = null;
 	let mumbaiStationsMaster = [];
+	let demoStationsMaster = [
+"Panvel","Khandeshwar","Mansarovar","Kharghar",
+"Belapur CBD","Seawood Darave Karave","Nerul",
+"Juinagar","Vashi","Sanpada","Turbhe",
+"Kopar Khairane","Ghansoli","Rabale","Airoli",
+"Digha","Thane","CSMT","Masjid",
+"Sandhurst Road","Dockyard Road","Reay Road",
+"Cotton Green","Sewri","Vadala Road",
+"King's Circle","Mahim Jn","Bandra",
+"Khar Road","Santacruz","Vile Parle",
+"Andheri","Jogeshwari","Ram Mandir",
+"Goregaon","GTB Nagar","Chunabhatti",
+"Kurla","Tilaknagar","Chembur",
+"Govandi","Mankhurd"
+];
 let sundayWarning = false;
 
 const stations={
@@ -1314,7 +1338,8 @@ document.getElementById("mumbaiStationBox").style.display = "block";
   // Clear previous Uran data
   nextTrain.innerHTML = "";
   list.innerHTML = "";
-
+mumbaiStationsMaster = demoStationsMaster;
+renderStationList(mumbaiStationsMaster);
 }
 
 function enableUranMode(){
@@ -1405,12 +1430,6 @@ for(let i = 1; i <= 60; i++){   // 60 ठेवले future safe साठी
   const parsed = parseCSV(csv);
   timetableData = timetableData.concat(parsed);
 });
-// Build station master list (unique)
-mumbaiStationsMaster = [
-  ...new Set(
-    timetableData.map(r => r["Train No."])
-  )
-];
 
 // Render station list
 renderStationList(mumbaiStationsMaster);
@@ -1763,6 +1782,7 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
 
