@@ -336,7 +336,24 @@ font-size:14px;
   background:#e3f2fd;
   border-left:4px solid #1565c0;
 }
+/* ===== MUMBAI STATION LIST STYLE ===== */
 
+#stationList .station-item{
+  padding:14px;
+  border-bottom:1px solid #222;
+  color:#fff;
+  cursor:pointer;
+  font-size:16px;
+}
+
+#stationList .station-item:hover{
+  background:#1e88e5;
+}
+
+#stationSearch{
+  background:#222;
+  color:#fff;
+}
 </style>
 </head>
 
@@ -425,7 +442,34 @@ font-size:14px;
   <option value="U2B">Uran → Belapur</option>
   <option value="B2U">Belapur → Uran</option>
 </select>
+	
+<!-- ===== MUMBAI STATION SEARCH UI ===== -->
+<div id="mumbaiStationBox" style="display:none; margin-top:10px;">
 
+  <input type="text" 
+         id="stationSearch"
+         placeholder="Search Station..."
+         style="
+           width:100%;
+           padding:12px;
+           font-size:16px;
+           border-radius:8px;
+           border:none;
+           outline:none;
+           margin-bottom:10px;
+         ">
+
+  <div id="stationList" 
+       style="
+         max-height:60vh;
+         overflow-y:auto;
+         background:#111;
+         border-radius:8px;
+       ">
+  </div>
+
+</div>
+	
 <select id="station">
   <option value="">Boarding Station / स्टेशन निवडा</option>
   <option value="URAN">Uran</option>
@@ -505,7 +549,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   updateStationsByRoute();
 });
+document.getElementById("stationSearch")
+.addEventListener("input", function(){
 
+  const search = this.value.toLowerCase();
+
+  const filtered = mumbaiStationsMaster.filter(st =>
+    st.toLowerCase().startsWith(search)
+  );
+
+  renderStationList(filtered);
+});
 /* ===== PROGRESS ANIMATION STATE ===== */
 let animatedProgress = 0;
 let progressTimer = null;
@@ -524,6 +578,7 @@ let currentMode = "uran";  // default mode
 
 // ===== MUMBAI DATA CACHE =====
 let mumbaiData = null;
+	let mumbaiStationsMaster = [];
 let sundayWarning = false;
 
 const stations={
@@ -1193,6 +1248,12 @@ function enableMumbaiMode(){
   // Hide Route dropdown
   document.getElementById("route").style.display = "none";
 
+	// Hide normal station dropdown
+document.getElementById("station").style.display = "none";
+
+// Show new Mumbai search box
+document.getElementById("mumbaiStationBox").style.display = "block";
+
   // Reset station dropdown
   station.innerHTML = 
     '<option value="">Select Mumbai Station</option>';
@@ -1270,6 +1331,8 @@ function enableUranMode(){
 
   // Show route dropdown again
   document.getElementById("route").style.display = "block";
+	document.getElementById("station").style.display = "block";
+document.getElementById("mumbaiStationBox").style.display = "none";
 
   // Reset route selection
   route.value = "";
@@ -1342,7 +1405,15 @@ for(let i = 1; i <= 60; i++){   // 60 ठेवले future safe साठी
   const parsed = parseCSV(csv);
   timetableData = timetableData.concat(parsed);
 });
+// Build station master list (unique)
+mumbaiStationsMaster = [
+  ...new Set(
+    timetableData.map(r => r["Train No."])
+  )
+];
 
+// Render station list
+renderStationList(mumbaiStationsMaster);
     processMumbaiFromCSV();
   });
 }
@@ -1423,6 +1494,25 @@ stationRows.forEach(stationRow => {
 });
 
   renderMumbaiPlatforms(platformMap);
+}
+	function renderStationList(list){
+
+  const container = document.getElementById("stationList");
+
+  container.innerHTML = list.map(st => `
+    <div class="station-item"
+         onclick="selectMumbaiStation('${st}')">
+      ${st}
+    </div>
+  `).join('');
+}
+	function selectMumbaiStation(code){
+
+  station.value = code;
+
+  document.getElementById("stationSearch").value = code;
+
+  loadMumbaiStationData();
 }
 function renderSingleMumbaiTrain(train){
 
@@ -1673,6 +1763,7 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
 
