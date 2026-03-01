@@ -1522,15 +1522,21 @@ stationRows.forEach(stationRow => {
     const platform = platformRow ? platformRow.platform : "";
 
     if(
-      !platformMap[platform] ||
-      trainMin < platformMap[platform].timeMin
-    ){
-      platformMap[platform] = {
-        route: trainMeta.route,
-        time: time,
-        timeMin: trainMin
-      };
-    }
+  !platformMap[platform] ||
+  trainMin < platformMap[platform].timeMin
+){
+
+  // 🔥 Find destination (last station column)
+  const columns = Object.keys(stationRow);
+  const lastStation = columns[columns.length - 1];
+
+  platformMap[platform] = {
+    route: trainMeta.route,
+    time: time,
+    timeMin: trainMin,
+    destination: lastStation
+  };
+}
 
   });
 
@@ -1594,7 +1600,8 @@ function renderSingleMumbaiTrain(train){
   nextTrain.innerHTML = "";
 
   list.innerHTML = `
-    <div class="rv-item rv-next">
+    <div class="rv-item rv-next"
+     onclick="openPlatformSchedule('${p}')">
       <div class="rv-left">
         <div class="rv-time">
           Platform ${train.platform}
@@ -1646,14 +1653,15 @@ function renderMumbaiPlatforms(platformMap){
     const remaining = t.timeMin - nowMin;
 
     return `
-      <div class="rv-item rv-next">
+      <div class="rv-item rv-next"
+     onclick="openPlatformSchedule('${p}')">
         <div class="rv-left">
           <div class="rv-time">
             Platform ${p}
           </div>
           <div class="rv-sub">
-            ${t.route}
-          </div>
+  ${t.destination}
+</div>
         </div>
         <div class="rv-no">
           ${to12h(t.time)} <br>
@@ -1664,6 +1672,90 @@ function renderMumbaiPlatforms(platformMap){
   }).join('');
 }
 
+	function openPlatformSchedule(platformNo){
+
+  const selectedStation = station.value;
+  const now = new Date();
+  const nowMin = now.getHours()*60 + now.getMinutes();
+
+  const stationRows = timetableData.filter(
+    r => r["Train No."] === selectedStation
+  );
+
+  if(stationRows.length === 0) return;
+
+  let fullList = [];
+
+  stationRows.forEach(stationRow => {
+
+    Object.keys(stationRow).forEach(trainNo => {
+
+      if(trainNo === "Train No.") return;
+
+      const time = stationRow[trainNo];
+      if(!time) return;
+
+      const trainMeta = trainMaster.find(
+        t => t.train_no == trainNo
+      );
+
+      if(!trainMeta) return;
+
+      const platformRow = platformMaster.find(
+        p => p.route === trainMeta.route &&
+             p.station === selectedStation
+      );
+
+      if(!platformRow) return;
+
+      if(platformRow.platform != platformNo) return;
+
+      const [h,m] = time.split(":").map(Number);
+      const trainMin = h*60 + m;
+
+      // 🔥 Destination extract
+      const columns = Object.keys(stationRow);
+      const destination = columns[columns.length - 1];
+
+      fullList.push({
+        time,
+        trainMin,
+        destination
+      });
+
+    });
+
+  });
+
+  fullList.sort((a,b)=>a.trainMin-b.trainMin);
+
+  // 🔥 Render Full Schedule
+  nextTrain.innerHTML = `
+    <div style="font-size:18px;font-weight:700">
+      🚇 Platform ${platformNo} – Full Day Schedule
+    </div>
+  `;
+
+  list.innerHTML = fullList.map(t=>{
+
+    const isPast = t.trainMin < nowMin;
+
+    return `
+      <div class="rv-item ${!isPast ? 'rv-next':''}"
+           style="${isPast?'opacity:.5':''}">
+        <div class="rv-left">
+          <div class="rv-time">
+            ${to12h(t.time)}
+          </div>
+          <div class="rv-sub">
+            ${t.destination}
+          </div>
+        </div>
+      </div>
+    `;
+
+  }).join('');
+}
 function openRouteDetail(trainNo, routeCode){
 
   const screen = document.getElementById('routeDetailScreen');
@@ -1821,3 +1913,4 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
