@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'v39';   // 🔥 version increment करा
+const CACHE_VERSION = 'v40';   // 🔥 version increment करा
 const CACHE_NAME = `uran-local-${CACHE_VERSION}`;
 
 const FILES_TO_CACHE = [
