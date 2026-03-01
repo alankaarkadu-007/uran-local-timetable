@@ -1526,25 +1526,25 @@ stationRows.forEach(stationRow => {
   trainMin < platformMap[platform].timeMin
 ){
 
-  // 🔥 Find real destination (last non-empty station column)
+  // 🔥 Find real destination for this train
 
 let destination = "";
 
-Object.keys(stationRow).forEach(col => {
+timetableData.forEach(row => {
 
-  if(col === "Train No.") return;
+  if(row["Train No."] === selectedStation) return;
 
-  if(stationRow[col] && stationRow[col].trim() !== ""){
-    destination = col;   // keep updating till last non-empty
+  if(row[trainNo] && row[trainNo].trim() !== ""){
+    destination = row["Train No."];  // station name
   }
-
-});		
+	
+});	
   platformMap[platform] = {
-    route: trainMeta.route,
-    time: time,
-    timeMin: trainMin,
-    destination: destination
-  };
+  route: trainMeta.route,
+  time: time,
+  timeMin: trainMin,
+  destination: destination
+};
 }
 
   });
@@ -1722,18 +1722,19 @@ function renderMumbaiPlatforms(platformMap){
       const [h,m] = time.split(":").map(Number);
       const trainMin = h*60 + m;
 
-     let destination = "";
+     // 🔥 Find correct destination (row-wise search)
 
-Object.keys(stationRow).forEach(col => {
+let destination = "";
 
-  if(col === "Train No.") return;
+timetableData.forEach(row => {
 
-  if(stationRow[col] && stationRow[col].trim() !== ""){
-    destination = col;
+  if(row["Train No."] === selectedStation) return;
+
+  if(row[trainNo] && row[trainNo].trim() !== ""){
+    destination = row["Train No."];   // station name
   }
 
 });
-
       fullList.push({
         time,
         trainMin,
@@ -1930,5 +1931,6 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
