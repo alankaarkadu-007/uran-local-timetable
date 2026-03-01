@@ -1526,15 +1526,24 @@ stationRows.forEach(stationRow => {
   trainMin < platformMap[platform].timeMin
 ){
 
-  // 🔥 Find destination (last station column)
-  const columns = Object.keys(stationRow);
-  const lastStation = columns[columns.length - 1];
+  // 🔥 Find real destination (last non-empty station column)
 
+let destination = "";
+
+Object.keys(stationRow).forEach(col => {
+
+  if(col === "Train No.") return;
+
+  if(stationRow[col] && stationRow[col].trim() !== ""){
+    destination = col;   // keep updating till last non-empty
+  }
+
+});		
   platformMap[platform] = {
     route: trainMeta.route,
     time: time,
     timeMin: trainMin,
-    destination: lastStation
+    destination: destination
   };
 }
 
@@ -1713,9 +1722,17 @@ function renderMumbaiPlatforms(platformMap){
       const [h,m] = time.split(":").map(Number);
       const trainMin = h*60 + m;
 
-      // 🔥 Destination extract
-      const columns = Object.keys(stationRow);
-      const destination = columns[columns.length - 1];
+     let destination = "";
+
+Object.keys(stationRow).forEach(col => {
+
+  if(col === "Train No.") return;
+
+  if(stationRow[col] && stationRow[col].trim() !== ""){
+    destination = col;
+  }
+
+});
 
       fullList.push({
         time,
@@ -1913,4 +1930,5 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
