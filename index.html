@@ -599,6 +599,7 @@ const menuBox=document.getElementById('menuBox');
 
 // ===== MODE SYSTEM =====
 let currentMode = "uran";  // default mode
+	let isFullDayView = false;   // 🔥 track full day screen
 
 // ===== MUMBAI DATA CACHE =====
 let mumbaiData = null;
@@ -1414,9 +1415,9 @@ setInterval(() => {
     if(currentMode === "uran"){
       render();
     } 
-    else if(currentMode === "mumbai"){
-      loadMumbaiStationData();
-    }
+    else if(currentMode === "mumbai" && !isFullDayView){
+  loadMumbaiStationData();
+}
 
   }
 }, 1000);
@@ -1618,7 +1619,7 @@ function renderSingleMumbaiTrain(train){
 }
 
 function renderMumbaiPlatforms(platformMap){
-
+ isFullDayView = false;   // 🔥 back to overview screen
   if(Object.keys(platformMap).length === 0){
 
     let msg = "No upcoming trains";
@@ -1673,7 +1674,7 @@ function renderMumbaiPlatforms(platformMap){
   }).join('');
 }
 function openPlatformSchedule(platformNo){
-
+isFullDayView = true;   // 🔥 user is in full day view
   const selectedStation = station.value;
   const now = new Date();
   const nowMin = now.getHours()*60 + now.getMinutes();
@@ -1925,6 +1926,7 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
 
