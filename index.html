@@ -1680,6 +1680,7 @@ function renderMumbaiPlatforms(platformMap){
 }
 function openPlatformSchedule(platformNo){
 isFullDayView = true;   // 🔥 user is in full day view
+	history.pushState({page:"fullDay"}, "");
   const selectedStation = station.value;
   const now = new Date();
   const nowMin = now.getHours()*60 + now.getMinutes();
@@ -1892,11 +1893,22 @@ function closeRouteDetail(){
   document.getElementById('routeDetailScreen').style.display = 'none';
   history.back();
 }
-window.onpopstate = function(){
+window.onpopstate = function(event){
+
+  // If route detail open
   const screen = document.getElementById('routeDetailScreen');
   if(screen.style.display === 'block'){
     screen.style.display = 'none';
+    return;
   }
+
+  // If full day schedule open
+  if(isFullDayView){
+    isFullDayView = false;
+    loadMumbaiStationData();   // go back to platform overview
+    return;
+  }
+
 };
 
 /* ================= SERVICE WORKER ================= */
@@ -1931,6 +1943,7 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
 
