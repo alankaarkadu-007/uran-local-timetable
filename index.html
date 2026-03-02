@@ -1514,9 +1514,9 @@ function processMumbaiFromCSV(){
         trainMin += 1440;
       }
 
-      const platformRow = platformMaster.find(
-  p => p.station === selectedStation &&
-       p.platform === platformNo
+     const platformRow = platformMaster.find(
+  p => p.route === trainMeta.route &&
+       p.station === selectedStation
 );
 
       if(!platformRow) return;
@@ -1599,7 +1599,7 @@ function renderSingleMumbaiTrain(train){
 
   list.innerHTML = `
     <div class="rv-item rv-next"
-     onclick="openPlatformSchedule('${p}')">
+     onclick="openPlatformSchedule('${train.platform}')">
       <div class="rv-left">
         <div class="rv-time">
           Platform ${train.platform}
@@ -1652,7 +1652,7 @@ function renderMumbaiPlatforms(platformMap){
 
     return `
   <div class="rv-item rv-next"
-       onclick="openPlatformSchedule('${p}')">
+       onclick="openPlatformSchedule('${train.platform}')">
 
     <div class="rv-left">
       <div class="rv-time">
@@ -1914,6 +1914,7 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
 
