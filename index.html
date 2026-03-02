@@ -1605,7 +1605,7 @@ function renderSingleMumbaiTrain(train){
           Platform ${train.platform}
         </div>
         <div class="rv-sub">
-          ${train.route}
+          ${train.destination}
         </div>
       </div>
       <div class="rv-no">
@@ -1620,16 +1620,16 @@ function renderMumbaiPlatforms(platformMap){
 
   if(Object.keys(platformMap).length === 0){
 
-  let msg = "No upcoming trains";
+    let msg = "No upcoming trains";
 
-  if(sundayWarning){
-     msg += "<br><small style='color:red'>Will not run on Sunday / Holiday</small>";
+    if(sundayWarning){
+       msg += "<br><small style='color:red'>Will not run on Sunday / Holiday</small>";
+    }
+
+    nextTrain.innerHTML = msg;
+    list.innerHTML = "";
+    return;
   }
-
-  nextTrain.innerHTML = msg;
-  list.innerHTML = "";
-  return;
-}
 
   nextTrain.innerHTML = `
     <div style="font-size:18px;font-weight:700">
@@ -1638,9 +1638,7 @@ function renderMumbaiPlatforms(platformMap){
   `;
 
   const sortedPlatforms = Object.keys(platformMap)
-    .sort((a,b)=>{
-  return a.localeCompare(b, undefined, {numeric:true});
-});
+    .sort((a,b)=>a.localeCompare(b, undefined, {numeric:true}));
 
   const now = new Date();
   const nowMin = now.getHours()*60 + now.getMinutes();
@@ -1648,31 +1646,30 @@ function renderMumbaiPlatforms(platformMap){
   list.innerHTML = sortedPlatforms.map(p=>{
 
     const t = platformMap[p];
-    const remaining = t.timeMin - nowMin;
 
     return `
-return `
-  <div class="rv-item rv-next"
-       onclick="openPlatformSchedule('${p}')">
+      <div class="rv-item rv-next"
+           onclick="openPlatformSchedule('${p}')">
 
-    <div class="rv-left">
-      <div class="rv-time">
-        Platform ${p}
+        <div class="rv-left">
+          <div class="rv-time">
+            Platform ${p}
+          </div>
+
+          <div class="rv-sub">
+            ${t.destination}
+          </div>
+        </div>
+
+        <div class="rv-no" style="text-align:right">
+          ${to12h(t.time)}
+        </div>
+
       </div>
+    `;
 
-      <div class="rv-sub">
-        ${t.destination}
-      </div>
-    </div>
-
-    <div class="rv-no" style="text-align:right">
-      ${to12h(t.time)}
-    </div>
-
-  </div>
-`;  }).join('');
+  }).join('');
 }
-
 function openPlatformSchedule(platformNo){
 
   const selectedStation = station.value;
@@ -1914,6 +1911,7 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
 
