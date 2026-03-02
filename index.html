@@ -1515,9 +1515,9 @@ function processMumbaiFromCSV(){
       }
 
       const platformRow = platformMaster.find(
-        p => p.route === trainMeta.route &&
-             p.station === selectedStation
-      );
+  p => p.station === selectedStation &&
+       p.platform === platformNo
+);
 
       if(!platformRow) return;
 
@@ -1914,6 +1914,7 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
 
