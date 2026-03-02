@@ -1484,75 +1484,64 @@ function processMumbaiFromCSV(){
 
   let platformMap = {};
 
- const stationRows = timetableData.filter(
-  r => r["Train No."] === selectedStation
-);
+  const stationRows = timetableData.filter(
+    r => r["Train No."] === selectedStation
+  );
 
-if(stationRows.length === 0) return;
+  if(stationRows.length === 0) return;
 
-stationRows.forEach(stationRow => {
+  stationRows.forEach(stationRow => {
 
-  Object.keys(stationRow).forEach(trainNo => {
+    Object.keys(stationRow).forEach(trainNo => {
 
-    if(trainNo === "Train No.") return;
+      if(trainNo === "Train No.") return;
 
-    const time = stationRow[trainNo];
-    if(!time) return;
+      const time = stationRow[trainNo];
+      if(!time) return;
 
-    const trainMeta = trainMaster.find(
-      t => t.train_no == trainNo
-    );
+      const trainMeta = trainMaster.find(
+        t => t.train_no == trainNo
+      );
 
-    if(!trainMeta) return;
+      if(!trainMeta) return;
 
-    if(!isTrainRunningToday(trainMeta)) return;
+      if(!isTrainRunningToday(trainMeta)) return;
 
-    const [h,m] = time.split(":").map(Number);
-    let trainMin = h*60 + m;
+      const [h,m] = time.split(":").map(Number);
+      let trainMin = h*60 + m;
 
-    if(trainMin < nowMin){
-      trainMin += 1440;
-    }
+      if(trainMin < nowMin){
+        trainMin += 1440;
+      }
 
-    const platformRow = platformMaster.find(
-      p => p.route === trainMeta.route &&
-           p.station === selectedStation
-    );
+      const platformRow = platformMaster.find(
+        p => p.route === trainMeta.route &&
+             p.station === selectedStation
+      );
 
-    const platform = platformRow ? platformRow.platform : "";
+      if(!platformRow) return;
 
-    if(
-  !platformMap[platform] ||
-  trainMin < platformMap[platform].timeMin
-){
+      const platform = platformRow.platform;
 
-  // 🔥 Find real destination for this train
+      if(
+        !platformMap[platform] ||
+        trainMin < platformMap[platform].timeMin
+      ){
+        platformMap[platform] = {
+          trainNo: trainNo,
+          route: trainMeta.route,
+          destination: trainMeta.destination, // 🔥 Direct from master
+          time: time,
+          timeMin: trainMin
+        };
+      }
 
-let destination = "";
-
-timetableData.forEach(row => {
-
-  if(row["Train No."] === selectedStation) return;
-
-  if(row[trainNo] && row[trainNo].trim() !== ""){
-    destination = row["Train No."];  // station name
-  }
-	
-});	
-  platformMap[platform] = {
-  route: trainMeta.route,
-  time: time,
-  timeMin: trainMin,
-  destination: destination
-};
-}
+    });
 
   });
 
-});
-
   renderMumbaiPlatforms(platformMap);
-}
+}	
 	function renderStationList(list){
 
   const container = document.getElementById("stationList");
@@ -1662,26 +1651,29 @@ function renderMumbaiPlatforms(platformMap){
     const remaining = t.timeMin - nowMin;
 
     return `
-      <div class="rv-item rv-next"
-     onclick="openPlatformSchedule('${p}')">
-        <div class="rv-left">
-          <div class="rv-time">
-            Platform ${p}
-          </div>
-          <div class="rv-sub">
-  ${t.destination}
-</div>
-        </div>
-        <div class="rv-no">
-          ${to12h(t.time)} <br>
-          <small>${formatArrival(remaining)}</small>
-        </div>
+  <div class="rv-item rv-next"
+       onclick="openPlatformSchedule('${p}')">
+
+    <div class="rv-left">
+      <div class="rv-time">
+        Platform ${p}
       </div>
-    `;
+
+      <div class="rv-sub">
+        ${t.destination}
+      </div>
+    </div>
+
+    <div class="rv-no">
+      ${to12h(t.time)}
+    </div>
+
+  </div>
+`;
   }).join('');
 }
 
-	function openPlatformSchedule(platformNo){
+function openPlatformSchedule(platformNo){
 
   const selectedStation = station.value;
   const now = new Date();
@@ -1722,23 +1714,11 @@ function renderMumbaiPlatforms(platformMap){
       const [h,m] = time.split(":").map(Number);
       const trainMin = h*60 + m;
 
-     // 🔥 Find correct destination (row-wise search)
-
-let destination = "";
-
-timetableData.forEach(row => {
-
-  if(row["Train No."] === selectedStation) return;
-
-  if(row[trainNo] && row[trainNo].trim() !== ""){
-    destination = row["Train No."];   // station name
-  }
-
-});
       fullList.push({
         time,
         trainMin,
-        destination
+        destination: trainMeta.destination,
+        route: trainMeta.route
       });
 
     });
@@ -1747,7 +1727,6 @@ timetableData.forEach(row => {
 
   fullList.sort((a,b)=>a.trainMin-b.trainMin);
 
-  // 🔥 Render Full Schedule
   nextTrain.innerHTML = `
     <div style="font-size:18px;font-weight:700">
       🚇 Platform ${platformNo} – Full Day Schedule
@@ -1759,7 +1738,7 @@ timetableData.forEach(row => {
     const isPast = t.trainMin < nowMin;
 
     return `
-      <div class="rv-item ${!isPast ? 'rv-next':''}"
+      <div class="rv-item"
            style="${isPast?'opacity:.5':''}">
         <div class="rv-left">
           <div class="rv-time">
@@ -1773,8 +1752,7 @@ timetableData.forEach(row => {
     `;
 
   }).join('');
-}
-function openRouteDetail(trainNo, routeCode){
+}function openRouteDetail(trainNo, routeCode){
 
   const screen = document.getElementById('routeDetailScreen');
   const content = document.getElementById('routeDetailContent');
@@ -1931,6 +1909,7 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
 
