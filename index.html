@@ -1651,8 +1651,10 @@ function renderMumbaiPlatforms(platformMap){
     const remaining = t.timeMin - nowMin;
 
     return `
+return `
   <div class="rv-item rv-next"
-onclick="openPlatformSchedule('${p}')"
+       onclick="openPlatformSchedule('${p}')">
+
     <div class="rv-left">
       <div class="rv-time">
         Platform ${p}
@@ -1663,13 +1665,12 @@ onclick="openPlatformSchedule('${p}')"
       </div>
     </div>
 
-    <div class="rv-no">
+    <div class="rv-no" style="text-align:right">
       ${to12h(t.time)}
     </div>
 
   </div>
-`;
-  }).join('');
+`;  }).join('');
 }
 
 function openPlatformSchedule(platformNo){
@@ -1913,6 +1914,7 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
 
