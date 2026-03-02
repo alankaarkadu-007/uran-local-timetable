@@ -1652,8 +1652,7 @@ function renderMumbaiPlatforms(platformMap){
 
     return `
   <div class="rv-item rv-next"
-       onclick="openPlatformSchedule('${train.platform}')">
-
+onclick="openPlatformSchedule('${p}')"
     <div class="rv-left">
       <div class="rv-time">
         Platform ${p}
@@ -1914,6 +1913,7 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
 
