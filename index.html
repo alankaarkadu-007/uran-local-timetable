@@ -1702,6 +1702,8 @@ function openPlatformSchedule(platformNo){
 
       if(!trainMeta) return;
 
+      if(!isTrainRunningToday(trainMeta)) return;
+
       const platformRow = platformMaster.find(
         p => p.route === trainMeta.route &&
              p.station === selectedStation
@@ -1709,6 +1711,7 @@ function openPlatformSchedule(platformNo){
 
       if(!platformRow) return;
 
+      // 🔥 Only filter by platform
       if(platformRow.platform != platformNo) return;
 
       const [h,m] = time.split(":").map(Number);
@@ -1725,7 +1728,8 @@ function openPlatformSchedule(platformNo){
 
   });
 
-  fullList.sort((a,b)=>a.trainMin-b.trainMin);
+  // 🔥 Sort by time
+  fullList.sort((a,b)=>a.trainMin - b.trainMin);
 
   nextTrain.innerHTML = `
     <div style="font-size:18px;font-weight:700">
@@ -1752,7 +1756,8 @@ function openPlatformSchedule(platformNo){
     `;
 
   }).join('');
-}function openRouteDetail(trainNo, routeCode){
+}
+	function openRouteDetail(trainNo, routeCode){
 
   const screen = document.getElementById('routeDetailScreen');
   const content = document.getElementById('routeDetailContent');
@@ -1909,6 +1914,7 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
 
