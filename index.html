@@ -1661,9 +1661,10 @@ function renderMumbaiPlatforms(platformMap){
           </div>
         </div>
 
-        <div class="rv-no" style="text-align:right">
-          ${to12h(t.time)}
-        </div>
+       <div class="rv-no" style="text-align:right">
+  ${to12h(t.time)} <br>
+  <small>${formatArrival(t.timeMin - nowMin)}</small>
+</div>
 
       </div>
     `;
@@ -1911,6 +1912,7 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
 
