@@ -1736,25 +1736,37 @@ function openPlatformSchedule(platformNo){
     </div>
   `;
 
-  list.innerHTML = fullList.map(t=>{
+ list.innerHTML = fullList.map((t,i)=>{
 
-    const isPast = t.trainMin < nowMin;
+  const isPast = t.trainMin < nowMin;
 
-    return `
-      <div class="rv-item"
-           style="${isPast?'opacity:.5':''}">
-        <div class="rv-left">
-          <div class="rv-time">
-            ${to12h(t.time)}
-          </div>
-          <div class="rv-sub">
-            ${t.destination}
-          </div>
+  const isCurrent =
+    i === fullList.findIndex(x => x.trainMin >= nowMin);
+
+  return `
+    <div class="rv-item"
+         id="${isCurrent ? 'currentTrainItem' : ''}"
+         style="${isPast?'opacity:.5':''}">
+      <div class="rv-left">
+        <div class="rv-time">
+          ${to12h(t.time)}
+        </div>
+        <div class="rv-sub">
+          ${t.destination}
         </div>
       </div>
-    `;
-
-  }).join('');
+    </div>
+  `;
+}).join('');
+	setTimeout(()=>{
+  const el = document.getElementById("currentTrainItem");
+  if(el){
+    el.scrollIntoView({
+      behavior:"smooth",
+      block:"center"
+    });
+  }
+},200);
 }
 	function openRouteDetail(trainNo, routeCode){
 
@@ -1913,6 +1925,7 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
 
