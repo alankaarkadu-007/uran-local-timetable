@@ -1,0 +1,924 @@
+train_no,route,destination,runs_on
+98802,Bandra - CSMT,CSMT,Daily
+98804,Bandra - CSMT,CSMT,Daily
+98806,Bandra - CSMT,CSMT,Daily
+98808,Bandra - CSMT,CSMT,Daily
+98810,Bandra - CSMT,CSMT,Daily
+98812,Bandra - CSMT,CSMT,Daily
+98814,Bandra - CSMT,CSMT,Daily
+98816,Bandra - CSMT,CSMT,Daily
+98818,Bandra - CSMT,CSMT,Daily
+98820,Bandra - CSMT,CSMT,Daily
+98822,Bandra - CSMT,CSMT,Daily
+98824,Bandra - CSMT,CSMT,Daily
+98826,Bandra - CSMT,CSMT,Daily
+98828,Bandra - CSMT,CSMT,Daily
+98830,Bandra - CSMT,CSMT,Daily
+98832,Bandra - CSMT,CSMT,Daily
+98834,Bandra - CSMT,CSMT,Daily
+98836,Bandra - CSMT,CSMT,Daily
+98838,Bandra - CSMT,CSMT,Daily
+98840,Bandra - CSMT,CSMT,Daily
+98842,Bandra - CSMT,CSMT,Daily
+98844,Bandra - CSMT,CSMT,Daily
+98846,Bandra - CSMT,CSMT,Daily
+98848,Bandra - CSMT,CSMT,Daily
+98850,Bandra - CSMT,CSMT,Daily
+98852,Bandra - CSMT,CSMT,Daily
+98854,Bandra - CSMT,CSMT,Daily
+98856,Bandra - CSMT,CSMT,Mon-Sat
+98858,Bandra - CSMT,CSMT,Daily
+98860,Bandra - CSMT,CSMT,Daily
+98862,Bandra - CSMT,CSMT,Daily
+98864,Bandra - CSMT,CSMT,Daily
+98866,Bandra - CSMT,CSMT,Daily
+98868,Bandra - CSMT,CSMT,Daily
+98870,Bandra - CSMT,CSMT,Daily
+98872,Bandra - CSMT,CSMT,Daily
+98874,Bandra - CSMT,CSMT,Daily
+98876,Bandra - CSMT,CSMT,Daily
+98878,Bandra - CSMT,CSMT,Daily
+98880,Bandra - CSMT,CSMT,Daily
+98882,Bandra - CSMT,CSMT,Daily
+98884,Bandra - CSMT,CSMT,Daily
+98886,Bandra - CSMT,CSMT,Daily
+98302,Belapur CBD - CSMT,CSMT,Daily
+98304,Belapur CBD - CSMT,CSMT,Daily
+98306,Belapur CBD - CSMT,CSMT,Daily
+98308,Belapur CBD - CSMT,CSMT,Daily
+98310,Belapur CBD - CSMT,CSMT,Daily
+98314,Belapur CBD - CSMT,CSMT,Daily
+98316,Belapur CBD - CSMT,CSMT,Daily
+98318,Belapur CBD - CSMT,CSMT,Mon-Sat
+98320,Belapur CBD - CSMT,CSMT,Daily
+98322,Belapur CBD - CSMT,CSMT,Daily
+98324,Belapur CBD - CSMT,CSMT,Daily
+98326,Belapur CBD - CSMT,CSMT,Mon-Sat
+98328,Belapur CBD - CSMT,CSMT,Daily
+98330,Belapur CBD - CSMT,CSMT,Mon-Sat
+98332,Belapur CBD - CSMT,CSMT,Daily
+98334,Belapur CBD - CSMT,CSMT,Daily
+98336,Belapur CBD - CSMT,CSMT,Daily
+98338,Belapur CBD - CSMT,CSMT,Mon-Sat
+98340,Belapur CBD - CSMT,CSMT,Mon-Sat
+98342,Belapur CBD - CSMT,CSMT,Daily
+98344,Belapur CBD - CSMT,CSMT,Mon-Sat
+98346,Belapur CBD - CSMT,CSMT,Daily
+98348,Belapur CBD - CSMT,CSMT,Daily
+98350,Belapur CBD - CSMT,CSMT,Daily
+98354,Belapur CBD - CSMT,CSMT,Daily
+98356,Belapur CBD - CSMT,CSMT,Daily
+98358,Belapur CBD - CSMT,CSMT,Daily
+98360,Belapur CBD - CSMT,CSMT,Mon-Sat
+98362,Belapur CBD - CSMT,CSMT,Daily
+98364,Belapur CBD - CSMT,CSMT,Daily
+98366,Belapur CBD - CSMT,CSMT,Mon-Sat
+98368,Belapur CBD - CSMT,CSMT,Daily
+98370,Belapur CBD - CSMT,CSMT,Daily
+98372,Belapur CBD - CSMT,CSMT,Mon-Sat
+98380,Belapur CBD - CSMT,CSMT,Mon-Sat
+98382,Belapur CBD - CSMT,CSMT,Daily
+98384,Belapur CBD - CSMT,CSMT,Mon-Sat
+99701,Belapur CBD - Uran,URAN,Daily
+99703,Belapur CBD - Uran,Uran,Daily
+99705,Belapur CBD - Uran,Uran,Daily
+99707,Belapur CBD - Uran,Uran,Daily
+99709,Belapur CBD - Uran,Uran,Daily
+99711,Belapur CBD - Uran,Uran,Daily
+99713,Belapur CBD - Uran,Uran,Daily
+99715,Belapur CBD - Uran,Uran,Daily
+99717,Belapur CBD - Uran,Uran,Daily
+99719,Belapur CBD - Uran,Uran,Daily
+99721,Belapur CBD - Uran,Uran,Daily
+99723,Belapur CBD - Uran,Uran,Daily
+99725,Belapur CBD - Uran,Uran,Daily
+98312,Belapur CBD - Vadala Road,Vadala Road,Mon-Sat
+98352,Belapur CBD - Vadala Road,Vadala Road,Daily
+98374,Belapur CBD - Vadala Road,Vadala Road,Mon-Sat
+98376,Belapur CBD - Vadala Road,Vadala Road,Mon-Sat
+98378,Belapur CBD - Vadala Road,Vadala Road,Daily
+98606,Chembur - CSMT,CSMT,Daily
+98801,CSMT - Bandra,Bandra,Daily
+98803,CSMT - Bandra,Bandra,Daily
+98805,CSMT - Bandra,Bandra,Daily
+98807,CSMT - Bandra,Bandra,Daily
+98809,CSMT - Bandra,Bandra,Daily
+98811,CSMT - Bandra,Bandra,Daily
+98813,CSMT - Bandra,Bandra,Daily
+98815,CSMT - Bandra,Bandra,Daily
+98817,CSMT - Bandra,Bandra,Daily
+98819,CSMT - Bandra,Bandra,Daily
+98821,CSMT - Bandra,Bandra,Daily
+98823,CSMT - Bandra,Bandra,Daily
+98825,CSMT - Bandra,Bandra,Daily
+98827,CSMT - Bandra,Bandra,Daily
+98829,CSMT - Bandra,Bandra,Daily
+98831,CSMT - Bandra,Bandra,Daily
+98833,CSMT - Bandra,Bandra,Daily
+98835,CSMT - Bandra,Bandra,Daily
+98837,CSMT - Bandra,Bandra,Daily
+98839,CSMT - Bandra,Bandra,Daily
+98841,CSMT - Bandra,Bandra,Daily
+98843,CSMT - Bandra,Bandra,Daily
+98845,CSMT - Bandra,Bandra,Daily
+98847,CSMT - Bandra,Bandra,Daily
+98849,CSMT - Bandra,Bandra,Daily
+98851,CSMT - Bandra,Bandra,Daily
+98853,CSMT - Bandra,Bandra,Daily
+98855,CSMT - Bandra,Bandra,Daily
+98857,CSMT - Bandra,Bandra,Daily
+98859,CSMT - Bandra,Bandra,Daily
+98861,CSMT - Bandra,Bandra,Daily
+98863,CSMT - Bandra,Bandra,Daily
+98865,CSMT - Bandra,Bandra,Daily
+98867,CSMT - Bandra,Bandra,Daily
+98869,CSMT - Bandra,Bandra,Daily
+98871,CSMT - Bandra,Bandra,Daily
+98873,CSMT - Bandra,Bandra,Daily
+98875,CSMT - Bandra,Bandra,Daily
+98877,CSMT - Bandra,Bandra,Daily
+98879,CSMT - Bandra,Bandra,Daily
+98881,CSMT - Bandra,Bandra,Daily
+98883,CSMT - Bandra,Bandra,Daily
+98885,CSMT - Bandra,Bandra,Daily
+98301,CSMT - Belapur CBD,Belapur CBD,Daily
+98305,CSMT - Belapur CBD,Belapur CBD,Daily
+98307,CSMT - Belapur CBD,Belapur CBD,Daily
+98309,CSMT - Belapur CBD,Belapur CBD,Daily
+98311,CSMT - Belapur CBD,Belapur CBD,Daily
+98315,CSMT - Belapur CBD,Belapur CBD,Daily
+98317,CSMT - Belapur CBD,Belapur CBD,Daily
+98321,CSMT - Belapur CBD,Belapur CBD,Daily
+98323,CSMT - Belapur CBD,Belapur CBD,Daily
+98325,CSMT - Belapur CBD,Belapur CBD,Daily
+98329,CSMT - Belapur CBD,Belapur CBD,Daily
+98333,CSMT - Belapur CBD,Belapur CBD,Daily
+98335,CSMT - Belapur CBD,Belapur CBD,Daily
+98337,CSMT - Belapur CBD,Belapur CBD,Daily
+98339,CSMT - Belapur CBD,Belapur CBD,Daily
+98343,CSMT - Belapur CBD,Belapur CBD,Daily
+98345,CSMT - Belapur CBD,Belapur CBD,Daily
+98347,CSMT - Belapur CBD,Belapur CBD,Daily
+98349,CSMT - Belapur CBD,Belapur CBD,Daily
+98351,CSMT - Belapur CBD,Belapur CBD,Daily
+98353,CSMT - Belapur CBD,Belapur CBD,Daily
+98355,CSMT - Belapur CBD,Belapur CBD,Daily
+98359,CSMT - Belapur CBD,Belapur CBD,Daily
+98361,CSMT - Belapur CBD,Belapur CBD,Daily
+98363,CSMT - Belapur CBD,Belapur CBD,Daily
+98365,CSMT - Belapur CBD,Belapur CBD,Daily
+98367,CSMT - Belapur CBD,Belapur CBD,Daily
+98369,CSMT - Belapur CBD,Belapur CBD,Daily
+98371,CSMT - Belapur CBD,Belapur CBD,Daily
+98373,CSMT - Belapur CBD,Belapur CBD,Daily
+98605,CSMT - Chembur,Chembur,Daily
+91393,CSMT - Goregaon,Goregaon,Daily
+91395,CSMT - Goregaon,Goregaon,Daily
+91491,CSMT - Goregaon,Goregaon,Daily
+98701,CSMT - Goregaon,Goregaon,Daily
+98703,CSMT - Goregaon,Goregaon,Daily
+98705,CSMT - Goregaon,Goregaon,Daily
+98707,CSMT - Goregaon,Goregaon,Daily
+98709,CSMT - Goregaon,Goregaon,Daily
+98711,CSMT - Goregaon,Goregaon,Daily
+98713,CSMT - Goregaon,Goregaon,Daily
+98715,CSMT - Goregaon,Goregaon,Daily
+98717,CSMT - Goregaon,Goregaon,Daily
+98719,CSMT - Goregaon,Goregaon,Daily
+98721,CSMT - Goregaon,Goregaon,Daily
+98723,CSMT - Goregaon,Goregaon,Daily
+98725,CSMT - Goregaon,Goregaon,Daily
+98727,CSMT - Goregaon,Goregaon,Daily
+98729,CSMT - Goregaon,Goregaon,Daily
+98731,CSMT - Goregaon,Goregaon,Daily
+98733,CSMT - Goregaon,Goregaon,Daily
+98735,CSMT - Goregaon,Goregaon,Daily
+98737,CSMT - Goregaon,Goregaon,Daily
+98739,CSMT - Goregaon,Goregaon,Daily
+98741,CSMT - Goregaon,Goregaon,Daily
+98743,CSMT - Goregaon,Goregaon,Daily
+98745,CSMT - Goregaon,Goregaon,Daily
+98747,CSMT - Goregaon,Goregaon,Daily
+98749,CSMT - Goregaon,Goregaon,Daily
+98751,CSMT - Goregaon,Goregaon,Daily
+98753,CSMT - Goregaon,Goregaon,Daily
+98755,CSMT - Goregaon,Goregaon,Daily
+98757,CSMT - Goregaon,Goregaon,Daily
+98759,CSMT - Goregaon,Goregaon,Daily
+98761,CSMT - Goregaon,Goregaon,Daily
+98763,CSMT - Goregaon,Goregaon,Daily
+98765,CSMT - Goregaon,Goregaon,Daily
+98767,CSMT - Goregaon,Goregaon,Daily
+98769,CSMT - Goregaon,Goregaon,Daily
+98771,CSMT - Goregaon,Goregaon,Daily
+98773,CSMT - Goregaon,Goregaon,Daily
+98775,CSMT - Goregaon,Goregaon,Daily
+98777,CSMT - Goregaon,Goregaon,Daily
+98779,CSMT - Goregaon,Goregaon,Daily
+98781,CSMT - Goregaon,Goregaon,Daily
+98783,CSMT - Goregaon,Goregaon,Daily
+98785,CSMT - Goregaon,Goregaon,Daily
+98787,CSMT - Goregaon,Goregaon,Daily
+98001,CSMT - Panvel,Panvel,Daily
+98003,CSMT - Panvel,Panvel,Daily
+98005,CSMT - Panvel,Panvel,Daily
+98007,CSMT - Panvel,Panvel,Daily
+98011,CSMT - Panvel,Panvel,Daily
+98013,CSMT - Panvel,Panvel,Daily
+98015,CSMT - Panvel,Panvel,Daily
+98017,CSMT - Panvel,Panvel,Daily
+98019,CSMT - Panvel,Panvel,Daily
+98023,CSMT - Panvel,Panvel,Daily
+98025,CSMT - Panvel,Panvel,Daily
+98027,CSMT - Panvel,Panvel,Daily
+98029,CSMT - Panvel,Panvel,Daily
+98031,CSMT - Panvel,Panvel,Daily
+98033,CSMT - Panvel,Panvel,Daily
+98037,CSMT - Panvel,Panvel,Daily
+98039,CSMT - Panvel,Panvel,Daily
+98041,CSMT - Panvel,Panvel,Daily
+98043,CSMT - Panvel,Panvel,Daily
+98045,CSMT - Panvel,Panvel,Daily
+98049,CSMT - Panvel,Panvel,Daily
+98051,CSMT - Panvel,Panvel,Daily
+98053,CSMT - Panvel,Panvel,Daily
+98055,CSMT - Panvel,Panvel,Daily
+98057,CSMT - Panvel,Panvel,Daily
+98061,CSMT - Panvel,Panvel,Daily
+98063,CSMT - Panvel,Panvel,Daily
+98067,CSMT - Panvel,Panvel,Daily
+98069,CSMT - Panvel,Panvel,Daily
+98071,CSMT - Panvel,Panvel,Daily
+98073,CSMT - Panvel,Panvel,Daily
+98077,CSMT - Panvel,Panvel,Daily
+98079,CSMT - Panvel,Panvel,Daily
+98081,CSMT - Panvel,Panvel,Daily
+98083,CSMT - Panvel,Panvel,Daily
+98085,CSMT - Panvel,Panvel,Daily
+98089,CSMT - Panvel,Panvel,Daily
+98091,CSMT - Panvel,Panvel,Daily
+98093,CSMT - Panvel,Panvel,Daily
+98095,CSMT - Panvel,Panvel,Daily
+98097,CSMT - Panvel,Panvel,Daily
+98099,CSMT - Panvel,Panvel,Daily
+98101,CSMT - Panvel,Panvel,Daily
+98103,CSMT - Panvel,Panvel,Daily
+98105,CSMT - Panvel,Panvel,Daily
+98109,CSMT - Panvel,Panvel,Daily
+98111,CSMT - Panvel,Panvel,Daily
+98113,CSMT - Panvel,Panvel,Daily
+98117,CSMT - Panvel,Panvel,Daily
+98121,CSMT - Panvel,Panvel,Daily
+98123,CSMT - Panvel,Panvel,Daily
+98125,CSMT - Panvel,Panvel,Daily
+98127,CSMT - Panvel,Panvel,Daily
+98131,CSMT - Panvel,Panvel,Daily
+98133,CSMT - Panvel,Panvel,Daily
+98135,CSMT - Panvel,Panvel,Daily
+98137,CSMT - Panvel,Panvel,Daily
+98139,CSMT - Panvel,Panvel,Daily
+98141,CSMT - Panvel,Panvel,Daily
+98143,CSMT - Panvel,Panvel,Daily
+98145,CSMT - Panvel,Panvel,Daily
+98149,CSMT - Panvel,Panvel,Daily
+98151,CSMT - Panvel,Panvel,Daily
+98153,CSMT - Panvel,Panvel,Daily
+98155,CSMT - Panvel,Panvel,Daily
+98157,CSMT - Panvel,Panvel,Daily
+98159,CSMT - Panvel,Panvel,Daily
+98163,CSMT - Panvel,Panvel,Daily
+98165,CSMT - Panvel,Panvel,Daily
+98169,CSMT - Panvel,Panvel,Daily
+98171,CSMT - Panvel,Panvel,Daily
+98175,CSMT - Panvel,Panvel,Daily
+98179,CSMT - Panvel,Panvel,Daily
+98183,CSMT - Panvel,Panvel,Daily
+98185,CSMT - Panvel,Panvel,Daily
+98189,CSMT - Panvel,Panvel,Daily
+98191,CSMT - Panvel,Panvel,Daily
+98193,CSMT - Panvel,Panvel,Daily
+98195,CSMT - Panvel,Panvel,Daily
+98199,CSMT - Panvel,Panvel,Daily
+98201,CSMT - Panvel,Panvel,Daily
+98203,CSMT - Panvel,Panvel,Daily
+98205,CSMT - Panvel,Panvel,Daily
+98207,CSMT - Panvel,Panvel,Daily
+98211,CSMT - Panvel,Panvel,Daily
+98213,CSMT - Panvel,Panvel,Daily
+98217,CSMT - Panvel,Panvel,Daily
+98221,CSMT - Panvel,Panvel,Daily
+98223,CSMT - Panvel,Panvel,Daily
+98225,CSMT - Panvel,Panvel,Daily
+98229,CSMT - Panvel,Panvel,Daily
+98233,CSMT - Panvel,Panvel,Daily
+98235,CSMT - Panvel,Panvel,Daily
+98239,CSMT - Panvel,Panvel,Daily
+98241,CSMT - Panvel,Panvel,Daily
+98243,CSMT - Panvel,Panvel,Daily
+98245,CSMT - Panvel,Panvel,Daily
+98247,CSMT - Panvel,Panvel,Daily
+98249,CSMT - Panvel,Panvel,Daily
+98251,CSMT - Panvel,Panvel,Daily
+98253,CSMT - Panvel,Panvel,Daily
+98255,CSMT - Panvel,Panvel,Daily
+98257,CSMT - Panvel,Panvel,Daily
+98259,CSMT - Panvel,Panvel,Daily
+98501,CSMT - Vashi,Vashi,Daily
+98505,CSMT - Vashi,Vashi,Daily
+98507,CSMT - Vashi,Vashi,Daily
+98509,CSMT - Vashi,Vashi,Daily
+98511,CSMT - Vashi,Vashi,Daily
+98513,CSMT - Vashi,Vashi,Daily
+98515,CSMT - Vashi,Vashi,Daily
+98517,CSMT - Vashi,Vashi,Daily
+98519,CSMT - Vashi,Vashi,Daily
+98521,CSMT - Vashi,Vashi,Daily
+98523,CSMT - Vashi,Vashi,Daily
+98525,CSMT - Vashi,Vashi,Daily
+98527,CSMT - Vashi,Vashi,Daily
+98529,CSMT - Vashi,Vashi,Daily
+98533,CSMT - Vashi,Vashi,Daily
+98535,CSMT - Vashi,Vashi,Daily
+98537,CSMT - Vashi,Vashi,Daily
+98539,CSMT - Vashi,Vashi,Daily
+98541,CSMT - Vashi,Vashi,Daily
+98543,CSMT - Vashi,Vashi,Daily
+98545,CSMT - Vashi,Vashi,Daily
+98547,CSMT - Vashi,Vashi,Daily
+98549,CSMT - Vashi,Vashi,Daily
+98551,CSMT - Vashi,Vashi,Daily
+98553,CSMT - Vashi,Vashi,Daily
+98555,CSMT - Vashi,Vashi,Daily
+98557,CSMT - Vashi,Vashi,Daily
+98559,CSMT - Vashi,Vashi,Daily
+98561,CSMT - Vashi,Vashi,Daily
+98563,CSMT - Vashi,Vashi,Daily
+98565,CSMT - Vashi,Vashi,Daily
+98567,CSMT - Vashi,Vashi,Daily
+98569,CSMT - Vashi,Vashi,Daily
+98571,CSMT - Vashi,Vashi,Daily
+98573,CSMT - Vashi,Vashi,Daily
+98575,CSMT - Vashi,Vashi,Daily
+91392,Goregaon - CSMT,CSMT,Mon-Sat
+91394,Goregaon - CSMT,CSMT,Mon-Sat
+91396,Goregaon - CSMT,CSMT,Daily
+98702,Goregaon - CSMT,CSMT,Daily
+98704,Goregaon - CSMT,CSMT,Daily
+98706,Goregaon - CSMT,CSMT,Daily
+98708,Goregaon - CSMT,CSMT,Daily
+98710,Goregaon - CSMT,CSMT,Mon-Sat
+98712,Goregaon - CSMT,CSMT,Daily
+98714,Goregaon - CSMT,CSMT,Daily
+98716,Goregaon - CSMT,CSMT,Daily
+98718,Goregaon - CSMT,CSMT,Daily
+98720,Goregaon - CSMT,CSMT,Daily
+98722,Goregaon - CSMT,CSMT,Daily
+98724,Goregaon - CSMT,CSMT,Daily
+98726,Goregaon - CSMT,CSMT,Daily
+98728,Goregaon - CSMT,CSMT,Daily
+98730,Goregaon - CSMT,CSMT,Daily
+98732,Goregaon - CSMT,CSMT,Daily
+98734,Goregaon - CSMT,CSMT,Daily
+98736,Goregaon - CSMT,CSMT,Daily
+98738,Goregaon - CSMT,CSMT,Daily
+98740,Goregaon - CSMT,CSMT,Daily
+98742,Goregaon - CSMT,CSMT,Daily
+98744,Goregaon - CSMT,CSMT,Daily
+98746,Goregaon - CSMT,CSMT,Daily
+98748,Goregaon - CSMT,CSMT,Daily
+98750,Goregaon - CSMT,CSMT,Daily
+98752,Goregaon - CSMT,CSMT,Daily
+98754,Goregaon - CSMT,CSMT,Daily
+98756,Goregaon - CSMT,CSMT,Daily
+98758,Goregaon - CSMT,CSMT,Daily
+98760,Goregaon - CSMT,CSMT,Daily
+98762,Goregaon - CSMT,CSMT,Daily
+98764,Goregaon - CSMT,CSMT,Daily
+98766,Goregaon - CSMT,CSMT,Mon-Sat
+98768,Goregaon - CSMT,CSMT,Daily
+98770,Goregaon - CSMT,CSMT,Daily
+98772,Goregaon - CSMT,CSMT,Daily
+98774,Goregaon - CSMT,CSMT,Daily
+98776,Goregaon - CSMT,CSMT,Daily
+98778,Goregaon - CSMT,CSMT,Daily
+98780,Goregaon - CSMT,CSMT,Daily
+98782,Goregaon - CSMT,CSMT,Daily
+98784,Goregaon - CSMT,CSMT,Daily
+98786,Goregaon - CSMT,CSMT,Daily
+98788,Goregaon - CSMT,CSMT,Daily
+98902,Goregaon - Panvel,Panvel,Daily
+98904,Goregaon - Panvel,Panvel,Daily
+98906,Goregaon - Panvel,Panvel,Daily
+98908,Goregaon - Panvel,Panvel,Daily
+98910,Goregaon - Panvel,Panvel,Daily
+98912,Goregaon - Panvel,Panvel,Daily
+98914,Goregaon - Panvel,Panvel,Daily
+98916,Goregaon - Panvel,Panvel,Daily
+98918,Goregaon - Panvel,Panvel,Daily
+98602,Mankhurd - CSMT,CSMT,Daily
+98604,Mankhurd - CSMT,CSMT,Mon-Sat
+99202,Nerul - Thane ,Thane ,Daily
+99204,Nerul - Thane ,Thane ,Daily
+99206,Nerul - Thane ,Thane ,Daily
+99208,Nerul - Thane ,Thane ,Daily
+99210,Nerul - Thane ,Thane ,Daily
+99212,Nerul - Thane ,Thane ,Daily
+99214,Nerul - Thane ,Thane ,Daily
+99216,Nerul - Thane ,Thane ,Daily
+99218,Nerul - Thane ,Thane ,Daily
+99220,Nerul - Thane ,Thane ,Daily
+99232,Nerul - Thane ,Thane ,Daily
+99234,Nerul - Thane ,Thane ,Daily
+99236,Nerul - Thane ,Thane ,Daily
+99238,Nerul - Thane ,Thane ,Daily
+99240,Nerul - Thane ,Thane ,Daily
+99242,Nerul - Thane ,Thane ,Daily
+99244,Nerul - Thane ,Thane ,Daily
+99246,Nerul - Thane ,Thane ,Daily
+99248,Nerul - Thane ,Thane ,Daily
+99250,Nerul - Thane ,Thane ,Daily
+99252,Nerul - Thane ,Thane ,Daily
+99254,Nerul - Thane ,Thane ,Daily
+99256,Nerul - Thane ,Thane ,Daily
+99258,Nerul - Thane ,Thane ,Daily
+99260,Nerul - Thane ,Thane ,Daily
+99262,Nerul - Thane ,Thane ,Daily
+99264,Nerul - Thane ,Thane ,Daily
+99266,Nerul - Thane ,Thane ,Daily
+99268,Nerul - Thane ,Thane ,Daily
+99601,Nerul - Uran,Uran,Daily
+99603,Nerul - Uran,Uran,Daily
+99605,Nerul - Uran,Uran,Daily
+99607,Nerul - Uran,Uran,Daily
+99609,Nerul - Uran,Uran,Daily
+99611,Nerul - Uran,Uran,Daily
+99613,Nerul - Uran,Uran,Daily
+99615,Nerul - Uran,Uran,Daily
+99617,Nerul - Uran,Uran,Daily
+99619,Nerul - Uran,Uran,Daily
+99621,Nerul - Uran,Uran,Daily
+99623,Nerul - Uran,Uran,Daily
+98246,Panvel - Belapur CBD,Belapur CBD,Daily
+98252,Panvel - Belapur CBD,Belapur CBD,Daily
+98002,Panvel - CSMT,CSMT,Daily
+98004,Panvel - CSMT,CSMT,Daily
+98006,Panvel - CSMT,CSMT,Daily
+98008,Panvel - CSMT,CSMT,Daily
+98010,Panvel - CSMT,CSMT,Daily
+98012,Panvel - CSMT,CSMT,Daily
+98014,Panvel - CSMT,CSMT,Daily
+98016,Panvel - CSMT,CSMT,Daily
+98018,Panvel - CSMT,CSMT,Daily
+98020,Panvel - CSMT,CSMT,Mon-Sat
+98022,Panvel - CSMT,CSMT,Daily
+98026,Panvel - CSMT,CSMT,Daily
+98028,Panvel - CSMT,CSMT,Daily
+98032,Panvel - CSMT,CSMT,Daily
+98036,Panvel - CSMT,CSMT,Daily
+98038,Panvel - CSMT,CSMT,Daily
+98042,Panvel - CSMT,CSMT,Daily
+98044,Panvel - CSMT,CSMT,Daily
+98046,Panvel - CSMT,CSMT,Daily
+98048,Panvel - CSMT,CSMT,Daily
+98052,Panvel - CSMT,CSMT,Daily
+98056,Panvel - CSMT,CSMT,Daily
+98058,Panvel - CSMT,CSMT,Daily
+98060,Panvel - CSMT,CSMT,Daily
+98062,Panvel - CSMT,CSMT,Daily
+98066,Panvel - CSMT,CSMT,Daily
+98070,Panvel - CSMT,CSMT,Daily
+98072,Panvel - CSMT,CSMT,Daily
+98074,Panvel - CSMT,CSMT,Daily
+98078,Panvel - CSMT,CSMT,Daily
+98080,Panvel - CSMT,CSMT,Daily
+98082,Panvel - CSMT,CSMT,Daily
+98086,Panvel - CSMT,CSMT,Daily
+98090,Panvel - CSMT,CSMT,Daily
+98092,Panvel - CSMT,CSMT,Daily
+98094,Panvel - CSMT,CSMT,Daily
+98098,Panvel - CSMT,CSMT,Daily
+98100,Panvel - CSMT,CSMT,Daily
+98102,Panvel - CSMT,CSMT,Daily
+98106,Panvel - CSMT,CSMT,Daily
+98108,Panvel - CSMT,CSMT,Daily
+98110,Panvel - CSMT,CSMT,Daily
+98112,Panvel - CSMT,CSMT,Mon-Sat
+98114,Panvel - CSMT,CSMT,Mon-Sat
+98116,Panvel - CSMT,CSMT,Daily
+98118,Panvel - CSMT,CSMT,Mon-Sat
+98120,Panvel - CSMT,CSMT,Daily
+98122,Panvel - CSMT,CSMT,Daily
+98126,Panvel - CSMT,CSMT,Daily
+98128,Panvel - CSMT,CSMT,Daily
+98132,Panvel - CSMT,CSMT,Daily
+98134,Panvel - CSMT,CSMT,Daily
+98136,Panvel - CSMT,CSMT,Mon-Sat
+98140,Panvel - CSMT,CSMT,Daily
+98142,Panvel - CSMT,CSMT,Daily
+98144,Panvel - CSMT,CSMT,Daily
+98146,Panvel - CSMT,CSMT,Daily
+98148,Panvel - CSMT,CSMT,Daily
+98150,Panvel - CSMT,CSMT,Daily
+98152,Panvel - CSMT,CSMT,Mon-Sat
+98154,Panvel - CSMT,CSMT,Daily
+98156,Panvel - CSMT,CSMT,Mon-Sat
+98158,Panvel - CSMT,CSMT,Daily
+98160,Panvel - CSMT,CSMT,Daily
+98164,Panvel - CSMT,CSMT,Daily
+98166,Panvel - CSMT,CSMT,Daily
+98170,Panvel - CSMT,CSMT,Daily
+98172,Panvel - CSMT,CSMT,Daily
+98176,Panvel - CSMT,CSMT,Daily
+98178,Panvel - CSMT,CSMT,Daily
+98180,Panvel - CSMT,CSMT,Mon-Sat
+98184,Panvel - CSMT,CSMT,Daily
+98186,Panvel - CSMT,CSMT,Daily
+98190,Panvel - CSMT,CSMT,Daily
+98192,Panvel - CSMT,CSMT,Daily
+98194,Panvel - CSMT,CSMT,Daily
+98196,Panvel - CSMT,CSMT,Daily
+98198,Panvel - CSMT,CSMT,Daily
+98200,Panvel - CSMT,CSMT,Daily
+98202,Panvel - CSMT,CSMT,Daily
+98204,Panvel - CSMT,CSMT,Daily
+98206,Panvel - CSMT,CSMT,Daily
+98210,Panvel - CSMT,CSMT,Daily
+98212,Panvel - CSMT,CSMT,Daily
+98214,Panvel - CSMT,CSMT,Daily
+98216,Panvel - CSMT,CSMT,Daily
+98218,Panvel - CSMT,CSMT,Daily
+98220,Panvel - CSMT,CSMT,Daily
+98222,Panvel - CSMT,CSMT,Daily
+98224,Panvel - CSMT,CSMT,Mon-Sat
+98226,Panvel - CSMT,CSMT,Daily
+98228,Panvel - CSMT,CSMT,Daily
+98230,Panvel - CSMT,CSMT,Mon-Sat
+98232,Panvel - CSMT,CSMT,Daily
+98234,Panvel - CSMT,CSMT,Daily
+98236,Panvel - CSMT,CSMT,Daily
+98238,Panvel - CSMT,CSMT,Daily
+98242,Panvel - CSMT,CSMT,Daily
+98244,Panvel - CSMT,CSMT,Daily
+98901,Panvel - Goregaon,Goregaon,Daily
+98903,Panvel - Goregaon,Goregaon,Daily
+98905,Panvel - Goregaon,Goregaon,Daily
+98907,Panvel - Goregaon,Goregaon,Daily
+98909,Panvel - Goregaon,Goregaon,Daily
+98911,Panvel - Goregaon,Goregaon,Daily
+98913,Panvel - Goregaon,Goregaon,Daily
+98915,Panvel - Goregaon,Goregaon,Daily
+98917,Panvel - Goregaon,Goregaon,Daily
+99002,Panvel - Thane,Thane,Daily
+99004,Panvel - Thane,Thane,Daily
+99006,Panvel - Thane,Thane,Daily
+99008,Panvel - Thane,Thane,Daily
+99010,Panvel - Thane,Thane,Daily
+99012,Panvel - Thane,Thane,Daily
+99014,Panvel - Thane,Thane,Daily
+99016,Panvel - Thane,Thane,Daily
+99018,Panvel - Thane,Thane,Daily
+99020,Panvel - Thane,Thane,Daily
+99022,Panvel - Thane,Thane,Daily
+99024,Panvel - Thane,Thane,Daily
+99026,Panvel - Thane,Thane,Daily
+99028,Panvel - Thane,Thane,Daily
+99030,Panvel - Thane,Thane,Daily
+99032,Panvel - Thane,Thane,Daily
+99034,Panvel - Thane,Thane,Daily
+99036,Panvel - Thane,Thane,Daily
+99038,Panvel - Thane,Thane,Daily
+99040,Panvel - Thane,Thane,Daily
+99042,Panvel - Thane,Thane,Daily
+99044,Panvel - Thane,Thane,Daily
+99046,Panvel - Thane,Thane,Daily
+99048,Panvel - Thane,Thane,Daily
+99050,Panvel - Thane,Thane,Daily
+99052,Panvel - Thane,Thane,Daily
+99054,Panvel - Thane,Thane,Daily
+99056,Panvel - Thane,Thane,Daily
+99058,Panvel - Thane,Thane,Daily
+99060,Panvel - Thane,Thane,Daily
+99062,Panvel - Thane,Thane,Daily
+99064,Panvel - Thane,Thane,Daily
+99066,Panvel - Thane,Thane,Daily
+99068,Panvel - Thane,Thane,Daily
+99070,Panvel - Thane,Thane,Daily
+99072,Panvel - Thane,Thane,Daily
+99074,Panvel - Thane,Thane,Daily
+98024,Panvel - Vadala Road,Vadala Road,Daily
+98030,Panvel - Vadala Road,Vadala Road,Mon-Sat
+98034,Panvel - Vadala Road,Vadala Road,Mon-Sat
+98040,Panvel - Vadala Road,Vadala Road,Daily
+98050,Panvel - Vadala Road,Vadala Road,Daily
+98054,Panvel - Vadala Road,Vadala Road,Mon-Sat
+98064,Panvel - Vadala Road,Vadala Road,Mon-Sat
+98068,Panvel - Vadala Road,Vadala Road,Mon-Sat
+98076,Panvel - Vadala Road,Vadala Road,Daily
+98084,Panvel - Vadala Road,Vadala Road,Mon-Sat
+98088,Panvel - Vadala Road,Vadala Road,Daily
+98096,Panvel - Vadala Road,Vadala Road,Daily
+98104,Panvel - Vadala Road,Vadala Road,Daily
+98124,Panvel - Vadala Road,Vadala Road,Daily
+98130,Panvel - Vadala Road,Vadala Road,Daily
+98138,Panvel - Vadala Road,Vadala Road,Daily
+98162,Panvel - Vadala Road,Vadala Road,Daily
+98168,Panvel - Vadala Road,Vadala Road,Daily
+98174,Panvel - Vadala Road,Vadala Road,Mon-Sat
+98182,Panvel - Vadala Road,Vadala Road,Daily
+98188,Panvel - Vadala Road,Vadala Road,Daily
+98208,Panvel - Vadala Road,Vadala Road,Mon-Sat
+98250,Panvel - Vadala Road,Vadala Road,Daily
+98240,Panvel - Vashi,Vashi,Mon-Sat
+98248,Panvel - Vashi,Vashi,Daily
+99201,Thane - Nerul,Nerul,Daily
+99203,Thane - Nerul,Nerul,Daily
+99205,Thane - Nerul,Nerul,Mon-Sat
+99207,Thane - Nerul,Nerul,Daily
+99209,Thane - Nerul,Nerul,Daily
+99211,Thane - Nerul,Nerul,Daily
+99213,Thane - Nerul,Nerul,Daily
+99215,Thane - Nerul,Nerul,Daily
+99217,Thane - Nerul,Nerul,Daily
+99219,Thane - Nerul,Nerul,Mon-Sat
+99221,Thane - Nerul,Nerul,Daily
+99223,Thane - Nerul,Nerul,Daily
+99225,Thane - Nerul,Nerul,Daily
+99227,Thane - Nerul,Nerul,Daily
+99229,Thane - Nerul,Nerul,Daily
+99231,Thane - Nerul,Nerul,Daily
+99233,Thane - Nerul,Nerul,Daily
+99235,Thane - Nerul,Nerul,Daily
+99237,Thane - Nerul,Nerul,Daily
+99239,Thane - Nerul,Nerul,Daily
+99241,Thane - Nerul,Nerul,Daily
+99243,Thane - Nerul,Nerul,Daily
+99245,Thane - Nerul,Nerul,Daily
+99247,Thane - Nerul,Nerul,Daily
+99249,Thane - Nerul,Nerul,Daily
+99251,Thane - Nerul,Nerul,Daily
+99253,Thane - Nerul,Nerul,Daily
+99255,Thane - Nerul,Nerul,Daily
+99257,Thane - Nerul,Nerul,Daily
+99259,Thane - Nerul,Nerul,Daily
+99261,Thane - Nerul,Nerul,Daily
+99263,Thane - Nerul,Nerul,Daily
+99265,Thane - Nerul,Nerul,Daily
+99267,Thane - Nerul,Nerul,Daily
+99001,Thane - Panvel,Panvel,Daily
+99003,Thane - Panvel,Panvel,Daily
+99005,Thane - Panvel,Panvel,Daily
+99007,Thane - Panvel,Panvel,Daily
+99011,Thane - Panvel,Panvel,Daily
+99013,Thane - Panvel,Panvel,Daily
+99015,Thane - Panvel,Panvel,Daily
+99017,Thane - Panvel,Panvel,Daily
+99019,Thane - Panvel,Panvel,Mon-Sat
+99021,Thane - Panvel,Panvel,Daily
+99023,Thane - Panvel,Panvel,Daily
+99025,Thane - Panvel,Panvel,Daily
+99027,Thane - Panvel,Panvel,Daily
+99029,Thane - Panvel,Panvel,Daily
+99031,Thane - Panvel,Panvel,Daily
+99033,Thane - Panvel,Panvel,Daily
+99035,Thane - Panvel,Panvel,Daily
+99037,Thane - Panvel,Panvel,Daily
+99039,Thane - Panvel,Panvel,Daily
+99041,Thane - Panvel,Panvel,Daily
+99043,Thane - Panvel,Panvel,Daily
+99045,Thane - Panvel,Panvel,Daily
+99047,Thane - Panvel,Panvel,Daily
+99049,Thane - Panvel,Panvel,Daily
+99051,Thane - Panvel,Panvel,Daily
+99053,Thane - Panvel,Panvel,Daily
+99055,Thane - Panvel,Panvel,Daily
+99057,Thane - Panvel,Panvel,Daily
+99059,Thane - Panvel,Panvel,Daily
+99061,Thane - Panvel,Panvel,Daily
+99063,Thane - Panvel,Panvel,Daily
+99065,Thane - Panvel,Panvel,Daily
+99067,Thane - Panvel,Panvel,Daily
+99069,Thane - Panvel,Panvel,Daily
+99071,Thane - Panvel,Panvel,Daily
+99073,Thane - Panvel,Panvel,Daily
+99401,Thane - Vashi,Vashi,Daily
+99403,Thane - Vashi,Vashi,Daily
+99405,Thane - Vashi,Vashi,Daily
+99407,Thane - Vashi,Vashi,Daily
+99409,Thane - Vashi,Vashi,Daily
+99411,Thane - Vashi,Vashi,Daily
+99413,Thane - Vashi,Vashi,Daily
+99415,Thane - Vashi,Vashi,Daily
+99417,Thane - Vashi,Vashi,Mon-Sat
+99419,Thane - Vashi,Vashi,Daily
+99421,Thane - Vashi,Vashi,Daily
+99423,Thane - Vashi,Vashi,Daily
+99425,Thane - Vashi,Vashi,Daily
+99427,Thane - Vashi,Vashi,Daily
+99429,Thane - Vashi,Vashi,Daily
+99431,Thane - Vashi,Vashi,Daily
+99433,Thane - Vashi,Vashi,Daily
+99435,Thane - Vashi,Vashi,Daily
+99437,Thane - Vashi,Vashi,Daily
+99439,Thane - Vashi,Vashi,Daily
+99441,Thane - Vashi,Vashi,Daily
+99443,Thane - Vashi,Vashi,Daily
+99445,Thane - Vashi,Vashi,Daily
+99447,Thane - Vashi,Vashi,Daily
+99449,Thane - Vashi,Vashi,Daily
+99451,Thane - Vashi,Vashi,Daily
+99453,Thane - Vashi,Vashi,Daily
+99455,Thane - Vashi,Vashi,Daily
+99457,Thane - Vashi,Vashi,Daily
+99459,Thane - Vashi,Vashi,Daily
+99461,Thane - Vashi,Vashi,Daily
+99463,Thane - Vashi,Vashi,Daily
+99465,Thane - Vashi,Vashi,Daily
+99467,Thane - Vashi,Vashi,Daily
+99469,Thane - Vashi,Vashi,Daily
+99471,Thane - Vashi,Vashi,Daily
+99473,Thane - Vashi,Vashi,Daily
+99475,Thane - Vashi,Vashi,Daily
+99477,Thane - Vashi,Vashi,Daily
+99479,Thane - Vashi,Vashi,Daily
+99481,Thane - Vashi,Vashi,Daily
+99483,Thane - Vashi,Vashi,Daily
+99485,Thane - Vashi,Vashi,Daily
+99487,Thane - Vashi,Vashi,Daily
+99489,Thane - Vashi,Vashi,Daily
+99491,Thane - Vashi,Vashi,Daily
+99493,Thane - Vashi,Vashi,Daily
+99495,Thane - Vashi,Vashi,Daily
+99497,Thane - Vashi,Vashi,Daily
+99499,Thane - Vashi,Vashi,Daily
+99501,Thane - Vashi,Vashi,Daily
+99503,Thane - Vashi,Vashi,Daily
+99505,Thane - Vashi,Vashi,Daily
+99507,Thane - Vashi,Vashi,Daily
+99509,Thane - Vashi,Vashi,Daily
+99511,Thane - Vashi,Vashi,Daily
+99513,Thane - Vashi,Vashi,Daily
+99515,Thane - Vashi,Vashi,Daily
+99517,Thane - Vashi,Vashi,Daily
+99519,Thane - Vashi,Vashi,Daily
+99702,Uran - Belapur CBD,Belapur CBD,Daily
+99704,Uran - Belapur CBD,Belapur CBD,Daily
+99706,Uran - Belapur CBD,Belapur CBD,Daily
+99708,Uran - Belapur CBD,Belapur CBD,Daily
+99710,Uran - Belapur CBD,Belapur CBD,Daily
+99712,Uran - Belapur CBD,Belapur CBD,Daily
+99714,Uran - Belapur CBD,Belapur CBD,Daily
+99716,Uran - Belapur CBD,Belapur CBD,Daily
+99718,Uran - Belapur CBD,Belapur CBD,Daily
+99720,Uran - Belapur CBD,Belapur CBD,Daily
+99722,Uran - Belapur CBD,Belapur CBD,Daily
+99724,Uran - Belapur CBD,Belapur CBD,Daily
+99726,Uran - Belapur CBD,Belapur CBD,Daily
+99602,Uran - Nerul,Nerul,Daily
+99604,Uran - Nerul,Nerul,Daily
+99606,Uran - Nerul,Nerul,Daily
+99608,Uran - Nerul,Nerul,Daily
+99610,Uran - Nerul,Nerul,Daily
+99612,Uran - Nerul,Nerul,Daily
+99614,Uran - Nerul,Nerul,Daily
+99616,Uran - Nerul,Nerul,Daily
+99618,Uran - Nerul,Nerul,Daily
+99620,Uran - Nerul,Nerul,Daily
+99622,Uran - Nerul,Nerul,Daily
+99624,Uran - Nerul,Nerul,Daily
+98303,Vadala Road - Belapur CBD,Belapur CBD,Daily
+98313,Vadala Road - Belapur CBD,Belapur CBD,Daily
+98009,Vadala Road - Panvel,Panvel,Daily
+98021,Vadala Road - Panvel,Panvel,Daily
+98035,Vadala Road - Panvel,Panvel,Daily
+98047,Vadala Road - Panvel,Panvel,Daily
+98059,Vadala Road - Panvel,Panvel,Daily
+98065,Vadala Road - Panvel,Panvel,Daily
+98075,Vadala Road - Panvel,Panvel,Mon-Sat
+98087,Vadala Road - Panvel,Panvel,Mon-Sat
+98107,Vadala Road - Panvel,Panvel,Mon-Sat
+98115,Vadala Road - Panvel,Panvel,Daily
+98119,Vadala Road - Panvel,Panvel,Daily
+98129,Vadala Road - Panvel,Panvel,Daily
+98147,Vadala Road - Panvel,Panvel,Daily
+98161,Vadala Road - Panvel,Panvel,Daily
+98167,Vadala Road - Panvel,Panvel,Mon-Sat
+98173,Vadala Road - Panvel,Panvel,Mon-Sat
+98177,Vadala Road - Panvel,Panvel,Daily
+98181,Vadala Road - Panvel,Panvel,Daily
+98187,Vadala Road - Panvel,Panvel,Daily
+98197,Vadala Road - Panvel,Panvel,Daily
+98209,Vadala Road - Panvel,Panvel,Daily
+98215,Vadala Road - Panvel,Panvel,Daily
+98219,Vadala Road - Panvel,Panvel,Mon-Sat
+98227,Vadala Road - Panvel,Panvel,Mon-Sat
+98231,Vadala Road - Panvel,Panvel,Daily
+98237,Vadala Road - Panvel,Panvel,Mon-Sat
+98503,Vadala Road - Vashi,Vashi,Daily
+98502,Vashi - CSMT,CSMT,Mon-Sat
+98504,Vashi - CSMT,CSMT,Daily
+98508,Vashi - CSMT,CSMT,Daily
+98510,Vashi - CSMT,CSMT,Daily
+98514,Vashi - CSMT,CSMT,Mon-Sat
+98516,Vashi - CSMT,CSMT,Daily
+98518,Vashi - CSMT,CSMT,Daily
+98520,Vashi - CSMT,CSMT,Daily
+98524,Vashi - CSMT,CSMT,Daily
+98526,Vashi - CSMT,CSMT,Daily
+98528,Vashi - CSMT,CSMT,Daily
+98530,Vashi - CSMT,CSMT,Daily
+98532,Vashi - CSMT,CSMT,Daily
+98534,Vashi - CSMT,CSMT,Daily
+98536,Vashi - CSMT,CSMT,Daily
+98538,Vashi - CSMT,CSMT,Daily
+98540,Vashi - CSMT,CSMT,Mon-Sat
+98542,Vashi - CSMT,CSMT,Daily
+98544,Vashi - CSMT,CSMT,Mon-Sat
+98546,Vashi - CSMT,CSMT,Mon-Sat
+98550,Vashi - CSMT,CSMT,Daily
+98556,Vashi - CSMT,CSMT,Daily
+98560,Vashi - CSMT,CSMT,Mon-Sat
+98562,Vashi - CSMT,CSMT,Daily
+98564,Vashi - CSMT,CSMT,Daily
+98566,Vashi - CSMT,CSMT,Mon-Sat
+98568,Vashi - CSMT,CSMT,Mon-Sat
+98570,Vashi - CSMT,CSMT,Daily
+98572,Vashi - CSMT,CSMT,Daily
+98574,Vashi - CSMT,CSMT,Mon-Sat
+98576,Vashi - CSMT,CSMT,Mon-Sat
+98578,Vashi - CSMT,CSMT,Mon-Sat
+99402,Vashi - Thane,Thane,Daily
+99404,Vashi - Thane,Thane,Daily
+99406,Vashi - Thane,Thane,Daily
+99408,Vashi - Thane,Thane,Daily
+99410,Vashi - Thane,Thane,Daily
+99412,Vashi - Thane,Thane,Daily
+99414,Vashi - Thane,Thane,Daily
+99416,Vashi - Thane,Thane,Daily
+99418,Vashi - Thane,Thane,Daily
+99420,Vashi - Thane,Thane,Daily
+99422,Vashi - Thane,Thane,Daily
+99424,Vashi - Thane,Thane,Daily
+99426,Vashi - Thane,Thane,Daily
+99428,Vashi - Thane,Thane,Daily
+99430,Vashi - Thane,Thane,Daily
+99432,Vashi - Thane,Thane,Daily
+99434,Vashi - Thane,Thane,Daily
+99436,Vashi - Thane,Thane,Daily
+99438,Vashi - Thane,Thane,Daily
+99440,Vashi - Thane,Thane,Daily
+99442,Vashi - Thane,Thane,Daily
+99444,Vashi - Thane,Thane,Daily
+99446,Vashi - Thane,Thane,Daily
+99448,Vashi - Thane,Thane,Daily
+99450,Vashi - Thane,Thane,Daily
+99452,Vashi - Thane,Thane,Daily
+99454,Vashi - Thane,Thane,Daily
+99456,Vashi - Thane,Thane,Daily
+99458,Vashi - Thane,Thane,Daily
+99460,Vashi - Thane,Thane,Daily
+99462,Vashi - Thane,Thane,Daily
+99464,Vashi - Thane,Thane,Daily
+99466,Vashi - Thane,Thane,Daily
+99468,Vashi - Thane,Thane,Daily
+99470,Vashi - Thane,Thane,Daily
+99472,Vashi - Thane,Thane,Daily
+99474,Vashi - Thane,Thane,Daily
+99476,Vashi - Thane,Thane,Daily
+99478,Vashi - Thane,Thane,Daily
+99480,Vashi - Thane,Thane,Daily
+99482,Vashi - Thane,Thane,Daily
+99484,Vashi - Thane,Thane,Daily
+99486,Vashi - Thane,Thane,Daily
+99488,Vashi - Thane,Thane,Daily
+99490,Vashi - Thane,Thane,Daily
+99492,Vashi - Thane,Thane,Daily
+99494,Vashi - Thane,Thane,Daily
+99496,Vashi - Thane,Thane,Daily
+99498,Vashi - Thane,Thane,Daily
+99500,Vashi - Thane,Thane,Daily
+99502,Vashi - Thane,Thane,Daily
+99504,Vashi - Thane,Thane,Daily
+99506,Vashi - Thane,Thane,Daily
+99508,Vashi - Thane,Thane,Daily
+99510,Vashi - Thane,Thane,Daily
+99512,Vashi - Thane,Thane,Daily
+99514,Vashi - Thane,Thane,Daily
+99516,Vashi - Thane,Thane,Daily
+99518,Vashi - Thane,Thane,Daily
+99520,Vashi - Thane,Thane,Daily
+98506,Vashi - Vadala Road,Vadala Road,Mon-Sat
+98512,Vashi - Vadala Road,Vadala Road,Mon-Sat
+98522,Vashi - Vadala Road,Vadala Road,Mon-Sat
+98548,Vashi - Vadala Road,Vadala Road,Mon-Sat
+98552,Vashi - Vadala Road,Vadala Road,Mon-Sat
+98554,Vashi - Vadala Road,Vadala Road,Daily
+98558,Vashi - Vadala Road,Vadala Road,Daily
+96002,Khopoli - Karjat,Karjat,Daily
+96004,Khopoli - Karjat,Karjat,Daily
+96006,Khopoli - Karjat,Karjat,Daily
+96008,Khopoli - Karjat,Karjat,Daily
+96010,Khopoli - Karjat,Karjat,Daily
+96012,Khopoli - Karjat,Karjat,Daily
+96014,Khopoli - Karjat,Karjat,Daily
+96016,Khopoli - Karjat,Karjat,Daily
+96018,Khopoli - Karjat,Karjat,Daily
