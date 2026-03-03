@@ -1,0 +1,558 @@
+route,station,platform
+Thane - Panvel,TNA,9 & 10
+Thane - Panvel,DIGH,2 LEFT
+Thane - Panvel,AIRL,1 BOTH
+Thane - Panvel,RABE,1 BOTH
+Thane - Panvel,GNSL,1 BOTH
+Thane - Panvel,KPHN,1 BOTH
+Thane - Panvel,TUH,1 BOTH
+Thane - Panvel,JNJ,1 BOTH
+Thane - Panvel,NEU,1 BOTH
+Thane - Panvel,SWDV,1 BOTH
+Thane - Panvel,BEPR,1 BOTH
+Thane - Panvel,KHAG,1 BOTH
+Thane - Panvel,MANR,3 BOTH
+Thane - Panvel,KNDS,1 BOTH
+Thane - Panvel,PNVL,
+Thane - Vashi,TNA,9 & 10
+Thane - Vashi,DIGH,2 LEFT
+Thane - Vashi,AIRL,1 BOTH
+Thane - Vashi,RABE,1 BOTH
+Thane - Vashi,GNSL,1 BOTH
+Thane - Vashi,KPHN,1 BOTH
+Thane - Vashi,TUH,3 BOTH
+Thane - Vashi,SNPD,2 BOTH
+Thane - Vashi,VSH,1/2 BOTH
+Thane - Nerul,TNA,9 & 10
+Thane - Nerul,DIGH,2 LEFT
+Thane - Nerul,AIRL,1 BOTH
+Thane - Nerul,RABE,1 BOTH
+Thane - Nerul,GNSL,1 BOTH
+Thane - Nerul,KPHN,1 BOTH
+Thane - Nerul,TUH,1 BOTH
+Thane - Nerul,JNJ,1 BOTH
+Thane - Nerul,NEU,1 BOTH
+Panvel - Thane,PNVL,
+Panvel - Thane,KNDS,2 RIGHT
+Panvel - Thane,MANR,4 BOTH
+Panvel - Thane,KHAG,2 BOTH
+Panvel - Thane,BEPR,3 BOTH
+Panvel - Thane,SWDV,2 RIGHT
+Panvel - Thane,NEU,2 BOTH
+Panvel - Thane,JNJ,2 BOTH
+Panvel - Thane,TUH,2 BOTH
+Panvel - Thane,KPHN,2 BOTH
+Panvel - Thane,GNSL,2 BOTH
+Panvel - Thane,RABE,2 BOTH
+Panvel - Thane,AIRL,2 BOTH
+Panvel - Thane,DIGH,3 LEFT
+Panvel - Thane,TNA,9 & 10
+Vashi - Thane,VSH,1/2 BOTH
+Vashi - Thane,SNPD,1 BOTH
+Vashi - Thane,TUH,4 BOTH
+Vashi - Thane,KPHN,2 BOTH
+Vashi - Thane,GNSL,2 BOTH
+Vashi - Thane,RABE,2 BOTH
+Vashi - Thane,AIRL,2 BOTH
+Vashi - Thane,DIGH,3 LEFT
+Vashi - Thane,TNA,9 & 10
+Nerul - Thane ,NEU,1 BOTH
+Nerul - Thane ,JNJ,2 BOTH
+Nerul - Thane ,TUH,2 BOTH
+Nerul - Thane ,KPHN,2 BOTH
+Nerul - Thane ,GNSL,2 BOTH
+Nerul - Thane ,RABE,2 BOTH
+Nerul - Thane ,AIRL,2 BOTH
+Nerul - Thane ,DIGH,3 LEFT
+Nerul - Thane ,TNA,9 & 10
+CSMT - Belapur CBD,CSMT,1 BOTH
+CSMT - Belapur CBD,MSD,1 RIGHT
+CSMT - Belapur CBD,SNRD,3 LEFT
+CSMT - Belapur CBD,DKRD,1 LEFT
+CSMT - Belapur CBD,RRD,1 LEFT
+CSMT - Belapur CBD,CTGN,1 LEFT
+CSMT - Belapur CBD,SVE,1 LEFT
+CSMT - Belapur CBD,VDLR,1 LEFT
+CSMT - Belapur CBD,GTBN,1 RIGHT
+CSMT - Belapur CBD,CHMB,1 LEFT
+CSMT - Belapur CBD,CLA,7 RIGHT
+CSMT - Belapur CBD,TKNG,1 LEFT
+CSMT - Belapur CBD,CMBR,1 RIGHT
+CSMT - Belapur CBD,GV,1 BOTH
+CSMT - Belapur CBD,MNKD,1 LEFT
+CSMT - Belapur CBD,VSH,3 BOTH
+CSMT - Belapur CBD,SNPD,3 BOTH
+CSMT - Belapur CBD,JNJ,3 BOTH
+CSMT - Belapur CBD,NEU,3 BOTH
+CSMT - Belapur CBD,SWDV,1 BOTH
+CSMT - Belapur CBD,BEPR,2 BOTH
+CSMT - Panvel,CSMT,2 BOTH
+CSMT - Panvel,MSD,1 RIGHT
+CSMT - Panvel,SNRD,3 LEFT
+CSMT - Panvel,DKRD,1 LEFT
+CSMT - Panvel,RRD,1 LEFT
+CSMT - Panvel,CTGN,1 LEFT
+CSMT - Panvel,SVE,1 LEFT
+CSMT - Panvel,VDLR,1 LEFT
+CSMT - Panvel,GTBN,1 RIGHT
+CSMT - Panvel,CHMB,1 LEFT
+CSMT - Panvel,CLA,7 RIGHT
+CSMT - Panvel,TKNG,1 LEFT
+CSMT - Panvel,CMBR,1 RIGHT
+CSMT - Panvel,GV,1 BOTH
+CSMT - Panvel,MNKD,1 LEFT
+CSMT - Panvel,VSH,3 BOTH
+CSMT - Panvel,SNPD,3 BOTH
+CSMT - Panvel,JNJ,3 BOTH
+CSMT - Panvel,NEU,3 BOTH
+CSMT - Panvel,SWDV,1 BOTH
+CSMT - Panvel,BEPR,1 BOTH
+CSMT - Panvel,KHAG,1 BOTH
+CSMT - Panvel,MANR,3 BOTH
+CSMT - Panvel,KNDS,1 BOTH
+CSMT - Panvel,PNVL,
+CSMT - Bandra,CSMT,2 BOTH
+CSMT - Bandra,MSD,1 RIGHT
+CSMT - Bandra,SNRD,3 LEFT
+CSMT - Bandra,DKRD,1 LEFT
+CSMT - Bandra,RRD,1 LEFT
+CSMT - Bandra,CTGN,1 LEFT
+CSMT - Bandra,SVE,1 LEFT
+CSMT - Bandra,VDLR,1 LEFT
+CSMT - Bandra,KCE,1 LEFT
+CSMT - Bandra,MM,5 RIGHT
+CSMT - Bandra,BA,6 RIGHT
+Vadala Road - Belapur CBD,VDLR,2 RIGHT
+Vadala Road - Belapur CBD,GTBN,1 RIGHT
+Vadala Road - Belapur CBD,CHMB,1 LEFT
+Vadala Road - Belapur CBD,CLA,7 RIGHT
+Vadala Road - Belapur CBD,TKNG,1 LEFT
+Vadala Road - Belapur CBD,CMBR,1 RIGHT
+Vadala Road - Belapur CBD,GV,1 BOTH
+Vadala Road - Belapur CBD,MNKD,1 LEFT
+Vadala Road - Belapur CBD,VSH,2/3 BOTH
+Vadala Road - Belapur CBD,SNPD,3 BOTH
+Vadala Road - Belapur CBD,JNJ,3 BOTH
+Vadala Road - Belapur CBD,NEU,3 BOTH
+Vadala Road - Belapur CBD,SWDV,1 BOTH
+Vadala Road - Belapur CBD,BEPR,2 BOTH
+CSMT - Goregaon,CSMT,1/2 BOTH
+CSMT - Goregaon,MSD,1 RIGHT
+CSMT - Goregaon,SNRD,3 LEFT
+CSMT - Goregaon,DKRD,1 LEFT
+CSMT - Goregaon,RRD,1 LEFT
+CSMT - Goregaon,CTGN,1 LEFT
+CSMT - Goregaon,SVE,1 LEFT
+CSMT - Goregaon,VDLR,1 LEFT
+CSMT - Goregaon,KCE,1 LEFT
+CSMT - Goregaon,MM,5 RIGHT
+CSMT - Goregaon,BA,6 RIGHT
+CSMT - Goregaon,KHAR,1 BOTH
+CSMT - Goregaon,STC,1 RIGHT
+CSMT - Goregaon,VLP,1 RIGHT
+CSMT - Goregaon,ADH,1 LEFT
+CSMT - Goregaon,JOS,5 LEFT
+CSMT - Goregaon,RMAR,1 RIGHT
+CSMT - Goregaon,GMN,2 RIGHT
+Vadala Road - Panvel,VDLR,2 RIGHT
+Vadala Road - Panvel,GTBN,1 RIGHT
+Vadala Road - Panvel,CHMB,1 LEFT
+Vadala Road - Panvel,CLA,7 RIGHT
+Vadala Road - Panvel,TKNG,1 LEFT
+Vadala Road - Panvel,CMBR,1 RIGHT
+Vadala Road - Panvel,GV,1 BOTH
+Vadala Road - Panvel,MNKD,1 LEFT
+Vadala Road - Panvel,VSH,2/3 BOTH
+Vadala Road - Panvel,SNPD,3 BOTH
+Vadala Road - Panvel,JNJ,3 BOTH
+Vadala Road - Panvel,NEU,3 BOTH
+Vadala Road - Panvel,SWDV,1 BOTH
+Vadala Road - Panvel,BEPR,1 BOTH
+Vadala Road - Panvel,KHAG,1 BOTH
+Vadala Road - Panvel,MANR,3 BOTH
+Vadala Road - Panvel,KNDS,1 BOTH
+Vadala Road - Panvel,PNVL,
+CSMT - Vashi,CSMT,2 BOTH
+CSMT - Vashi,MSD,1 RIGHT
+CSMT - Vashi,SNRD,3 LEFT
+CSMT - Vashi,DKRD,1 LEFT
+CSMT - Vashi,RRD,1 LEFT
+CSMT - Vashi,CTGN,1 LEFT
+CSMT - Vashi,SVE,1 LEFT
+CSMT - Vashi,VDLR,1 LEFT
+CSMT - Vashi,GTBN,1 RIGHT
+CSMT - Vashi,CHMB,1 LEFT
+CSMT - Vashi,CLA,7 RIGHT
+CSMT - Vashi,TKNG,1 LEFT
+CSMT - Vashi,CMBR,1 RIGHT
+CSMT - Vashi,GV,1 BOTH
+CSMT - Vashi,MNKD,1 LEFT
+CSMT - Vashi,VSH,3 BOTH
+Vadala Road - Vashi,VDLR,2 RIGHT
+Vadala Road - Vashi,GTBN,1 RIGHT
+Vadala Road - Vashi,CHMB,1 LEFT
+Vadala Road - Vashi,CLA,7 RIGHT
+Vadala Road - Vashi,TKNG,1 LEFT
+Vadala Road - Vashi,CMBR,1 RIGHT
+Vadala Road - Vashi,GV,1 BOTH
+Vadala Road - Vashi,MNKD,1 LEFT
+Vadala Road - Vashi,VSH,3 BOTH
+CSMT - Chembur,CSMT,2 BOTH
+CSMT - Chembur,MSD,1 RIGHT
+CSMT - Chembur,SNRD,3 LEFT
+CSMT - Chembur,DKRD,1 LEFT
+CSMT - Chembur,RRD,1 LEFT
+CSMT - Chembur,CTGN,1 LEFT
+CSMT - Chembur,SVE,1 LEFT
+CSMT - Chembur,VDLR,1 LEFT
+CSMT - Chembur,GTBN,1 RIGHT
+CSMT - Chembur,CHMB,1 LEFT
+CSMT - Chembur,CLA,7 RIGHT
+CSMT - Chembur,TKNG,1 LEFT
+CSMT - Chembur,CMBR,1 RIGHT
+Panvel - Goregaon,PNVL,
+Panvel - Goregaon,KNDS,2 RIGHT
+Panvel - Goregaon,MANR,4 BOTH
+Panvel - Goregaon,KHAG,2 BOTH
+Panvel - Goregaon,BEPR,3 BOTH
+Panvel - Goregaon,SWDV,2 BOTH
+Panvel - Goregaon,NEU,4 BOTH
+Panvel - Goregaon,JNJ,4 BOTH
+Panvel - Goregaon,SNPD,4 BOTH
+Panvel - Goregaon,VSH,4 BOTH
+Panvel - Goregaon,MNKD,2 LEFT
+Panvel - Goregaon,GV,2 RIGHT
+Panvel - Goregaon,CMBR,2 RIGHT
+Panvel - Goregaon,TKNG,2 LEFT
+Panvel - Goregaon,CLA,8 RIGHT
+Panvel - Goregaon,CHMB,2 LEFT
+Panvel - Goregaon,GTBN,2 RIGHT
+Panvel - Goregaon,VDLR,2 LEFT
+Panvel - Goregaon,KCE,1 LEFT
+Panvel - Goregaon,MM,5 RIGHT
+Panvel - Goregaon,BA,6 RIGHT
+Panvel - Goregaon,KHAR,1 RIGHT
+Panvel - Goregaon,STC,1 RIGHT
+Panvel - Goregaon,VLP,1 BOTH
+Panvel - Goregaon,ADH,1 LEFT
+Panvel - Goregaon,JOS,5 LEFT
+Panvel - Goregaon,RMAR,1 RIGHT
+Panvel - Goregaon,GMN,2 RIGHT
+Goregaon - Panvel,GMN,2 LEFT
+Goregaon - Panvel,RMAR,2 RIGHT
+Goregaon - Panvel,JOS,6 LEFT
+Goregaon - Panvel,ADH,2 LEFT
+Goregaon - Panvel,VLP,2 RIGHT
+Goregaon - Panvel,STC,2 RIGHT
+Goregaon - Panvel,KHAR,2 RIGHT
+Goregaon - Panvel,BA,7 RIGHT
+Goregaon - Panvel,MM,6 RIGHT
+Goregaon - Panvel,KCE,2 LEFT
+Goregaon - Panvel,VDLR,3 LEFT
+Goregaon - Panvel,GTBN,1 RIGHT
+Goregaon - Panvel,CHMB,1 LEFT
+Goregaon - Panvel,CLA,7 RIGHT
+Goregaon - Panvel,TKNG,1 LEFT
+Goregaon - Panvel,CMBR,1 RIGHT
+Goregaon - Panvel,GV,1 BOTH
+Goregaon - Panvel,MNKD,1 LEFT
+Goregaon - Panvel,VSH,3 BOTH
+Goregaon - Panvel,SNPD,3 BOTH
+Goregaon - Panvel,JNJ,3 BOTH
+Goregaon - Panvel,NEU,3 BOTH
+Goregaon - Panvel,SWDV,1 BOTH
+Goregaon - Panvel,BEPR,1 BOTH
+Goregaon - Panvel,KHAG,1 BOTH
+Goregaon - Panvel,MANR,3 BOTH
+Goregaon - Panvel,KNDS,1 BOTH
+Goregaon - Panvel,PNVL,
+Nerul - Uran,NEU,5/6 BOTH
+Nerul - Uran,SWDV,3 BOTH
+Nerul - Uran,TRGR,1 BOTH
+Nerul - Uran,BMDR,1 BOTH
+Nerul - Uran,KARP,1 BOTH
+Nerul - Uran,GAVHAN,1 BOTH
+Nerul - Uran,SEMK,1 BOTH
+Nerul - Uran,NESA,1 BOTH
+Nerul - Uran,DRGI,1 BOTH
+Nerul - Uran,URAN,1/2 BOTH
+Belapur CBD - Uran,BEPR,4 BOTH
+Belapur CBD - Uran,TRGR,1 BOTH
+Belapur CBD - Uran,BMDR,1 BOTH
+Belapur CBD - Uran,KARP,1 BOTH
+Belapur CBD - Uran,GAVHAN,1 BOTH
+Belapur CBD - Uran,SEMK,1 BOTH
+Belapur CBD - Uran,NESA,1 BOTH
+Belapur CBD - Uran,DRGI,1 BOTH
+Belapur CBD - Uran,URAN,1/2 BOTH
+Uran - Nerul,URAN,1/2 BOTH
+Uran - Nerul,DRGI,2 BOTH
+Uran - Nerul,NESA,2 BOTH
+Uran - Nerul,SEMK,2 BOTH
+Uran - Nerul,GAVHAN,2 BOTH
+Uran - Nerul,KARP,2 BOTH
+Uran - Nerul,BMDR,2 BOTH
+Uran - Nerul,TRGR,2 BOTH
+Uran - Nerul,SWDV,4 BOTH
+Uran - Nerul,NEU,5/6 BOTH
+Uran - Belapur CBD,URAN,1/2 BOTH
+Uran - Belapur CBD,DRGI,2 BOTH
+Uran - Belapur CBD,NESA,2 BOTH
+Uran - Belapur CBD,SEMK,2 BOTH
+Uran - Belapur CBD,GAVHAN,2 BOTH
+Uran - Belapur CBD,KARP,2 BOTH
+Uran - Belapur CBD,BMDR,2 BOTH
+Uran - Belapur CBD,TRGR,2 BOTH
+Uran - Belapur CBD,BEPR,4 BOTH
+Bandra - CSMT,BA,6 LEFT
+Bandra - CSMT,MM,6 RIGHT
+Bandra - CSMT,KCE,2 LEFT
+Bandra - CSMT,VDLR,3 RIGHT
+Bandra - CSMT,SVE,2 LEFT
+Bandra - CSMT,CTGN,2 LEFT
+Bandra - CSMT,RRD,2 LEFT
+Bandra - CSMT,DKRD,2 LEFT
+Bandra - CSMT,SNRD,4 LEFT
+Bandra - CSMT,MSD,2 RIGHT
+Bandra - CSMT,CSMT,1 BOTH
+Belapur CBD - CSMT,BEPR,2 BOTH
+Belapur CBD - CSMT,SWDV,2 BOTH
+Belapur CBD - CSMT,NEU,4 BOTH
+Belapur CBD - CSMT,JNJ,4 BOTH
+Belapur CBD - CSMT,SNPD,4 BOTH
+Belapur CBD - CSMT,VSH,4 BOTH
+Belapur CBD - CSMT,MNKD,2 LEFT
+Belapur CBD - CSMT,GV,2 RIGHT
+Belapur CBD - CSMT,CMBR,2 RIGHT
+Belapur CBD - CSMT,TKNG,2 LEFT
+Belapur CBD - CSMT,CLA,8 RIGHT
+Belapur CBD - CSMT,CHMB,2 LEFT
+Belapur CBD - CSMT,GTBN,2 RIGHT
+Belapur CBD - CSMT,VDLR,4 LEFT
+Belapur CBD - CSMT,SVE,2 LEFT
+Belapur CBD - CSMT,CTGN,2 LEFT
+Belapur CBD - CSMT,RRD,2 LEFT
+Belapur CBD - CSMT,DKRD,2 LEFT
+Belapur CBD - CSMT,SNRD,4 LEFT
+Belapur CBD - CSMT,MSD,2 RIGHT
+Belapur CBD - CSMT,CSMT,1 BOTH
+Belapur CBD - Vadala Road,BEPR,2 BOTH
+Belapur CBD - Vadala Road,SWDV,2 BOTH
+Belapur CBD - Vadala Road,NEU,4 BOTH
+Belapur CBD - Vadala Road,JNJ,4 BOTH
+Belapur CBD - Vadala Road,SNPD,4 BOTH
+Belapur CBD - Vadala Road,VSH,4 BOTH
+Belapur CBD - Vadala Road,MNKD,2 LEFT
+Belapur CBD - Vadala Road,GV,2 RIGHT
+Belapur CBD - Vadala Road,CMBR,2 RIGHT
+Belapur CBD - Vadala Road,TKNG,2 LEFT
+Belapur CBD - Vadala Road,CLA,8 RIGHT
+Belapur CBD - Vadala Road,CHMB,2 LEFT
+Belapur CBD - Vadala Road,GTBN,2 RIGHT
+Belapur CBD - Vadala Road,VDLR,2 LEFT
+Chembur - CSMT,CMBR,1 LEFT
+Chembur - CSMT,TKNG,2 LEFT
+Chembur - CSMT,CLA,8 RIGHT
+Chembur - CSMT,CHMB,2 LEFT
+Chembur - CSMT,GTBN,2 RIGHT
+Chembur - CSMT,VDLR,4 LEFT
+Chembur - CSMT,SVE,2 LEFT
+Chembur - CSMT,CTGN,2 LEFT
+Chembur - CSMT,RRD,2 LEFT
+Chembur - CSMT,DKRD,2 LEFT
+Chembur - CSMT,SNRD,4 LEFT
+Chembur - CSMT,MSD,2 RIGHT
+Chembur - CSMT,CSMT,2 BOTH
+Goregaon - CSMT,GMN,1 RIGHT
+Goregaon - CSMT,RMAR,2 RIGHT
+Goregaon - CSMT,JOS,6 LEFT
+Goregaon - CSMT,ADH,2 LEFT
+Goregaon - CSMT,VLP,2 RIGHT
+Goregaon - CSMT,STC,2 LEFT
+Goregaon - CSMT,KHAR,2 RIGHT
+Goregaon - CSMT,BA,7 RIGHT
+Goregaon - CSMT,MM,6 RIGHT
+Goregaon - CSMT,KCE,2 LEFT
+Goregaon - CSMT,VDLR,3 RIGHT
+Goregaon - CSMT,SVE,2 LEFT
+Goregaon - CSMT,CTGN,2 LEFT
+Goregaon - CSMT,RRD,2 LEFT
+Goregaon - CSMT,DKRD,2 LEFT
+Goregaon - CSMT,SNRD,4 LEFT
+Goregaon - CSMT,MSD,2 RIGHT
+Goregaon - CSMT,CSMT,1 BOTH
+Mankhurd - CSMT,MNKD,2 LEFT
+Mankhurd - CSMT,GV,2 RIGHT
+Mankhurd - CSMT,CMBR,2 RIGHT
+Mankhurd - CSMT,TKNG,2 LEFT
+Mankhurd - CSMT,CLA,8 RIGHT
+Mankhurd - CSMT,CHMB,2 LEFT
+Mankhurd - CSMT,GTBN,2 RIGHT
+Mankhurd - CSMT,VDLR,4 LEFT
+Mankhurd - CSMT,SVE,2 LEFT
+Mankhurd - CSMT,CTGN,2 LEFT
+Mankhurd - CSMT,RRD,2 LEFT
+Mankhurd - CSMT,DKRD,2 LEFT
+Mankhurd - CSMT,SNRD,4 LEFT
+Mankhurd - CSMT,MSD,2 RIGHT
+Mankhurd - CSMT,CSMT,1 BOTH
+Panvel - CSMT,PNVL,
+Panvel - CSMT,KNDS,2 RIGHT
+Panvel - CSMT,MANR,4 BOTH
+Panvel - CSMT,KHAG,2 BOTH
+Panvel - CSMT,BEPR,3 BOTH
+Panvel - CSMT,SWDV,2 BOTH
+Panvel - CSMT,NEU,4 BOTH
+Panvel - CSMT,JNJ,4 BOTH
+Panvel - CSMT,SNPD,4 BOTH
+Panvel - CSMT,VSH,4 BOTH
+Panvel - CSMT,MNKD,2 LEFT
+Panvel - CSMT,GV,2 RIGHT
+Panvel - CSMT,CMBR,2 RIGHT
+Panvel - CSMT,TKNG,2 LEFT
+Panvel - CSMT,CLA,8 RIGHT
+Panvel - CSMT,CHMB,2 LEFT
+Panvel - CSMT,GTBN,2 RIGHT
+Panvel - CSMT,VDLR,4 LEFT
+Panvel - CSMT,SVE,2 LEFT
+Panvel - CSMT,CTGN,2 LEFT
+Panvel - CSMT,RRD,2 LEFT
+Panvel - CSMT,DKRD,2 LEFT
+Panvel - CSMT,SNRD,4 LEFT
+Panvel - CSMT,MSD,2 RIGHT
+Panvel - CSMT,CSMT,1 BOTH
+Panvel - Vadala Road,PNVL,
+Panvel - Vadala Road,KNDS,2 RIGHT
+Panvel - Vadala Road,MANR,4 BOTH
+Panvel - Vadala Road,KHAG,2 BOTH
+Panvel - Vadala Road,BEPR,3 BOTH
+Panvel - Vadala Road,SWDV,2 BOTH
+Panvel - Vadala Road,NEU,4 BOTH
+Panvel - Vadala Road,JNJ,4 BOTH
+Panvel - Vadala Road,SNPD,4 BOTH
+Panvel - Vadala Road,VSH,4 BOTH
+Panvel - Vadala Road,MNKD,2 LEFT
+Panvel - Vadala Road,GV,2 RIGHT
+Panvel - Vadala Road,CMBR,2 RIGHT
+Panvel - Vadala Road,TKNG,2 LEFT
+Panvel - Vadala Road,CLA,8 RIGHT
+Panvel - Vadala Road,CHMB,2 LEFT
+Panvel - Vadala Road,GTBN,2 RIGHT
+Panvel - Vadala Road,VDLR,2 LEFT
+Panvel - Juinagar,PNVL,
+Panvel - Juinagar,KNDS,2 RIGHT
+Panvel - Juinagar,MANR,4 BOTH
+Panvel - Juinagar,KHAG,2 BOTH
+Panvel - Juinagar,BEPR,3 BOTH
+Panvel - Juinagar,SWDV,2 BOTH
+Panvel - Juinagar,NEU,2 BOTH
+Panvel - Juinagar,JNJ,2 BOTH
+Vashi - CSMT,VSH,3 BOTH
+Vashi - CSMT,MNKD,2 LEFT
+Vashi - CSMT,GV,2 RIGHT
+Vashi - CSMT,CMBR,2 RIGHT
+Vashi - CSMT,TKNG,2 LEFT
+Vashi - CSMT,CLA,8 RIGHT
+Vashi - CSMT,CHMB,2 LEFT
+Vashi - CSMT,GTBN,2 RIGHT
+Vashi - CSMT,VDLR,4 LEFT
+Vashi - CSMT,SVE,2 LEFT
+Vashi - CSMT,CTGN,2 LEFT
+Vashi - CSMT,RRD,2 LEFT
+Vashi - CSMT,DKRD,2 LEFT
+Vashi - CSMT,SNRD,4 LEFT
+Vashi - CSMT,MSD,2 RIGHT
+Vashi - CSMT,CSMT,2 BOTH
+Vashi - Vadala Road,VSH,3 BOTH
+Vashi - Vadala Road,MNKD,2 LEFT
+Vashi - Vadala Road,GV,2 RIGHT
+Vashi - Vadala Road,CMBR,2 RIGHT
+Vashi - Vadala Road,TKNG,2 LEFT
+Vashi - Vadala Road,CLA,8 RIGHT
+Vashi - Vadala Road,CHMB,2 LEFT
+Vashi - Vadala Road,GTBN,2 RIGHT
+Vashi - Vadala Road,VDLR,2 LEFT
+Panvel - Belapur CBD,PNVL,
+Panvel - Belapur CBD,KNDS,2 RIGHT
+Panvel - Belapur CBD,MANR,4 BOTH
+Panvel - Belapur CBD,KHAG,2 BOTH
+Panvel - Belapur CBD,BEPR,3 BOTH
+Panvel - Vashi,PNVL,
+Panvel - Vashi,KNDS,2 RIGHT
+Panvel - Vashi,MANR,4 BOTH
+Panvel - Vashi,KHAG,2 BOTH
+Panvel - Vashi,BEPR,3 BOTH
+Panvel - Vashi,SWDV,2 BOTH
+Panvel - Vashi,NEU,4 BOTH
+Panvel - Vashi,JNJ,4 BOTH
+Panvel - Vashi,SNPD,4 BOTH
+Panvel - Vashi,VSH,4 BOTH
+Vashi - Vadala Road,VSH,3 BOTH
+Vashi - Vadala Road,MNKD,2 LEFT
+Vashi - Vadala Road,GV,2 RIGHT
+Vashi - Vadala Road,CMBR,2 RIGHT
+Vashi - Vadala Road,TKNG,2 LEFT
+Vashi - Vadala Road,CLA,8 RIGHT
+Vashi - Vadala Road,CHMB,2 LEFT
+Vashi - Vadala Road,GTBN,2 RIGHT
+Vashi - Vadala Road,VDLR,2 LEFT
+Khopoli - Karjat,KHPI,1 & 2
+Khopoli - Karjat,LWJ,1 RIGHT
+Khopoli - Karjat,DLV,1 LEFT
+Khopoli - Karjat,KLV,1 RIGHT
+Khopoli - Karjat,PLD,1 LEFT
+Khopoli - Karjat,KJT,2 RIGHT
+Thane - CSMT,TNA,
+Thane - CSMT,MLND,2 LEFT
+Thane - CSMT,NHU,2 RIGHT
+Thane - CSMT,BND,2 LEFT
+Thane - CSMT,KJMG,2 RIGHT
+Thane - CSMT,VK,2 LEFT
+Thane - CSMT,GC,2 LEFT
+Thane - CSMT,VVH,2 RIGHT
+Thane - CSMT,CLA,4 RIGHT
+Thane - CSMT,SIN,2 LEFT
+Thane - CSMT,MTN,2 RIGHT
+Thane - CSMT,DR,9 LEFT
+Thane - CSMT,PR,3 RIGHT
+Thane - CSMT,CRD,2 RIGHT
+Thane - CSMT,CHG,2 RIGHT
+Thane - CSMT,BY,2 LEFT
+Thane - CSMT,SNRD,2 RIGHT
+Thane - CSMT,MSD,4 RIGHT
+Thane - CSMT,CSMT,
+Karjat - CSMT,KJT,2 & 3
+Karjat - CSMT,BVS,2 BOTH
+Karjat - CSMT,NRL,2 LEFT
+Karjat - CSMT,SHLU,2 LEFT
+Karjat - CSMT,VGI,2 RIGHT
+Karjat - CSMT,BUD,3 LEFT
+Karjat - CSMT,ABH,3 LEFT
+Karjat - CSMT,ULNR,2 LEFT
+Karjat - CSMT,VLDI,2 RIGHT
+Karjat - CSMT,KYN,7 RIGHT
+Karjat - CSMT,THK,2 RIGHT
+Karjat - CSMT,DI,3 LEFT
+Karjat - CSMT,KOPR,2 RIGHT
+Karjat - CSMT,DIVA,2 RIGHT
+Karjat - CSMT,MBQ,2 LEFT
+Karjat - CSMT,KLVA,2 LEFT
+Karjat - CSMT,TNA,4 RIGHT
+Karjat - CSMT,MLND,2 LEFT
+Karjat - CSMT,NHU,2 RIGHT
+Karjat - CSMT,BND,2 LEFT
+Karjat - CSMT,KJMG,2 RIGHT
+Karjat - CSMT,VK,2 LEFT
+Karjat - CSMT,GC,2 LEFT
+Karjat - CSMT,VVH,2 RIGHT
+Karjat - CSMT,CLA,4 RIGHT
+Karjat - CSMT,SIN,2 LEFT
+Karjat - CSMT,MTN,2 RIGHT
+Karjat - CSMT,DR,9 LEFT
+Karjat - CSMT,PR,3 RIGHT
+Karjat - CSMT,CRD,2 RIGHT
+Karjat - CSMT,CHG,2 RIGHT
+Karjat - CSMT,BY,2 LEFT
+Karjat - CSMT,SNRD,2 RIGHT
+Karjat - CSMT,MSD,4 RIGHT
+Karjat - CSMT,CSMT,
