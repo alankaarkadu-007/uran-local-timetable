@@ -609,6 +609,7 @@ let currentMode = "uran";  // default mode
 // ===== MUMBAI DATA CACHE =====
 let mumbaiData = null;
 	let mumbaiStationsMaster = [];
+	let mumbaiStationMap = {};
 	let demoStationsMaster = [
 "Panvel","Khandeshwar","Mansarovar","Kharghar",
 "Belapur CBD","Seawood Darave Karave","Nerul",
@@ -1412,13 +1413,17 @@ document.getElementById("mumbaiStationBox").style.display = "block";
 {code:"BY", name:"Byculla"}
 ];
 
-  demoStations.forEach(s=>{
-    const opt = document.createElement("option");
-    opt.value = s.code;
-    opt.textContent = s.name;
-    station.appendChild(opt);
-  });
+demoStations.forEach(s=>{
 
+  const opt = document.createElement("option");
+  opt.value = s.code;
+  opt.textContent = s.name;
+  station.appendChild(opt);
+
+  // 🔥 station code → name map
+  mumbaiStationMap[s.code] = s.name;
+
+});
   // Clear previous Uran data
   nextTrain.innerHTML = "";
   list.innerHTML = "";
@@ -2009,7 +2014,17 @@ function openMumbaiRouteDetail(trainNo, routeCode){
         dotColor="#00ff00";
         textColor="#00ff00";
       }
+// 🔥 Find platform number
+let pf = "";
 
+const platformRow = platformMaster.find(
+  p => p.route === routeCode &&
+       p.station === stop.code
+);
+
+if(platformRow){
+  pf = platformRow.platform;
+}
       return `
       <div style="
         display:flex;
@@ -2048,7 +2063,14 @@ function openMumbaiRouteDetail(trainNo, routeCode){
             font-weight:600;
             color:${textColor};
           ">
-            ${stop.code}
+           ${mumbaiStationMap[stop.code] || stop.code}
+		   <div style="
+  font-size:12px;
+  color:#aaa;
+  margin-top:3px;
+">
+  PF ${pf || ''}
+</div>
           </div>
 
         </div>
@@ -2118,6 +2140,7 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
 
