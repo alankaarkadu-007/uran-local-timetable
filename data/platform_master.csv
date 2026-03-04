@@ -747,7 +747,7 @@ Churchgate - Borivali,RMAR,3 RIGHT
 Churchgate - Borivali,GMN,3 LEFT
 Churchgate - Borivali,MDD,1 RIGHT
 Churchgate - Borivali,KILE,1 LEFT
-Churchgate - Borivali,BVI,4 RIGHT
+Churchgate - Borivali,BVI, 
 Churchgate - Bhayandar,CCG,1/2 BOTH
 Churchgate - Bhayandar,MEL,1 LEFT
 Churchgate - Bhayandar,CRD,1 LEFT
@@ -773,3 +773,64 @@ Churchgate - Bhayandar,BVI,3 LEFT
 Churchgate - Bhayandar,DIC,1 LEFT
 Churchgate - Bhayandar,MIRA,1 LEFT
 Churchgate - Bhayandar,BYR,
+Andheri - Bhayandar,ADH,4 RIGHT
+Andheri - Bhayandar,JOS,1 RIGHT
+Andheri - Bhayandar,RMAR,3 RIGHT
+Andheri - Bhayandar,GMN,3 LEFT
+Andheri - Bhayandar,MDD,1 RIGHT
+Andheri - Bhayandar,KILE,1 LEFT
+Andheri - Bhayandar,BVI,3 LEFT
+Andheri - Bhayandar,DIC,1 LEFT
+Andheri - Bhayandar,MIRA,1 LEFT
+Andheri - Bhayandar,BYR,2 LEFT
+Churchgate - Goregaon,CCG,1/2 BOTH
+Churchgate - Goregaon,MEL,1 LEFT
+Churchgate - Goregaon,CRD,1 LEFT
+Churchgate - Goregaon,GTR,1 LEFT
+Churchgate - Goregaon,MMCT,1 RIGHT
+Churchgate - Goregaon,MX,2 RIGHT
+Churchgate - Goregaon,LP,1 LEFT
+Churchgate - Goregaon,PBHD,1 RIGHT
+Churchgate - Goregaon,DR,1 LEFT
+Churchgate - Goregaon,MRU,1 RIGHT
+Churchgate - Goregaon,MM,1 LEFT
+Churchgate - Goregaon,BA,1 LEFT
+Churchgate - Goregaon,KHAR,3 RIGHT
+Churchgate - Goregaon,STC,3 RIGHT
+Churchgate - Goregaon,VLP,3 RIGHT
+Churchgate - Goregaon,ADH,3 LEFT
+Churchgate - Goregaon,JOS,1 RIGHT
+Churchgate - Goregaon,RMAR,3 RIGHT
+Churchgate - Goregaon,GMN,3 LEFT
+Borivali - Vasai Road,BVI,3 LEFT
+Borivali - Vasai Road,DIC,1 LEFT
+Borivali - Vasai Road,MIRA,1 LEFT
+Borivali - Vasai Road,BYR,1 RIGHT
+Borivali - Vasai Road,NIG,1 LEFT
+Borivali - Vasai Road,BSR,1 LEFT
+Borivali - Virar,BVI,3 LEFT
+Borivali - Virar,DIC,1 LEFT
+Borivali - Virar,MIRA,1 LEFT
+Borivali - Virar,BYR,1 RIGHT
+Borivali - Virar,NIG,1 LEFT
+Borivali - Virar,BSR,2 BOTH
+Borivali - Virar,NSP,1 LEFT
+Borivali - Virar,VR,1 LEFT
+Bandra - Virar,BA,2 RIGHT
+Bandra - Virar,KHAR,3 RIGHT
+Bandra - Virar,STC,3 RIGHT
+Bandra - Virar,VLP,3 RIGHT
+Bandra - Virar,ADH,3 LEFT
+Bandra - Virar,JOS,1 RIGHT
+Bandra - Virar,RMAR,3 RIGHT
+Bandra - Virar,GMN,3 LEFT
+Bandra - Virar,MDD,1 RIGHT
+Bandra - Virar,KILE,1 LEFT
+Bandra - Virar,BVI,3 LEFT
+Bandra - Virar,DIC,1 LEFT
+Bandra - Virar,MIRA,1 LEFT
+Bandra - Virar,BYR,1 RIGHT
+Bandra - Virar,NIG,1 LEFT
+Bandra - Virar,BSR,2 BOTH
+Bandra - Virar,NSP,1 LEFT
+Bandra - Virar,VR,1 LEFT
