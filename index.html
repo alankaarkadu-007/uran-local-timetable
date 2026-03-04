@@ -1776,12 +1776,13 @@ isFullDayView = true;   // 🔥 user is in full day view
       const [h,m] = time.split(":").map(Number);
       const trainMin = h*60 + m;
 
-      fullList.push({
-        time,
-        trainMin,
-        destination: trainMeta.destination,
-        route: trainMeta.route
-      });
+     fullList.push({
+  trainNo: trainNo,
+  time,
+  trainMin,
+  destination: trainMeta.destination,
+  route: trainMeta.route
+});
 
     });
 
@@ -1804,9 +1805,10 @@ isFullDayView = true;   // 🔥 user is in full day view
     i === fullList.findIndex(x => x.trainMin >= nowMin);
 
   return `
-    <div class="rv-item"
-         id="${isCurrent ? 'currentTrainItem' : ''}"
-         style="${isPast?'opacity:.5':''}">
+   <div class="rv-item"
+     id="${isCurrent ? 'currentTrainItem' : ''}"
+     style="${isPast?'opacity:.5':''}"
+     onclick="openMumbaiRouteDetail('${t.trainNo}','${t.route}')">
       <div class="rv-left">
         <div class="rv-time">
           ${to12h(t.time)}
@@ -1942,6 +1944,58 @@ isFullDayView = true;   // 🔥 user is in full day view
   history.pushState({page:"routeDetail"}, "");
 }
 
+	function openMumbaiRouteDetail(trainNo, routeCode){
+
+  const screen = document.getElementById('routeDetailScreen');
+  const content = document.getElementById('routeDetailContent');
+
+  const trainMeta = trainMaster.find(t => t.train_no == trainNo);
+
+  if(!trainMeta) return;
+
+  const now = new Date();
+  const nowMin = now.getHours()*60 + now.getMinutes();
+
+  // find timetable row for selected station
+  const selectedStation = station.value;
+
+  const stationRows = timetableData.filter(
+    r => r["Train No."] === selectedStation
+  );
+
+  if(stationRows.length === 0) return;
+
+  const stationRow = stationRows[0];
+
+  // collect stops for this train
+  const stops = [];
+
+  Object.keys(stationRow).forEach(code => {
+
+    if(code === "Train No.") return;
+
+    const time = stationRow[trainNo];
+
+    if(!time) return;
+
+    stops.push({
+      code: code,
+      time: time,
+      timeMin: toMin(time)
+    });
+
+  });
+
+  content.innerHTML = `
+    <div style="text-align:center;font-size:18px;margin-bottom:20px">
+      Train ${trainNo} → ${trainMeta.destination}
+    </div>
+  `;
+
+  screen.style.display = 'block';
+  history.pushState({page:"routeDetail"}, "");
+}
+	
 function closeRouteDetail(){
   document.getElementById('routeDetailScreen').style.display = 'none';
   history.back();
@@ -1996,6 +2050,7 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
 
