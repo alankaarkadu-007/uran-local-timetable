@@ -1944,58 +1944,126 @@ isFullDayView = true;   // 🔥 user is in full day view
   history.pushState({page:"routeDetail"}, "");
 }
 
-	function openMumbaiRouteDetail(trainNo, routeCode){
+function openMumbaiRouteDetail(trainNo, routeCode){
 
   const screen = document.getElementById('routeDetailScreen');
   const content = document.getElementById('routeDetailContent');
 
   const trainMeta = trainMaster.find(t => t.train_no == trainNo);
-
   if(!trainMeta) return;
 
   const now = new Date();
   const nowMin = now.getHours()*60 + now.getMinutes();
 
-  // find timetable row for selected station
-  const selectedStation = station.value;
+  // Find all timetable rows where this train appears
+  const routeStops = [];
 
-  const stationRows = timetableData.filter(
-    r => r["Train No."] === selectedStation
-  );
+  timetableData.forEach(row => {
 
-  if(stationRows.length === 0) return;
-
-  const stationRow = stationRows[0];
-
-  // collect stops for this train
-  const stops = [];
-
-  Object.keys(stationRow).forEach(code => {
-
-    if(code === "Train No.") return;
-
-    const time = stationRow[trainNo];
-
+    const time = row[trainNo];
     if(!time) return;
 
-    stops.push({
-      code: code,
+    const stationCode = row["Train No."];
+
+    routeStops.push({
+      code: stationCode,
       time: time,
       timeMin: toMin(time)
     });
 
   });
 
+  // sort by time
+  routeStops.sort((a,b)=>a.timeMin - b.timeMin);
+
   content.innerHTML = `
-    <div style="text-align:center;font-size:18px;margin-bottom:20px">
-      Train ${trainNo} → ${trainMeta.destination}
-    </div>
+  <div style="text-align:center;font-size:18px;margin-bottom:20px">
+    Train ${trainNo} → ${trainMeta.destination}
+  </div>
+
+  <div style="position:relative;">
+
+    <div style="
+      position:absolute;
+      left:50%;
+      top:0;
+      bottom:0;
+      width:2px;
+      background:#bbb;
+      transform:translateX(-50%);
+    "></div>
+
+    ${routeStops.map(stop=>{
+
+      const time = to12h(stop.time);
+
+      let dotColor="#fff";
+      let textColor="#fff";
+
+      if(stop.timeMin < nowMin){
+        dotColor="#666";
+        textColor="#999";
+      }
+
+      if(Math.abs(stop.timeMin-nowMin)<=1){
+        dotColor="#00ff00";
+        textColor="#00ff00";
+      }
+
+      return `
+      <div style="
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        margin:18px 0;
+        position:relative;
+      ">
+
+        <div style="
+          width:45%;
+          text-align:right;
+          padding-right:15px;
+          font-size:14px;
+          color:${textColor};
+        ">
+          ${time}
+        </div>
+
+        <div style="
+          width:14px;
+          height:14px;
+          background:${dotColor};
+          border-radius:50%;
+          border:2px solid #000;
+          z-index:2;
+        "></div>
+
+        <div style="
+          width:45%;
+          padding-left:15px;
+        ">
+
+          <div style="
+            font-size:17px;
+            font-weight:600;
+            color:${textColor};
+          ">
+            ${stop.code}
+          </div>
+
+        </div>
+
+      </div>
+      `;
+
+    }).join("")}
+
+  </div>
   `;
 
-  screen.style.display = 'block';
+  screen.style.display='block';
   history.pushState({page:"routeDetail"}, "");
-}
-	
+}	
 function closeRouteDetail(){
   document.getElementById('routeDetailScreen').style.display = 'none';
   history.back();
@@ -2050,6 +2118,7 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
+
 
 
 
