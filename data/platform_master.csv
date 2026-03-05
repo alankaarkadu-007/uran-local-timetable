@@ -834,3 +834,174 @@ Bandra - Virar,NIG,1 LEFT
 Bandra - Virar,BSR,2 BOTH
 Bandra - Virar,NSP,1 LEFT
 Bandra - Virar,VR,1 LEFT
+Bhayandar - Virar,BYR,1 RIGHT
+Bhayandar - Virar,VR,2 LEFT
+Vasai Road - Churchgate,BSR,1 RIGHT
+Vasai Road - Churchgate,NIG,2 LEFT
+Vasai Road - Churchgate,BYR,4 RIGHT
+Vasai Road - Churchgate,MIRA,2 LEFT
+Vasai Road - Churchgate,DIC,2 LEFT
+Vasai Road - Churchgate,BVI,5 RIGHT
+Vasai Road - Churchgate,KILE,2 LEFT
+Vasai Road - Churchgate,MDD,2 RIGHT
+Vasai Road - Churchgate,GMN,4 LEFT
+Vasai Road - Churchgate,RMAR,4 RIGHT
+Vasai Road - Churchgate,JOS,2 RIGHT
+Vasai Road - Churchgate,ADH,5 RIGHT
+Vasai Road - Churchgate,VLP,4 RIGHT
+Vasai Road - Churchgate,STC,4 RIGHT
+Vasai Road - Churchgate,KHAR,4 RIGHT
+Vasai Road - Churchgate,BA,3 RIGHT
+Vasai Road - Churchgate,MM,2 LEFT
+Vasai Road - Churchgate,MRU,2 RIGHT
+Vasai Road - Churchgate,DR,2 LEFT
+Vasai Road - Churchgate,PBHD,2 RIGHT
+Vasai Road - Churchgate,LP,2 LEFT
+Vasai Road - Churchgate,MX,3 RIGHT
+Vasai Road - Churchgate,MMCT,2 RIGHT
+Vasai Road - Churchgate,GTR,2 LEFT
+Vasai Road - Churchgate,CRD,2 LEFT
+Vasai Road - Churchgate,MEL,2 LEFT
+Vasai Road - Churchgate,CCG,
+Borivali - Churchgate,BVI,1 RIGHT
+Borivali - Churchgate,KILE,2 LEFT
+Borivali - Churchgate,MDD,2 RIGHT
+Borivali - Churchgate,GMN,4 LEFT
+Borivali - Churchgate,RMAR,4 RIGHT
+Borivali - Churchgate,JOS,2 RIGHT
+Borivali - Churchgate,ADH,5 RIGHT
+Borivali - Churchgate,VLP,4 RIGHT
+Borivali - Churchgate,STC,4 RIGHT
+Borivali - Churchgate,KHAR,4 RIGHT
+Borivali - Churchgate,BA,3 RIGHT
+Borivali - Churchgate,MM,2 LEFT
+Borivali - Churchgate,MRU,2 RIGHT
+Borivali - Churchgate,DR,2 LEFT
+Borivali - Churchgate,PBHD,2 RIGHT
+Borivali - Churchgate,LP,2 LEFT
+Borivali - Churchgate,MX,3 RIGHT
+Borivali - Churchgate,MMCT,2 RIGHT
+Borivali - Churchgate,GTR,2 LEFT
+Borivali - Churchgate,CRD,2 LEFT
+Borivali - Churchgate,MEL,2 LEFT
+Borivali - Churchgate,CCG,
+Bhayandar - Churchgate,BYR,3 LEFT
+Bhayandar - Churchgate,MIRA,2 LEFT
+Bhayandar - Churchgate,DIC,2 LEFT
+Bhayandar - Churchgate,BVI,7 RIGHT
+Bhayandar - Churchgate,ADH,7 RIGHT
+Bhayandar - Churchgate,BA,5 RIGHT
+Bhayandar - Churchgate,DR,4 LEFT
+Bhayandar - Churchgate,MMCT,4 RIGHT
+Bhayandar - Churchgate,GTR,4 LEFT
+Bhayandar - Churchgate,CRD,4 LEFT
+Bhayandar - Churchgate,MEL,4 LEFT
+Bhayandar - Churchgate,CCG,
+Goregaon - Churchgate,GMN,1 RIGHT
+Goregaon - Churchgate,RMAR,2 RIGHT
+Goregaon - Churchgate,JOS,6 LEFT
+Goregaon - Churchgate,ADH,2 LEFT
+Goregaon - Churchgate,VLP,2 RIGHT
+Goregaon - Churchgate,STC,2 RIGHT
+Goregaon - Churchgate,KHAR,2 RIGHT
+Goregaon - Churchgate,BA,3 RIGHT
+Goregaon - Churchgate,MM,2 LEFT
+Goregaon - Churchgate,MRU,2 RIGHT
+Goregaon - Churchgate,DR,2 LEFT
+Goregaon - Churchgate,PBHD,2 RIGHT
+Goregaon - Churchgate,LP,2 LEFT
+Goregaon - Churchgate,MX,3 RIGHT
+Goregaon - Churchgate,MMCT,2 RIGHT
+Goregaon - Churchgate,GTR,2 LEFT
+Goregaon - Churchgate,CRD,2 LEFT
+Goregaon - Churchgate,MEL,2 LEFT
+Goregaon - Churchgate,CCG,
+Virar - Churchgate,VR,2 RIGHT
+Virar - Churchgate,NSP,2 LEFT
+Virar - Churchgate,BSR,3 RIGHT
+Virar - Churchgate,NIG,2 LEFT
+Virar - Churchgate,BYR,4 RIGHT
+Virar - Churchgate,MIRA,2 LEFT
+Virar - Churchgate,DIC,2 LEFT
+Virar - Churchgate,BVI,7 RIGHT
+Virar - Churchgate,ADH,7 RIGHT
+Virar - Churchgate,BA,5 RIGHT
+Virar - Churchgate,DR,4 LEFT
+Virar - Churchgate,MMCT,4 RIGHT
+Virar - Churchgate,GTR,4 LEFT
+Virar - Churchgate,CRD,4 LEFT
+Virar - Churchgate,MEL,4 LEFT
+Virar - Churchgate,CCG,
+Virar - Andheri,VR,1 RIGHT
+Virar - Andheri,NSP,2 LEFT
+Virar - Andheri,BSR,3 RIGHT
+Virar - Andheri,NIG,2 LEFT
+Virar - Andheri,BYR,4 RIGHT
+Virar - Andheri,MIRA,2 LEFT
+Virar - Andheri,DIC,2 LEFT
+Virar - Andheri,BVI,5 RIGHT
+Virar - Andheri,KILE,2 LEFT
+Virar - Andheri,MDD,2 RIGHT
+Virar - Andheri,GMN,4 LEFT
+Virar - Andheri,RMAR,4 RIGHT
+Virar - Andheri,JOS,2 RIGHT
+Virar - Andheri,ADH,4 LEFT
+Virar - Dadar,VR,
+Virar - Dadar,NSP,2 LEFT
+Virar - Dadar,BSR,3 RIGHT
+Virar - Dadar,NIG,2 LEFT
+Virar - Dadar,BYR,4 RIGHT
+Virar - Dadar,MIRA,2 LEFT
+Virar - Dadar,DIC,2 LEFT
+Virar - Dadar,BVI,5 RIGHT
+Virar - Dadar,ADH,7 RIGHT
+Virar - Dadar,BA,5 RIGHT
+Virar - Dadar,DR,5 LEFT
+Borivali - Churchgate.,BVI,9 RIGHT
+Borivali - Churchgate.,ADH,7 RIGHT
+Borivali - Churchgate.,BA,5 RIGHT
+Borivali - Churchgate.,DR,4 LEFT
+Borivali - Churchgate.,MMCT,4 RIGHT
+Borivali - Churchgate.,GTR,4 LEFT
+Borivali - Churchgate.,CRD,4 LEFT
+Borivali - Churchgate.,MEL,4 LEFT
+Borivali - Churchgate.,CCG,
+Bhayandar - Churchgate.,BYR,3 LEFT
+Bhayandar - Churchgate.,MIRA,2 LEFT
+Bhayandar - Churchgate.,DIC,2 LEFT
+Bhayandar - Churchgate.,BVI,5 RIGHT
+Bhayandar - Churchgate.,KILE,2 LEFT
+Bhayandar - Churchgate.,MDD,2 RIGHT
+Bhayandar - Churchgate.,GMN,4 LEFT
+Bhayandar - Churchgate.,JOS,4 RIGHT
+Bhayandar - Churchgate.,ADH,7 RIGHT
+Bhayandar - Churchgate.,BA,5 RIGHT
+Bhayandar - Churchgate.,DR,4 LEFT
+Bhayandar - Churchgate.,MMCT,4 RIGHT
+Bhayandar - Churchgate.,GTR,4 LEFT
+Bhayandar - Churchgate.,CRD,4 LEFT
+Bhayandar - Churchgate.,MEL,4 LEFT
+Bhayandar - Churchgate.,CCG,
+Virar - Andheri.,VR,3 LEFT
+Virar - Andheri.,NSP,2 LEFT
+Virar - Andheri.,BSR,3 RIGHT
+Virar - Andheri.,NIG,2 LEFT
+Virar - Andheri.,BYR,4 RIGHT
+Virar - Andheri.,MIRA,2 LEFT
+Virar - Andheri.,DIC,2 LEFT
+Virar - Andheri.,BVI,7 RIGHT
+Virar - Andheri.,ADH,8 LEFT
+Virar - Andheri*,VR,3 LEFT
+Virar - Andheri*,NSP,2 LEFT
+Virar - Andheri*,BSR,3 RIGHT
+Virar - Andheri*,NIG,2 LEFT
+Virar - Andheri*,BYR,4 RIGHT
+Virar - Andheri*,MIRA,2 LEFT
+Virar - Andheri*,DIC,2 LEFT
+Virar - Andheri*,BVI,5 RIGHT
+Virar - Andheri*,KILE,2 LEFT
+Virar - Andheri*,MDD,2 RIGHT
+Virar - Andheri*,GMN,4 LEFT
+Virar - Andheri*,RMAR,4 RIGHT
+Virar - Andheri*,JOS,2 RIGHT
+Virar - Andheri*,ADH,4 LEFT
