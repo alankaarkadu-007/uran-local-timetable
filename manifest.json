@@ -1,9 +1,10 @@
 {
+  "id": "/uran-local-timetable/",
   "name": "Uran Local Train Timetable",
   "short_name": "Uran Local",
   "description": "Uran – Belapur – Nerul Local Train Timetable with Next Train, Platform & Alarm",
-  "start_url": "./?pwa=true",
-  "scope": "./",
+  "start_url": "/uran-local-timetable/?pwa=true",
+  "scope": "/uran-local-timetable/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#b71c1c",
@@ -11,17 +12,17 @@
   "categories": ["travel", "navigation"],
   "icons": [
     {
-      "src": "icons/icon-192.png",
+      "src": "/uran-local-timetable/icons/icon-192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "icons/icon-512.png",
+      "src": "/uran-local-timetable/icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
     },
     {
-      "src": "icons/icon-512-maskable.png",
+      "src": "/uran-local-timetable/icons/icon-512-maskable.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
