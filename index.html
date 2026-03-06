@@ -374,12 +374,39 @@ background:#fff3cd;
 padding:8px;
 display:flex;
 align-items:center;
-gap:8px;
 border-bottom:1px solid #ddd;
-overflow:hidden;
 font-size:14px;
+position:relative;
+overflow:hidden;
 }
 
+/* Sponsored label fixed */
+.sponsored-label{
+font-weight:700;
+color:#b71c1c;
+white-space:nowrap;
+margin-right:10px;
+z-index:2;
+background:#fff3cd;
+padding-right:8px;
+}
+
+/* scrolling area */
+.scrolling-text{
+display:inline-block;
+white-space:nowrap;
+animation:scrollAd 15s linear infinite;
+color:#000;
+font-weight:600;
+padding-left:100%;
+}
+
+.running-ad a{
+text-decoration:none;
+color:inherit;
+flex:1;
+overflow:hidden;
+}
 .sponsored-label{
 font-weight:700;
 color:#b71c1c;
@@ -2293,7 +2320,7 @@ if('serviceWorker'in navigator){
  });
 }
 
-	/* ===== ADS.JSON RUNNING BANNER ===== */
+/* ===== ADS.JSON RUNNING BANNER ===== */
 
 let adsData = [];
 let currentAdIndex = 0;
@@ -2310,7 +2337,30 @@ if(!adsData.length) return;
 
 showAd();
 
-setInterval(()=>{
+});
+
+}
+
+function showAd(){
+
+const ad = adsData[currentAdIndex];
+
+const textEl = document.getElementById("adText");
+
+textEl.style.animation = "none"; // reset animation
+
+void textEl.offsetWidth; // force reflow
+
+textEl.innerText = ad.text;
+
+textEl.style.animation = "scrollAd 15s linear infinite";
+
+document.getElementById("adLink").href = "tel:" + ad.phone;
+
+document.getElementById("runningAd").style.display = "flex";
+
+// next ad after animation finishes
+setTimeout(()=>{
 
 currentAdIndex++;
 
@@ -2320,22 +2370,7 @@ currentAdIndex = 0;
 
 showAd();
 
-},10000);
-
-});
-
-}
-
-function showAd(){
-
-const ad = adsData[currentAdIndex];
-
-document.getElementById("adText").innerText = ad.text;
-
-document.getElementById("adLink").href =
-"tel:" + ad.phone;
-
-document.getElementById("runningAd").style.display = "flex";
+},15000);
 
 }
 
@@ -2366,3 +2401,4 @@ document.addEventListener("DOMContentLoaded", loadAds);
 
 </body>
 </html>
+
