@@ -367,27 +367,37 @@ font-size:14px;
   background:#222;
   color:#fff;
 }
-
-	/* ===== RUNNING AD BANNER ===== */
+	/* ===== RUNNING AD SYSTEM ===== */
 
 .running-ad{
 background:#fff3cd;
-color:#000;
 padding:8px;
-font-size:14px;
-overflow:hidden;
-white-space:nowrap;
+display:flex;
+align-items:center;
+gap:8px;
 border-bottom:1px solid #ddd;
+overflow:hidden;
+font-size:14px;
 }
 
-.running-ad span{
+.sponsored-label{
+font-weight:700;
+color:#b71c1c;
+white-space:nowrap;
+}
+
+.scrolling-text{
 display:inline-block;
+white-space:nowrap;
 padding-left:100%;
 animation:scrollAd 15s linear infinite;
+color:#000;
+font-weight:600;
 }
 
-.running-ad b{
-color:#b71c1c;
+.running-ad a{
+text-decoration:none;
+color:inherit;
 }
 
 @keyframes scrollAd{
@@ -427,14 +437,22 @@ color:#b71c1c;
 </div>
 
 </header>
-		<!-- ===== RUNNING AD ===== -->
-<a href="tel:1234567890">
-<div class="running-ad">
-<span>
-📢 Sponsored: <b>Aabhar Sweets</b> – Best Snacks in Uran | Near Rajpal Naka | Free Chutney | 📞 1234567890
+<!-- ===== RUNNING AD BANNER ===== -->
+
+<div class="running-ad" id="runningAd" style="display:none">
+
+<span class="sponsored-label">
+📢 Sponsored:
 </span>
-</div>
+
+<a id="adLink" href="#" target="_blank">
+
+<span id="adText" class="scrolling-text"></span>
+
 </a>
+
+</div>
+	
 	<!-- ===== ALARM POPUP ===== -->
 <div id="alarmPopup" style="
   display:none;
@@ -2274,6 +2292,54 @@ if('serviceWorker'in navigator){
   navigator.serviceWorker.register('sw.js');
  });
 }
+
+	/* ===== ADS.JSON RUNNING BANNER ===== */
+
+let adsData = [];
+let currentAdIndex = 0;
+
+function loadAds(){
+
+fetch("ads.json")
+.then(res => res.json())
+.then(data => {
+
+adsData = data;
+
+if(!adsData.length) return;
+
+showAd();
+
+setInterval(()=>{
+
+currentAdIndex++;
+
+if(currentAdIndex >= adsData.length){
+currentAdIndex = 0;
+}
+
+showAd();
+
+},10000);
+
+});
+
+}
+
+function showAd(){
+
+const ad = adsData[currentAdIndex];
+
+document.getElementById("adText").innerText = ad.text;
+
+document.getElementById("adLink").href =
+"tel:" + ad.phone;
+
+document.getElementById("runningAd").style.display = "flex";
+
+}
+
+document.addEventListener("DOMContentLoaded", loadAds);
 </script>
 
 <!-- ===== ROUTE DETAIL SCREEN ===== -->
@@ -2300,29 +2366,3 @@ if('serviceWorker'in navigator){
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
