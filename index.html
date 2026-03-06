@@ -395,10 +395,13 @@ padding-right:8px;
 .scrolling-text{
 display:inline-block;
 white-space:nowrap;
-animation:scrollAd 15s linear infinite;
 color:#000;
 font-weight:600;
 padding-left:100%;
+
+/* smooth scrolling */
+animation:scrollAd linear infinite;
+animation-duration:20s;
 }
 
 .running-ad a{
@@ -417,7 +420,8 @@ white-space:nowrap;
 display:inline-block;
 white-space:nowrap;
 padding-left:100%;
-animation:scrollAd 15s linear infinite;
+animation:scrollAd linear infinite;
+animation-duration:20s;
 color:#000;
 font-weight:600;
 }
@@ -428,7 +432,7 @@ color:inherit;
 }
 
 @keyframes scrollAd{
-0%{transform:translateX(0);}
+0%{transform:translateX(100%);}
 100%{transform:translateX(-100%);}
 }
 </style>
@@ -2401,4 +2405,5 @@ document.addEventListener("DOMContentLoaded", loadAds);
 
 </body>
 </html>
+
 
