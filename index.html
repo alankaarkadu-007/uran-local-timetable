@@ -432,7 +432,7 @@ color:inherit;
 }
 
 @keyframes scrollAd{
-0%{transform:translateX(100%);}
+0%{transform:translateX(0);}
 100%{transform:translateX(-100%);}
 }
 </style>
@@ -2357,7 +2357,12 @@ void textEl.offsetWidth; // force reflow
 
 textEl.innerText = ad.text;
 
-textEl.style.animation = "scrollAd 30s linear infinite";
+const textLength = ad.text.length;
+
+/* dynamic duration */
+let duration = 15 + (textLength / 6);
+
+textEl.style.animation = `scrollAd ${duration}s linear infinite`;
 
 document.getElementById("adLink").href = "tel:" + ad.phone;
 
@@ -2374,7 +2379,7 @@ currentAdIndex = 0;
 
 showAd();
 
-},30000);
+},duration * 1000);
 
 }
 
@@ -2405,6 +2410,7 @@ document.addEventListener("DOMContentLoaded", loadAds);
 
 </body>
 </html>
+
 
 
 
