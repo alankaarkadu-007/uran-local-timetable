@@ -367,53 +367,64 @@ font-size:14px;
   background:#222;
   color:#fff;
 }
-	/* ===== RUNNING AD SYSTEM ===== */
 
-/* ===== PRO TICKER AD SYSTEM ===== */
+/* ===== MOBILE OPTIMIZED RUNNING AD ===== */
 
 .running-ad{
 background:#fff3cd;
-padding:8px;
+padding:6px 8px;
 display:flex;
 align-items:center;
 border-bottom:1px solid #ddd;
-font-size:14px;
-position:relative;
+font-size:13px;
 overflow:hidden;
 }
 
+/* Sponsored label */
 .sponsored-label{
 font-weight:700;
 color:#b71c1c;
+margin-right:8px;
 white-space:nowrap;
-margin-right:12px;
-z-index:2;
-background:#fff3cd;
-padding-right:8px;
 }
 
-/* ticker area */
+/* ticker container */
 .ticker-wrap{
-overflow:hidden;
 flex:1;
+overflow:hidden;
 position:relative;
 }
 
-/* moving text */
+/* scrolling text */
 .ticker{
 display:inline-block;
 white-space:nowrap;
 padding-left:100%;
-animation:tickerScroll 35s linear infinite;
+animation:tickerScroll 28s linear infinite;
 font-weight:600;
 color:#000;
+}
+
+/* mobile speed adjustment */
+@media(max-width:600px){
+
+.ticker{
+animation:tickerScroll 22s linear infinite;
+font-size:12.5px;
+}
+
+}
+
+/* smooth scroll */
+@keyframes tickerScroll{
+0%{transform:translateX(0);}
+100%{transform:translateX(-100%);}
 }
 
 .running-ad a{
 text-decoration:none;
 color:inherit;
 }
-
 /* smooth continuous scroll */
 @keyframes tickerScroll{
 0%{transform:translateX(0);}
@@ -2343,7 +2354,7 @@ document.getElementById("adLink").href = "tel:" + ad.phone;
 
 document.getElementById("runningAd").style.display = "flex";
 
-/* rotate ad every 20 sec */
+/* rotate ad */
 setTimeout(()=>{
 
 currentAdIndex++;
@@ -2384,6 +2395,7 @@ document.addEventListener("DOMContentLoaded", loadAds);
 
 </body>
 </html>
+
 
 
 
