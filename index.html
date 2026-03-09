@@ -368,7 +368,7 @@ font-size:14px;
   color:#fff;
 }
 
-/* ===== MOBILE OPTIMIZED RUNNING AD ===== */
+/* ===== SMART AUTO-FIT AD TICKER ===== */
 
 .running-ad{
 background:#fff3cd;
@@ -400,22 +400,11 @@ position:relative;
 display:inline-block;
 white-space:nowrap;
 padding-left:100%;
-animation:tickerScroll 28s linear infinite;
 font-weight:600;
 color:#000;
 }
 
-/* mobile speed adjustment */
-@media(max-width:600px){
-
-.ticker{
-animation:tickerScroll 22s linear infinite;
-font-size:12.5px;
-}
-
-}
-
-/* smooth scroll */
+/* animation */
 @keyframes tickerScroll{
 0%{transform:translateX(0);}
 100%{transform:translateX(-100%);}
@@ -2348,11 +2337,33 @@ const ad = adsData[currentAdIndex];
 
 const textEl = document.getElementById("adText");
 
+textEl.style.animation = "none";
+
+void textEl.offsetWidth;
+
 textEl.innerText = ad.text;
 
 document.getElementById("adLink").href = "tel:" + ad.phone;
 
 document.getElementById("runningAd").style.display = "flex";
+
+/* ===== SMART SPEED CALCULATION ===== */
+
+const screenWidth = window.innerWidth;
+const textLength = ad.text.length;
+
+/* base speed */
+let duration = 20;
+
+/* adjust for text length */
+duration += textLength / 8;
+
+/* adjust for mobile screen */
+if(screenWidth < 600){
+duration += 5;
+}
+
+textEl.style.animation = `tickerScroll ${duration}s linear infinite`;
 
 /* rotate ad */
 setTimeout(()=>{
@@ -2365,10 +2376,10 @@ currentAdIndex = 0;
 
 showAd();
 
-},20000);
+},duration * 1000);
 
 }
-document.addEventListener("DOMContentLoaded", loadAds);
+	document.addEventListener("DOMContentLoaded", loadAds);
 </script>
 
 <!-- ===== ROUTE DETAIL SCREEN ===== -->
@@ -2395,6 +2406,7 @@ document.addEventListener("DOMContentLoaded", loadAds);
 
 </body>
 </html>
+
 
 
 
