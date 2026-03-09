@@ -1,10 +1,36 @@
-[
-  {
-    "text": "Aabhar Sweets & Snacks – Sweets & Samosa, Vada Pav Shop. Tasty Samosa and Vada Pav in Uran | Near ST Stand & Near Rajpal Naka | Visit once to taste Samosa & Buns 😋 | 📞 9594587797",
-    "phone": "9594587797"
-  },
-  {
-    "text": "For advertisement please whatsapp | 📞 8097229050",
-    "phone": "8097229050"
-  }
-]
+{
+  "runningText": [
+    {
+      "text": "Aabhar Sweets & Snacks – Sweets & Samosa, Vada Pav Shop. Tasty Samosa and Vada Pav in Uran | Near ST Stand & Near Rajpal Naka | Visit once to taste Samosa & Buns 😋 | 📞 9594587797",
+      "phone": "9594587797"
+    },
+    {
+      "text": "For advertisement please whatsapp | 📞 8097229050",
+      "phone": "8097229050"
+    }
+  ],
+
+  "rotatingAds": [
+    {
+      "image": "ads/restaurant.jpg",
+      "link": "https://example.com",
+      "title": "Uran Restaurant"
+    },
+    {
+      "image": "ads/mobile.jpg",
+      "link": "https://example.com",
+      "title": "Mobile Repair Shop"
+    }
+  ],
+
+  "sponsoredAds": [
+    {
+      "image": "ads/sponsor1.jpg",
+      "link": "https://example.com"
+    },
+    {
+      "image": "ads/sponsor2.jpg",
+      "link": "https://example.com"
+    }
+  ]
+}
