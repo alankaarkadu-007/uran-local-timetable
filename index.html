@@ -483,6 +483,20 @@ color:inherit;
 0%{transform:translateX(0);}
 100%{transform:translateX(-100%);}
 }
+	.train-ad{
+
+width:100%;
+height:80px;
+object-fit:cover;
+border-radius:6px;
+
+}
+
+.ad-row{
+
+background:#fff8e1;
+
+}
 </style>
 </head>
 
@@ -1195,6 +1209,20 @@ const listHeader = `
 list.innerHTML =
   listHeader +
   rows.map((r,i)=>{
+
+let adHTML = "";
+
+/* ===== INSERT AD AFTER EVERY 3 TRAINS ===== */
+
+if(i>0 && i%3===0){
+
+adHTML = `
+<div class="rv-item ad-row">
+  <img src="ads/ad1.png" class="train-ad">
+</div>
+`;
+
+}
     const isNext = i === nextIdx;
    const showAlt =
   altTrain &&
@@ -1202,6 +1230,7 @@ list.innerHTML =
   altTrain.m < r.m;
 
 return `
+${adHTML}
 ${showAlt ? `
 <div class="rv-item alt-route"
      onclick="applyAltRoute('${altTrain.route}')">
@@ -2593,6 +2622,7 @@ document.getElementById("rotatingAdTitle").innerText = ad.title;
 
 </body>
 </html>
+
 
 
 
