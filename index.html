@@ -379,7 +379,32 @@ border-bottom:1px solid #ddd;
 font-size:13px;
 overflow:hidden;
 }
+/* ===== ROTATING IMAGE ADS ===== */
 
+.rotating-ads{
+
+width:100%;
+background:#fff;
+text-align:center;
+border-bottom:1px solid #ddd;
+
+}
+
+.rotating-ads img{
+
+width:100%;
+max-height:140px;
+object-fit:cover;
+
+}
+
+#rotatingAdTitle{
+
+font-size:13px;
+padding:4px;
+color:#444;
+
+}
 /* Sponsored label */
 .sponsored-label{
 font-weight:700;
@@ -469,7 +494,19 @@ color:inherit;
 </a>
 
 </div>
-	
+	<!-- ===== ROTATING IMAGE ADS ===== -->
+
+<div id="rotatingAds" class="rotating-ads" style="display:none">
+
+<a id="rotatingAdLink" target="_blank">
+
+<img id="rotatingAdImg">
+
+<div id="rotatingAdTitle"></div>
+
+</a>
+
+</div>
 	<!-- ===== ALARM POPUP ===== -->
 <div id="alarmPopup" style="
   display:none;
@@ -2321,11 +2358,17 @@ fetch("ads.json")
 .then(res => res.json())
 .then(data => {
 
-adsData = data;
+adsData = data.runningText || [];
 
-if(!adsData.length) return;
+rotatingAds = data.rotatingAds || [];
 
+if(adsData.length){
 showAd();
+}
+
+if(rotatingAds.length){
+startRotatingAds();
+}
 
 });
 
@@ -2380,6 +2423,40 @@ showAd();
 
 }
 	document.addEventListener("DOMContentLoaded", loadAds);
+	let rotatingAds = [];
+let rotatingIndex = 0;
+
+function startRotatingAds(){
+
+document.getElementById("rotatingAds").style.display="block";
+
+showRotatingAd();
+
+setInterval(()=>{
+
+rotatingIndex++;
+
+if(rotatingIndex >= rotatingAds.length){
+rotatingIndex = 0;
+}
+
+showRotatingAd();
+
+},6000);
+
+}
+
+function showRotatingAd(){
+
+const ad = rotatingAds[rotatingIndex];
+
+document.getElementById("rotatingAdImg").src = ad.image;
+
+document.getElementById("rotatingAdLink").href = ad.link;
+
+document.getElementById("rotatingAdTitle").innerText = ad.title;
+
+}
 </script>
 
 <!-- ===== ROUTE DETAIL SCREEN ===== -->
@@ -2406,6 +2483,7 @@ showAd();
 
 </body>
 </html>
+
 
 
 
