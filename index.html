@@ -1276,19 +1276,6 @@ list.innerHTML =
   listHeader +
   rows.map((r,i)=>{
 
-let adHTML = "";
-
-/* ===== INSERT AD AFTER EVERY 3 TRAINS ===== */
-
-if(i>0 && i%3===0){
-
-adHTML = `
-<div class="rv-item ad-row">
-  <img src="ads/ad1.png" class="train-ad">
-</div>
-`;
-
-}
     const isNext = i === nextIdx;
    const showAlt =
   altTrain &&
@@ -1296,7 +1283,6 @@ adHTML = `
   altTrain.m < r.m;
 
 return `
-${adHTML}
 ${showAlt ? `
 <div class="rv-item alt-route"
      onclick="applyAltRoute('${altTrain.route}')">
@@ -2688,6 +2674,7 @@ document.getElementById("rotatingAdTitle").innerText = ad.title;
 
 </body>
 </html>
+
 
 
 
