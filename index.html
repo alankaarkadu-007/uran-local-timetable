@@ -497,6 +497,43 @@ border-radius:6px;
 background:#fff8e1;
 
 }
+	/* ===== TRAIN LIST FIXED HEIGHT ===== */
+
+.train-container{
+
+max-height:180px;   /* 3 train rows */
+overflow:hidden;
+
+}
+
+/* ===== SCROLLABLE TRAIN LIST ===== */
+
+.recycler{
+
+max-height:180px;
+overflow-y:auto;
+
+}
+
+/* ===== FIXED AD ===== */
+
+.train-ad-box{
+
+margin-top:8px;
+background:#fff;
+padding:6px;
+border-radius:8px;
+
+}
+
+.train-ad-box img{
+
+width:100%;
+height:80px;
+object-fit:cover;
+border-radius:6px;
+
+}
 </style>
 </head>
 
@@ -662,7 +699,23 @@ background:#fff8e1;
  
 </div> 
 
-<div class="card recycler" id="list"></div>
+<div class="card train-container">
+
+<div class="recycler" id="list"></div>
+
+</div>
+
+<!-- ===== FIXED TRAIN LIST AD ===== -->
+
+<div class="train-ad-box">
+
+<a href="tel:9594587797">
+
+<img src="ads/ad1.png" id="trainAdImg">
+
+</a>
+
+</div>
 <!-- ===== SMALL ROTATING ADS ===== -->
 
 <div id="smallAds" class="ads-small" style="display:none">
@@ -1190,10 +1243,23 @@ const altTrain = findAlternativeTrain();
 const isLastTrainToday = (!isTomorrow && nextIdx === rows.length - 1);
 
 setTimeout(()=>{
-  const nextEl = document.querySelector('.rv-next');
-  if(nextEl){
-    nextEl.scrollIntoView({behavior:'smooth',block:'center'});
-  }
+
+const listContainer = document.getElementById("list");
+
+const nextEl = document.querySelector('.rv-next');
+
+if(nextEl){
+
+const containerHeight = listContainer.clientHeight;
+
+const elementOffset = nextEl.offsetTop;
+
+const scrollPosition = elementOffset - (containerHeight / 2);
+
+listContainer.scrollTop = scrollPosition;
+
+}
+
 },200);
 
 const listHeader = `
@@ -2622,6 +2688,7 @@ document.getElementById("rotatingAdTitle").innerText = ad.title;
 
 </body>
 </html>
+
 
 
 
