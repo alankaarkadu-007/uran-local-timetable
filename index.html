@@ -379,6 +379,45 @@ border-bottom:1px solid #ddd;
 font-size:13px;
 overflow:hidden;
 }
+	/* ===== SMALL ADS ===== */
+
+.ads-small{
+margin-top:10px;
+background:#fff;
+padding:6px;
+border-radius:8px;
+}
+
+.ads-label{
+font-size:12px;
+color:#666;
+margin-bottom:4px;
+}
+
+.ads-slider{
+display:flex;
+gap:6px;
+overflow-x:auto;
+}
+
+.ads-slider img{
+height:80px;
+border-radius:6px;
+}
+
+/* ===== BIG AD ===== */
+
+.ads-big{
+margin-top:12px;
+background:#fff;
+padding:6px;
+border-radius:8px;
+}
+
+.ads-big img{
+width:100%;
+border-radius:8px;
+}
 /* ===== ROTATING IMAGE ADS ===== */
 
 .rotating-ads{
@@ -610,7 +649,29 @@ color:inherit;
 </div> 
 
 <div class="card recycler" id="list"></div>
+<!-- ===== SMALL ROTATING ADS ===== -->
 
+<div id="smallAds" class="ads-small" style="display:none">
+
+<div class="ads-label">Sponsored ad</div>
+
+<div class="ads-slider" id="adsSlider"></div>
+
+</div>
+
+<!-- ===== BIG SPONSORED BANNER ===== -->
+
+<div id="bigAd" class="ads-big" style="display:none">
+
+<div class="ads-label">Sponsored</div>
+
+<a id="bigAdLink" target="_blank">
+
+<img id="bigAdImg">
+
+</a>
+
+</div>
 </div>
 
 <script>
@@ -2360,6 +2421,8 @@ fetch("ads.json")
 
 adsData = data.runningText || [];
 
+loadExtraAds(data);
+
 rotatingAds = data.rotatingAds || [];
 
 if(adsData.length){
@@ -2423,6 +2486,53 @@ showAd();
 
 }
 	document.addEventListener("DOMContentLoaded", loadAds);
+	let smallAds=[];
+let bigAd=null;
+
+function loadExtraAds(data){
+
+smallAds = data.smallAds || [];
+bigAd = data.bigAd || null;
+
+if(smallAds.length){
+showSmallAds();
+}
+
+if(bigAd){
+showBigAd();
+}
+
+}
+
+function showSmallAds(){
+
+const container = document.getElementById("adsSlider");
+
+container.innerHTML="";
+
+smallAds.forEach(ad=>{
+
+container.innerHTML += `
+<a href="${ad.link}" target="_blank">
+<img src="${ad.image}">
+</a>
+`;
+
+});
+
+document.getElementById("smallAds").style.display="block";
+
+}
+
+function showBigAd(){
+
+document.getElementById("bigAdImg").src = bigAd.image;
+
+document.getElementById("bigAdLink").href = bigAd.link;
+
+document.getElementById("bigAd").style.display="block";
+
+}
 	let rotatingAds = [];
 let rotatingIndex = 0;
 
@@ -2483,6 +2593,7 @@ document.getElementById("rotatingAdTitle").innerText = ad.title;
 
 </body>
 </html>
+
 
 
 
