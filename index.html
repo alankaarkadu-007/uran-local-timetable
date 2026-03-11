@@ -1937,11 +1937,16 @@ function renderMumbaiPlatforms(platformMap){
     return;
   }
 
-  nextTrain.innerHTML = `
-    <div style="font-size:18px;font-weight:700">
-      🚇 Platform Wise Next Trains
-    </div>
-  `;
+ nextTrain.innerHTML = `
+<div style="
+  font-size:16px;
+  font-weight:700;
+  margin-top:2px;
+  padding:4px 0;
+">
+  🚇 Platform Wise Next Trains
+</div>
+`;
 
   const sortedPlatforms = Object.keys(platformMap)
     .sort((a,b)=>a.localeCompare(b, undefined, {numeric:true}));
@@ -2038,8 +2043,13 @@ isFullDayView = true;   // 🔥 user is in full day view
   fullList.sort((a,b)=>a.trainMin - b.trainMin);
 
   nextTrain.innerHTML = `
-    <div style="font-size:18px;font-weight:700">
-      🚇 Platform ${platformNo} – Full Day Schedule
+<div style="
+  font-size:16px;
+  font-weight:700;
+  margin-top:2px;
+  padding:4px 0;
+">
+ 🚇 Platform ${platformNo} – Full Day Schedule
     </div>
   `;
 
@@ -2541,6 +2551,7 @@ document.getElementById("rotatingAdTitle").innerText = ad.title;
 
 </body>
 </html>
+
 
 
 
