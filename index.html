@@ -1099,7 +1099,7 @@ function setTrainAlarmExact(trainTime,minBefore){
   const title = "🚆 Uran Local Train";
 
   const msg =
-  `Train ${to12h(trainTime)} alarm`;
+   `Train ${to12h(selectedTrainTime)} alarm`;
 
   if(window.Android && Android.setExactTrainAlarm){
 
@@ -1108,7 +1108,7 @@ function setTrainAlarmExact(trainTime,minBefore){
       title,
       msg
     );
-activeAlarms[selectedTrainNo + "_" + trainTime] = true;
+activeAlarms[selectedTrainNo + "_" + selectedTrainTime] = true;
 render();
 
     Android.showToast(
@@ -2595,6 +2595,7 @@ document.getElementById("rotatingAdTitle").innerText = ad.title;
 
 </body>
 </html>
+
 
 
 
