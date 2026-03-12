@@ -1101,20 +1101,29 @@ function setTrainAlarmExact(trainTime,minBefore){
   const msg =
    `Train ${to12h(selectedTrainTime)} alarm`;
 
-  if(window.Android && Android.setExactTrainAlarm){
+ if(window.Android && Android.setExactTrainAlarm){
 
-    Android.setExactTrainAlarm(
-      triggerAtMillis,
-      title,
-      msg
-    );
-activeAlarms[selectedTrainNo + "_" + selectedTrainTime] = true;
-render();
+  Android.setExactTrainAlarm(
+    triggerAtMillis,
+    title,
+    msg
+  );
 
+  if(Android.showToast){
     Android.showToast(
       "🔔 Alarm set ("+minBefore+" min before)"
     );
   }
+
+}else{
+
+  alert("Android alarm bridge not available");
+
+}
+
+// 🔥 ALWAYS update icon
+activeAlarms[selectedTrainNo + "_" + selectedTrainTime] = true;
+render();
 }
 /* ================= RENDER ================= */
 function render(){
@@ -2595,6 +2604,7 @@ document.getElementById("rotatingAdTitle").innerText = ad.title;
 
 </body>
 </html>
+
 
 
 
