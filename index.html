@@ -1208,10 +1208,10 @@ ${showAlt ? `
   </div>
 <div class="rv-no">
   ${r.no}
-  <span onclick="openTrainAlarm('${r.time}',${r.no})"
-        style="margin-left:8px;cursor:pointer">
-        ⏰
-  </span>
+ <span onclick="event.stopPropagation(); openTrainAlarm('${r.time}',${r.no})"
+      style="margin-left:8px;cursor:pointer">
+      ⏰
+</span>
 </div>
 </div>
 `;
@@ -2586,4 +2586,5 @@ document.getElementById("rotatingAdTitle").innerText = ad.title;
 
 </body>
 </html>
+
 
