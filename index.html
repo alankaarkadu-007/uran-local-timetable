@@ -1165,7 +1165,7 @@ const listHeader = `
     <div class="rv-left">
       <div class="rv-time">⏰ Time</div>
     </div>
-    <div class="rv-no">🚆 Train No.</div>
+    <div class="rv-no">🔔 Set Alarm</div>
   </div>
 `;
 
@@ -1207,11 +1207,10 @@ ${showAlt ? `
     </div>
   </div>
 <div class="rv-no">
-  ${r.no}
- <span onclick="event.stopPropagation(); openTrainAlarm('${r.time}',${r.no})"
-      style="margin-left:8px;cursor:pointer">
-      ⏰
-</span>
+  <span onclick="event.stopPropagation(); openTrainAlarm('${r.time}',${r.no})"
+        style="cursor:pointer;font-size:18px">
+        ⏰
+  </span>
 </div>
 </div>
 `;
@@ -2586,5 +2585,6 @@ document.getElementById("rotatingAdTitle").innerText = ad.title;
 
 </body>
 </html>
+
 
 
