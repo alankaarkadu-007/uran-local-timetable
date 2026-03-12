@@ -1210,15 +1210,15 @@ ${showAlt ? `
     </div>
   </div>
 <div class="rv-no">
-  <span onclick="event.stopPropagation(); openTrainAlarm('${r.time}',${r.no})"
-        style="cursor:pointer;font-size:20px;
-color:${
-  activeAlarms[r.time] 
-  ? '#fbc02d' 
-  : (isNext ? '#2e7d32' : '#555')
-}"
-        ⏰
-  </span>
+<span onclick="event.stopPropagation(); openTrainAlarm('${r.time}',${r.no})"
+      style="cursor:pointer;font-size:20px;
+      color:${
+        activeAlarms[r.time] 
+        ? '#fbc02d' 
+        : (isNext ? '#2e7d32' : '#555')
+      }">
+      ⏰
+</span>
 </div>
 </div>
 `;
@@ -2593,6 +2593,7 @@ document.getElementById("rotatingAdTitle").innerText = ad.title;
 
 </body>
 </html>
+
 
 
 
