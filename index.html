@@ -543,10 +543,6 @@ overflow-y:auto;
 🚆 Uran Mode
 </div>
 	  
-	<div onclick="event.stopPropagation(); closeMenu(); openAlarmMenu();">
-⏰ Set Train Alarm
-</div>
-	  
     <div onclick="toggleLanguage()">🌐 Language: <span id="langLabel">English</span></div>
     <div onclick="manualUpdate()">🔄 Update App</div>
   </div>
@@ -596,7 +592,7 @@ overflow-y:auto;
 ">
 
   <div style="font-size:16px;font-weight:700;margin-bottom:10px">
-    ⏰ Set Train Alarm
+   ⏰ Set Alarm for this Train
   </div>
 
   <div style="display:flex;gap:10px;margin-bottom:12px">
@@ -717,10 +713,12 @@ overflow-y:auto;
 </div>
 
 <script>
-
+	
 /* ===== LANGUAGE ===== */
 // ===== LANGUAGE (remembered) =====
 let lang = localStorage.getItem('appLang') || 'en'; // default English
+let selectedTrainTime = null;
+let selectedTrainNo = null;
 let trainMaster = [];
 let platformMaster = [];
 let timetableData = null;
@@ -1062,26 +1060,57 @@ function openAlarmMenu(){
 function closeAlarmMenu(){
   document.getElementById('alarmPopup').style.display = 'none';
 }
+/* 🔔 NEW FUNCTION */
+function openTrainAlarm(time, trainNo){
 
-function setQuickAlarm(min){
-  closeAlarmMenu();
-  setNextTrainAlarmExact(min);
+  selectedTrainTime = time;
+  selectedTrainNo = trainNo;
+
+  document.getElementById("alarmPopup").style.display = "block";
 }
+function setQuickAlarm(min){
 
-function setCustomAlarm(){
-  const min = parseInt(
-    document.getElementById('customMin').value
-  );
-
-  if(!min || min <= 0){
-    alert("Please enter valid minutes");
+  if(!selectedTrainTime){
+    alert("Train not selected");
     return;
   }
 
   closeAlarmMenu();
-  setNextTrainAlarmExact(min);
+
+  setTrainAlarmExact(selectedTrainTime,min);
 }
 
+function setTrainAlarmExact(trainTime,minBefore){
+
+  const [hh,mm] = trainTime.split(":").map(Number);
+
+  let alarmDate = new Date();
+
+  alarmDate.setHours(hh,mm,0,0);
+
+  alarmDate =
+  new Date(alarmDate.getTime() - minBefore*60*1000);
+
+  const triggerAtMillis = alarmDate.getTime();
+
+  const title = "🚆 Uran Local Train";
+
+  const msg =
+  `Train ${to12h(trainTime)} alarm`;
+
+  if(window.Android && Android.setExactTrainAlarm){
+
+    Android.setExactTrainAlarm(
+      triggerAtMillis,
+      title,
+      msg
+    );
+
+    Android.showToast(
+      "🔔 Alarm set ("+minBefore+" min before)"
+    );
+  }
+}
 /* ================= RENDER ================= */
 function render(){
  if(!route.value || !station.value){
@@ -1177,9 +1206,13 @@ ${showAlt ? `
       ${stations[station.value][lang]} Station
     </div>
   </div>
-  <div class="rv-no">
-    ${r.no}
-  </div>
+<div class="rv-no">
+  ${r.no}
+  <span onclick="openTrainAlarm('${r.time}',${r.no})"
+        style="margin-left:8px;cursor:pointer">
+        ⏰
+  </span>
+</div>
 </div>
 `;
 
@@ -2553,3 +2586,4 @@ document.getElementById("rotatingAdTitle").innerText = ad.title;
 
 </body>
 </html>
+
