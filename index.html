@@ -1126,10 +1126,6 @@ function setTrainAlarmExact(trainTime,minBefore){
 
   render();
 }
-	// 🔥 ALWAYS update icon
-activeAlarms[selectedTrainNo + "_" + selectedTrainTime] = true;
-render();
-}
 /* ================= RENDER ================= */
 function render(){
  if(!route.value || !station.value){
@@ -2609,6 +2605,7 @@ document.getElementById("rotatingAdTitle").innerText = ad.title;
 
 </body>
 </html>
+
 
 
 
