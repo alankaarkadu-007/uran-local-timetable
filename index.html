@@ -1031,15 +1031,24 @@ function setTrainAlarm(trainTime, minutesBefore, el){
       msg
     );
 
-   if(window.Android && Android.showToast){
-  Android.showToast("🔔 Alarm set");
-}
-if(el){
+    if(window.Android && Android.showToast){
+      Android.showToast("🔔 Alarm set");
+    }
+
+    if(el){
       el.style.color = "#ff9800";
     }
+
+  }else{
+
+    alert("Android bridge missing");
+
   }
-	  }
-	function openAlarmMenu(trainTime, el){
+
+}
+
+
+function openAlarmMenu(trainTime, el){
 
   const choice = prompt(
     "Alarm before minutes?\n\n5 = 5 min\n10 = 10 min\nEnter custom minutes"
@@ -1052,14 +1061,7 @@ if(el){
   setTrainAlarm(trainTime, min, el);
 
 }
-  else{
-
-    alert("Android bridge missing");
-
-  }
-
-}
-/* ================= RENDER ================= */
+	/* ================= RENDER ================= */
 function render(){
  if(!route.value || !station.value){
    list.innerHTML='';
@@ -2533,6 +2535,7 @@ document.getElementById("rotatingAdTitle").innerText = ad.title;
 
 </body>
 </html>
+
 
 
 
