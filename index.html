@@ -1013,6 +1013,12 @@ function setTrainAlarm(trainTime, minutesBefore, el){
 
   alarm.setHours(hh,mm,0,0);
 
+  const now = new Date();
+
+  if(alarm.getTime() < now.getTime()){
+    alarm.setDate(alarm.getDate()+1);
+  }
+
   alarm = new Date(
     alarm.getTime() - minutesBefore*60*1000
   );
@@ -1025,18 +1031,14 @@ function setTrainAlarm(trainTime, minutesBefore, el){
 
   if(window.Android && Android.setTrainAlarm){
 
-    Android.setTrainAlarm(
-      trigger,
-      title,
-      msg
-    );
+    Android.setTrainAlarm(trigger,title,msg);
 
     if(window.Android && Android.showToast){
       Android.showToast("🔔 Alarm set");
     }
 
     if(el){
-      el.style.color = "#ff9800";
+      el.style.color="#ff9800";
     }
 
   }else{
@@ -1046,7 +1048,23 @@ function setTrainAlarm(trainTime, minutesBefore, el){
   }
 
 }
+	function openPhoneAlarm(trainTime){
 
+  const [hh,mm] = trainTime.split(":").map(Number);
+
+  const title = "🚆 Uran Local Train";
+
+  if(window.Android && Android.openSystemAlarm){
+
+     Android.openSystemAlarm(hh,mm,title);
+
+  }else{
+
+     alert("Android alarm not available");
+
+  }
+
+}
 
 function openAlarmMenu(trainTime, el){
 
@@ -1157,7 +1175,7 @@ ${showAlt ? `
     </div>
   </div>
 <div class="rv-no">
-    <span onclick="event.stopPropagation(); setTrainAlarm('${r.time}',5,this)"
+    <span onclick="event.stopPropagation(); openPhoneAlarm('${r.time}')"
       style="cursor:pointer;font-size:20px;color:#2e7d32">
 🔔
 </span>
@@ -2535,6 +2553,7 @@ document.getElementById("rotatingAdTitle").innerText = ad.title;
 
 </body>
 </html>
+
 
 
 
