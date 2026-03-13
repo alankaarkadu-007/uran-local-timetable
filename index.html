@@ -1005,7 +1005,41 @@ function findAlternativeTrain(){
 
   return bestAlt;
 }
+function setTrainAlarm(trainTime, minutesBefore){
 
+  const [hh,mm] = trainTime.split(":").map(Number);
+
+  let alarm = new Date();
+
+  alarm.setHours(hh,mm,0,0);
+
+  alarm = new Date(
+    alarm.getTime() - minutesBefore*60*1000
+  );
+
+  const trigger = alarm.getTime();
+
+  const title = "🚆 Uran Local Train";
+
+  const msg = "Train "+trainTime+" arriving soon";
+
+  if(window.Android && Android.setTrainAlarm){
+
+    Android.setTrainAlarm(
+      trigger,
+      title,
+      msg
+    );
+
+    alert("Alarm set");
+
+  }else{
+
+    alert("Android bridge missing");
+
+  }
+
+}
 /* ================= RENDER ================= */
 function render(){
  if(!route.value || !station.value){
@@ -2474,6 +2508,7 @@ document.getElementById("rotatingAdTitle").innerText = ad.title;
 
 </body>
 </html>
+
 
 
 
