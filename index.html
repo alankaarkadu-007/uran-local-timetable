@@ -1517,9 +1517,9 @@ document.addEventListener('click', function(e){
   const menuBtn = document.getElementById('menuBtn');
   const menuBox = document.getElementById('menuBox');
 
-  if(!menuBtn.contains(e.target)){
-    menuBox.style.display = 'none';
-  }
+if(!menuBtn.contains(e.target) && !menuBox.contains(e.target)){
+  menuBox.style.display = 'none';
+}
 });
 
 document.getElementById('menuBtn').onclick=(e)=>{
@@ -2605,6 +2605,7 @@ document.getElementById("rotatingAdTitle").innerText = ad.title;
 
 </body>
 </html>
+
 
 
 
