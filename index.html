@@ -579,51 +579,6 @@ overflow-y:auto;
 </a>
 
 </div>
-	<!-- ===== ALARM POPUP ===== -->
-<div id="alarmPopup" style="
-  display:none;
-  position:fixed;
-  left:0; right:0; bottom:0;
-  background:#fff;
-  border-radius:16px 16px 0 0;
-  box-shadow:0 -4px 12px rgba(0,0,0,.3);
-  padding:16px;
-  z-index:999;
-">
-
-  <div style="font-size:16px;font-weight:700;margin-bottom:10px">
-   ⏰ Set Alarm for this Train
-  </div>
-
-  <div style="display:flex;gap:10px;margin-bottom:12px">
-    <button class="alarm-btn green" onclick="setQuickAlarm(10)">
-  ⏰ Alarm – 10 min before
-</button>
-
-<button class="alarm-btn green" onclick="setQuickAlarm(5)">
-  ⏰ Alarm – 5 min before
-</button>
-
-  </div>
-
-  <div style="margin-bottom:10px">
-    <input id="customMin" type="number" min="1" max="60" placeholder="Custom minutes (eg. 7)"
-      style="width:100%;padding:10px;font-size:15px">
-  </div>
-
-  <button onclick="setCustomAlarm()" style="width:100%;padding:10px">
-    ⏱️ Set Custom Alarm
-  </button>
-
-  <div onclick="closeAlarmMenu()" style="
-    text-align:center;
-    margin-top:10px;
-    color:#b71c1c;
-    font-weight:600;
-    cursor:pointer">
-    Cancel
-  </div>
-</div>
 
 <div class="container">
 
@@ -717,9 +672,6 @@ overflow-y:auto;
 /* ===== LANGUAGE ===== */
 // ===== LANGUAGE (remembered) =====
 let lang = localStorage.getItem('appLang') || 'en'; // default English
-let selectedTrainTime = null;
-let selectedTrainNo = null;
-let activeAlarms = {};
 let trainMaster = [];
 let platformMaster = [];
 let timetableData = null;
@@ -1054,78 +1006,6 @@ function findAlternativeTrain(){
   return bestAlt;
 }
 
-function openAlarmMenu(){
-  document.getElementById('alarmPopup').style.display = 'block';
-}
-
-function closeAlarmMenu(){
-  document.getElementById('alarmPopup').style.display = 'none';
-	selectedTrainTime = null;
-  selectedTrainNo = null;
-}
-/* 🔔 NEW FUNCTION */
-function openTrainAlarm(time, trainNo){
-
-  selectedTrainTime = time;
-  selectedTrainNo = trainNo;
-
-  document.getElementById("alarmPopup").style.display = "block";
-}
-function setQuickAlarm(min){
-
-  if(!selectedTrainTime){
-    alert("Train not selected");
-    return;
-  }
-
-  closeAlarmMenu();
-
-  setTrainAlarmExact(selectedTrainTime,min);
-}
-
-function setTrainAlarmExact(trainTime,minBefore){
-
-  const [hh,mm] = trainTime.split(":").map(Number);
-
-  let alarmDate = new Date();
-
-  alarmDate.setHours(hh,mm,0,0);
-
-  alarmDate =
-  new Date(alarmDate.getTime() - minBefore*60*1000);
-
-  const triggerAtMillis = alarmDate.getTime();
-
-  const title = "🚆 Uran Local Train";
-
-  const msg =
-   `Train ${to12h(selectedTrainTime)} alarm`;
-
-  if(window.Android && Android.setExactTrainAlarm){
-
-    Android.setExactTrainAlarm(
-      triggerAtMillis,
-      title,
-      msg
-    );
-
-    if(Android.showToast){
-      Android.showToast(
-        "🔔 Alarm set ("+minBefore+" min before)"
-      );
-    }
-
-  }else{
-
-    alert("Android alarm bridge not available");
-
-  }
-
-  // icon update
-  activeAlarms[selectedTrainNo + "_" + selectedTrainTime] = true;
-
-  render();
-}
 /* ================= RENDER ================= */
 function render(){
  if(!route.value || !station.value){
@@ -1221,17 +1101,6 @@ ${showAlt ? `
       ${stations[station.value][lang]} Station
     </div>
   </div>
-<div class="rv-no">
-<span onclick="event.stopPropagation(); openTrainAlarm('${r.time}',${r.no})"
-      style="cursor:pointer;font-size:20px;
-      color:${
-        activeAlarms[r.no + "_" + r.time]
-        ? '#fbc02d' 
-        : (isNext ? '#2e7d32' : '#555')
-      }">
-      ⏰
-</span>
-</div>
 </div>
 `;
 
@@ -2605,6 +2474,7 @@ document.getElementById("rotatingAdTitle").innerText = ad.title;
 
 </body>
 </html>
+
 
 
 
