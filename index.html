@@ -1135,6 +1135,12 @@ ${showAlt ? `
       ${stations[station.value][lang]} Station
     </div>
   </div>
+<div class="rv-no">
+    <span onclick="event.stopPropagation(); setTrainAlarm('${r.time}',5)"
+          style="cursor:pointer;font-size:20px;color:#2e7d32">
+      🔔
+    </span>
+  </div>
 </div>
 `;
 
@@ -2508,6 +2514,7 @@ document.getElementById("rotatingAdTitle").innerText = ad.title;
 
 </body>
 </html>
+
 
 
 
