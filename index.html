@@ -1005,7 +1005,7 @@ function findAlternativeTrain(){
 
   return bestAlt;
 }
-function setTrainAlarm(trainTime, minutesBefore){
+function setTrainAlarm(trainTime, minutesBefore, el){
 
   const [hh,mm] = trainTime.split(":").map(Number);
 
@@ -1031,9 +1031,28 @@ function setTrainAlarm(trainTime, minutesBefore){
       msg
     );
 
-    alert("Alarm set");
+   if(window.Android && Android.showToast){
+  Android.showToast("🔔 Alarm set");
+}
+if(el){
+      el.style.color = "#ff9800";
+    }
+  }
+	  }
+	function openAlarmMenu(trainTime, el){
 
-  }else{
+  const choice = prompt(
+    "Alarm before minutes?\n\n5 = 5 min\n10 = 10 min\nEnter custom minutes"
+  );
+
+  const min = parseInt(choice);
+
+  if(!min || min<=0) return;
+
+  setTrainAlarm(trainTime, min, el);
+
+}
+  else{
 
     alert("Android bridge missing");
 
@@ -1136,10 +1155,10 @@ ${showAlt ? `
     </div>
   </div>
 <div class="rv-no">
-    <span onclick="event.stopPropagation(); setTrainAlarm('${r.time}',5)"
-          style="cursor:pointer;font-size:20px;color:#2e7d32">
-      🔔
-    </span>
+    <span onclick="event.stopPropagation(); setTrainAlarm('${r.time}',5,this)"
+      style="cursor:pointer;font-size:20px;color:#2e7d32">
+🔔
+</span>
   </div>
 </div>
 `;
@@ -2514,6 +2533,7 @@ document.getElementById("rotatingAdTitle").innerText = ad.title;
 
 </body>
 </html>
+
 
 
 
