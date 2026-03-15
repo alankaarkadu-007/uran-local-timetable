@@ -2105,19 +2105,32 @@ isFullDayView = true;   // 🔥 user is in full day view
   const timeMin = toMin(train.stops[code]);
   const time = to12h(train.stops[code]);
 
-  let dotColor = "#fff";
-  let textColor = "#fff";
+ const isFirst = idx === 0;
+const isLast = idx === routeOrder.length - 1;
 
-  if(timeMin < nowMin){
-    dotColor = "#666";
-    textColor = "#999";
-  }
+let dotColor = "#fff";
+let textColor = "#fff";
 
-  if(Math.abs(timeMin - nowMin) <= 1){
-    dotColor = "#00ff00";
-    textColor = "#00ff00";
-  }
+/* FIRST & LAST STATION COLORS */
+if(isFirst){
+  dotColor = "#00c853";   // green
+}
 
+if(isLast){
+  dotColor = "#ff1744";   // red
+}
+
+/* PAST STATION FADE */
+if(timeMin < nowMin){
+  dotColor = "#777";
+  textColor = "#888";
+}
+
+/* CURRENT TRAIN POSITION */
+if(Math.abs(timeMin - nowMin) <= 1){
+  dotColor = "#00ff00";
+  textColor = "#00ff00";
+}
   const isFirst = idx === 0;
   const isLast = idx === routeOrder.length-1;
 
@@ -2299,13 +2312,14 @@ if(platformRow){
         </div>
 
         <div style="
-          width:14px;
-          height:14px;
-          background:${dotColor};
-          border-radius:50%;
-          border:2px solid #000;
-          z-index:2;
-        "></div>
+  width:14px;
+  height:14px;
+  background:${dotColor};
+  border-radius:50%;
+  border:2px solid #000;
+  z-index:2;
+  opacity:${timeMin < nowMin ? 0.5 : 1};
+"></div>
 
         <div style="
           width:45%;
