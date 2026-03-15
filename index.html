@@ -2264,22 +2264,37 @@ function openMumbaiRouteDetail(trainNo, routeCode){
   transform:translateX(-50%);
 "></div>
 
-    ${routeStops.map(stop=>{
+    ${routeStops.map((stop,idx)=>{
 
       const time = to12h(stop.time);
 
-      let dotColor="#fff";
-      let textColor="#fff";
+     const isFirst = idx === 0;
+const isLast = idx === routeStops.length - 1;
 
-      if(stop.timeMin < nowMin){
-        dotColor="#666";
-        textColor="#999";
-      }
+let dotColor = "#fff";
+let textColor = "#fff";
 
-      if(Math.abs(stop.timeMin-nowMin)<=1){
-        dotColor="#00ff00";
-        textColor="#00ff00";
-      }
+/* FIRST STATION GREEN */
+if(isFirst){
+  dotColor = "#00c853";
+}
+
+/* LAST STATION RED */
+if(isLast){
+  dotColor = "#ff1744";
+}
+
+/* PAST STATION FADE */
+if(stop.timeMin < nowMin){
+  dotColor = "#777";
+  textColor = "#888";
+}
+
+/* CURRENT TRAIN POSITION */
+if(Math.abs(stop.timeMin - nowMin) <= 1){
+  dotColor = "#00ff00";
+  textColor = "#00ff00";
+}
 // 🔥 Find platform number
 let pf = "";
 
