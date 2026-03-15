@@ -2087,7 +2087,18 @@ isFullDayView = true;   // 🔥 user is in full day view
   content.innerHTML = `
     <div style="position:relative;">
 
-        ${routeOrder.map((code,idx) => {
+     <!-- Vertical Line -->
+      <div style="
+        position:absolute;
+        left:50%;
+        top:0;
+        bottom:0;
+        width:2px;
+        background:#bbb;
+        transform:translateX(-50%);
+      "></div>
+
+		${routeOrder.map((code,idx) => {
 
   if(!train.stops[code]) return '';
 
