@@ -2087,18 +2087,7 @@ isFullDayView = true;   // 🔥 user is in full day view
   content.innerHTML = `
     <div style="position:relative;">
 
-      <!-- Vertical Line -->
-      <div style="
-        position:absolute;
-        left:50%;
-        top:0;
-        bottom:0;
-        width:2px;
-        background:#bbb;
-        transform:translateX(-50%);
-      "></div>
-
-   ${routeOrder.map((code,idx) => {
+        ${routeOrder.map((code,idx) => {
 
   if(!train.stops[code]) return '';
 
@@ -2131,10 +2120,8 @@ if(Math.abs(timeMin - nowMin) <= 1){
   dotColor = "#00ff00";
   textColor = "#00ff00";
 }
-  const isFirst = idx === 0;
-  const isLast = idx === routeOrder.length-1;
-
-  return `
+ 
+	return `
   <div style="
     display:flex;
     align-items:center;
@@ -2176,13 +2163,14 @@ if(Math.abs(timeMin - nowMin) <= 1){
     </div>
 
     <div style="
-      width:14px;
-      height:14px;
-      background:${dotColor};
-      border-radius:50%;
-      border:2px solid #000;
-      z-index:2;
-    "></div>
+width:14px;
+height:14px;
+background:${dotColor};
+border-radius:50%;
+border:2px solid #000;
+z-index:2;
+opacity:${timeMin < nowMin ? 0.5 : 1};
+"></div>
 
     <div style="
       width:45%;
@@ -2318,7 +2306,7 @@ if(platformRow){
   border-radius:50%;
   border:2px solid #000;
   z-index:2;
-  opacity:${timeMin < nowMin ? 0.5 : 1};
+  opacity:${stop.timeMin < nowMin ? 0.5 : 1};
 "></div>
 
         <div style="
