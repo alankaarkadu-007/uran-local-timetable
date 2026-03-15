@@ -2098,82 +2098,103 @@ isFullDayView = true;   // 🔥 user is in full day view
         transform:translateX(-50%);
       "></div>
 
-      ${routeOrder.map(code => {
+   ${routeOrder.map((code,idx) => {
 
-        if(!train.stops[code]) return '';
+  if(!train.stops[code]) return '';
 
-        const timeMin = toMin(train.stops[code]);
-        const time = to12h(train.stops[code]);
+  const timeMin = toMin(train.stops[code]);
+  const time = to12h(train.stops[code]);
 
-        let dotColor = "#fff";
-        let textColor = "#fff";
+  let dotColor = "#fff";
+  let textColor = "#fff";
 
-        if(timeMin < nowMin){
-          dotColor = "#666";
-          textColor = "#999";
-        }
+  if(timeMin < nowMin){
+    dotColor = "#666";
+    textColor = "#999";
+  }
 
-        if(Math.abs(timeMin - nowMin) <= 1){
-          dotColor = "#00ff00";
-          textColor = "#00ff00";
-        }
+  if(Math.abs(timeMin - nowMin) <= 1){
+    dotColor = "#00ff00";
+    textColor = "#00ff00";
+  }
 
-        return `
-          <div style="
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            margin:18px 0;
-            position:relative;
-          ">
+  const isFirst = idx === 0;
+  const isLast = idx === routeOrder.length-1;
 
-            <!-- TIME -->
-            <div style="
-              width:45%;
-              text-align:right;
-              padding-right:15px;
-              font-size:14px;
-              color:${textColor};
-            ">
-              ${time}
-            </div>
+  return `
+  <div style="
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:18px 0;
+    position:relative;
+  ">
 
-            <!-- DOT -->
-            <div style="
-              width:14px;
-              height:14px;
-              background:${dotColor};
-              border-radius:50%;
-              border:2px solid #000;
-              z-index:2;
-            "></div>
+    ${!isFirst ? `
+    <div style="
+      position:absolute;
+      left:50%;
+      top:-18px;
+      height:18px;
+      width:2px;
+      background:#bbb;
+      transform:translateX(-50%);
+    "></div>` : ``}
 
-            <!-- STATION -->
-            <div style="
-              width:45%;
-              padding-left:15px;
-            ">
-              <div style="
-                font-size:17px;
-                font-weight:600;
-                color:${textColor};
-              ">
-                ${stations[code]?.[lang] || code}
-              </div>
+    ${!isLast ? `
+    <div style="
+      position:absolute;
+      left:50%;
+      bottom:-18px;
+      height:18px;
+      width:2px;
+      background:#bbb;
+      transform:translateX(-50%);
+    "></div>` : ``}
 
-              <div style="
-                font-size:12px;
-                color:#aaa;
-                margin-top:3px;
-              ">
-                PF ${(platforms[routeCode]||{})[code] || ''}
-              </div>
-            </div>
+    <div style="
+      width:45%;
+      text-align:right;
+      padding-right:15px;
+      font-size:14px;
+      color:${textColor};
+    ">
+      ${time}
+    </div>
 
-          </div>
-        `;
+    <div style="
+      width:14px;
+      height:14px;
+      background:${dotColor};
+      border-radius:50%;
+      border:2px solid #000;
+      z-index:2;
+    "></div>
 
-      }).join('')}
+    <div style="
+      width:45%;
+      padding-left:15px;
+    ">
+      <div style="
+        font-size:17px;
+        font-weight:600;
+        color:${textColor};
+      ">
+        ${stations[code]?.[lang] || code}
+      </div>
+
+      <div style="
+        font-size:12px;
+        color:#aaa;
+        margin-top:3px;
+      ">
+        PF ${(platforms[routeCode]||{})[code] || ''}
+      </div>
+    </div>
+
+  </div>
+  `;
+}).join('')}
 
     </div>
   `;
