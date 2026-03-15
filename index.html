@@ -405,21 +405,6 @@ height:70px;
 border-radius:6px;
 }
 
-/* ===== BIG AD ===== */
-
-.ads-big{
-margin-top:12px;
-background:#fff;
-padding:6px;
-border-radius:8px;
-}
-
-.ads-big img{
-width:100%;
-height:90px;
-object-fit:cover;
-border-radius:8px;
-}
 /* ===== ROTATING IMAGE ADS ===== */
 
 .rotating-ads{
@@ -503,7 +488,7 @@ background:#fff8e1;
 
 .train-container{
 
-max-height:180px;   /* 3 train rows */
+max-height:60vh;  
 overflow:hidden;
 background:#f1f3f5;
 border:1px solid #e0e0e0;
@@ -515,7 +500,7 @@ border-radius:8px;
 
 .recycler{
 
-max-height:180px;
+max-height:60vh;
 overflow-y:auto;
 
 }
@@ -652,19 +637,6 @@ overflow-y:auto;
 
 </div>
 
-<!-- ===== BIG SPONSORED BANNER ===== -->
-
-<div id="bigAd" class="ads-big" style="display:none">
-
-<div class="ads-label">Sponsored</div>
-
-<a id="bigAdLink" target="_blank">
-
-<img id="bigAdImg">
-
-</a>
-
-</div>
 </div>
 
 <script>
@@ -2447,23 +2419,16 @@ showAd();
 }
 	document.addEventListener("DOMContentLoaded", loadAds);
 	let smallAds=[];
-let bigAd=null;
 
 function loadExtraAds(data){
 
 smallAds = data.smallAds || [];
-bigAd = data.bigAd || null;
 
 if(smallAds.length){
 showSmallAds();
 }
 
-if(bigAd){
-showBigAd();
 }
-
-}
-
 function showSmallAds(){
 
 const container = document.getElementById("adsSlider");
@@ -2484,16 +2449,7 @@ document.getElementById("smallAds").style.display="block";
 
 }
 
-function showBigAd(){
-
-document.getElementById("bigAdImg").src = bigAd.image;
-
-document.getElementById("bigAdLink").href = bigAd.link;
-
-document.getElementById("bigAd").style.display="block";
-
-}
-	let rotatingAds = [];
+let rotatingAds = [];
 let rotatingIndex = 0;
 
 function startRotatingAds(){
