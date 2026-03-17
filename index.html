@@ -1374,25 +1374,60 @@ if (customInput) {
 
   alarmDate = new Date(alarmDate.getTime() - minBefore*60*1000);
 
-  const triggerAtMillis = alarmDate.getTime();
+ // 🔥 Get full train object
+const fullTrain = trains.find(t =>
+  t.no === next.no && t.route === route.value
+);
 
-  const title = "🚆 Uran Local Train";
-  const msg =
-    `Next train ${to12h(next.time)} from ${stations[station.value][lang]} ` +
-    `(${minBefore} min before)`;
+if(!fullTrain){
+  alert("Train data not found");
+  return;
+}
 
-  if (window.Android && Android.setExactTrainAlarm) {
-    Android.setExactTrainAlarm(triggerAtMillis, title, msg);
-	   if (Android.showToast) {
+// 🔥 Route order
+const routeOrder = routeStations[route.value];
+
+// 🔥 User station index
+const userIdx = routeOrder.indexOf(station.value);
+
+// 🔥 Stops till user station
+const journeyStops = routeOrder.slice(0, userIdx + 1);
+
+// 🔥 Prepare arrays
+const timesArr = [];
+const stationsArr = [];
+
+journeyStops.forEach(code=>{
+  if(fullTrain.stops[code]){
+    timesArr.push(fullTrain.stops[code]);
+    stationsArr.push(stations[code][lang] || code);
+  }
+});
+
+// 🔥 Convert to CSV
+const timesCsv = timesArr.join(",");
+const stationsCsv = stationsArr.join(",");
+
+// 🔥 Call Android tracking
+if(window.Android && Android.startTrainTracking){
+
+  Android.startTrainTracking(
+    timesCsv,
+    stationsCsv,
+    stations[station.value][lang],
+    minBefore,
+    "🚆 Uran Local"
+  );
+
+  if (Android.showToast) {
     Android.showToast(
-      "🔔 Alarm set for " +
-      to12h(next.time) +
-      " (" + minBefore + " min before)"
+      "🚆 Live tracking started (" + minBefore + " min before)"
     );
   }
-  } else {
-    alert("Android bridge not available");
-  }
+
+}else{
+  alert("Android tracking not available");
+}
 }
 function applyAltRoute(newRoute){
 
