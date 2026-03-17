@@ -1364,9 +1364,7 @@ if (customInput) {
 
   let next = rows.find(r => r.m >= nowMin) || rows[0];
 
-  let [hh, mm] = next.time.split(":").map(Number);
-  let alarmDate = new Date();
-  alarmDate.setHours(hh, mm, 0, 0);
+ alarmDate.setHours(hh, mm, 0, 0);
 
   if (next.m < nowMin) {
     alarmDate.setDate(alarmDate.getDate() + 1);
@@ -1400,7 +1398,7 @@ const stationsArr = [];
 journeyStops.forEach(code=>{
   if(fullTrain.stops[code]){
     timesArr.push(fullTrain.stops[code]);
-    stationsArr.push(stations[code][lang] || code);
+    stationsArr.push(code);
   }
 });
 
