@@ -1410,12 +1410,12 @@ const stationsCsv = stationsArr.join(",");
 if(window.Android && Android.startTrainTracking){
 
   Android.startTrainTracking(
-    timesCsv,
-    stationsCsv,
-    stations[station.value][lang],
-    minBefore,
-    "🚆 Uran Local"
-  );
+  timesArr.join(","),
+  stationsArr.join(","),
+  station.value,
+  minBefore,
+  "🚆 Uran Local"
+);
 
   if (Android.showToast) {
     Android.showToast(
