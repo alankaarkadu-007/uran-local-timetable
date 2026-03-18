@@ -12,9 +12,6 @@
 
 <style>
 
-alert(typeof Android);
-Android.showToast("TEST");
-	
 body{font-family:Arial,Helvetica,sans-serif;margin:0;background:#f4f6f8}
 header{background:#b71c1c;color:#fff;padding:8px;text-align:center;position:relative}
 
@@ -652,7 +649,13 @@ max-height:none;
 </div>
 
 <script>
-	
+alert(typeof Android);
+
+if(window.Android){
+  Android.showToast("TEST WORKING");
+}else{
+  alert("Android NOT FOUND");
+}	
 /* ===== LANGUAGE ===== */
 // ===== LANGUAGE (remembered) =====
 let lang = localStorage.getItem('appLang') || 'en'; // default English
