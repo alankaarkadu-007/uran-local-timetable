@@ -1331,25 +1331,6 @@ function setNextTrainAlarmExact(minBefore){
     alert("Please select route and station");
     return;
   }
-const customInput = document.getElementById("customMin");
-
-if (customInput) {
-  customInput.addEventListener("change", () => {
-    const m = parseInt(customInput.value);
-
-    if (isNaN(m) || m <= 0 || m > 60) {
-      alert("Please enter minutes between 1 and 60");
-      return;
-    }
-
-    setNextTrainAlarmExact(m);
-
-    // ✅ User confirmation (UX)
-    if (window.Android && Android.showToast) {
-      Android.showToast("🔔 Custom alarm set (" + m + " min before)");
-    }
-  });
-}
   const now = new Date();
   const nowMin = now.getHours()*60 + now.getMinutes();
 
@@ -1369,14 +1350,16 @@ if (customInput) {
 
   let next = rows.find(r => r.m >= nowMin) || rows[0];
 
- alarmDate.setHours(hh, mm, 0, 0);
+let [hh, mm] = next.time.split(":").map(Number);
 
-  if (next.m < nowMin) {
-    alarmDate.setDate(alarmDate.getDate() + 1);
-  }
+let alarmDate = new Date();
+alarmDate.setHours(hh, mm, 0, 0);
 
-  alarmDate = new Date(alarmDate.getTime() - minBefore*60*1000);
+if (next.m < nowMin) {
+  alarmDate.setDate(alarmDate.getDate() + 1);
+}
 
+alarmDate = new Date(alarmDate.getTime() - minBefore*60*1000);
  // 🔥 Get full train object
 const fullTrain = trains.find(t =>
   t.no === next.no && t.route === route.value
