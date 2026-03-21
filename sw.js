@@ -1,17 +1,20 @@
-const CACHE_VERSION = 'v32';   // 🔥 version increment करा
+const CACHE_VERSION = 'v1';
 const CACHE_NAME = `uran-local-${CACHE_VERSION}`;
 
+// 🔥 Cache ALL important files
 const FILES_TO_CACHE = [
   './',
   './index.html',
   './manifest.json',
+  './ads.json'
 ];
 
 /* ===== INSTALL ===== */
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(FILES_TO_CACHE))
+    caches.open(CACHE_NAME).then(cache => {
+      return cache.addAll(FILES_TO_CACHE);
+    })
   );
   self.skipWaiting();
 });
@@ -21,8 +24,11 @@ self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(keys =>
       Promise.all(
-        keys.filter(k => k !== CACHE_NAME)
-            .map(k => caches.delete(k))
+        keys.map(key => {
+          if (key !== CACHE_NAME) {
+            return caches.delete(key);
+          }
+        })
       )
     )
   );
@@ -35,43 +41,36 @@ self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
 
   event.respondWith(
-    caches.match(event.request)
-      .then(cached => {
-        if (cached) return cached;
+    caches.match(event.request).then(cached => {
 
-        return fetch(event.request)
-          .then(response => {
+      // ✅ Return cache first
+      if (cached) return cached;
 
-            // Only cache same-origin requests
-            if (event.request.url.startsWith(self.location.origin)) {
-              const clone = response.clone();
-              caches.open(CACHE_NAME)
-                .then(cache => cache.put(event.request, clone));
-            }
+      // 🌐 Fetch from network
+      return fetch(event.request).then(response => {
 
-            return response;
+        // Cache only same-origin
+        if (event.request.url.startsWith(self.location.origin)) {
+          const clone = response.clone();
+
+          caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request, clone);
           });
-      })
-      .catch(() => caches.match('./index.html'))
+        }
+
+        return response;
+      });
+
+    }).catch(() => {
+      // 🔥 Offline fallback
+      return caches.match('./index.html');
+    })
   );
 });
 
-/* ===== UPDATE FROM UI ===== */
+/* ===== UPDATE CONTROL ===== */
 self.addEventListener('message', event => {
   if (event.data === 'SKIP_WAITING') {
     self.skipWaiting();
   }
-});
-
-/* ===== NOTIFICATION (future ready) ===== */
-self.addEventListener('push', event => {
-  const data = event.data ? event.data.text() : '🚆 Local Train Reminder';
-
-  event.waitUntil(
-    self.registration.showNotification('Local Train', {
-      body: data,
-      icon: 'icons/icon-192.png',
-      badge: 'icons/icon-192.png'
-    })
-  );
 });
