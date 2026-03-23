@@ -1544,7 +1544,7 @@
 
      // ===== MUMBAI MODE =====
      function enableMumbaiMode(){
-
+document.getElementById("smallAds").style.display = "none";
        closeMenu(); // 🔥 FIRST CLOSE MENU
 
        document.body.classList.add("mumbai-theme");
@@ -1983,6 +1983,9 @@ if(trainMeta.destination === selectedStationName){
 
      function renderMumbaiPlatforms(platformMap){
       isFullDayView = false;   // 🔥 back to overview screen
+         if(smallAds.length){
+    document.getElementById("smallAds").style.display = "block";
+  }
        if(Object.keys(platformMap).length === 0){
 
          let msg = "No upcoming trains";
@@ -2043,6 +2046,7 @@ if(trainMeta.destination === selectedStationName){
      }
      function openPlatformSchedule(platformNo){
      isFullDayView = true;   // 🔥 user is in full day view
+         document.getElementById("smallAds").style.display = "none";
          history.pushState({page:"fullDay"}, "");
        const selectedStation = station.value;
        const now = new Date();
