@@ -678,6 +678,7 @@
      let trainMaster = [];
      let platformMaster = [];
      let timetableData = null;
+     let autoScrollInterval;
      const uiText = {
       en:{
        selectRoute:'Select Route',
@@ -2584,7 +2585,8 @@ setTimeout(()=>{
 
      container.innerHTML="";
 
-  const allAds = [...smallAds, ...smallAds]; // 🔥 duplicate ads
+  const shuffled = [...smallAds].sort(()=>Math.random()-0.5); // 🔥 shuffle
+const allAds = [...shuffled, ...shuffled]; // duplicate for infinite
 
 allAds.forEach(ad=>{
 
@@ -2641,7 +2643,7 @@ function autoScrollSmallAds(){
 
   let index = 0;
 
-  setInterval(()=>{
+  function scrollAds(){
 
     const allImages = slider.querySelectorAll("img");
 
@@ -2651,29 +2653,39 @@ function autoScrollSmallAds(){
 
     index++;
 
-    // 🔥 normal scroll
     allImages[index].scrollIntoView({
       behavior: "smooth",
       inline: "center"
     });
 
-    // 🔥 end आल्यावर silent reset
     if(index >= total){
 
       setTimeout(()=>{
 
         slider.scrollTo({
-          left: 0,          // 🔥 परत सुरुवात
-          behavior: "auto"  // no animation
+          left: 0,
+          behavior: "auto"
         });
 
-        index = 0;          // 🔥 पुन्हा A पासून
+        index = 0;
 
-      },500); // smooth पूर्ण होऊ दे
-
+      },500);
     }
+  }
 
-  },4000);
+  // 🔥 start auto scroll
+  autoScrollInterval = setInterval(scrollAds, 4000);
+
+  // 🔥 pause on touch
+  slider.addEventListener("touchstart", ()=>{
+    clearInterval(autoScrollInterval);
+  });
+
+  // 🔥 resume on touch end
+  slider.addEventListener("touchend", ()=>{
+    autoScrollInterval = setInterval(scrollAds, 4000);
+  });
+
 }
 </script>
 
