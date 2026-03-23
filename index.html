@@ -2521,22 +2521,7 @@ if(trainMeta.destination === selectedStationName){
      document.getElementById("runningAd").style.display = "flex";
     textEl.style.animation = "adSlide 2s ease-in-out";
 
-     /* rotate ad */
-     setTimeout(()=>{
-
-  currentAdIndex++;
-
-  if(currentAdIndex >= adsData.length){
-    currentAdIndex = 0;
-  }
-
-  showAd();
-
-}, 2000); // 🔥 2 seconds per ad
- }        
- document.addEventListener("DOMContentLoaded", loadAds);
-
-     /* ===== SMART SPEED CALCULATION ===== */
+    /* ===== SMART SPEED CALCULATION ===== */
 
      const screenWidth = window.innerWidth;
      const textLength = ad.text.length;
@@ -2551,7 +2536,21 @@ if(trainMeta.destination === selectedStationName){
      if(screenWidth < 600){
      duration += 5;
      }
+         
+ /* rotate ad */
+     setTimeout(()=>{
 
+  currentAdIndex++;
+
+  if(currentAdIndex >= adsData.length){
+    currentAdIndex = 0;
+  }
+
+  showAd();
+
+}, 2000); // 🔥 2 seconds per ad
+ }        
+ document.addEventListener("DOMContentLoaded", loadAds);
      let smallAds=[];
 
      function loadExtraAds(data){
