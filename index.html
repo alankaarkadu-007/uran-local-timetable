@@ -2637,40 +2637,34 @@ function autoScrollSmallAds(){
 
   let index = 0;
 
-  const images = slider.querySelectorAll("img");
-
-  if(images.length === 0) return;
-
-  const total = images.length / 2; // 🔥 original count
-
   setInterval(()=>{
 
     const allImages = slider.querySelectorAll("img");
 
     if(allImages.length === 0) return;
 
+    const total = allImages.length / 2;
+
     index++;
 
-    // 🔥 जब second copy end जवळ येतो
+    // 🔥 जब end जवळ येतो → invisible reset
     if(index >= total){
-      
-      // first jump (invisible)
+
       slider.scrollTo({
         left: 0,
-        behavior: "auto"   // ❗ no animation
+        behavior: "auto"   // ❗ instant reset
       });
 
       index = 0;
     }
 
-    // 🔥 normal smooth scroll
+    // 🔥 next image center ला
     allImages[index].scrollIntoView({
       behavior: "smooth",
       inline: "center"
     });
 
-  },3000); // timing adjust karu shakto
-
+  },4000); // 🔥 4 sec better smooth
 }
 </script>
 
