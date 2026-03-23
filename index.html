@@ -2580,15 +2580,17 @@ if(trainMeta.destination === selectedStationName){
 
      container.innerHTML="";
 
-     smallAds.forEach(ad=>{
+  const allAds = [...smallAds, ...smallAds]; // 🔥 duplicate ads
 
-     container.innerHTML += `
-     <a href="${ad.link}" target="_blank">
-     <img src="${ad.image}">
-     </a>
-     `;
+allAds.forEach(ad=>{
 
-     });
+  container.innerHTML += `
+  <a href="${ad.link}" target="_blank">
+  <img src="${ad.image}">
+  </a>
+  `;
+
+});
 
      document.getElementById("smallAds").style.display="block";
 
@@ -2635,24 +2637,39 @@ function autoScrollSmallAds(){
 
   let index = 0;
 
+  const images = slider.querySelectorAll("img");
+
+  if(images.length === 0) return;
+
+  const total = images.length / 2; // 🔥 original count
+
   setInterval(()=>{
 
-    const images = slider.querySelectorAll("img");
+    const allImages = slider.querySelectorAll("img");
 
-    if(images.length === 0) return;
+    if(allImages.length === 0) return;
 
     index++;
 
-    if(index >= images.length){
+    // 🔥 जब second copy end जवळ येतो
+    if(index >= total){
+      
+      // first jump (invisible)
+      slider.scrollTo({
+        left: 0,
+        behavior: "auto"   // ❗ no animation
+      });
+
       index = 0;
     }
 
-    images[index].scrollIntoView({
+    // 🔥 normal smooth scroll
+    allImages[index].scrollIntoView({
       behavior: "smooth",
       inline: "center"
     });
 
-  },3000); // time adjust karu shakto
+  },3000); // timing adjust karu shakto
 
 }
 </script>
