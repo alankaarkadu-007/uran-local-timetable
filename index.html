@@ -2518,34 +2518,33 @@ if(trainMeta.destination === selectedStationName){
 
      const ad = adsData[currentAdIndex];
 
-     const textEl = document.getElementById("adText");
+    const textEl = document.getElementById("adText");
 
-     textEl.style.animation = "none";
+textEl.innerText = ad.text;
 
-     void textEl.offsetWidth;
+document.getElementById("adLink").href = "tel:" + ad.phone;
 
-     textEl.innerText = ad.text;
+document.getElementById("runningAd").style.display = "flex";
 
-     document.getElementById("adLink").href = "tel:" + ad.phone;
+/* ===== SPEED CALCULATION ===== */
 
-     document.getElementById("runningAd").style.display = "flex";
+const screenWidth = window.innerWidth;
+const textLength = ad.text.length;
 
-     /* ===== SMART SPEED CALCULATION ===== */
+let duration = 20;
+duration += textLength / 8;
 
-     const screenWidth = window.innerWidth;
-     const textLength = ad.text.length;
+if(screenWidth < 600){
+  duration += 5;
+}
 
-     /* base speed */
-     let duration = 20;
+/* 🔥 FIX START */
+textEl.style.animation = "none";
 
-     /* adjust for text length */
-     duration += textLength / 8;
-
-     /* adjust for mobile screen */
-     if(screenWidth < 600){
-     duration += 5;
-     }
-
+setTimeout(()=>{
+  textEl.style.animation = `tickerScroll ${duration}s linear infinite`;
+},10);
+/* 🔥 FIX END */
      textEl.style.animation = `tickerScroll ${duration}s linear infinite`;
 
      /* rotate ad */
