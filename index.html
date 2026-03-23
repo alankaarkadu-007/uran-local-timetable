@@ -1107,10 +1107,20 @@
      const altTrain = findAlternativeTrain();
 
       if(rows.length === 0){
-        nextTrain.innerHTML='No trains available';
-        list.innerHTML='';
-        return;
-      }
+
+  // 🔥 Check if selected station is destination
+  const routeStops = routeStations[route.value];
+  const lastStop = routeStops[routeStops.length - 1];
+
+  if(station.value === lastStop){
+    nextTrain.innerHTML = "🚫 This is a destination station. No incoming trains.";
+  }else{
+    nextTrain.innerHTML = "No trains available";
+  }
+
+  list.innerHTML='';
+  return;
+}
 
       let nextIdx = rows.findIndex(r => r.m >= nowMin);
       let isTomorrow = false;
