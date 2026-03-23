@@ -405,11 +405,37 @@
         height:70px;
         border-radius:6px;
         }
- 
+
         .ads-slider{
-        scroll-behavior: smooth;
+  scroll-behavior: smooth;
+}
+
+        /* ===== ROTATING IMAGE ADS ===== */
+
+        .rotating-ads{
+
+        width:100%;
+        background:#fff;
+        text-align:center;
+        border-bottom:1px solid #ddd;
+
         }
 
+        .rotating-ads img{
+
+        width:100%;
+        max-height:140px;
+        object-fit:cover;
+
+        }
+
+        #rotatingAdTitle{
+
+        font-size:13px;
+        padding:4px;
+        color:#444;
+
+        }
         /* Sponsored label */
         .sponsored-label{
         font-weight:700;
@@ -434,32 +460,22 @@
         color:#000;
         }
 
-       .running-ad a{
+        /* animation */
+        @keyframes tickerScroll{
+        0%{transform:translateX(0);}
+        100%{transform:translateX(-100%);}
+        }
+
+        .running-ad a{
         text-decoration:none;
         color:inherit;
         }
-        
-       /* ===== AD SLIDE ANIMATION ===== */
-
-@keyframes adSlide {
-  0% {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  10% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-  80% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(-100%);
-    opacity: 0;
-  }
-}
-       .train-ad{
+        /* smooth continuous scroll */
+        @keyframes tickerScroll{
+        0%{transform:translateX(0);}
+        100%{transform:translateX(-100%);}
+        }
+            .train-ad{
 
         width:100%;
         height:80px;
@@ -549,6 +565,18 @@
 
 </div>
 <!-- ===== ROTATING IMAGE ADS ===== -->
+
+<div id="rotatingAds" class="rotating-ads" style="display:none">
+
+    <a id="rotatingAdLink" target="_blank">
+
+        <img id="rotatingAdImg">
+
+        <div id="rotatingAdTitle"></div>
+
+    </a>
+
+</div>
 
 <div class="container">
 
@@ -2463,6 +2491,12 @@ if(trainMeta.destination === selectedStationName){
 
      loadExtraAds(data);
 
+     rotatingAds = data.rotatingAds || [];
+
+     if(adsData.length){
+     showAd();
+     }
+
      if(rotatingAds.length){
      startRotatingAds();
      }
@@ -2472,16 +2506,22 @@ if(trainMeta.destination === selectedStationName){
      }
 
      function showAd(){
-     const ad = adsData[currentAdIndex];
-     const textEl = document.getElementById("adText");
-     textEl.style.animation = "none";
-     void textEl.offsetWidth;
-     textEl.innerText = ad.text;
-     document.getElementById("adLink").href = "tel:" + ad.phone;
-     document.getElementById("runningAd").style.display = "flex";
-    textEl.style.animation = "adSlide 2s ease-in-out";
 
-    /* ===== SMART SPEED CALCULATION ===== */
+     const ad = adsData[currentAdIndex];
+
+     const textEl = document.getElementById("adText");
+
+     textEl.style.animation = "none";
+
+     void textEl.offsetWidth;
+
+     textEl.innerText = ad.text;
+
+     document.getElementById("adLink").href = "tel:" + ad.phone;
+
+     document.getElementById("runningAd").style.display = "flex";
+
+     /* ===== SMART SPEED CALCULATION ===== */
 
      const screenWidth = window.innerWidth;
      const textLength = ad.text.length;
@@ -2496,22 +2536,25 @@ if(trainMeta.destination === selectedStationName){
      if(screenWidth < 600){
      duration += 5;
      }
-         
- /* rotate ad */
+
+     textEl.style.animation = `tickerScroll ${duration}s linear infinite`;
+
+     /* rotate ad */
      setTimeout(()=>{
 
-  currentAdIndex++;
+     currentAdIndex++;
 
-  if(currentAdIndex >= adsData.length){
-    currentAdIndex = 0;
-  }
+     if(currentAdIndex >= adsData.length){
+     currentAdIndex = 0;
+     }
 
-  showAd();
+     showAd();
 
-}, 2000); // 🔥 2 seconds per ad
- }        
- document.addEventListener("DOMContentLoaded", loadAds);
-     let smallAds=[];
+     },duration * 1000);
+
+     }
+         document.addEventListener("DOMContentLoaded", loadAds);
+         let smallAds=[];
 
      function loadExtraAds(data){
 
@@ -2541,7 +2584,42 @@ if(trainMeta.destination === selectedStationName){
      document.getElementById("smallAds").style.display="block";
 
      }
-function autoScrollSmallAds(){
+
+     let rotatingAds = [];
+     let rotatingIndex = 0;
+
+     function startRotatingAds(){
+
+     document.getElementById("rotatingAds").style.display="block";
+
+     showRotatingAd();
+
+     setInterval(()=>{
+
+     rotatingIndex++;
+
+     if(rotatingIndex >= rotatingAds.length){
+     rotatingIndex = 0;
+     }
+
+     showRotatingAd();
+
+     },6000);
+
+     }
+
+     function showRotatingAd(){
+
+     const ad = rotatingAds[rotatingIndex];
+
+     document.getElementById("rotatingAdImg").src = ad.image;
+
+     document.getElementById("rotatingAdLink").href = ad.link;
+
+     document.getElementById("rotatingAdTitle").innerText = ad.title;
+
+     }
+    function autoScrollSmallAds(){
 
   const slider = document.getElementById("adsSlider");
 
