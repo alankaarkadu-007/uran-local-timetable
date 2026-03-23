@@ -2643,31 +2643,27 @@ function autoScrollSmallAds(){
 
     if(allImages.length === 0) return;
 
-    const total = allImages.length / 2; // original count
+    const total = allImages.length / 2;
 
     index++;
 
-    // 🔥 NORMAL scroll
+    // 🔥 जर end ला पोहोचलो तर
+    if(index >= total){
+
+      // आधी invisible shift
+      slider.scrollTo({
+        left: slider.scrollWidth / 2,
+        behavior: "auto"
+      });
+
+      index = 1; // 🔥 IMPORTANT (0 नाही, 1 ठेव)
+    }
+
+    // मग smooth scroll
     allImages[index].scrollIntoView({
       behavior: "smooth",
       inline: "center"
     });
-
-    // 🔥 जब second half मध्ये जातो → position shift
-    if(index >= total){
-
-      setTimeout(()=>{
-
-        slider.scrollTo({
-          left: slider.scrollWidth / 2, // 🔥 middle ला shift
-          behavior: "auto"
-        });
-
-        index = 0;
-
-      },500); // smooth complete होऊ दे
-
-    }
 
   },4000);
 }
