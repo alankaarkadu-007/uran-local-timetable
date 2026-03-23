@@ -395,16 +395,22 @@
         margin-bottom:4px;
         }
 
-        .ads-slider{
-        display:flex;
-        gap:6px;
-        overflow-x:auto;
-        }
+    .ads-slider{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
 
-        .ads-slider img{
-        height:70px;
-        border-radius:6px;
-        }
+  scroll-snap-type: x mandatory;   /* 🔥 main */
+  scroll-behavior: smooth;
+}
+
+.ads-slider img{
+  height:70px;
+  border-radius:6px;
+
+  scroll-snap-align: center;       /* 🔥 center snap */
+  flex-shrink:0;                   /* 🔥 shrink होणार नाही */
+}
 
         .ads-slider{
   scroll-behavior: smooth;
@@ -2619,26 +2625,32 @@ if(trainMeta.destination === selectedStationName){
      document.getElementById("rotatingAdTitle").innerText = ad.title;
 
      }
-    function autoScrollSmallAds(){
+    
+function autoScrollSmallAds(){
 
   const slider = document.getElementById("adsSlider");
 
-  let scrollPos = 0;
+  let index = 0;
 
   setInterval(()=>{
 
-    scrollPos += 120; // scroll distance
+    const images = slider.querySelectorAll("img");
 
-    if(scrollPos >= slider.scrollWidth){
-      scrollPos = 0;
+    if(images.length === 0) return;
+
+    index++;
+
+    if(index >= images.length){
+      index = 0;
     }
 
-    slider.scrollTo({
-      left: scrollPos,
-      behavior: "smooth"
+    images[index].scrollIntoView({
+      behavior: "smooth",
+      inline: "center"
     });
 
-  },3000); // 🔥 every 2 sec
+  },3000); // time adjust karu shakto
+
 }
 </script>
 
