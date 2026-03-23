@@ -1814,6 +1814,10 @@
            );
 
            if(!trainMeta) return;
+             // ❌ Skip trains where selected station is destination
+if(trainMeta.destination === selectedStation){
+  return;
+}
 
            if(!isTrainRunningToday(trainMeta)) return;
 
@@ -2015,6 +2019,10 @@
            );
 
            if(!trainMeta) return;
+             // ❌ Skip trains where selected station is destination
+if(trainMeta.destination === selectedStation){
+  return;
+}
 
            if(!isTrainRunningToday(trainMeta)) return;
 
