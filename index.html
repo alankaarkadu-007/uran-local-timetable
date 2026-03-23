@@ -2512,20 +2512,29 @@ if(trainMeta.destination === selectedStationName){
      }
 
      function showAd(){
-
      const ad = adsData[currentAdIndex];
-
      const textEl = document.getElementById("adText");
-
      textEl.style.animation = "none";
-
      void textEl.offsetWidth;
-
      textEl.innerText = ad.text;
-
      document.getElementById("adLink").href = "tel:" + ad.phone;
-
      document.getElementById("runningAd").style.display = "flex";
+    textEl.style.animation = "adSlide 2s ease-in-out";
+
+     /* rotate ad */
+     setTimeout(()=>{
+
+  currentAdIndex++;
+
+  if(currentAdIndex >= adsData.length){
+    currentAdIndex = 0;
+  }
+
+  showAd();
+
+}, 2000); // 🔥 2 seconds per ad
+ }        
+ document.addEventListener("DOMContentLoaded", loadAds);
 
      /* ===== SMART SPEED CALCULATION ===== */
 
@@ -2543,23 +2552,7 @@ if(trainMeta.destination === selectedStationName){
      duration += 5;
      }
 
-     textEl.style.animation = "adSlide 2s ease-in-out";
-
-     /* rotate ad */
-     setTimeout(()=>{
-
-  currentAdIndex++;
-
-  if(currentAdIndex >= adsData.length){
-    currentAdIndex = 0;
-  }
-
-  showAd();
-
-}, 2000); // 🔥 2 seconds per ad
-         
-         document.addEventListener("DOMContentLoaded", loadAds);
-         let smallAds=[];
+     let smallAds=[];
 
      function loadExtraAds(data){
 
