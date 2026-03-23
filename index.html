@@ -2647,23 +2647,27 @@ function autoScrollSmallAds(){
 
     index++;
 
-    // 🔥 जर end ला पोहोचलो तर
-    if(index >= total){
-
-      // आधी invisible shift
-      slider.scrollTo({
-        left: slider.scrollWidth / 2,
-        behavior: "auto"
-      });
-
-      index = 1; // 🔥 IMPORTANT (0 नाही, 1 ठेव)
-    }
-
-    // मग smooth scroll
+    // 🔥 normal scroll
     allImages[index].scrollIntoView({
       behavior: "smooth",
       inline: "center"
     });
+
+    // 🔥 end आल्यावर silent reset
+    if(index >= total){
+
+      setTimeout(()=>{
+
+        slider.scrollTo({
+          left: 0,          // 🔥 परत सुरुवात
+          behavior: "auto"  // no animation
+        });
+
+        index = 0;          // 🔥 पुन्हा A पासून
+
+      },500); // smooth पूर्ण होऊ दे
+
+    }
 
   },4000);
 }
