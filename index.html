@@ -1081,14 +1081,29 @@
      const now = new Date();
       const nowMin = now.getHours()*60 + now.getMinutes();
 
-      const rows = trains
-        .filter(t => t.route === route.value && t.stops[station.value])
-        .map(t => ({
-          no: t.no,
-          time: t.stops[station.value],
-          m: toMin(t.stops[station.value])
-        }))
-        .sort((a,b)=>a.m-b.m);
+     const rows = trains
+  .filter(t => {
+
+    // route match + station exist
+    if(!(t.route === route.value && t.stops[station.value])) return false;
+
+    // 🔥 destination check
+    const routeStops = routeStations[t.route];
+    const lastStop = routeStops[routeStops.length - 1];
+
+    if(station.value === lastStop){
+      return false; // ❌ skip destination trains
+    }
+
+    return true;
+  })
+  .map(t => ({
+    no: t.no,
+    time: t.stops[station.value],
+    m: toMin(t.stops[station.value])
+  }))
+  .sort((a,b)=>a.m-b.m);
+         
      const altTrain = findAlternativeTrain();
 
       if(rows.length === 0){
@@ -1336,13 +1351,27 @@
        const nowMin = now.getHours()*60 + now.getMinutes();
 
        const rows = trains
-         .filter(t => t.route === route.value && t.stops[station.value])
-         .map(t => ({
-           no: t.no,
-           time: t.stops[station.value],
-           m: toMin(t.stops[station.value])
-         }))
-         .sort((a,b)=>a.m-b.m);
+  .filter(t => {
+
+    // route match + station exist
+    if(!(t.route === route.value && t.stops[station.value])) return false;
+
+    // 🔥 destination check
+    const routeStops = routeStations[t.route];
+    const lastStop = routeStops[routeStops.length - 1];
+
+    if(station.value === lastStop){
+      return false; // ❌ skip destination trains
+    }
+
+    return true;
+  })
+  .map(t => ({
+    no: t.no,
+    time: t.stops[station.value],
+    m: toMin(t.stops[station.value])
+  }))
+  .sort((a,b)=>a.m-b.m);
 
        if (!rows.length) {
          alert("No trains available");
