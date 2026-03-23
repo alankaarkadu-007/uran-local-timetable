@@ -460,7 +460,7 @@
         .ticker{
         display:inline-block;
         white-space:nowrap;
-        padding-left:30%;
+        padding-left:25%;
         font-weight:600;
         color:#000;
         }
@@ -2540,6 +2540,11 @@ if(screenWidth < 600){
 
 /* 🔥 FIX START */
 textEl.style.animation = "none";
+
+/* 🔥 position reset */
+textEl.style.transform = "translateX(0)";
+
+void textEl.offsetWidth; // force reflow
 
 setTimeout(()=>{
   textEl.style.animation = `tickerScroll ${duration}s linear infinite`;
