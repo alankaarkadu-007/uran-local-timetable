@@ -1815,7 +1815,10 @@
 
            if(!trainMeta) return;
              // ❌ Skip trains where selected station is destination
-if(trainMeta.destination === selectedStation){
+const selectedStationName = mumbaiStationMap[selectedStation];
+
+// ❌ Skip if selected station is destination
+if(trainMeta.destination === selectedStationName){
   return;
 }
 
@@ -2020,7 +2023,10 @@ if(trainMeta.destination === selectedStation){
 
            if(!trainMeta) return;
              // ❌ Skip trains where selected station is destination
-if(trainMeta.destination === selectedStation){
+const selectedStationName = mumbaiStationMap[selectedStation];
+
+// ❌ Skip if selected station is destination
+if(trainMeta.destination === selectedStationName){
   return;
 }
 
