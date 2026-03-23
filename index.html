@@ -395,28 +395,27 @@
         margin-bottom:4px;
         }
 
-    .ads-slider{
+.ads-slider{
   display:flex;
   gap:10px;
   overflow-x:auto;
 
-  scroll-snap-type: x mandatory;   /* 🔥 main */
+  scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
+
+  padding: 0 50%;   /* 🔥 MAIN FIX (center space) */
 }
 
 .ads-slider img{
   height:70px;
+  width:auto;              /* 🔥 add this */
   border-radius:6px;
 
-  scroll-snap-align: center;       /* 🔥 center snap */
-  flex-shrink:0;                   /* 🔥 shrink होणार नाही */
+  scroll-snap-align: center;
+  flex-shrink:0;
 }
 
-        .ads-slider{
-  scroll-behavior: smooth;
-}
-
-        /* ===== ROTATING IMAGE ADS ===== */
+      /* ===== ROTATING IMAGE ADS ===== */
 
         .rotating-ads{
 
