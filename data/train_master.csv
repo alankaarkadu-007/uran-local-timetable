@@ -1394,3 +1394,39 @@ train_no,route,destination,runs_on
 90052,Virar - Churchgate,Churchgate,Daily
 90054,Borivali - Churchgate,Churchgate,Daily
 94080,Nalla Sopara - Churchgate,Churchgate,Daily
+90001,Bandra - Borivali,Borivali,Daily
+90017,Bandra - Borivali,Borivali,Mon-Sat
+90027,Bandra - Borivali,Borivali,Daily
+90039,Bandra - Borivali.,Borivali,Daily
+90061,Bandra - Borivali.,Borivali,Daily
+90011,Churchgate - Virar,Virar,Daily
+90015,Churchgate - Borivali,Borivali,Daily
+90019,Churchgate - Borivali,Borivali,Daily
+90025,Churchgate - Borivali,Borivali,Daily
+90029,Churchgate - Borivali,Borivali,Daily
+90031,Churchgate - Borivali,Borivali,Daily
+90021,Churchgate - Virar@,Virar,Daily
+90033,Churchgate - Virar@,Virar,Daily
+90041,Churchgate - Virar@,Virar,Daily
+90053,Churchgate - Virar@,Virar,Daily
+90055,Churchgate - Vasai Road,Vasai Road,Daily
+92009,Dadar - Virar,Virar,Daily
+90037,Mahalakshmi - Borivali,Borivali,Daily
+90057,Mahalakshmi - Borivali,Borivali,Daily
+90045,Churchgate - Borivali,Borivali,Mon-Sat
+90051,Churchgate - Borivali,Borivali,Daily
+90059,Churchgate - Borivali,Borivali,Daily
+90047,Churchgate - Goregaon,Goregaon,Daily
+92003,Andheri - Virar,Virar,Daily
+92005,Andheri - Virar,Virar,Daily
+92013,Andheri - Virar,Virar,Daily
+92001,Borivali - Virar.,Virar,Daily
+94001,Borivali - Virar.,Virar,Daily
+90007,Borivali - Virar.,Virar,Daily
+92015,Borivali - Virar@,Virar,Daily
+90003,Bhayandar - Virar.,Virar,Daily
+90009,Bhayandar - Virar.,Virar,Daily
+92007,Bhayandar - Virar.,Virar,Daily
+90035,Bhayandar - Virar.,Virar,Daily
+90013,Borivali - Vasai Road.,Vasai Road,Daily
+90043,Borivali - Vasai Road.,Vasai Road,Daily

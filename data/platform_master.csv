@@ -709,7 +709,7 @@ Churchgate - Virar,BYR,1 RIGHT
 Churchgate - Virar,NIG,1 LEFT
 Churchgate - Virar,BSR,2 BOTH
 Churchgate - Virar,NSP,1 LEFT
-Churchgate - Virar,VR,3 RIGHT
+Churchgate - Virar,VR,
 Churchgate - Andheri,CCG,1/2 BOTH
 Churchgate - Andheri,MEL,1 LEFT
 Churchgate - Andheri,CRD,1 LEFT
@@ -1369,4 +1369,125 @@ Churchgate - Virar.,BYR,5 LEFT
 Churchgate - Virar.,NIG,3 LEFT
 Churchgate - Virar.,BSR,4 RIGHT
 Churchgate - Virar.,NSP,3 LEFT
-Churchgate - Virar.,VR,2 LEFT
+Churchgate - Virar.,VR,
+Bandra - Borivali,BA,1 LEFT
+Bandra - Borivali,KHAR,3 RIGHT
+Bandra - Borivali,STC,3 RIGHT
+Bandra - Borivali,VLP,3 RIGHT
+Bandra - Borivali,ADH,3 LEFT
+Bandra - Borivali,JOS,1 RIGHT
+Bandra - Borivali,RMAR,3 RIGHT
+Bandra - Borivali,GMN,3 LEFT
+Bandra - Borivali,MDD,1 RIGHT
+Bandra - Borivali,KILE,1 LEFT
+Bandra - Borivali,BVI,
+Bandra - Borivali.,BA,2 RIGHT
+Bandra - Borivali.,KHAR,3 RIGHT
+Bandra - Borivali.,STC,3 RIGHT
+Bandra - Borivali.,VLP,3 RIGHT
+Bandra - Borivali.,ADH,3 LEFT
+Bandra - Borivali.,JOS,1 RIGHT
+Bandra - Borivali.,RMAR,3 RIGHT
+Bandra - Borivali.,GMN,3 LEFT
+Bandra - Borivali.,MDD,1 RIGHT
+Bandra - Borivali.,KILE,1 LEFT
+Bandra - Borivali.,BVI,
+Churchgate - Virar@,CCG,3/4 BOTH
+Churchgate - Virar@,MEL,3 LEFT
+Churchgate - Virar@,CRD,3 LEFT
+Churchgate - Virar@,GTR,3 LEFT
+Churchgate - Virar@,MMCT,3 RIGHT
+Churchgate - Virar@,DR,3 LEFT
+Churchgate - Virar@,BA,4 RIGHT
+Churchgate - Virar@,ADH,6 RIGHT
+Churchgate - Virar@,BVI,6 RIGHT
+Churchgate - Virar@,DIC,1 LEFT
+Churchgate - Virar@,MIRA,1 LEFT
+Churchgate - Virar@,BYR,1 RIGHT
+Churchgate - Virar@,NIG,1 LEFT
+Churchgate - Virar@,BSR,2 BOTH
+Churchgate - Virar@,NSP,1 LEFT
+Churchgate - Virar@,VR,
+Churchgate - Vasai Road,CCG,3/4 BOTH
+Churchgate - Vasai Road,MEL,3 LEFT
+Churchgate - Vasai Road,CRD,3 LEFT
+Churchgate - Vasai Road,GTR,3 LEFT
+Churchgate - Vasai Road,MMCT,3 RIGHT
+Churchgate - Vasai Road,DR,3 LEFT
+Churchgate - Vasai Road,BA,4 RIGHT
+Churchgate - Vasai Road,ADH,6 RIGHT
+Churchgate - Vasai Road,BVI,6 RIGHT
+Churchgate - Vasai Road,DIC,3 LEFT
+Churchgate - Vasai Road,MIRA,3 LEFT
+Churchgate - Vasai Road,BYR,5 LEFT
+Churchgate - Vasai Road,NIG,3 LEFT
+Churchgate - Vasai Road,BSR,1 LEFT
+Dadar - Virar,DR,6 LEFT
+Dadar - Virar,BA,4 RIGHT
+Dadar - Virar,ADH,6 RIGHT
+Dadar - Virar,BVI,5 LEFT
+Dadar - Virar,DIC,1 LEFT
+Dadar - Virar,MIRA,1 LEFT
+Dadar - Virar,BYR,1 RIGHT
+Dadar - Virar,NIG,1 LEFT
+Dadar - Virar,BSR,2 BOTH
+Dadar - Virar,NSP,1 LEFT
+Dadar - Virar,VR,1 LEFT
+Mahalakshmi - Borivali,MX,2 RIGHT
+Mahalakshmi - Borivali,LP,1 LEFT
+Mahalakshmi - Borivali,PBHD,1 RIGHT
+Mahalakshmi - Borivali,DR,1 LEFT
+Mahalakshmi - Borivali,MRU,1 RIGHT
+Mahalakshmi - Borivali,MM,1 LEFT
+Mahalakshmi - Borivali,BA,1 LEFT
+Mahalakshmi - Borivali,KHAR,3 RIGHT
+Mahalakshmi - Borivali,STC,3 RIGHT
+Mahalakshmi - Borivali,VLP,3 RIGHT
+Mahalakshmi - Borivali,ADH,3 LEFT
+Mahalakshmi - Borivali,JOS,1 RIGHT
+Mahalakshmi - Borivali,RMAR,3 RIGHT
+Mahalakshmi - Borivali,GMN,3 LEFT
+Mahalakshmi - Borivali,MDD,1 RIGHT
+Mahalakshmi - Borivali,KILE,1 LEFT
+Mahalakshmi - Borivali,BVI,1 LEFT
+Andheri - Virar,ADH,4 RIGHT
+Andheri - Virar,JOS,1 RIGHT
+Andheri - Virar,RMAR,3 RIGHT
+Andheri - Virar,GMN,3 LEFT
+Andheri - Virar,MDD,1 RIGHT
+Andheri - Virar,KILE,1 LEFT
+Andheri - Virar,BVI,3 LEFT
+Andheri - Virar,DIC,1 LEFT
+Andheri - Virar,MIRA,1 LEFT
+Andheri - Virar,BYR,1 RIGHT
+Andheri - Virar,NIG,1 LEFT
+Andheri - Virar,BSR,2 BOTH
+Andheri - Virar,NSP,1 LEFT
+Andheri - Virar,VR,3 RIGHT
+Borivali - Virar.,BVI,6 RIGHT
+Borivali - Virar.,DIC,3 LEFT
+Borivali - Virar.,MIRA,3 LEFT
+Borivali - Virar.,BYR,5 LEFT
+Borivali - Virar.,NIG,3 LEFT
+Borivali - Virar.,BSR,4 RIGHT
+Borivali - Virar.,NSP,3 LEFT
+Borivali - Virar.,VR,2 LEFT
+Borivali - Virar@,BVI,5 LEFT
+Borivali - Virar@,DIC,1 LEFT
+Borivali - Virar@,MIRA,1 LEFT
+Borivali - Virar@,BYR,1 RIGHT
+Borivali - Virar@,NIG,1 LEFT
+Borivali - Virar@,BSR,2 BOTH
+Borivali - Virar@,NSP,1 LEFT
+Borivali - Virar@,VR,2 LEFT
+Bhayandar - Virar.,BYR,1 RIGHT
+Bhayandar - Virar.,NIG,1 LEFT
+Bhayandar - Virar.,BSR,2 BOTH
+Bhayandar - Virar.,NSP,1 LEFT
+Bhayandar - Virar.,VR,2 LEFT
+Borivali - Vasai Road.,BVI,6 RIGHT
+Borivali - Vasai Road.,DIC,3 LEFT
+Borivali - Vasai Road.,MIRA,3 LEFT
+Borivali - Vasai Road.,BYR,5 LEFT
+Borivali - Vasai Road.,NIG,3 LEFT
+Borivali - Vasai Road.,BSR,1 LEFT
