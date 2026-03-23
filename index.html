@@ -456,22 +456,32 @@
         color:#000;
         }
 
-        /* animation */
-        @keyframes tickerScroll{
-        0%{transform:translateX(0);}
-        100%{transform:translateX(-100%);}
-        }
-
-        .running-ad a{
+       .running-ad a{
         text-decoration:none;
         color:inherit;
         }
-        /* smooth continuous scroll */
-        @keyframes tickerScroll{
-        0%{transform:translateX(0);}
-        100%{transform:translateX(-100%);}
-        }
-            .train-ad{
+        
+       /* ===== AD SLIDE ANIMATION ===== */
+
+@keyframes adSlide {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  10% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  80% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+       .train-ad{
 
         width:100%;
         height:80px;
@@ -2533,22 +2543,21 @@ if(trainMeta.destination === selectedStationName){
      duration += 5;
      }
 
-     textEl.style.animation = `tickerScroll ${duration}s linear infinite`;
+     textEl.style.animation = "adSlide 2s ease-in-out";
 
      /* rotate ad */
      setTimeout(()=>{
 
-     currentAdIndex++;
+  currentAdIndex++;
 
-     if(currentAdIndex >= adsData.length){
-     currentAdIndex = 0;
-     }
+  if(currentAdIndex >= adsData.length){
+    currentAdIndex = 0;
+  }
 
-     showAd();
+  showAd();
 
-     },duration * 1000);
-
-     }
+}, 2000); // 🔥 2 seconds per ad
+         
          document.addEventListener("DOMContentLoaded", loadAds);
          let smallAds=[];
 
