@@ -1780,46 +1780,26 @@ document.getElementById("smallAds").style.display = "none";
      }, 1000);
 
      // ===== MUMBAI STATION DATA LOADER =====
-     function loadMumbaiStationData(){
+function loadMumbaiStationData(){
 
-       if(!station.value) return;
+  if(!station.value) return;
 
-       // 🔥 Prepare all timetable fetch promises (table-1 to table-14)
-       const timetableFiles = [];
+  Promise.all([
+    fetch("data/train_master.csv").then(r=>r.text()),
+    fetch("data/platform_master.csv").then(r=>r.text()),
+    fetch("data/timetables/table-1.csv").then(r=>r.text())  // ✅ ONLY ONE FILE
+  ])
+  .then(([trainCSV, platformCSV, timetableCSV]) => {
 
-     for(let i = 1; i <= 60; i++){   // 60 ठेवले future safe साठी
-       timetableFiles.push(
-         fetch(`data/timetables/table-${i}.csv`)
-           .then(r => r.ok ? r.text() : null)
-           .catch(()=> null)
-       );
-     }
+    trainMaster = parseCSV(trainCSV);
+    platformMaster = parseCSV(platformCSV);
 
-       Promise.all([
-         fetch("data/train_master.csv").then(r=>r.text()),
-         fetch("data/platform_master.csv").then(r=>r.text()),
-         ...timetableFiles
-       ])
-       .then(([trainCSV, platformCSV, ...timetableCSVs]) => {
+    timetableData = parseCSV(timetableCSV); // ✅ direct parse
 
-         trainMaster = parseCSV(trainCSV);
-         platformMaster = parseCSV(platformCSV);
+    processMumbaiFromCSV();
+  });
 
-         // 🔥 Merge ALL timetable files
-         timetableData = [];
-
-         timetableCSVs.forEach(csv => {
-       if(!csv) return;   // Skip missing files
-       const parsed = parseCSV(csv);
-       timetableData = timetableData.concat(parsed);
-     });
-
-     // Render station list
-     renderStationList(mumbaiStationsMaster);
-         processMumbaiFromCSV();
-       });
-     }
-
+}
      function isTrainRunningToday(train){
 
        const today = new Date().getDay();
@@ -1835,88 +1815,75 @@ document.getElementById("smallAds").style.display = "none";
        return true;
      }
 
-     function processMumbaiFromCSV(){
+    function processMumbaiFromCSV(){
 
-         const now = new Date();
-       const nowMin = now.getHours()*60 + now.getMinutes();
+  const selectedStation = station.value;
+  const now = new Date();
+  const nowMin = now.getHours()*60 + now.getMinutes();
 
-       let platformMap = {};
+  let platformMap = {};
 
-const selectedStationCode = station.value;
-const selectedStation = mumbaiStationMap[selectedStationCode];
-         console.log("Platform match test:", platformMaster.slice(0,5));
-         console.log("Station Code:", selectedStationCode);
-console.log("Station Name:", selectedStation);
+  const stationRows = timetableData.filter(
+    r => r["Station"] === selectedStation
+  );
 
-const stationRows = timetableData.filter(
-  r => r["Train No."] &&
-       r["Train No."].trim().toUpperCase() === selectedStationCode
-);
-         console.log("Rows Found:", stationRows.length);
-console.log("Sample Row:", stationRows[0]);
+  if(stationRows.length === 0) return;
 
-       if(stationRows.length === 0) return;
+  stationRows.forEach(stationRow => {
 
-       stationRows.forEach(stationRow => {
+    Object.keys(stationRow).forEach(trainNo => {
 
-         Object.keys(stationRow).forEach(trainNo => {
+      // ✅ skip headers
+      if(trainNo === "Station" || trainNo === "platform") return;
 
-           if(trainNo === "Train No.") return;
+      const time = stationRow[trainNo];
+      if(!time || time === "-") return;
 
-           const time = stationRow[trainNo];
-           if(!time) return;
+      const trainMeta = trainMaster.find(t => t.train_no == trainNo);
+      if(!trainMeta) return;
 
-           const trainMeta = trainMaster.find(
-             t => t.train_no == trainNo
-           );
+      // ❌ skip destination
+      const selectedStationName = mumbaiStationMap[selectedStation];
+      if(trainMeta.destination === selectedStationName) return;
 
-           if(!trainMeta) return;
-             // ❌ Skip trains where selected station is destination
-const selectedStationName = selectedStation;
+      if(!isTrainRunningToday(trainMeta)) return;
 
-// ❌ Skip if selected station is destination
-if(trainMeta.destination === selectedStationName){
-  return;
-}
+      const [h,m] = time.split(":").map(Number);
+      let trainMin = h*60 + m;
 
-           if(!isTrainRunningToday(trainMeta)) return;
+      if(trainMin < nowMin){
+        trainMin += 1440;
+      }
 
-           const [h,m] = time.split(":").map(Number);
-           let trainMin = h*60 + m;
+      const platformRow = platformMaster.find(
+        p => p.route === trainMeta.route &&
+             p.station === selectedStation
+      );
 
-           if(trainMin < nowMin){
-             trainMin += 1440;
-           }
+      if(!platformRow) return;
 
-         const platformRow = platformMaster.find(
-  p => p.train_no == trainNo &&
-       p.station.trim().toUpperCase() === selectedStationCode
-);
+      const platform = platformRow.platform;
 
-           if(!platformRow) return;
+      if(
+        !platformMap[platform] ||
+        trainMin < platformMap[platform].timeMin
+      ){
+        platformMap[platform] = {
+          trainNo: trainNo,
+          route: trainMeta.route,
+          destination: trainMeta.destination,
+          time: time,
+          timeMin: trainMin
+        };
+      }
 
-           const platform = platformRow.platform;
+    });
 
-           if(
-             !platformMap[platform] ||
-             trainMin < platformMap[platform].timeMin
-           ){
-             platformMap[platform] = {
-               trainNo: trainNo,
-               route: trainMeta.route,
-               destination: trainMeta.destination, // 🔥 Direct from master
-               time: time,
-               timeMin: trainMin
-             };
-           }
+  });
 
-         });
-
-       });
-
-       renderMumbaiPlatforms(platformMap);
-     }
-         function renderStationList(list){
+  renderMumbaiPlatforms(platformMap);
+}         
+    function renderStationList(list){
 
        const container = document.getElementById("stationList");
 
@@ -2057,16 +2024,12 @@ if(trainMeta.destination === selectedStationName){
      isFullDayView = true;   // 🔥 user is in full day view
          document.getElementById("smallAds").style.display = "none";
          history.pushState({page:"fullDay"}, "");
-   
+       const selectedStation = station.value;
        const now = new Date();
        const nowMin = now.getHours()*60 + now.getMinutes();
 
-     const selectedStationCode = station.value;
-const selectedStation = mumbaiStationMap[selectedStationCode];
-
-const stationRows = timetableData.filter(
-  r => r["Train No."] &&
-       r["Train No."].trim().toUpperCase() === selectedStationCode
+       const stationRows = timetableData.filter(
+         r => r["Station"] === selectedStation 
 );
 
        if(stationRows.length === 0) return;
@@ -2088,7 +2051,7 @@ const stationRows = timetableData.filter(
 
            if(!trainMeta) return;
              // ❌ Skip trains where selected station is destination
-const selectedStationName = selectedStation;
+const selectedStationName = mumbaiStationMap[selectedStation];
 
 // ❌ Skip if selected station is destination
 if(trainMeta.destination === selectedStationName){
@@ -2097,10 +2060,10 @@ if(trainMeta.destination === selectedStationName){
 
            if(!isTrainRunningToday(trainMeta)) return;
 
-         const platformRow = platformMaster.find(
-  p => p.train_no == trainNo &&
-       p.station.trim().toUpperCase() === selectedStationCode
-);
+           const platformRow = platformMaster.find(
+             p => p.route === trainMeta.route &&
+                  p.station === selectedStation
+           );
 
            if(!platformRow) return;
 
@@ -2399,10 +2362,10 @@ if(trainMeta.destination === selectedStationName){
      // 🔥 Find platform number
      let pf = "";
 
-    const platformRow = platformMaster.find(
-  p => p.train_no == trainNo &&
-       p.station === selectedStation
-);
+     const platformRow = platformMaster.find(
+       p => p.route === routeCode &&
+            p.station === stop.code
+     );
 
      if(platformRow){
        pf = platformRow.platform;
