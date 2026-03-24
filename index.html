@@ -840,6 +840,35 @@
          return obj;
        });
      }
+    async function loadAllTimetables(){
+
+  let allData = [];
+
+  for(let i = 1; i <= 60; i++){
+
+    try{
+      const res = await fetch(`data/timetables/table-${i}.csv`);
+
+      if(!res.ok){
+        console.log("❌ Missing file:", i);
+        continue;
+      }
+
+      const text = await res.text();
+      const parsed = parseCSV(text);
+
+      allData = allData.concat(parsed);
+
+    }catch(e){
+      console.log("❌ Error loading table:", i);
+    }
+
+  }
+
+  console.log("✅ Total timetable rows:", allData.length);
+
+  return allData;
+}
      /* ================= FULL TIMETABLE DATA ================= */
      const trains = [
      /* U2N */
@@ -1786,21 +1815,21 @@ function loadMumbaiStationData(){
 
   Promise.all([
     fetch("data/train_master.csv").then(r=>r.text()),
-    fetch("data/platform_master.csv").then(r=>r.text()),
-    fetch("data/timetables/table-1.csv").then(r=>r.text())  // ✅ ONLY ONE FILE
+    fetch("data/platform_master.csv").then(r=>r.text())
   ])
-  .then(([trainCSV, platformCSV, timetableCSV]) => {
+  .then(async ([trainCSV, platformCSV]) => {
 
     trainMaster = parseCSV(trainCSV);
     platformMaster = parseCSV(platformCSV);
 
-    timetableData = parseCSV(timetableCSV); // ✅ direct parse
+    // 🔥 इथे main change
+    timetableData = await loadAllTimetables();
 
     processMumbaiFromCSV();
   });
 
 }
-     function isTrainRunningToday(train){
+    function isTrainRunningToday(train){
 
        const today = new Date().getDay();
 
