@@ -1837,16 +1837,22 @@ document.getElementById("smallAds").style.display = "none";
 
      function processMumbaiFromCSV(){
 
-       const selectedStation = station.value;
-       const now = new Date();
+         const now = new Date();
        const nowMin = now.getHours()*60 + now.getMinutes();
 
        let platformMap = {};
 
+const selectedStationCode = station.value;
+const selectedStation = mumbaiStationMap[selectedStationCode];
+         console.log("Station Code:", selectedStationCode);
+console.log("Station Name:", selectedStation);
+
 const stationRows = timetableData.filter(
   r => r["Train No."] &&
-       r["Train No."].trim().toUpperCase() === selectedStation.toUpperCase()
+       r["Train No."].trim().toLowerCase() === selectedStation.toLowerCase()
 );
+         console.log("Rows Found:", stationRows.length);
+console.log("Sample Row:", stationRows[0]);
 
        if(stationRows.length === 0) return;
 
@@ -1865,7 +1871,7 @@ const stationRows = timetableData.filter(
 
            if(!trainMeta) return;
              // ❌ Skip trains where selected station is destination
-const selectedStationName = mumbaiStationMap[selectedStation];
+const selectedStationName = selectedStation;
 
 // ❌ Skip if selected station is destination
 if(trainMeta.destination === selectedStationName){
@@ -1881,9 +1887,9 @@ if(trainMeta.destination === selectedStationName){
              trainMin += 1440;
            }
 
-          const platformRow = platformMaster.find(
+         const platformRow = platformMaster.find(
   p => p.train_no == trainNo &&
-       p.station === selectedStation
+       p.station === selectedStationCode
 );
 
            if(!platformRow) return;
@@ -2050,13 +2056,16 @@ if(trainMeta.destination === selectedStationName){
      isFullDayView = true;   // 🔥 user is in full day view
          document.getElementById("smallAds").style.display = "none";
          history.pushState({page:"fullDay"}, "");
-       const selectedStation = station.value;
+   
        const now = new Date();
        const nowMin = now.getHours()*60 + now.getMinutes();
 
-      const stationRows = timetableData.filter(
+     const selectedStationCode = station.value;
+const selectedStation = mumbaiStationMap[selectedStationCode];
+
+const stationRows = timetableData.filter(
   r => r["Train No."] &&
-       r["Train No."].trim().toUpperCase() === selectedStation.toUpperCase()
+       r["Train No."].trim().toLowerCase() === selectedStation.toLowerCase()
 );
 
        if(stationRows.length === 0) return;
@@ -2078,7 +2087,7 @@ if(trainMeta.destination === selectedStationName){
 
            if(!trainMeta) return;
              // ❌ Skip trains where selected station is destination
-const selectedStationName = mumbaiStationMap[selectedStation];
+const selectedStationName = selectedStation;
 
 // ❌ Skip if selected station is destination
 if(trainMeta.destination === selectedStationName){
@@ -2087,9 +2096,9 @@ if(trainMeta.destination === selectedStationName){
 
            if(!isTrainRunningToday(trainMeta)) return;
 
-          const platformRow = platformMaster.find(
+         const platformRow = platformMaster.find(
   p => p.train_no == trainNo &&
-       p.station === selectedStation
+       p.station === selectedStationCode
 );
 
            if(!platformRow) return;
