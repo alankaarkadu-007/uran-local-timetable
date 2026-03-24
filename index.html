@@ -1881,9 +1881,9 @@ if(trainMeta.destination === selectedStationName){
            }
 
           const platformRow = platformMaster.find(
-       p => p.route === trainMeta.route &&
-            p.station === selectedStation
-     );
+  p => p.train_no == trainNo &&
+       p.station === selectedStation
+);
 
            if(!platformRow) return;
 
@@ -2085,10 +2085,10 @@ if(trainMeta.destination === selectedStationName){
 
            if(!isTrainRunningToday(trainMeta)) return;
 
-           const platformRow = platformMaster.find(
-             p => p.route === trainMeta.route &&
-                  p.station === selectedStation
-           );
+          const platformRow = platformMaster.find(
+  p => p.train_no == trainNo &&
+       p.station === selectedStation
+);
 
            if(!platformRow) return;
 
@@ -2387,10 +2387,10 @@ if(trainMeta.destination === selectedStationName){
      // 🔥 Find platform number
      let pf = "";
 
-     const platformRow = platformMaster.find(
-       p => p.route === routeCode &&
-            p.station === stop.code
-     );
+    const platformRow = platformMaster.find(
+  p => p.train_no == trainNo &&
+       p.station === selectedStation
+);
 
      if(platformRow){
        pf = platformRow.platform;
