@@ -1844,6 +1844,7 @@ document.getElementById("smallAds").style.display = "none";
 
 const selectedStationCode = station.value;
 const selectedStation = mumbaiStationMap[selectedStationCode];
+         console.log("Platform match test:", platformMaster.slice(0,5));
          console.log("Station Code:", selectedStationCode);
 console.log("Station Name:", selectedStation);
 
@@ -1889,7 +1890,7 @@ if(trainMeta.destination === selectedStationName){
 
          const platformRow = platformMaster.find(
   p => p.train_no == trainNo &&
-       p.station === selectedStationCode
+       p.station.trim().toUpperCase() === selectedStationCode
 );
 
            if(!platformRow) return;
@@ -2098,7 +2099,7 @@ if(trainMeta.destination === selectedStationName){
 
          const platformRow = platformMaster.find(
   p => p.train_no == trainNo &&
-       p.station === selectedStationCode
+       p.station.trim().toUpperCase() === selectedStationCode
 );
 
            if(!platformRow) return;
