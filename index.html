@@ -2041,116 +2041,118 @@ function loadMumbaiStationData(){
 
        }).join('');
      }
-     function openPlatformSchedule(platformNo){
-     isFullDayView = true;   // 🔥 user is in full day view
-         document.getElementById("smallAds").style.display = "none";
-         history.pushState({page:"fullDay"}, "");
-       const selectedStation = station.value;
-       const now = new Date();
-       const nowMin = now.getHours()*60 + now.getMinutes();
+function openPlatformSchedule(platformNo){
 
-       const stationRows = timetableData.filter(
-         r => r["Station"] === selectedStation 
-);
+  isFullDayView = true;
+  document.getElementById("smallAds").style.display = "none";
 
-       if(stationRows.length === 0) return;
+  history.pushState({page:"fullDay"}, "");
 
-       let fullList = [];
+  const selectedStation = station.value;
+  const now = new Date();
+  const nowMin = now.getHours()*60 + now.getMinutes();
 
-       stationRows.forEach(stationRow => {
+  const stationRows = timetableData.filter(
+    r => r["Station"] === selectedStation
+  );
 
-         Object.keys(stationRow).forEach(trainNo => {
+  if(stationRows.length === 0) return;
 
-           if(trainNo === "Train No.") return;
+  let fullList = [];
 
-           const time = stationRow[trainNo];
-           if(!time) return;
+  stationRows.forEach(stationRow => {
 
-           const trainMeta = trainMaster.find(
-             t => t.train_no == trainNo
-           );
+    Object.keys(stationRow).forEach(trainNo => {
 
-           if(!trainMeta) return;
-             // ❌ Skip trains where selected station is destination
-const selectedStationName = mumbaiStationMap[selectedStation];
+      // ✅ correct header skip
+      if(trainNo === "Station" || trainNo === "platform") return;
 
-// ❌ Skip if selected station is destination
-if(trainMeta.destination === selectedStationName){
-  return;
-}
+      const time = stationRow[trainNo];
+      if(!time || time === "-") return;
 
-           if(!isTrainRunningToday(trainMeta)) return;
+      const trainMeta = trainMaster.find(
+        t => t.train_no == trainNo
+      );
 
-          const platform = stationRow["platform"] || "?";
+      if(!trainMeta) return;
 
-           if(!platformRow) return;
+      const selectedStationName = mumbaiStationMap[selectedStation];
 
-           // 🔥 Only filter by platform
-           if(platformRow.platform != platformNo) return;
+      // ❌ skip destination
+      if(trainMeta.destination === selectedStationName){
+        return;
+      }
 
-           const [h,m] = time.split(":").map(Number);
-           const trainMin = h*60 + m;
+      if(!isTrainRunningToday(trainMeta)) return;
 
-          fullList.push({
-       trainNo: trainNo,
-       time,
-       trainMin,
-       destination: trainMeta.destination,
-       route: trainMeta.route
-     });
+      // ✅ NEW platform logic (CSV मधून)
+      const platform = stationRow["platform"] || "?";
 
-         });
+      // 🔥 ONLY filter by clicked platform
+      if(platform != platformNo) return;
 
-       });
+      const [h,m] = time.split(":").map(Number);
+      const trainMin = h*60 + m;
 
-       // 🔥 Sort by time
-       fullList.sort((a,b)=>a.trainMin - b.trainMin);
+      fullList.push({
+        trainNo: trainNo,
+        time,
+        trainMin,
+        destination: trainMeta.destination,
+        route: trainMeta.route
+      });
 
-       nextTrain.innerHTML = `
-     <div style="
-       font-size:16px;
-       font-weight:700;
-       margin-top:2px;
-       padding:4px 0;
-     ">
+    });
+
+  });
+
+  // sort
+  fullList.sort((a,b)=>a.trainMin - b.trainMin);
+
+  nextTrain.innerHTML = `
+    <div style="font-size:16px;font-weight:700;margin-top:2px;padding:4px 0;">
       🚇 Platform ${platformNo} – Full Day Schedule
-         </div>
-       `;
+    </div>
+  `;
 
-      list.innerHTML = fullList.map((t,i)=>{
+  list.innerHTML = fullList.map((t,i)=>{
 
-       const isPast = t.trainMin < nowMin;
+    const isPast = t.trainMin < nowMin;
 
-       const isCurrent =
-         i === fullList.findIndex(x => x.trainMin >= nowMin);
+    const isCurrent =
+      i === fullList.findIndex(x => x.trainMin >= nowMin);
 
-       return `
-        <div class="rv-item"
-          id="${isCurrent ? 'currentTrainItem' : ''}"
-          style="${isPast?'opacity:.5':''}"
-          onclick="openMumbaiRouteDetail('${t.trainNo}','${t.route}')">
-           <div class="rv-left">
-             <div class="rv-time">
-               ${to12h(t.time)}
-             </div>
-             <div class="rv-sub">
-               ${t.destination}
-             </div>
-           </div>
-         </div>
-       `;
-     }).join('');
-         setTimeout(()=>{
-       const el = document.getElementById("currentTrainItem");
-       if(el){
-         el.scrollIntoView({
-           behavior:"smooth",
-           block:"center"
-         });
-       }
-     },200);
-     }
-         function openRouteDetail(trainNo, routeCode){
+    return `
+      <div class="rv-item"
+        id="${isCurrent ? 'currentTrainItem' : ''}"
+        style="${isPast?'opacity:.5':''}"
+        onclick="openMumbaiRouteDetail('${t.trainNo}','${t.route}')">
+
+        <div class="rv-left">
+          <div class="rv-time">
+            ${to12h(t.time)}
+          </div>
+          <div class="rv-sub">
+            ${t.destination}
+          </div>
+        </div>
+
+      </div>
+    `;
+
+  }).join('');
+
+  setTimeout(()=>{
+    const el = document.getElementById("currentTrainItem");
+    if(el){
+      el.scrollIntoView({
+        behavior:"smooth",
+        block:"center"
+      });
+    }
+  },200);
+}       
+    function openRouteDetail(trainNo, routeCode){
 
        const screen = document.getElementById('routeDetailScreen');
        const content = document.getElementById('routeDetailContent');
