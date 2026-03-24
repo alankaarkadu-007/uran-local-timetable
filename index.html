@@ -1843,9 +1843,10 @@ document.getElementById("smallAds").style.display = "none";
 
        let platformMap = {};
 
-       const stationRows = timetableData.filter(
-         r => r["Train No."] === selectedStation
-       );
+const stationRows = timetableData.filter(
+  r => r["Train No."] &&
+       r["Train No."].trim().toUpperCase() === selectedStation.toUpperCase()
+);
 
        if(stationRows.length === 0) return;
 
@@ -2053,9 +2054,10 @@ if(trainMeta.destination === selectedStationName){
        const now = new Date();
        const nowMin = now.getHours()*60 + now.getMinutes();
 
-       const stationRows = timetableData.filter(
-         r => r["Train No."] === selectedStation
-       );
+      const stationRows = timetableData.filter(
+  r => r["Train No."] &&
+       r["Train No."].trim().toUpperCase() === selectedStation.toUpperCase()
+);
 
        if(stationRows.length === 0) return;
 
