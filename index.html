@@ -2126,7 +2126,7 @@ function openPlatformSchedule(platformNo){
       <div class="rv-item"
         id="${isCurrent ? 'currentTrainItem' : ''}"
         style="${isPast?'opacity:.5':''}"
-        onclick="openMumbaiRouteDetail('${t.trainNo}','${t.route}')">
+        onclick="openMumbaiRouteDetail('${t.trainNo}','${t.route}','${platformNo}')"
 
         <div class="rv-left">
           <div class="rv-time">
@@ -2299,7 +2299,7 @@ function openPlatformSchedule(platformNo){
        history.pushState({page:"routeDetail"}, "");
      }
 
-     function openMumbaiRouteDetail(trainNo, routeCode){
+    function openMumbaiRouteDetail(trainNo, route, platformNo){
 
        const screen = document.getElementById('routeDetailScreen');
        const content = document.getElementById('routeDetailContent');
