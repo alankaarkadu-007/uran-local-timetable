@@ -1870,6 +1870,7 @@ function loadMumbaiStationData(){
 
       const trainMeta = trainMaster.find(t => t.train_no == trainNo);
       if(!trainMeta) return;
+        const platform = stationRow["platform"] || "?";
 
       // ❌ skip destination
       const selectedStationName = mumbaiStationMap[selectedStation];
@@ -1884,16 +1885,7 @@ function loadMumbaiStationData(){
         trainMin += 1440;
       }
 
-      const platformRow = platformMaster.find(
-        p => p.route === trainMeta.route &&
-             p.station === selectedStation
-      );
-
-      if(!platformRow) return;
-
-      const platform = platformRow.platform;
-
-      if(
+     if(
         !platformMap[platform] ||
         trainMin < platformMap[platform].timeMin
       ){
@@ -2089,10 +2081,7 @@ if(trainMeta.destination === selectedStationName){
 
            if(!isTrainRunningToday(trainMeta)) return;
 
-           const platformRow = platformMaster.find(
-             p => p.route === trainMeta.route &&
-                  p.station === selectedStation
-           );
+          const platform = stationRow["platform"] || "?";
 
            if(!platformRow) return;
 
