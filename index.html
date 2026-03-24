@@ -2126,7 +2126,7 @@ function openPlatformSchedule(platformNo){
       <div class="rv-item"
         id="${isCurrent ? 'currentTrainItem' : ''}"
         style="${isPast?'opacity:.5':''}"
-        onclick="openMumbaiRouteDetail('${t.trainNo}','${t.route}','${platformNo}')"
+        onclick="openMumbaiRouteDetail('${t.trainNo}','${t.route}','${platformNo}')">
 
         <div class="rv-left">
           <div class="rv-time">
@@ -2300,6 +2300,7 @@ function openPlatformSchedule(platformNo){
      }
 
     function openMumbaiRouteDetail(trainNo, route, platformNo){
+        
 
        const screen = document.getElementById('routeDetailScreen');
        const content = document.getElementById('routeDetailContent');
@@ -2318,7 +2319,7 @@ function openPlatformSchedule(platformNo){
          const time = row[trainNo];
          if(!time) return;
 
-         const stationCode = row["Train No."];
+         const stationCode = row["Station"];
 
          routeStops.push({
            code: stationCode,
@@ -2379,17 +2380,11 @@ function openPlatformSchedule(platformNo){
        dotColor = "#00ff00";
        textColor = "#00ff00";
      }
-     // 🔥 Find platform number
-     let pf = "";
+   const row = timetableData.find(r => 
+  r["Station"] === stop.code
+);
 
-     const platformRow = platformMaster.find(
-       p => p.route === routeCode &&
-            p.station === stop.code
-     );
-
-     if(platformRow){
-       pf = platformRow.platform;
-     }
+const pf = row ? (row["platform"] || "?") : "?";
            return `
            <div style="
              display:flex;
