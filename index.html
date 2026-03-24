@@ -1849,7 +1849,7 @@ console.log("Station Name:", selectedStation);
 
 const stationRows = timetableData.filter(
   r => r["Train No."] &&
-       r["Train No."].trim().toLowerCase() === selectedStation.toLowerCase()
+       r["Train No."].trim().toUpperCase() === selectedStationCode
 );
          console.log("Rows Found:", stationRows.length);
 console.log("Sample Row:", stationRows[0]);
@@ -2065,7 +2065,7 @@ const selectedStation = mumbaiStationMap[selectedStationCode];
 
 const stationRows = timetableData.filter(
   r => r["Train No."] &&
-       r["Train No."].trim().toLowerCase() === selectedStation.toLowerCase()
+       r["Train No."].trim().toUpperCase() === selectedStationCode
 );
 
        if(stationRows.length === 0) return;
