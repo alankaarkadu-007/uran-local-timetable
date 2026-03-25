@@ -676,8 +676,7 @@
      // ===== LANGUAGE (remembered) =====
      let lang = localStorage.getItem('appLang') || 'en'; // default English
      let trainMaster = [];
-     let platformMaster = [];
-     let timetableData = null;
+      let timetableData = null;
      let autoScrollInterval;
      const uiText = {
       en:{
@@ -1814,14 +1813,12 @@ function loadMumbaiStationData(){
   if(!station.value) return;
 
   Promise.all([
-    fetch("data/train_master.csv").then(r=>r.text()),
-    fetch("data/platform_master.csv").then(r=>r.text())
-  ])
-  .then(async ([trainCSV, platformCSV]) => {
+    fetch("data/train_master.csv").then(r=>r.text())
+   ])
+  .then(async ([trainCSV]) => {
 
     trainMaster = parseCSV(trainCSV);
-    platformMaster = parseCSV(platformCSV);
-
+   
     // 🔥 इथे main change
     timetableData = await loadAllTimetables();
 
