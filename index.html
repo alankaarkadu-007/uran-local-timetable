@@ -728,15 +728,23 @@
          const searchInput = document.getElementById("stationSearch");
          // 🔥 Show station list when clicking search box
      if(searchInput){
-       searchInput.addEventListener("focus", function(){
-         document.getElementById("stationList").style.display = "block";
-       });
-     }
+  searchInput.addEventListener("focus", function(){
+
+    document.getElementById("stationList").style.display = "block";
+
+    // 🔥 ADD THIS
+    document.getElementById("smallAds").style.display = "none";
+    document.getElementById("rotatingAds").style.display = "none";
+    document.getElementById("runningAd").style.display = "none";
+
+  });
+}
 
      if(searchInput){
        searchInput.addEventListener("input", function(){
 
          const search = this.value.toLowerCase();
+           document.getElementById("smallAds").style.display = "none";
 
          let filtered;
 
@@ -1932,6 +1940,9 @@ function loadMumbaiStationData(){
 
        // 🔥 Collapse list after selection
        stationList.style.display = "none";
+             document.getElementById("smallAds").style.display = "block";
+  document.getElementById("rotatingAds").style.display = "block";
+  document.getElementById("runningAd").style.display = "flex";
 
        loadMumbaiStationData();
      }
