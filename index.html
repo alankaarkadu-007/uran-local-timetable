@@ -2338,6 +2338,13 @@ function openPlatformSchedule(platformNo){
        });
 
        // sort by time
+        for(let i = 1; i < routeStops.length; i++){
+
+  if(routeStops[i].timeMin < routeStops[i-1].timeMin){
+    routeStops[i].timeMin += 1440;
+  }
+
+}
        routeStops.sort((a,b)=>a.timeMin - b.timeMin);
 
        content.innerHTML = `
