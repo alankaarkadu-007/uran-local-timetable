@@ -2377,9 +2377,13 @@ function openPlatformSchedule(platformNo){
        dotColor = "#00ff00";
        textColor = "#00ff00";
      }
-   const row = timetableData.find(r => 
-  r["Station"] === stop.code
-);
+  const row = timetableData.find(r => {
+  return (
+    r["Station"] === stop.code &&
+    r[trainNo] &&
+    r[trainNo] !== "-"
+  );
+});
 
 const pf = row ? (row["platform"] || "?") : "?";
            return `
