@@ -1286,6 +1286,11 @@ train_no,route,destination,runs_on
 99624,Uran - Nerul,Nerul,Daily
 98303,Vadala Road - Belapur CBD,Belapur CBD,Daily
 98313,Vadala Road - Belapur CBD,Belapur CBD,Daily
+98357,Vadala Road - Belapur CBD,Belapur CBD,Daily
+98319,Vadala Road - Belapur CBD,Belapur CBD,Daily
+98327,Vadala Road - Belapur CBD,Belapur CBD,Daily
+98331,Vadala Road - Belapur CBD,Belapur CBD,Daily
+98341,Vadala Road - Belapur CBD,Belapur CBD,Daily
 98009,Vadala Road - Panvel,Panvel,Daily
 98021,Vadala Road - Panvel,Panvel,Daily
 98035,Vadala Road - Panvel,Panvel,Daily
@@ -1313,6 +1318,7 @@ train_no,route,destination,runs_on
 98231,Vadala Road - Panvel,Panvel,Daily
 98237,Vadala Road - Panvel,Panvel,Mon-Sat
 98503,Vadala Road - Vashi,Vashi,Daily
+98531,Vadala Road - Vashi,Vashi,Daily
 90500,Vasai Road - Churchgate,Churchgate,Daily
 98502,Vashi - CSMT,CSMT,Mon-Sat
 98504,Vashi - CSMT,CSMT,Daily
