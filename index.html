@@ -770,14 +770,19 @@ function renderRouteDropdown(){
   `).join('');
 }
 
-    document.getElementById("routeSelected").onclick = function(){
+   document.getElementById("routeSelected").onclick = function(){
 
   const dropdown = document.getElementById("routeDropdown");
 
-  dropdown.style.display =
-    dropdown.style.display === "block" ? "none" : "block";
+  const isOpen = dropdown.style.display === "block";
+
+  dropdown.style.display = isOpen ? "none" : "block";
 
   renderRouteDropdown();
+
+  // 🔥 ADD THIS
+  document.getElementById("smallAds").style.display = isOpen ? "block" : "none";
+  document.getElementById("rotatingAds").style.display = isOpen ? "block" : "none";
 };
     function selectRouteCustom(code, name){
 
@@ -785,7 +790,8 @@ function renderRouteDropdown(){
 
   document.getElementById("routeSelected").innerText = name;
   document.getElementById("routeDropdown").style.display = "none";
-
+document.getElementById("smallAds").style.display = "block";
+document.getElementById("rotatingAds").style.display = "block";
   updateStationsByRoute();
   render();
 }
@@ -805,15 +811,20 @@ function renderRouteDropdown(){
     </div>
   `).join('');
 }
-    document.getElementById("stationSelected").onclick = function(){
+  document.getElementById("stationSelected").onclick = function(){
 
   const dropdown = document.getElementById("stationDropdown");
 
-  dropdown.style.display =
-    dropdown.style.display === "block" ? "none" : "block";
+  const isOpen = dropdown.style.display === "block";
+
+  dropdown.style.display = isOpen ? "none" : "block";
 
   renderStationDropdown();
-};
+
+  // 🔥 ADD THIS
+  document.getElementById("smallAds").style.display = isOpen ? "block" : "none";
+  document.getElementById("rotatingAds").style.display = isOpen ? "block" : "none";
+      };
     function selectStationCustom(code){
 
   station.value = code;
@@ -822,6 +833,8 @@ function renderRouteDropdown(){
     stations[code][lang];
 
   document.getElementById("stationDropdown").style.display = "none";
+        document.getElementById("smallAds").style.display = "block";
+document.getElementById("rotatingAds").style.display = "block";
 
   render();
 }
