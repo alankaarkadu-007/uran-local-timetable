@@ -2663,23 +2663,20 @@ function autoScrollSmallAds(){
     index++;
 
     allImages[index].scrollIntoView({
-      behavior: "smooth",
+      behavior: "auto",
       inline: "center"
     });
 
-    if(index >= total){
+   if(index >= total){
 
-      setTimeout(()=>{
+  // 🔥 INSTANT RESET (NO DELAY)
+  slider.scrollTo({
+    left: 0,
+    behavior: "auto"
+  });
 
-        slider.scrollTo({
-          left: 0,
-          behavior: "auto"
-        });
-
-        index = 0;
-
-      },500);
-    }
+  index = 0;
+}
   }
 
   // 🔥 start auto scroll
