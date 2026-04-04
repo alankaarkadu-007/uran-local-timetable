@@ -530,6 +530,16 @@
         .mumbai-theme .recycler{
         max-height:none;
         }
+        .route-item{
+  padding:6px 10px;
+  font-size:13px;
+  border-bottom:1px solid #eee;
+  cursor:pointer;
+}
+
+.route-item:hover{
+  background:#e3f2fd;
+}
     </style>
 </head>
 
@@ -599,7 +609,33 @@
         <option value="N2U">Nerul → Uran</option>
         <option value="B2U">Belapur → Uran</option>
     </select>
+<div id="routeBox" style="margin-top:4px;">
 
+  <div id="routeSelected"
+       style="
+         padding:6px 10px;
+         background:#f1f3f5;
+         border-radius:6px;
+         font-size:13px;
+         cursor:pointer;
+       ">
+    Select Route
+  </div>
+
+  <div id="routeDropdown"
+       style="
+         display:none;
+         max-height:120px;
+         overflow-y:auto;
+         background:#fff;
+         border:1px solid #ddd;
+         border-radius:6px;
+         margin-top:4px;
+       ">
+  </div>
+
+</div>
+    
     <!-- ===== MUMBAI STATION SEARCH UI ===== -->
     <div id="mumbaiStationBox" style="display:none; margin-top:4px;">
 
@@ -665,6 +701,44 @@
 </div>
 
 <script>
+    const routeListData = [
+  {code:"U2N", name:"Uran → Nerul"},
+  {code:"U2B", name:"Uran → Belapur"},
+  {code:"N2U", name:"Nerul → Uran"},
+  {code:"B2U", name:"Belapur → Uran"}
+];
+
+function renderRouteDropdown(){
+
+  const box = document.getElementById("routeDropdown");
+
+  box.innerHTML = routeListData.map(r => `
+    <div class="route-item"
+         onclick="selectRouteCustom('${r.code}','${r.name}')">
+      ${r.name}
+    </div>
+  `).join('');
+}
+
+    document.getElementById("routeSelected").onclick = function(){
+
+  const dropdown = document.getElementById("routeDropdown");
+
+  dropdown.style.display =
+    dropdown.style.display === "block" ? "none" : "block";
+
+  renderRouteDropdown();
+};
+    function selectRouteCustom(code, name){
+
+  route.value = code;
+
+  document.getElementById("routeSelected").innerText = name;
+  document.getElementById("routeDropdown").style.display = "none";
+
+  updateStationsByRoute();
+  render();
+}
     document.addEventListener("DOMContentLoaded", function(){
 
    setTimeout(function(){
@@ -1781,7 +1855,7 @@ document.getElementById("smallAds").style.display = "none";
          "🚆 Uran Local Timetable";
 
        // Show route dropdown again
-       document.getElementById("route").style.display = "block";
+       document.getElementById("route").style.display = "none";
          document.getElementById("station").style.display = "block";
      document.getElementById("mumbaiStationBox").style.display = "none";
 
