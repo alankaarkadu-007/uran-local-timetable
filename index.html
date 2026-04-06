@@ -39,7 +39,7 @@
           background:#fff;
           border-radius:8px;
           padding:8px;
-          margin-top:6px;
+          margin-top:2px;
           box-shadow:0 2px 6px rgba(0,0,0,.1)
         }
 
@@ -379,10 +379,12 @@
           outline:none;
           background:#222;
           color:#fff;
+          margin-top:0;
         }
 
         #mumbaiStationBox{
-  margin-top:0 !important;
+  margin-top:-4px !important;
+  padding-top:0;
 }
 
         /* ===== SMART AUTO-FIT AD TICKER ===== */
@@ -395,6 +397,7 @@
         border-bottom:1px solid #ddd;
         font-size:13px;
         overflow:hidden;
+        margin-bottom:0;
         }
             /* ===== SMALL ADS ===== */
 
@@ -922,7 +925,6 @@ document.getElementById("rotatingAds").style.display = "block";
     document.getElementById("smallAds").style.display = "none";
     document.getElementById("rotatingAds").style.display = "none";
     document.getElementById("runningAd").style.display = "none";
-      document.getElementById("mumbaiStationBox").style.marginTop = "0px";
 
   });
 }
@@ -2158,7 +2160,7 @@ function loadMumbaiStationData(){
              document.getElementById("smallAds").style.display = "block";
   document.getElementById("rotatingAds").style.display = "block";
   document.getElementById("runningAd").style.display = "flex";
-document.getElementById("mumbaiStationBox").style.marginTop = "0px";
+
        loadMumbaiStationData();
      }
      function renderSingleMumbaiTrain(train){
@@ -2205,7 +2207,6 @@ document.getElementById("mumbaiStationBox").style.marginTop = "0px";
       isFullDayView = false;   // 🔥 back to overview screen
          if(smallAds.length){
     document.getElementById("smallAds").style.display = "block";
-             document.getElementById("mumbaiStationBox").style.marginTop = "0px";
   }
        if(Object.keys(platformMap).length === 0){
 
