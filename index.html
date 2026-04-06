@@ -1763,6 +1763,8 @@ document.getElementById("stationSelected").innerText = "Select Station";
      // ===== MUMBAI MODE =====
      function enableMumbaiMode(){
 document.getElementById("smallAds").style.display = "none";
+         document.getElementById("routeBox").style.display = "none";
+document.getElementById("stationBox").style.display = "none";
        closeMenu(); // 🔥 FIRST CLOSE MENU
 
        document.body.classList.add("mumbai-theme");
@@ -1957,6 +1959,8 @@ document.getElementById("smallAds").style.display = "none";
        // Show route dropdown again
        document.getElementById("route").style.display = "none";
          document.getElementById("station").style.display = "block";
+         document.getElementById("routeBox").style.display = "block"; // 🔥 show new
+document.getElementById("stationBox").style.display = "block";
      document.getElementById("mumbaiStationBox").style.display = "none";
 
        // Reset route selection
