@@ -570,15 +570,13 @@
     <div class="menu" id="menuBtn">☰
         <div class="menu-box" id="menuBox">
 
-           <div id="mumbaiModeBtn"
-     onclick="event.stopPropagation(); closeMenu(); enableMumbaiMode();">
-    🛰 Mumbai Mode
-</div>
+            <div onclick="event.stopPropagation(); closeMenu(); enableMumbaiMode();">
+                🛰 Mumbai Mode
+            </div>
 
-<div id="uranModeBtn"
-     onclick="event.stopPropagation(); closeMenu(); enableUranMode();">
-    🚆 Uran Mode
-</div>
+            <div onclick="event.stopPropagation(); closeMenu(); enableUranMode();">
+                🚆 Uran Mode
+            </div>
 
             <div onclick="toggleLanguage()">🌐 Language: <span id="langLabel">English</span></div>
             <div onclick="manualUpdate()">🔄 Update App</div>
@@ -728,7 +726,8 @@
   </div>
 
 </div>
-  
+    </select>
+
     <div class="card" id="nextTrain">
 
     </div>
@@ -752,8 +751,6 @@
 </div>
 
 <script>
-    let userScrolling = false;
-let scrollTimeout;
         const routeListData = [
   {code:"U2N", name:"Uran → Nerul"},
   {code:"U2B", name:"Uran → Belapur"},
@@ -784,7 +781,7 @@ function renderRouteDropdown(){
   renderRouteDropdown();
 
   // 🔥 ADD THIS
-  document.getElementById("smallAds").style.display = isOpen ? "none" : "block";
+  document.getElementById("smallAds").style.display = isOpen ? "block" : "none";
   document.getElementById("rotatingAds").style.display = isOpen ? "block" : "none";
 };
     function selectRouteCustom(code, name){
@@ -903,53 +900,47 @@ document.getElementById("rotatingAds").style.display = "block";
      }
 
      // Apply saved language on load
-   document.addEventListener('DOMContentLoaded', () => {
+     document.addEventListener('DOMContentLoaded', () => {
+       document.getElementById('langLabel').innerText =
+         lang === 'en' ? 'English' : 'मराठी';
 
-  updateMenuOptions(); // ✅ menu fix
+       updateStationsByRoute();
+         const searchInput = document.getElementById("stationSearch");
+         // 🔥 Show station list when clicking search box
+     if(searchInput){
+  searchInput.addEventListener("focus", function(){
 
-  document.getElementById('langLabel').innerText =
-    lang === 'en' ? 'English' : 'मराठी';
+    document.getElementById("stationList").style.display = "block";
 
-  updateStationsByRoute();
+    // 🔥 ADD THIS
+    document.getElementById("smallAds").style.display = "none";
+    document.getElementById("rotatingAds").style.display = "none";
+    document.getElementById("runningAd").style.display = "none";
 
-  const searchInput = document.getElementById("stationSearch");
+  });
+}
 
-  if(searchInput){
-    searchInput.addEventListener("focus", function(){
+     if(searchInput){
+       searchInput.addEventListener("input", function(){
 
-      document.getElementById("stationList").style.display = "block";
+         const search = this.value.toLowerCase();
+           document.getElementById("smallAds").style.display = "none";
 
-      document.getElementById("smallAds").style.display = "none";
-      document.getElementById("rotatingAds").style.display = "none";
-      document.getElementById("runningAd").style.display = "none";
+         let filtered;
 
-    });
-  }
+     if(search === ""){
+       filtered = mumbaiStationsMaster;
+     }else{
+       filtered = mumbaiStationsMaster.filter(st =>
+         st.toLowerCase().includes(search)
+       );
+     }
 
-  if(searchInput){
-    searchInput.addEventListener("input", function(){
-
-      const search = this.value.toLowerCase();
-
-      document.getElementById("smallAds").style.display = "none";
-
-      let filtered;
-
-      if(search === ""){
-        filtered = mumbaiStationsMaster;
-      }else{
-        filtered = mumbaiStationsMaster.filter(st =>
-          st.toLowerCase().includes(search)
-        );
-      }
-
-      renderStationList(filtered);
-      document.getElementById("stationList").style.display = "block";
-
-    });
-  }
-
-});
+         renderStationList(filtered);
+           document.getElementById("stationList").style.display = "block";
+       });
+     }
+     });
      /* ===== PROGRESS ANIMATION STATE ===== */
      let animatedProgress = 0;
      let progressTimer = null;
@@ -960,40 +951,11 @@ document.getElementById("rotatingAds").style.display = "block";
      const station=document.getElementById('station');
      const nextTrain=document.getElementById('nextTrain');
      const list=document.getElementById('list');
-    list.addEventListener("scroll", () => {
-
-  userScrolling = true;
-
-  clearTimeout(scrollTimeout);
-
-  scrollTimeout = setTimeout(() => {
-    userScrolling = false;
-  }, 2000);
-
-});
      const clock=document.getElementById('clock');
      const menuBox=document.getElementById('menuBox');
-    if(!menuBox) console.error("menuBox not found");
 
      // ===== MODE SYSTEM =====
      let currentMode = "uran";  // default mode
-    function updateMenuOptions(){
-
-  const mumbaiBtn = document.getElementById("mumbaiModeBtn");
-  const uranBtn = document.getElementById("uranModeBtn");
-
-  if(!mumbaiBtn || !uranBtn) return;
-
-  if(currentMode === "uran"){
-    uranBtn.style.display = "none";
-    mumbaiBtn.style.display = "flex";
-  }
-  else if(currentMode === "mumbai"){
-    mumbaiBtn.style.display = "none";
-    uranBtn.style.display = "flex";
-  }
-
-}
          let isFullDayView = false;   // 🔥 track full day screen
 
      // ===== MUMBAI DATA CACHE =====
@@ -1400,12 +1362,12 @@ document.getElementById("rotatingAds").style.display = "block";
 
      const nextEl = document.querySelector('.rv-next');
 
-     if(nextEl && !userScrolling){
-  nextEl.scrollIntoView({
-    behavior: "smooth",
-    block: "center"
-  });
-}
+     if(nextEl){
+       nextEl.scrollIntoView({
+         behavior: "smooth",
+         block: "center"
+       });
+     }
 
      },200);
 
@@ -1801,15 +1763,12 @@ document.getElementById("stationSelected").innerText = "Select Station";
      // ===== MUMBAI MODE =====
      function enableMumbaiMode(){
 document.getElementById("smallAds").style.display = "none";
-         document.getElementById("routeBox").style.display = "none";
-document.getElementById("stationBox").style.display = "none";
        closeMenu(); // 🔥 FIRST CLOSE MENU
 
        document.body.classList.add("mumbai-theme");
 
        currentMode = "mumbai";
-         updateMenuOptions();  
-     }
+
         // Header text change
        document.querySelector("header h2").innerText =
          "🚇 Mumbai Local Mode";
@@ -1983,23 +1942,13 @@ document.getElementById("stationBox").style.display = "none";
      renderStationList(mumbaiStationsMaster);
      }
 
-     function updateMenuOptions(){
+     function enableUranMode(){
 
-  const mumbaiBtn = document.getElementById("mumbaiModeBtn");
-  const uranBtn = document.getElementById("uranModeBtn");
+       closeMenu(); // 🔥 FIRST CLOSE MENU
 
-  if(currentMode === "uran"){
-    // Uran mode → hide Uran button
-    uranBtn.style.display = "none";
-    mumbaiBtn.style.display = "flex";
-  }
-  else if(currentMode === "mumbai"){
-    // Mumbai mode → hide Mumbai button
-    mumbaiBtn.style.display = "none";
-    uranBtn.style.display = "flex";
-  }
+       document.body.classList.remove("mumbai-theme");
 
-}
+       currentMode = "uran";
 
        // Header reset
        document.querySelector("header h2").innerText =
@@ -2007,9 +1956,7 @@ document.getElementById("stationBox").style.display = "none";
 
        // Show route dropdown again
        document.getElementById("route").style.display = "none";
-         document.getElementById("station").style.display = "none";
-         document.getElementById("routeBox").style.display = "block"; // 🔥 show new
-document.getElementById("stationBox").style.display = "block";
+         document.getElementById("station").style.display = "block";
      document.getElementById("mumbaiStationBox").style.display = "none";
 
        // Reset route selection
@@ -2222,7 +2169,7 @@ function loadMumbaiStationData(){
 
      function renderMumbaiPlatforms(platformMap){
       isFullDayView = false;   // 🔥 back to overview screen
-        if(smallAds && smallAds.length){
+         if(smallAds.length){
     document.getElementById("smallAds").style.display = "block";
   }
        if(Object.keys(platformMap).length === 0){
@@ -2387,12 +2334,10 @@ function openPlatformSchedule(platformNo){
   setTimeout(()=>{
     const el = document.getElementById("currentTrainItem");
     if(el){
-      if(el && !userScrolling){
-  el.scrollIntoView({
-    behavior:"smooth",
-    block:"center"
-  });
-}
+      el.scrollIntoView({
+        behavior:"smooth",
+        block:"center"
+      });
     }
   },200);
 }       
