@@ -570,13 +570,15 @@
     <div class="menu" id="menuBtn">☰
         <div class="menu-box" id="menuBox">
 
-            <div onclick="event.stopPropagation(); closeMenu(); enableMumbaiMode();">
-                🛰 Mumbai Mode
-            </div>
+           <div id="mumbaiModeBtn"
+     onclick="event.stopPropagation(); closeMenu(); enableMumbaiMode();">
+    🛰 Mumbai Mode
+</div>
 
-            <div onclick="event.stopPropagation(); closeMenu(); enableUranMode();">
-                🚆 Uran Mode
-            </div>
+<div id="uranModeBtn"
+     onclick="event.stopPropagation(); closeMenu(); enableUranMode();">
+    🚆 Uran Mode
+</div>
 
             <div onclick="toggleLanguage()">🌐 Language: <span id="langLabel">English</span></div>
             <div onclick="manualUpdate()">🔄 Update App</div>
@@ -903,6 +905,9 @@ document.getElementById("rotatingAds").style.display = "block";
 
      // Apply saved language on load
      document.addEventListener('DOMContentLoaded', () => {
+         updateMenuOptions(); // 👈 add this
+
+});
        document.getElementById('langLabel').innerText =
          lang === 'en' ? 'English' : 'मराठी';
 
@@ -1783,6 +1788,7 @@ document.getElementById("stationBox").style.display = "none";
        document.body.classList.add("mumbai-theme");
 
        currentMode = "mumbai";
+         updateMenuOptions();  
 
         // Header text change
        document.querySelector("header h2").innerText =
@@ -1964,6 +1970,24 @@ document.getElementById("stationBox").style.display = "none";
        document.body.classList.remove("mumbai-theme");
 
        currentMode = "uran";
+         updateMenuOptions();
+         function updateMenuOptions(){
+
+  const mumbaiBtn = document.getElementById("mumbaiModeBtn");
+  const uranBtn = document.getElementById("uranModeBtn");
+
+  if(currentMode === "uran"){
+    // Uran mode → hide Uran button
+    uranBtn.style.display = "none";
+    mumbaiBtn.style.display = "flex";
+  }
+  else if(currentMode === "mumbai"){
+    // Mumbai mode → hide Mumbai button
+    mumbaiBtn.style.display = "none";
+    uranBtn.style.display = "flex";
+  }
+
+}
 
        // Header reset
        document.querySelector("header h2").innerText =
