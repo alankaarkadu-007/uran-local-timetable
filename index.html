@@ -381,6 +381,10 @@
           color:#fff;
         }
 
+        #mumbaiStationBox{
+  margin-top:0 !important;
+}
+
         /* ===== SMART AUTO-FIT AD TICKER ===== */
 
         .running-ad{
@@ -918,6 +922,7 @@ document.getElementById("rotatingAds").style.display = "block";
     document.getElementById("smallAds").style.display = "none";
     document.getElementById("rotatingAds").style.display = "none";
     document.getElementById("runningAd").style.display = "none";
+      document.getElementById("mumbaiStationBox").style.marginTop = "0px";
 
   });
 }
@@ -2153,7 +2158,7 @@ function loadMumbaiStationData(){
              document.getElementById("smallAds").style.display = "block";
   document.getElementById("rotatingAds").style.display = "block";
   document.getElementById("runningAd").style.display = "flex";
-
+document.getElementById("mumbaiStationBox").style.marginTop = "0px";
        loadMumbaiStationData();
      }
      function renderSingleMumbaiTrain(train){
@@ -2200,6 +2205,7 @@ function loadMumbaiStationData(){
       isFullDayView = false;   // 🔥 back to overview screen
          if(smallAds.length){
     document.getElementById("smallAds").style.display = "block";
+             document.getElementById("mumbaiStationBox").style.marginTop = "0px";
   }
        if(Object.keys(platformMap).length === 0){
 
