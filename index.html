@@ -751,6 +751,8 @@
 </div>
 
 <script>
+    let userScrolling = false;
+let scrollTimeout;
         const routeListData = [
   {code:"U2N", name:"Uran → Nerul"},
   {code:"U2B", name:"Uran → Belapur"},
@@ -951,6 +953,17 @@ document.getElementById("rotatingAds").style.display = "block";
      const station=document.getElementById('station');
      const nextTrain=document.getElementById('nextTrain');
      const list=document.getElementById('list');
+    list.addEventListener("scroll", () => {
+
+  userScrolling = true;
+
+  clearTimeout(scrollTimeout);
+
+  scrollTimeout = setTimeout(() => {
+    userScrolling = false;
+  }, 2000);
+
+});
      const clock=document.getElementById('clock');
      const menuBox=document.getElementById('menuBox');
 
@@ -1362,12 +1375,12 @@ document.getElementById("rotatingAds").style.display = "block";
 
      const nextEl = document.querySelector('.rv-next');
 
-     if(nextEl){
-       nextEl.scrollIntoView({
-         behavior: "smooth",
-         block: "center"
-       });
-     }
+     if(nextEl && !userScrolling){
+  nextEl.scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+}
 
      },200);
 
@@ -2338,10 +2351,12 @@ function openPlatformSchedule(platformNo){
   setTimeout(()=>{
     const el = document.getElementById("currentTrainItem");
     if(el){
-      el.scrollIntoView({
-        behavior:"smooth",
-        block:"center"
-      });
+      if(el && !userScrolling){
+  el.scrollIntoView({
+    behavior:"smooth",
+    block:"center"
+  });
+}
     }
   },200);
 }       
