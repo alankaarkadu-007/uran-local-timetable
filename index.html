@@ -904,50 +904,53 @@ document.getElementById("rotatingAds").style.display = "block";
      }
 
      // Apply saved language on load
-     document.addEventListener('DOMContentLoaded', () => {
-         updateMenuOptions(); // 👈 add this
+   document.addEventListener('DOMContentLoaded', () => {
+
+  updateMenuOptions(); // ✅ menu fix
+
+  document.getElementById('langLabel').innerText =
+    lang === 'en' ? 'English' : 'मराठी';
+
+  updateStationsByRoute();
+
+  const searchInput = document.getElementById("stationSearch");
+
+  if(searchInput){
+    searchInput.addEventListener("focus", function(){
+
+      document.getElementById("stationList").style.display = "block";
+
+      document.getElementById("smallAds").style.display = "none";
+      document.getElementById("rotatingAds").style.display = "none";
+      document.getElementById("runningAd").style.display = "none";
+
+    });
+  }
+
+  if(searchInput){
+    searchInput.addEventListener("input", function(){
+
+      const search = this.value.toLowerCase();
+
+      document.getElementById("smallAds").style.display = "none";
+
+      let filtered;
+
+      if(search === ""){
+        filtered = mumbaiStationsMaster;
+      }else{
+        filtered = mumbaiStationsMaster.filter(st =>
+          st.toLowerCase().includes(search)
+        );
+      }
+
+      renderStationList(filtered);
+      document.getElementById("stationList").style.display = "block";
+
+    });
+  }
 
 });
-       document.getElementById('langLabel').innerText =
-         lang === 'en' ? 'English' : 'मराठी';
-
-       updateStationsByRoute();
-         const searchInput = document.getElementById("stationSearch");
-         // 🔥 Show station list when clicking search box
-     if(searchInput){
-  searchInput.addEventListener("focus", function(){
-
-    document.getElementById("stationList").style.display = "block";
-
-    // 🔥 ADD THIS
-    document.getElementById("smallAds").style.display = "none";
-    document.getElementById("rotatingAds").style.display = "none";
-    document.getElementById("runningAd").style.display = "none";
-
-  });
-}
-
-     if(searchInput){
-       searchInput.addEventListener("input", function(){
-
-         const search = this.value.toLowerCase();
-           document.getElementById("smallAds").style.display = "none";
-
-         let filtered;
-
-     if(search === ""){
-       filtered = mumbaiStationsMaster;
-     }else{
-       filtered = mumbaiStationsMaster.filter(st =>
-         st.toLowerCase().includes(search)
-       );
-     }
-
-         renderStationList(filtered);
-           document.getElementById("stationList").style.display = "block";
-       });
-     }
-     });
      /* ===== PROGRESS ANIMATION STATE ===== */
      let animatedProgress = 0;
      let progressTimer = null;
@@ -1789,7 +1792,7 @@ document.getElementById("stationBox").style.display = "none";
 
        currentMode = "mumbai";
          updateMenuOptions();  
-
+     }
         // Header text change
        document.querySelector("header h2").innerText =
          "🚇 Mumbai Local Mode";
@@ -1971,6 +1974,7 @@ document.getElementById("stationBox").style.display = "none";
 
        currentMode = "uran";
          updateMenuOptions();
+     }
          function updateMenuOptions(){
 
   const mumbaiBtn = document.getElementById("mumbaiModeBtn");
