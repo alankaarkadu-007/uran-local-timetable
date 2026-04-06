@@ -977,6 +977,23 @@ document.getElementById("rotatingAds").style.display = "block";
 
      // ===== MODE SYSTEM =====
      let currentMode = "uran";  // default mode
+    function updateMenuOptions(){
+
+  const mumbaiBtn = document.getElementById("mumbaiModeBtn");
+  const uranBtn = document.getElementById("uranModeBtn");
+
+  if(!mumbaiBtn || !uranBtn) return;
+
+  if(currentMode === "uran"){
+    uranBtn.style.display = "none";
+    mumbaiBtn.style.display = "flex";
+  }
+  else if(currentMode === "mumbai"){
+    mumbaiBtn.style.display = "none";
+    uranBtn.style.display = "flex";
+  }
+
+}
          let isFullDayView = false;   // 🔥 track full day screen
 
      // ===== MUMBAI DATA CACHE =====
