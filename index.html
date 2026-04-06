@@ -973,6 +973,7 @@ document.getElementById("rotatingAds").style.display = "block";
 });
      const clock=document.getElementById('clock');
      const menuBox=document.getElementById('menuBox');
+    if(!menuBox) console.error("menuBox not found");
 
      // ===== MODE SYSTEM =====
      let currentMode = "uran";  // default mode
@@ -1982,16 +1983,7 @@ document.getElementById("stationBox").style.display = "none";
      renderStationList(mumbaiStationsMaster);
      }
 
-     function enableUranMode(){
-
-       closeMenu(); // 🔥 FIRST CLOSE MENU
-
-       document.body.classList.remove("mumbai-theme");
-
-       currentMode = "uran";
-         updateMenuOptions();
-     }
-         function updateMenuOptions(){
+     function updateMenuOptions(){
 
   const mumbaiBtn = document.getElementById("mumbaiModeBtn");
   const uranBtn = document.getElementById("uranModeBtn");
@@ -2230,7 +2222,7 @@ function loadMumbaiStationData(){
 
      function renderMumbaiPlatforms(platformMap){
       isFullDayView = false;   // 🔥 back to overview screen
-         if(smallAds.length){
+        if(smallAds && smallAds.length){
     document.getElementById("smallAds").style.display = "block";
   }
        if(Object.keys(platformMap).length === 0){
