@@ -924,7 +924,7 @@ document.getElementById("rotatingAds").style.visibility = "visible";
      if(searchInput){
   searchInput.addEventListener("focus", function(){
 
-    document.getElementById("stationList").style.visibility = "visible";
+    document.getElementById("stationList").style.display = "block";
 
     // 🔥 ADD THIS
     document.getElementById("smallAds").style.visibility = "hidden";
@@ -951,7 +951,7 @@ document.getElementById("rotatingAds").style.visibility = "visible";
      }
 
          renderStationList(filtered);
-           document.getElementById("stationList").style.visibility = "visible";
+           document.getElementById("stationList").style.display = "block";
            updateMenuVisibility();
        });
      }
@@ -2161,7 +2161,7 @@ function loadMumbaiStationData(){
        searchInput.value = name;
 
        // 🔥 Collapse list after selection
-       stationList.style.visibility = "hidden";
+       document.getElementById("stationList").style.display = "none";
              document.getElementById("smallAds").style.visibility = "visible";
   document.getElementById("rotatingAds").style.visibility = "visible";
   document.getElementById("runningAd").style.display = "flex";
