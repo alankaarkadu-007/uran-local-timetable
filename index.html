@@ -803,9 +803,9 @@ function renderRouteDropdown(){
   route.value = code;
 
   document.getElementById("routeSelected").innerText = name;
-  document.getElementById("routeDropdown").style.display = "none";
-document.getElementById("smallAds").style.display = "block";
-document.getElementById("rotatingAds").style.display = "block";
+  document.getElementById("routeDropdown").style.visibility = "hidden";
+document.getElementById("smallAds").style.visibility = "visible";
+document.getElementById("rotatingAds").style.visibility = "visible";
   updateStationsByRoute();
   render();
 }
@@ -846,9 +846,9 @@ document.getElementById("rotatingAds").style.display = "block";
   document.getElementById("stationSelected").innerText =
     stations[code][lang];
 
-  document.getElementById("stationDropdown").style.display = "none";
-        document.getElementById("smallAds").style.display = "block";
-document.getElementById("rotatingAds").style.display = "block";
+  document.getElementById("stationDropdown").style.visibility = "hidden";
+        document.getElementById("smallAds").style.visibility = "visible";
+document.getElementById("rotatingAds").style.visibility = "visible";
 
   render();
 }
@@ -924,12 +924,12 @@ document.getElementById("rotatingAds").style.display = "block";
      if(searchInput){
   searchInput.addEventListener("focus", function(){
 
-    document.getElementById("stationList").style.display = "block";
+    document.getElementById("stationList").style.visibility = "visible";
 
     // 🔥 ADD THIS
-    document.getElementById("smallAds").style.display = "none";
-    document.getElementById("rotatingAds").style.display = "none";
-    document.getElementById("runningAd").style.display = "none";
+    document.getElementById("smallAds").style.visibility = "hidden";
+    document.getElementById("rotatingAds").style.visibility = "hidden";
+    document.getElementById("runningAd").style.visibility = "hidden";
 
   });
 }
@@ -938,7 +938,7 @@ document.getElementById("rotatingAds").style.display = "block";
        searchInput.addEventListener("input", function(){
 
          const search = this.value.toLowerCase();
-           document.getElementById("smallAds").style.display = "none";
+           document.getElementById("smallAds").style.visibility = "hidden";
 
          let filtered;
 
@@ -951,7 +951,7 @@ document.getElementById("rotatingAds").style.display = "block";
      }
 
          renderStationList(filtered);
-           document.getElementById("stationList").style.display = "block";
+           document.getElementById("stationList").style.visibility = "visible";
            updateMenuVisibility();
        });
      }
@@ -978,12 +978,12 @@ document.getElementById("rotatingAds").style.display = "block";
 
   if(currentMode === "uran"){
     // Uran चालू → Mumbai दाखवा
-    mumbaiBtn.style.display = "block";
+    mumbaiBtn.style.visibility = "visible";
     uranBtn.style.display   = "none";
   }
   else{
     // Mumbai चालू → Uran दाखवा
-    mumbaiBtn.style.display = "none";
+    mumbaiBtn.style.visibility = "hidden";
     uranBtn.style.display   = "block";
   }
 
@@ -1797,7 +1797,7 @@ document.getElementById("stationSelected").innerText = "Select Station";
 
      // ===== MUMBAI MODE =====
      function enableMumbaiMode(){
-document.getElementById("smallAds").style.display = "none";
+document.getElementById("smallAds").style.visibility = "hidden";
        closeMenu(); // 🔥 FIRST CLOSE MENU
 
        document.body.classList.add("mumbai-theme");
@@ -1807,17 +1807,17 @@ document.getElementById("smallAds").style.display = "none";
         // Header text change
        document.querySelector("header h2").innerText =
          "🚇 Mumbai Local Mode";
-         document.getElementById("routeBox").style.display = "none";
-         document.getElementById("stationBox").style.display = "none";
+         document.getElementById("routeBox").style.visibility = "hidden";
+         document.getElementById("stationBox").style.visibility = "hidden";
 
        // Hide Route dropdown
-       document.getElementById("route").style.display = "none";
+       document.getElementById("route").style.visibility = "hidden";
 
          // Hide normal station dropdown
-     document.getElementById("station").style.display = "none";
+     document.getElementById("station").style.visibility = "hidden";
 
      // Show new Mumbai search box
-     document.getElementById("mumbaiStationBox").style.display = "block";
+     document.getElementById("mumbaiStationBox").style.visibility = "visible";
 
        // Reset station dropdown
        station.innerHTML =
@@ -1993,11 +1993,11 @@ document.getElementById("smallAds").style.display = "none";
          "🚆 Uran Local Timetable";
 
        // Show route dropdown again
-       document.getElementById("route").style.display = "none";
-         document.getElementById("station").style.display = "none";
-         document.getElementById("routeBox").style.display = "block";
-document.getElementById("stationBox").style.display = "block";
-     document.getElementById("mumbaiStationBox").style.display = "none";
+       document.getElementById("route").style.visibility = "hidden";
+         document.getElementById("station").style.visibility = "hidden";
+         document.getElementById("routeBox").style.visibility = "visible";
+document.getElementById("stationBox").style.visibility = "visible";
+     document.getElementById("mumbaiStationBox").style.visibility = "hidden";
 
        // Reset route selection
        route.value = "";
@@ -2161,9 +2161,9 @@ function loadMumbaiStationData(){
        searchInput.value = name;
 
        // 🔥 Collapse list after selection
-       stationList.style.display = "none";
-             document.getElementById("smallAds").style.display = "block";
-  document.getElementById("rotatingAds").style.display = "block";
+       stationList.style.visibility = "hidden";
+             document.getElementById("smallAds").style.visibility = "visible";
+  document.getElementById("rotatingAds").style.visibility = "visible";
   document.getElementById("runningAd").style.display = "flex";
 
        loadMumbaiStationData();
@@ -2211,7 +2211,7 @@ function loadMumbaiStationData(){
      function renderMumbaiPlatforms(platformMap){
       isFullDayView = false;   // 🔥 back to overview screen
          if(smallAds.length){
-    document.getElementById("smallAds").style.display = "block";
+    document.getElementById("smallAds").style.visibility = "visible";
   }
        if(Object.keys(platformMap).length === 0){
 
@@ -2274,7 +2274,7 @@ function loadMumbaiStationData(){
 function openPlatformSchedule(platformNo){
 
   isFullDayView = true;
-  document.getElementById("smallAds").style.display = "none";
+  document.getElementById("smallAds").style.visibility = "hidden";
 
   history.pushState({page:"fullDay"}, "");
 
