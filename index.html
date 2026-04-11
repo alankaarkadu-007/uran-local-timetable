@@ -804,8 +804,8 @@ function renderRouteDropdown(){
 
   document.getElementById("routeSelected").innerText = name;
   document.getElementById("routeDropdown").style.display = "none";
-document.getElementById("smallAds").style.visibility = "visible";
-document.getElementById("rotatingAds").style.visibility = "visible";
+document.getElementById("smallAds").style.display = "block";
+document.getElementById("rotatingAds").style.display = "block";
   updateStationsByRoute();
   render();
 }
@@ -847,8 +847,8 @@ document.getElementById("rotatingAds").style.visibility = "visible";
     stations[code][lang];
 
   document.getElementById("stationDropdown").style.display = "none";
-        document.getElementById("smallAds").style.visibility = "visible";
-document.getElementById("rotatingAds").style.visibility = "visible";
+        document.getElementById("smallAds").style.display = "block";
+document.getElementById("rotatingAds").style.display = "block";
 
   render();
 }
@@ -1331,6 +1331,9 @@ document.getElementById("rotatingAds").style.visibility = "visible";
      }
          /* ================= RENDER ================= */
      function render(){
+         document.getElementById("smallAds").style.display = "block";
+         document.getElementById("rotatingAds").style.display = "block";
+         document.getElementById("runningAd").style.display = "flex";
       if(!route.value || !station.value){
         list.innerHTML='';
         nextTrain.innerHTML='';
@@ -2162,8 +2165,8 @@ function loadMumbaiStationData(){
 
        // 🔥 Collapse list after selection
        document.getElementById("stationList").style.display = "none";
-             document.getElementById("smallAds").style.visibility = "visible";
-  document.getElementById("rotatingAds").style.visibility = "visible";
+             document.getElementById("smallAds").style.display = "block";
+  document.getElementById("rotatingAds").style.style.display = "block";
   document.getElementById("runningAd").style.display = "flex";
 
        loadMumbaiStationData();
@@ -2210,9 +2213,9 @@ function loadMumbaiStationData(){
 
      function renderMumbaiPlatforms(platformMap){
       isFullDayView = false;   // 🔥 back to overview screen
-         if(smallAds.length){
-    document.getElementById("smallAds").style.visibility = "visible";
-  }
+        document.getElementById("smallAds").style.display = "block";
+        document.getElementById("rotatingAds").style.display = "block";
+        document.getElementById("runningAd").style.display = "flex";
        if(Object.keys(platformMap).length === 0){
 
          let msg = "No upcoming trains";
