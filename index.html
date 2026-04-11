@@ -1810,8 +1810,8 @@ document.getElementById("smallAds").style.visibility = "hidden";
         // Header text change
        document.querySelector("header h2").innerText =
          "🚇 Mumbai Local Mode";
-         document.getElementById("routeBox").style.visibility = "hidden";
-         document.getElementById("stationBox").style.visibility = "hidden";
+         document.getElementById("routeBox").style.display = "none";
+         document.getElementById("stationBox").style.display = "none";
 
        // Hide Route dropdown
        document.getElementById("route").style.visibility = "hidden";
@@ -1820,7 +1820,7 @@ document.getElementById("smallAds").style.visibility = "hidden";
      document.getElementById("station").style.visibility = "hidden";
 
      // Show new Mumbai search box
-     document.getElementById("mumbaiStationBox").style.visibility = "visible";
+     document.getElementById("mumbaiStationBox").style.display = "block";
 
        // Reset station dropdown
        station.innerHTML =
@@ -1998,9 +1998,9 @@ document.getElementById("smallAds").style.visibility = "hidden";
        // Show route dropdown again
        document.getElementById("route").style.visibility = "hidden";
          document.getElementById("station").style.visibility = "hidden";
-         document.getElementById("routeBox").style.visibility = "visible";
-document.getElementById("stationBox").style.visibility = "visible";
-     document.getElementById("mumbaiStationBox").style.visibility = "hidden";
+         document.getElementById("routeBox").style.display = "block";
+document.getElementById("stationBox").style.display = "block";
+     document.getElementById("mumbaiStationBox").style.display = "none";
 
        // Reset route selection
        route.value = "";
