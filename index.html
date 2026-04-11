@@ -803,7 +803,7 @@ function renderRouteDropdown(){
   route.value = code;
 
   document.getElementById("routeSelected").innerText = name;
-  document.getElementById("routeDropdown").style.visibility = "hidden";
+  document.getElementById("routeDropdown").style.display = "none";
 document.getElementById("smallAds").style.visibility = "visible";
 document.getElementById("rotatingAds").style.visibility = "visible";
   updateStationsByRoute();
@@ -846,7 +846,7 @@ document.getElementById("rotatingAds").style.visibility = "visible";
   document.getElementById("stationSelected").innerText =
     stations[code][lang];
 
-  document.getElementById("stationDropdown").style.visibility = "hidden";
+  document.getElementById("stationDropdown").style.display = "none";
         document.getElementById("smallAds").style.visibility = "visible";
 document.getElementById("rotatingAds").style.visibility = "visible";
 
