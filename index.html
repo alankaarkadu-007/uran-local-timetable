@@ -1,548 +1,555 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Uran – Belapur – Nerul Local Timetable</title>
+    <title>Uran – Belapur – Nerul Local Timetable</title>
 
-<!-- PWA -->
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#b71c1c">
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#b71c1c">
 
-<style>
+    <style>
 
-	alert(typeof Android);
-	
-body{font-family:Arial,Helvetica,sans-serif;margin:0;background:#f4f6f8}
-header{background:#b71c1c;color:#fff;padding:8px;text-align:center;position:relative}
+        body{font-family:Arial,Helvetica,sans-serif;margin:0;background:#f4f6f8}
+        header{background:#b71c1c;color:#fff;padding:8px;text-align:center;position:relative}
 
-header h2{
-  margin:4px 0;   /* 👈 default margin हटवला */
-  font-size:18px; /* optional – थोडा compact */
-}
+        header h2{
+          margin:4px 0;   /* 👈 default margin हटवला */
+          font-size:18px; /* optional – थोडा compact */
+        }
 
-.container{padding:8px}
-select{width:100%;padding:10px;margin:4px 0;font-size:15px}
+        .container{padding:8px}
+        select{width:100%;padding:10px;margin:4px 0;font-size:15px}
 
-.card{
-  background:#fff;
-  border-radius:8px;
-  padding:8px;
-  margin-top:6px;
-  box-shadow:0 2px 6px rgba(0,0,0,.1)
-}
+        .card{
+          background:#fff;
+          border-radius:8px;
+          padding:8px;
+          margin-top:6px;
+          box-shadow:0 2px 6px rgba(0,0,0,.1)
+        }
 
-.train{
-  display:flex;
-  justify-content:space-between;
-  padding:6px 0;
-  border-bottom:1px solid #eee
-}
-.train:last-child{border-bottom:none}
+        .train{
+          display:flex;
+          justify-content:space-between;
+          padding:6px 0;
+          border-bottom:1px solid #eee
+        }
+        .train:last-child{border-bottom:none}
 
-.highlight{background:#d9f7d9;font-weight:bold}
-.next{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
+        .highlight{background:#d9f7d9;font-weight:bold}
+        .next{
+          display:inline-flex;
+          align-items:center;
+          gap:8px;
 
-  background:linear-gradient(135deg,#1b5e20,#2e7d32,#43a047);
-  color:#fff;
+          background:linear-gradient(135deg,#1b5e20,#2e7d32,#43a047);
+          color:#fff;
 
-  border-radius:8px;
-  padding:4px 10px;
+          border-radius:8px;
+          padding:4px 10px;
 
-  border-left:5px solid #ffd54f;
-  box-shadow:0 2px 6px rgba(0,0,0,.25);
+          border-left:5px solid #ffd54f;
+          box-shadow:0 2px 6px rgba(0,0,0,.25);
 
-  font-size:15px;
-  font-weight:600;
-}
+          font-size:15px;
+          font-weight:600;
+        }
 
-.next b{
-  font-weight:700;
-  font-size:16px;
-  background:none;
-  border:none;
-  box-shadow:none;
-  padding:0;
-  margin:0;
-}
+        .next b{
+          font-weight:700;
+          font-size:16px;
+          background:none;
+          border:none;
+          box-shadow:none;
+          padding:0;
+          margin:0;
+        }
 
-.next span,
-.next small{
-  color:#e8f5e9;
-}
+        .next span,
+        .next small{
+          color:#e8f5e9;
+        }
 
-.rv-next{
-  background:linear-gradient(135deg,#e8f5e9,#c8e6c9);
-  border-left:5px solid #2e7d32;
-}
-.clock{
-  font-size:16px;          /* 👈 थोडा मोठा */
-  font-weight:600;         /* 👈 readable */
-  margin-top:6px;
-}
+        .rv-next{
+          background:linear-gradient(135deg,#e8f5e9,#c8e6c9);
+          border-left:5px solid #2e7d32;
+        }
+        .clock{
+          font-size:16px;          /* 👈 थोडा मोठा */
+          font-weight:600;         /* 👈 readable */
+          margin-top:6px;
+        }
 
-.badge{
-  background:#ff9800;
-  color:#fff;
-  font-size:12px;
-  padding:2px 6px;
-  border-radius:12px;
-  margin-left:6px;
-}
+        .badge{
+          background:#ff9800;
+          color:#fff;
+          font-size:12px;
+          padding:2px 6px;
+          border-radius:12px;
+          margin-left:6px;
+        }
 
-/* RecyclerView style list */
-.recycler {
-  margin-top:12px;
-  max-height:60vh;
-  overflow-y:auto;
-}
+        /* RecyclerView style list */
+        .recycler {
+          margin-top:12px;
+          max-height:60vh;
+          overflow-y:auto;
+        }
 
-.rv-item{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:6px 6px;
-  border-bottom:1px solid #d0d0d0;
-}
+        .rv-item{
+          display:flex;
+          justify-content:space-between;
+          align-items:center;
+          padding:6px 6px;
+          border-bottom:1px solid #d0d0d0;
+        }
 
-.rv-item:last-child{
-  border-bottom:none;
-}
+        .rv-item:last-child{
+          border-bottom:none;
+        }
 
-.rv-left{
-  display:flex;
-  flex-direction:column;
-}
+        .rv-left{
+          display:flex;
+          flex-direction:column;
+        }
 
-.rv-time{
-  font-size:16px;
-  font-weight:600;
-}
+        .rv-time{
+          font-size:16px;
+          font-weight:600;
+        }
 
-.rv-sub{
-  font-size:12px;
-  font-weight:normal;
-  color:#666;
-}
+        .rv-sub{
+          font-size:12px;
+          font-weight:normal;
+          color:#666;
+        }
 
-.rv-no{
-  font-size:14px;
-  color:#333;
-}
+        .rv-no{
+          font-size:14px;
+          color:#333;
+        }
 
-/* Next train highlight */
-.rv-next{
-  background:#e8f5e9;
-  border-left:4px solid #2e7d32;
-}
+        /* Next train highlight */
+        .rv-next{
+          background:#e8f5e9;
+          border-left:4px solid #2e7d32;
+        }
 
-/* Smooth scroll */
-.recycler::-webkit-scrollbar{
-  width:6px;
-}
-.recycler::-webkit-scrollbar-thumb{
-  background:#ccc;
-  border-radius:4px;
-}
+        /* Smooth scroll */
+        .recycler::-webkit-scrollbar{
+          width:6px;
+        }
+        .recycler::-webkit-scrollbar-thumb{
+          background:#ccc;
+          border-radius:4px;
+        }
 
-.credit{
-  font-size:11px;       /* 👈 छोटा, neat */
-  opacity:0.85;
-  margin-top:2px;
-}
+        .credit{
+          font-size:11px;       /* 👈 छोटा, neat */
+          opacity:0.85;
+          margin-top:2px;
+        }
 
-/* Menu */
-.menu{
-  position:absolute;
-  right:12px;
-  top:14px;
-  font-size:22px;
-  cursor:pointer;
-}
-.menu-box{
-  display:none;
-  position:absolute;
-  right:0;
-  top:28px;
-  background:#fff;
-  color:#000;
-  border-radius:6px;
-  box-shadow:0 2px 8px rgba(0,0,0,.2);
-  width:200px;
-  z-index:100;
-}
-.menu-box div{
-  padding:8px 10px;
-  border-bottom:1px solid #eee;
-  cursor:pointer;
-  font-size:14px;   /* 👈 font smaller */
-}
-.menu-box div:hover{background:#f4f4f4}
+        /* Menu */
+        .menu{
+          position:absolute;
+          right:12px;
+          top:14px;
+          font-size:22px;
+          cursor:pointer;
+        }
+        .menu-box{
+          display:none;
+          position:absolute;
+          right:0;
+          top:28px;
+          background:#fff;
+          color:#000;
+          border-radius:6px;
+          box-shadow:0 2px 8px rgba(0,0,0,.2);
+          width:200px;
+          z-index:100;
+        }
+        .menu-box div{
+          padding:8px 10px;
+          border-bottom:1px solid #eee;
+          cursor:pointer;
+          font-size:14px;   /* 👈 font smaller */
+        }
+        .menu-box div:hover{background:#f4f4f4}
 
-.last-train{
-  background:#fff3e0;
-  border-left:4px solid #e53935;
-}
+        .last-train{
+          background:#fff3e0;
+          border-left:4px solid #e53935;
+        }
 
-.last-train .badge{
-  background:#e53935;
-}
+        .last-train .badge{
+          background:#e53935;
+        }
 
-.alt-route{
-  background:#e3f2fd;
-  border-left:4px solid #1976d2;
-}
-.alt-route .badge{
-  background:#1976d2;
-font-size:14px;
-  font-weight:700;
-}
-.alt-sub{
-  font-size:12px;
-  color:#444;
-}
+        .alt-route{
+          background:#e3f2fd;
+          border-left:4px solid #1976d2;
+        }
+        .alt-route .badge{
+          background:#1976d2;
+        font-size:14px;
+          font-weight:700;
+        }
+        .alt-sub{
+          font-size:12px;
+          color:#444;
+        }
 
-/* ===== TIME BLINK ===== */
-@keyframes timeBlinkSlow {
-  0%,100% { opacity:1; }
-  50% { opacity:0; }
-}
+        /* ===== TIME BLINK ===== */
+        @keyframes timeBlinkSlow {
+          0%,100% { opacity:1; }
+          50% { opacity:0; }
+        }
 
-@keyframes timeBlinkFast {
-  0%,100% { opacity:1; }
-  50% { opacity:0; }
-}
+        @keyframes timeBlinkFast {
+          0%,100% { opacity:1; }
+          50% { opacity:0; }
+        }
 
-.time-blink{
-  font-weight:700;
-  animation: timeBlinkSlow 1.2s infinite;
-}
-.time-alert{
-  color:#e53935;   /* Strong Red */
-}
-.time-blink.fast{
-  animation: timeBlinkFast 0.6s infinite;
-}
+        .time-blink{
+          font-weight:700;
+          animation: timeBlinkSlow 1.2s infinite;
+        }
+        .time-alert{
+          color:#e53935;   /* Strong Red */
+        }
+        .time-blink.fast{
+          animation: timeBlinkFast 0.6s infinite;
+        }
 
-/* ===== ALARM MENU UI ===== */
-.menu-box{
-  background: linear-gradient(135deg,#263238,#37474f);
-  color:#fff;
-  border-radius:12px;
-  box-shadow:0 6px 18px rgba(0,0,0,.45);
-  padding:6px 0;
-  overflow:hidden;
-}
+        /* ===== ALARM MENU UI ===== */
+        .menu-box{
+          background: linear-gradient(135deg,#263238,#37474f);
+          color:#fff;
+          border-radius:12px;
+          box-shadow:0 6px 18px rgba(0,0,0,.45);
+          padding:6px 0;
+          overflow:hidden;
+        }
 
-/* Menu items */
-.menu-box div{
-  padding:12px 14px;
-  border-bottom:1px solid rgba(255,255,255,.15);
-  cursor:pointer;
-  font-size:15px;
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
+        /* Menu items */
+        .menu-box div{
+          padding:12px 14px;
+          border-bottom:1px solid rgba(255,255,255,.15);
+          cursor:pointer;
+          font-size:15px;
+          display:flex;
+          align-items:center;
+          gap:10px;
+        }
 
-/* Remove last border */
-.menu-box div:last-child{
-  border-bottom:none;
-}
+        /* Remove last border */
+        .menu-box div:last-child{
+          border-bottom:none;
+        }
 
-/* Hover / tap effect */
-.menu-box div:hover{
-  background:rgba(255,255,255,.12);
-}
+        /* Hover / tap effect */
+        .menu-box div:hover{
+          background:rgba(255,255,255,.12);
+        }
 
-/* Alarm specific highlight */
-.menu-box .alarm{
-  background:linear-gradient(135deg,#1b5e20,#2e7d32);
-  font-weight:600;
-}
+        /* Alarm specific highlight */
+        .menu-box .alarm{
+          background:linear-gradient(135deg,#1b5e20,#2e7d32);
+          font-weight:600;
+        }
 
-/* Custom alarm */
-.menu-box .custom{
-  background:linear-gradient(135deg,#01579b,#0277bd);
-}
+        /* Custom alarm */
+        .menu-box .custom{
+          background:linear-gradient(135deg,#01579b,#0277bd);
+        }
 
-/* Language / update (soft) */
-.menu-box .soft{
-  background:rgba(255,255,255,.08);
-}
+        /* Language / update (soft) */
+        .menu-box .soft{
+          background:rgba(255,255,255,.08);
+        }
 
-/* Emoji size fix */
-.menu-box span{
-  font-size:18px;
-}
+        /* Emoji size fix */
+        .menu-box span{
+          font-size:18px;
+        }
 
-/* ===== ALARM BUTTONS (MENU) ===== */
-.alarm-btn{
-  width:100%;
-  padding:12px;
-  margin:6px 0;
-  border:none;
-  border-radius:10px;
-  font-size:15px;
-  font-weight:600;
-  color:#fff;
-  cursor:pointer;
-  box-shadow:0 4px 10px rgba(0,0,0,.35);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-}
+        /* ===== ALARM BUTTONS (MENU) ===== */
+        .alarm-btn{
+          width:100%;
+          padding:12px;
+          margin:6px 0;
+          border:none;
+          border-radius:10px;
+          font-size:15px;
+          font-weight:600;
+          color:#fff;
+          cursor:pointer;
+          box-shadow:0 4px 10px rgba(0,0,0,.35);
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          gap:8px;
+        }
 
-/* Green = normal alarm */
-.alarm-btn.green{
-  background:linear-gradient(135deg,#1b5e20,#2e7d32,#43a047);
-}
+        /* Green = normal alarm */
+        .alarm-btn.green{
+          background:linear-gradient(135deg,#1b5e20,#2e7d32,#43a047);
+        }
 
-/* Blue = custom alarm */
-.alarm-btn.blue{
-  background:linear-gradient(135deg,#01579b,#0277bd);
-}
+        /* Blue = custom alarm */
+        .alarm-btn.blue{
+          background:linear-gradient(135deg,#01579b,#0277bd);
+        }
 
-/* Tap feedback */
-.alarm-btn:active{
-  transform:scale(0.97);
-}
+        /* Tap feedback */
+        .alarm-btn:active{
+          transform:scale(0.97);
+        }
 
-/* ===== Custom Alarm Input Fix ===== */
-#customMin{
-  width: 100%;
-  max-width: 200px;      /* 👈 screen बाहेर जाणार नाही */
-  margin: 8px auto;      /* 👈 center align */
-  display: block;
+        /* ===== Custom Alarm Input Fix ===== */
+        #customMin{
+          width: 100%;
+          max-width: 200px;      /* 👈 screen बाहेर जाणार नाही */
+          margin: 8px auto;      /* 👈 center align */
+          display: block;
 
-  padding: 10px 12px;
-  font-size: 14px;
+          padding: 10px 12px;
+          font-size: 14px;
 
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-}
-	.mumbai-theme header{
-  background:#0d47a1; /* Deep Blue */
-}
+          border-radius: 10px;
+          border: 1px solid #ccc;
+          box-sizing: border-box;
+        }
+            .mumbai-theme header{
+          background:#0d47a1; /* Deep Blue */
+        }
 
-.mumbai-theme .next{
-  background:linear-gradient(135deg,#0d47a1,#1565c0,#1e88e5);
-  border-left:5px solid #ffeb3b;
-}
+        .mumbai-theme .next{
+          background:linear-gradient(135deg,#0d47a1,#1565c0,#1e88e5);
+          border-left:5px solid #ffeb3b;
+        }
 
-.mumbai-theme .rv-next{
-  background:#e3f2fd;
-  border-left:4px solid #1565c0;
-}
-	.mumbai-theme .rv-sub{
-  font-size:15px;
-  font-weight:700;
-  color:#0d47a1;   /* Mumbai blue */
-}
-/* ===== MUMBAI STATION LIST STYLE ===== */
+        .mumbai-theme .rv-next{
+          background:#e3f2fd;
+          border-left:4px solid #1565c0;
+        }
+            .mumbai-theme .rv-sub{
+          font-size:15px;
+          font-weight:700;
+          color:#0d47a1;   /* Mumbai blue */
+        }
+        /* ===== MUMBAI STATION LIST STYLE ===== */
 
-#stationList .station-item{
-  padding:14px;
-  border-bottom:1px solid #222;
-  color:#fff;
-  cursor:pointer;
-  font-size:16px;
-}
+        #stationList .station-item{
+          padding:14px;
+          border-bottom:1px solid #222;
+          color:#fff;
+          cursor:pointer;
+          font-size:16px;
+        }
 
-#stationList .station-item:hover{
-  background:#1e88e5;
-}
+        #stationList .station-item:hover{
+          background:#1e88e5;
+        }
 
-#stationSearch{
-  width:100%;
-  box-sizing:border-box;   /* 🔥 important */
-  padding:10px;
-  font-size:15px;
-  border-radius:8px;
-  border:none;
-  outline:none;
-  background:#222;
-  color:#fff;
-}
+        #stationSearch{
+          width:100%;
+          box-sizing:border-box;   /* 🔥 important */
+          padding:10px;
+          font-size:15px;
+          border-radius:8px;
+          border:none;
+          outline:none;
+          background:#222;
+          color:#fff;
+        }
 
-/* ===== SMART AUTO-FIT AD TICKER ===== */
+        /* ===== SMART AUTO-FIT AD TICKER ===== */
 
-.running-ad{
-background:#fff3cd;
-padding:6px 8px;
-display:flex;
-align-items:center;
-border-bottom:1px solid #ddd;
-font-size:13px;
-overflow:hidden;
-}
-	/* ===== SMALL ADS ===== */
+        .running-ad{
+        background:#fff3cd;
+        padding:6px 8px;
+        display:flex;
+        align-items:center;
+        border-bottom:1px solid #ddd;
+        font-size:13px;
+        overflow:hidden;
+        }
+            /* ===== SMALL ADS ===== */
 
-.ads-small{
-margin-top:6px;
-background:#fff;
-padding:6px;
-border-radius:8px;
-}
+        .ads-small{
+        margin-top:6px;
+        background:#fff;
+        padding:6px;
+        border-radius:8px;
+        }
 
-.ads-label{
-font-size:12px;
-color:#666;
-margin-bottom:4px;
-}
+        .ads-label{
+        font-size:12px;
+        color:#666;
+        margin-bottom:4px;
+        }
 
 .ads-slider{
-display:flex;
-gap:6px;
-overflow-x:auto;
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+
+  padding: 0 50%;   /* 🔥 MAIN FIX (center space) */
 }
 
 .ads-slider img{
-height:70px;
-border-radius:6px;
+  height:70px;
+  width:auto;              /* 🔥 add this */
+  border-radius:6px;
+
+  scroll-snap-align: center;
+  flex-shrink:0;
 }
 
-/* ===== ROTATING IMAGE ADS ===== */
+      /* ===== ROTATING IMAGE ADS ===== */
 
-.rotating-ads{
+        .rotating-ads{
 
-width:100%;
-background:#fff;
-text-align:center;
-border-bottom:1px solid #ddd;
+        width:100%;
+        background:#fff;
+        text-align:center;
+        border-bottom:1px solid #ddd;
 
-}
+        }
 
-.rotating-ads img{
+        .rotating-ads img{
 
-width:100%;
-max-height:140px;
-object-fit:cover;
+        width:100%;
+        max-height:140px;
+        object-fit:cover;
 
-}
+        }
 
-#rotatingAdTitle{
+        #rotatingAdTitle{
 
-font-size:13px;
-padding:4px;
-color:#444;
+        font-size:13px;
+        padding:4px;
+        color:#444;
 
-}
-/* Sponsored label */
-.sponsored-label{
-font-weight:700;
-color:#b71c1c;
-margin-right:8px;
-white-space:nowrap;
-}
+        }
+        /* Sponsored label */
+        .sponsored-label{
+        font-weight:700;
+        color:#b71c1c;
+        margin-right:8px;
+        white-space:nowrap;
+        }
 
-/* ticker container */
-.ticker-wrap{
-flex:1;
-overflow:hidden;
-position:relative;
-}
+        /* ticker container */
+        .ticker-wrap{
+        flex:1;
+        overflow:hidden;
+        position:relative;
+        }
 
-/* scrolling text */
-.ticker{
-display:inline-block;
-white-space:nowrap;
-padding-left:100%;
-font-weight:600;
-color:#000;
-}
+        /* scrolling text */
+        .ticker{
+        display:inline-block;
+        white-space:nowrap;
+        padding-left:30%;
+        font-weight:600;
+        color:#000;
+        }
 
-/* animation */
-@keyframes tickerScroll{
-0%{transform:translateX(0);}
-100%{transform:translateX(-100%);}
-}
+        /* animation */
+        @keyframes tickerScroll{
+        0%{transform:translateX(0);}
+        100%{transform:translateX(-100%);}
+        }
 
-.running-ad a{
-text-decoration:none;
-color:inherit;
-}
-/* smooth continuous scroll */
-@keyframes tickerScroll{
-0%{transform:translateX(0);}
-100%{transform:translateX(-100%);}
-}
-	.train-ad{
+        .running-ad a{
+        text-decoration:none;
+        color:inherit;
+        }
+        /* smooth continuous scroll */
+        @keyframes tickerScroll{
+        0%{transform:translateX(0);}
+        100%{transform:translateX(-100%);}
+        }
+            .train-ad{
 
-width:100%;
-height:80px;
-object-fit:cover;
-border-radius:6px;
+        width:100%;
+        height:80px;
+        object-fit:cover;
+        border-radius:6px;
 
-}
+        }
 
-.ad-row{
+        .ad-row{
 
-background:#fff8e1;
+        background:#fff8e1;
 
-}
-	/* ===== TRAIN LIST FIXED HEIGHT ===== */
+        }
+            /* ===== TRAIN LIST FIXED HEIGHT ===== */
 
-.train-container{
+        .train-container{
 
-max-height:calc(100vh - 420px);
-overflow:hidden;
-background:#f1f3f5;
-border:1px solid #e0e0e0;
-border-radius:8px;
+        max-height:calc(100vh - 420px);
+        overflow:hidden;
+        background:#f1f3f5;
+        border:1px solid #e0e0e0;
+        border-radius:8px;
 
-}
+        }
 
-/* ===== SCROLLABLE TRAIN LIST ===== */
+        /* ===== SCROLLABLE TRAIN LIST ===== */
 
-.recycler{
+        .recycler{
 
-max-height:calc(100vh - 420px);
-overflow-y:auto;
+        max-height:calc(100vh - 420px);
+        overflow-y:auto;
 
-}
-/* ===== MUMBAI MODE AUTO HEIGHT ===== */
+        }
+        /* ===== MUMBAI MODE AUTO HEIGHT ===== */
 
-.mumbai-theme .train-container{
-max-height:none;
-}
+        .mumbai-theme .train-container{
+        max-height:none;
+        }
 
-.mumbai-theme .recycler{
-max-height:none;
-}
-</style>
+        .mumbai-theme .recycler{
+        max-height:none;
+        }
+    </style>
 </head>
 
 <body>
 
 <header>
-  <h2>🚆 Uran Local Timetable</h2>
-<div class="credit">
-  Designed & Developed by Dr. Alankar Kadu. (Sonari, Uran)
-</div>
-  <div class="clock" id="clock"></div>
+    <h2>🚆 Uran Local Timetable</h2>
+    <div class="credit">
+        Designed & Developed by Dr. Alankar Kadu. (Sonari, Uran)
+    </div>
+    <div class="clock" id="clock"></div>
 
-  <div class="menu" id="menuBtn">☰
-  <div class="menu-box" id="menuBox">
-	
-	<div onclick="event.stopPropagation(); closeMenu(); enableMumbaiMode();">
-🛰 Mumbai Mode
-</div>
+    <div class="menu" id="menuBtn">☰
+        <div class="menu-box" id="menuBox">
 
-	<div onclick="event.stopPropagation(); closeMenu(); enableUranMode();">
-🚆 Uran Mode
-</div>
-	  
-    <div onclick="toggleLanguage()">🌐 Language: <span id="langLabel">English</span></div>
-    <div onclick="manualUpdate()">🔄 Update App</div>
-  </div>
-</div>
+            <div onclick="event.stopPropagation(); closeMenu(); enableMumbaiMode();">
+                🛰 Mumbai Mode
+            </div>
+
+            <div onclick="event.stopPropagation(); closeMenu(); enableUranMode();">
+                🚆 Uran Mode
+            </div>
+
+            <div onclick="toggleLanguage()">🌐 Language: <span id="langLabel">English</span></div>
+            <div onclick="manualUpdate()">🔄 Update App</div>
+        </div>
+    </div>
 
 </header>
 <!-- ===== RUNNING AD BANNER ===== -->
@@ -553,46 +560,46 @@ max-height:none;
 📢 Sponsored:
 </span>
 
-<a id="adLink" href="#" target="_blank">
+    <a id="adLink" href="#" target="_blank">
 
-<div class="ticker-wrap">
-<span id="adText" class="ticker"></span>
-</div>
-	
-</a>
+        <div class="ticker-wrap">
+            <span id="adText" class="ticker"></span>
+        </div>
+
+    </a>
 
 </div>
-	<!-- ===== ROTATING IMAGE ADS ===== -->
+<!-- ===== ROTATING IMAGE ADS ===== -->
 
 <div id="rotatingAds" class="rotating-ads" style="display:none">
 
-<a id="rotatingAdLink" target="_blank">
+    <a id="rotatingAdLink" target="_blank">
 
-<img id="rotatingAdImg">
+        <img id="rotatingAdImg">
 
-<div id="rotatingAdTitle"></div>
+        <div id="rotatingAdTitle"></div>
 
-</a>
+    </a>
 
 </div>
 
 <div class="container">
 
-<select id="route">
-  <option value="">Select Route / रूट निवडा</option>
-  <option value="U2N">Uran → Nerul</option>
-  <option value="U2B">Uran → Belapur</option>
-	<option value="N2U">Nerul → Uran</option>
-  <option value="B2U">Belapur → Uran</option>
-</select>
-	
-<!-- ===== MUMBAI STATION SEARCH UI ===== -->
-<div id="mumbaiStationBox" style="display:none; margin-top:4px;">
+    <select id="route">
+        <option value="">Select Route / रूट निवडा</option>
+        <option value="U2N">Uran → Nerul</option>
+        <option value="U2B">Uran → Belapur</option>
+        <option value="N2U">Nerul → Uran</option>
+        <option value="B2U">Belapur → Uran</option>
+    </select>
 
-  <input type="text" 
-         id="stationSearch"
-         placeholder="Search Station..."
-         style="
+    <!-- ===== MUMBAI STATION SEARCH UI ===== -->
+    <div id="mumbaiStationBox" style="display:none; margin-top:4px;">
+
+        <input type="text"
+               id="stationSearch"
+               placeholder="Search Station..."
+               style="
            width:100%;
            padding:12px;
            font-size:16px;
@@ -602,1203 +609,1247 @@ max-height:none;
            margin-bottom:10px;
          ">
 
-  <div id="stationList" 
-       style="
+        <div id="stationList"
+             style="
          max-height:60vh;
          overflow-y:auto;
          background:#111;
          border-radius:8px;
        ">
-  </div>
+        </div>
 
-</div>
-	
-<select id="station">
-  <option value="">Boarding Station / स्टेशन निवडा</option>
-  <option value="URAN">Uran</option>
-  <option value="DRGI">Dronagiri</option>
-  <option value="NESA">Nhava Sheva</option>
-  <option value="SEMK">Shemti Khar</option>
-  <option value="GAVHAN">Gavhan</option>
-  <option value="KARP">Kharkopar</option>
-  <option value="BMDR">Baman Dongri</option>
-  <option value="TRGR">Targhar</option>
-  <option value="BEPR">Belapur CBD</option>
-  <option value="SWDV">Seawood Darave Karave</option>
-  <option value="NEU">Nerul</option>
-</select>
+    </div>
 
-<div class="card" id="nextTrain"> 
- 
-</div> 
+    <select id="station">
+        <option value="">Boarding Station / स्टेशन निवडा</option>
+        <option value="URAN">Uran</option>
+        <option value="DRGI">Dronagiri</option>
+        <option value="NESA">Nhava Sheva</option>
+        <option value="SEMK">Shemti Khar</option>
+        <option value="GAVHAN">Gavhan</option>
+        <option value="KARP">Kharkopar</option>
+        <option value="BMDR">Baman Dongri</option>
+        <option value="TRGR">Targhar</option>
+        <option value="BEPR">Belapur CBD</option>
+        <option value="SWDV">Seawood Darave Karave</option>
+        <option value="NEU">Nerul</option>
+    </select>
 
-<div class="card train-container">
+    <div class="card" id="nextTrain">
 
-<div class="recycler" id="list"></div>
+    </div>
 
-</div>
+    <div class="card train-container">
 
-<!-- ===== SMALL ROTATING ADS ===== -->
+        <div class="recycler" id="list"></div>
 
-<div id="smallAds" class="ads-small" style="display:none">
+    </div>
 
-<div class="ads-label">Sponsored ad</div>
+    <!-- ===== SMALL ROTATING ADS ===== -->
 
-<div class="ads-slider" id="adsSlider"></div>
+    <div id="smallAds" class="ads-small" style="display:none">
 
-</div>
+        <div class="ads-label">Sponsored ad</div>
+
+        <div class="ads-slider" id="adsSlider"></div>
+
+    </div>
 
 </div>
 
 <script>
-	
-/* ===== LANGUAGE ===== */
-// ===== LANGUAGE (remembered) =====
-let lang = localStorage.getItem('appLang') || 'en'; // default English
-let trainMaster = [];
-let platformMaster = [];
-let timetableData = null;
-const uiText = {
- en:{
-  selectRoute:'Select Route',
-  selectStation:'Boarding Station',
-  nextTrain:'Next Train',
-  arriving:'Arriving in',
-  platform:'Platform No.',
-  trainNo:'Train No.',
-  progress:'Estimated Arriving Progress',
-  lastCrossed:'Last crossed',
-  estimated:'Estimated based on timetable',
-arrived:'Arrived at'
-},
-mr:{
-  selectRoute:'रूट निवडा',
-  selectStation:'स्टेशन निवडा',
-  nextTrain:'पुढची ट्रेन',
-  arriving:'येण्यास वेळ',
-  platform:'प्लॅटफॉर्म क्रमांक',
-  trainNo:'ट्रेन क्रमांक',
-  progress:'अंदाजे आगमन प्रगती',
-  lastCrossed:'शेवटचे ओलांडलेले स्टेशन',
-  estimated:'वेळापत्रकावर आधारित अंदाज',
-arrived:'पोहोचले'
-}
+    document.addEventListener("DOMContentLoaded", function(){
 
-};
+   setTimeout(function(){
 
-function toggleLanguage(){
-  lang = lang === 'en' ? 'mr' : 'en';
+     if(window.Android){
+       Android.showToast("TEST WORKING");
+       console.log("Android connected ✅");
+     }else{
+       console.log("Android NOT available ❌");
+     }
 
-  // remember selection
-  localStorage.setItem('appLang', lang);
+   }, 1000); // 1 sec delay
 
-  document.getElementById('langLabel').innerText =
-    lang === 'en' ? 'English' : 'मराठी';
+ });
+     /* ===== LANGUAGE ===== */
+     // ===== LANGUAGE (remembered) =====
+     let lang = localStorage.getItem('appLang') || 'en'; // default English
+     let trainMaster = [];
+      let timetableData = null;
+     let autoScrollInterval;
+     const uiText = {
+      en:{
+       selectRoute:'Select Route',
+       selectStation:'Boarding Station',
+       nextTrain:'Next Train',
+       arriving:'Arriving in',
+       platform:'Platform No.',
+       trainNo:'Train No.',
+       progress:'Estimated Arriving Progress',
+       lastCrossed:'Last crossed',
+       estimated:'Estimated based on timetable',
+     arrived:'Arrived at'
+     },
+     mr:{
+       selectRoute:'रूट निवडा',
+       selectStation:'स्टेशन निवडा',
+       nextTrain:'पुढची ट्रेन',
+       arriving:'येण्यास वेळ',
+       platform:'प्लॅटफॉर्म क्रमांक',
+       trainNo:'ट्रेन क्रमांक',
+       progress:'अंदाजे आगमन प्रगती',
+       lastCrossed:'शेवटचे ओलांडलेले स्टेशन',
+       estimated:'वेळापत्रकावर आधारित अंदाज',
+     arrived:'पोहोचले'
+     }
 
-  updateStationsByRoute();
-  render();
-}
+     };
 
-// Apply saved language on load
-document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('langLabel').innerText =
-    lang === 'en' ? 'English' : 'मराठी';
+     function toggleLanguage(){
+       lang = lang === 'en' ? 'mr' : 'en';
 
-  updateStationsByRoute();
-	const searchInput = document.getElementById("stationSearch");
-	// 🔥 Show station list when clicking search box
-if(searchInput){
+       // remember selection
+       localStorage.setItem('appLang', lang);
+
+       document.getElementById('langLabel').innerText =
+         lang === 'en' ? 'English' : 'मराठी';
+
+       updateStationsByRoute();
+       render();
+     }
+
+     // Apply saved language on load
+     document.addEventListener('DOMContentLoaded', () => {
+       document.getElementById('langLabel').innerText =
+         lang === 'en' ? 'English' : 'मराठी';
+
+       updateStationsByRoute();
+         const searchInput = document.getElementById("stationSearch");
+         // 🔥 Show station list when clicking search box
+     if(searchInput){
   searchInput.addEventListener("focus", function(){
+
     document.getElementById("stationList").style.display = "block";
+
+    // 🔥 ADD THIS
+    document.getElementById("smallAds").style.display = "none";
+    document.getElementById("rotatingAds").style.display = "none";
+    document.getElementById("runningAd").style.display = "none";
+
   });
 }
 
-if(searchInput){
-  searchInput.addEventListener("input", function(){
+     if(searchInput){
+       searchInput.addEventListener("input", function(){
 
-    const search = this.value.toLowerCase();
+         const search = this.value.toLowerCase();
+           document.getElementById("smallAds").style.display = "none";
 
-    let filtered;
+         let filtered;
 
-if(search === ""){
-  filtered = mumbaiStationsMaster;
-}else{
-  filtered = mumbaiStationsMaster.filter(st =>
-    st.toLowerCase().includes(search)
-  );
-}
+     if(search === ""){
+       filtered = mumbaiStationsMaster;
+     }else{
+       filtered = mumbaiStationsMaster.filter(st =>
+         st.toLowerCase().includes(search)
+       );
+     }
 
-    renderStationList(filtered);
-	  document.getElementById("stationList").style.display = "block";
-  });
-}
-});
-/* ===== PROGRESS ANIMATION STATE ===== */
-let animatedProgress = 0;
-let progressTimer = null;
-let lastTrainKey = null;
+         renderStationList(filtered);
+           document.getElementById("stationList").style.display = "block";
+       });
+     }
+     });
+     /* ===== PROGRESS ANIMATION STATE ===== */
+     let animatedProgress = 0;
+     let progressTimer = null;
+     let lastTrainKey = null;
 
-/* ================= BASIC ================= */
-const route=document.getElementById('route');
-const station=document.getElementById('station');
-const nextTrain=document.getElementById('nextTrain');
-const list=document.getElementById('list');
-const clock=document.getElementById('clock');
-const menuBox=document.getElementById('menuBox');
+     /* ================= BASIC ================= */
+     const route=document.getElementById('route');
+     const station=document.getElementById('station');
+     const nextTrain=document.getElementById('nextTrain');
+     const list=document.getElementById('list');
+     const clock=document.getElementById('clock');
+     const menuBox=document.getElementById('menuBox');
 
-// ===== MODE SYSTEM =====
-let currentMode = "uran";  // default mode
-	let isFullDayView = false;   // 🔥 track full day screen
+     // ===== MODE SYSTEM =====
+     let currentMode = "uran";  // default mode
+         let isFullDayView = false;   // 🔥 track full day screen
 
-// ===== MUMBAI DATA CACHE =====
-let mumbaiData = null;
-	let mumbaiStationsMaster = [];
-	let mumbaiStationMap = {};
-	let demoStationsMaster = [
-"Airoli","Ambarnath","Andheri","Asangaon","Atgaon","Badlapur","Baman Dongri","Bandra","Belapur CBD","Bhandup","Bhayandar","Bhivpuri Road","Boisar","Borivali",
-"Byculla","CSMT","Charni Road","Chembur","Chinchpokli","Chunabhatti","Churchgate","Currey Road","Dadar","Dahanu Road","Dahisar","Digha","Diva","Dockyard Road",
-"Dolavli","Dombivli","Dronagiri","Elphinstone Road","Gavhan","Ghatkopar","Ghansoli","Govandi","Goregaon","Grant Road","GTB Nagar","Jogeshwari","Juinagar","Kalva",
-"Kalyan","Kandivli","Kanjur Marg","Karjat","Kasara","Kelve Road","Khadavli","Khandeshwar","Khar Road","Khardi","Kharghar","Kharkopar","Khopoli","Kings Circle",
-"Kopar","Kopar Khairane","Kurla","Lower Parel","Lowjee","Mahalakshmi","Mahim Jn","Malad","Mankhurd","Mansarovar","Marine Lines","Masjid","Matunga","Matunga Road",
-"Mira Road","Mulund","Mumbra","Mumbai Central","Naigaon","Nahur","Nalla Sopara","Neral","Nerul","Nhava Sheva","Palasdhari","Palghar","Panvel","Parel","Prabhadevi",
-"Rabale","Ram Mandir","Reay Road","Saphale","Sanpada","Santacruz","Seawood Darave","Sewri","Shahad","Shelu","Shemti Khar","Sion","Targhar","Thakurli","Thane",
-"Tilaknagar","Titwala","Turbhe","Ulhas Nagar","Uran","Vaitarna","Vangani","Vangaon","Vashi","Vasai Road","Vasind","Vidyavihar","Vikhroli","Vile Parle","Virar","Vithalwadi"
-];
-let sundayWarning = false;
+     // ===== MUMBAI DATA CACHE =====
+     let mumbaiData = null;
+         let mumbaiStationsMaster = [];
+         let mumbaiStationMap = {};
+         let demoStationsMaster = [
+     "Airoli","Ambarnath","Andheri","Asangaon","Atgaon","Badlapur","Baman Dongri","Bandra","Belapur CBD","Bhandup","Bhayandar","Bhivpuri Road","Boisar","Borivali",
+     "Byculla","CSMT","Charni Road","Chembur","Chinchpokli","Chunabhatti","Churchgate","Currey Road","Dadar","Dahanu Road","Dahisar","Digha","Diva","Dockyard Road",
+     "Dolavli","Dombivli","Dronagiri","Elphinstone Road","Gavhan","Ghatkopar","Ghansoli","Govandi","Goregaon","Grant Road","GTB Nagar","Jogeshwari","Juinagar","Kalva",
+     "Kalyan","Kandivli","Kanjur Marg","Karjat","Kasara","Kelve Road","Khadavli","Khandeshwar","Khar Road","Khardi","Kharghar","Kharkopar","Khopoli","Kings Circle",
+     "Kopar","Kopar Khairane","Kurla","Lower Parel","Lowjee","Mahalakshmi","Mahim Jn","Malad","Mankhurd","Mansarovar","Marine Lines","Masjid","Matunga","Matunga Road",
+     "Mira Road","Mulund","Mumbra","Mumbai Central","Naigaon","Nahur","Nalla Sopara","Neral","Nerul","Nhava Sheva","Palasdhari","Palghar","Panvel","Parel","Prabhadevi",
+     "Rabale","Ram Mandir","Reay Road","Saphale","Sanpada","Santacruz","Seawood Darave","Sewri","Shahad","Shelu","Shemti Khar","Sion","Targhar","Thakurli","Thane",
+     "Tilaknagar","Titwala","Turbhe","Ulhas Nagar","Uran","Vadala Road","Vaitarna","Vangani","Vangaon","Vashi","Vasai Road","Vasind","Vidyavihar","Vikhroli","Vile Parle","Virar","Vithalwadi"
+     ];
+     let sundayWarning = false;
 
-const stations={
- URAN:{en:'Uran (उरण)',mr:'उरण (Uran)'},
- DRGI:{en:'Dronagiri (द्रोणागिरी)',mr:'द्रोणागिरी (Dronagiri)'},
- NESA:{en:'Nhava Sheva (न्हावा शेवा)',mr:'न्हावा शेवा (Nhava Sheva)'},
- SEMK:{en:'Shemti Khar (शेमटी खार)',mr:'शेमटी खार (Shemti Khar)'},
- GAVHAN:{en:'Gavhan (गव्हाण)',mr:'गव्हाण (Gavhan)'},
- KARP:{en:'Kharkopar (खारकोपर)',mr:'खारकोपर (Kharkopar)'},
- BMDR:{en:'Baman Dongri (बामण डोंगरी)',mr:'बामण डोंगरी (Baman Dongri)'},
- TRGR:{en:'Targhar (तरघर)',mr:'तरघर (Targhar)'},
- BEPR:{en:'Belapur CBD',mr:'बेलापूर CBD'},
- SWDV:{en:'Seawood Darave Karave',mr:'सीवूड दारावे करावे'},
- NEU:{en:'Nerul (नेरूळ)',mr:'नेरूळ (Nerul)'}
-};
+     const stations={
+      URAN:{en:'Uran (उरण)',mr:'उरण (Uran)'},
+      DRGI:{en:'Dronagiri (द्रोणागिरी)',mr:'द्रोणागिरी (Dronagiri)'},
+      NESA:{en:'Nhava Sheva (न्हावा शेवा)',mr:'न्हावा शेवा (Nhava Sheva)'},
+      SEMK:{en:'Shemti Khar (शेमटी खार)',mr:'शेमटी खार (Shemti Khar)'},
+      GAVHAN:{en:'Gavhan (गव्हाण)',mr:'गव्हाण (Gavhan)'},
+      KARP:{en:'Kharkopar (खारकोपर)',mr:'खारकोपर (Kharkopar)'},
+      BMDR:{en:'Baman Dongri (बामण डोंगरी)',mr:'बामण डोंगरी (Baman Dongri)'},
+      TRGR:{en:'Targhar (तरघर)',mr:'तरघर (Targhar)'},
+      BEPR:{en:'Belapur CBD',mr:'बेलापूर CBD'},
+      SWDV:{en:'Seawood Darave Karave',mr:'सीवूड दारावे करावे'},
+      NEU:{en:'Nerul (नेरूळ)',mr:'नेरूळ (Nerul)'}
+     };
 
-function getRouteText(routeCode){
-  const map = {
-    U2N: 'Uran → Nerul',
-    N2U: 'Nerul → Uran',
-    U2B: 'Uran → Belapur',
-    B2U: 'Belapur → Uran'
-  };
-  return map[routeCode] || routeCode;
-}
+     function getRouteText(routeCode){
+       const map = {
+         U2N: 'Uran → Nerul',
+         N2U: 'Nerul → Uran',
+         U2B: 'Uran → Belapur',
+         B2U: 'Belapur → Uran'
+       };
+       return map[routeCode] || routeCode;
+     }
 
-function toMin(t){
-  const [h,m]=t.split(':').map(Number);
-  return h*60+m;
-}
-function to12h(t){
-  let [h,m]=t.split(':').map(Number);
-  const ap=h>=12?'PM':'AM';
-  h=h%12||12;
-  return `${h}:${m.toString().padStart(2,'0')} ${ap}`;
-}
-function formatArrival(min){
-  if(min<60) return min+" min";
-  const h=Math.floor(min/60),m=min%60;
-  return h+" hr "+(m?m+" min":"");
-}
-/* ===== CSV PARSER ===== */
-function parseCSV(text){
-  const rows = text.trim().split("\n");
-  const headers = rows[0].split(",");
+     function toMin(t){
+       const [h,m]=t.split(':').map(Number);
+       return h*60+m;
+     }
+     function to12h(t){
+       let [h,m]=t.split(':').map(Number);
+       const ap=h>=12?'PM':'AM';
+       h=h%12||12;
+       return `${h}:${m.toString().padStart(2,'0')} ${ap}`;
+     }
+     function formatArrival(min){
+       if(min<60) return min+" min";
+       const h=Math.floor(min/60),m=min%60;
+       return h+" hr "+(m?m+" min":"");
+     }
+     /* ===== CSV PARSER ===== */
+     function parseCSV(text){
+       const rows = text.trim().split("\n");
+       const headers = rows[0].split(",");
 
-  return rows.slice(1).map(row=>{
-    const values = row.split(",");
-    let obj = {};
-    headers.forEach((h,i)=>{
-      obj[h.trim()] = values[i] ? values[i].trim() : "";
-    });
-    return obj;
-  });
-}
-/* ================= FULL TIMETABLE DATA ================= */
-const trains = [
-/* U2N */
-{no:99602,route:'U2N',stops:{URAN:'06:10',DRGI:'06:12',NESA:'06:15',SEMK:'06:18',GAVHAN:'06:22',KARP:'06:26',BMDR:'06:30',TRGR:'06:33',KILE:'06:36',SWDV:'06:38',NEU:'06:44'}},
-{no:99604,route:'U2N',stops:{URAN:'07:15',DRGI:'07:17',NESA:'07:20',SEMK:'07:23',GAVHAN:'07:27',KARP:'07:31',BMDR:'07:35',TRGR:'07:38',KILE:'07:41',SWDV:'07:43',NEU:'07:49'}},
-{no:99606,route:'U2N',stops:{URAN:'08:15',DRGI:'08:17',NESA:'08:20',SEMK:'08:23',GAVHAN:'08:27',KARP:'08:31',BMDR:'08:35',TRGR:'08:38',KILE:'08:41',SWDV:'08:43',NEU:'08:49'}},
-{no:99608,route:'U2N',stops:{URAN:'09:15',DRGI:'09:17',NESA:'09:20',SEMK:'09:23',GAVHAN:'09:27',KARP:'09:31',BMDR:'09:35',TRGR:'09:38',KILE:'09:41',SWDV:'09:43',NEU:'09:49'}},
-{no:99610,route:'U2N',stops:{URAN:'10:15',DRGI:'10:17',NESA:'10:20',SEMK:'10:23',GAVHAN:'10:27',KARP:'10:31',BMDR:'10:35',TRGR:'10:38',KILE:'10:41',SWDV:'10:43',NEU:'10:49'}},
-{no:99612,route:'U2N',stops:{URAN:'12:15',DRGI:'12:17',NESA:'12:20',SEMK:'12:23',GAVHAN:'12:27',KARP:'12:31',BMDR:'12:35',TRGR:'12:38',KILE:'12:41',SWDV:'12:43',NEU:'12:49'}},
-{no:99614,route:'U2N',stops:{URAN:'14:15',DRGI:'14:17',NESA:'14:20',SEMK:'14:23',GAVHAN:'14:27',KARP:'14:31',BMDR:'14:35',TRGR:'14:38',KILE:'14:41',SWDV:'14:43',NEU:'14:49'}},
-{no:99616,route:'U2N',stops:{URAN:'16:15',DRGI:'16:17',NESA:'16:20',SEMK:'16:23',GAVHAN:'16:27',KARP:'16:31',BMDR:'16:35',TRGR:'16:38',KILE:'16:41',SWDV:'16:43',NEU:'16:49'}},
-{no:99618,route:'U2N',stops:{URAN:'18:00',DRGI:'18:02',NESA:'18:05',SEMK:'18:08',GAVHAN:'18:12',KARP:'18:16',BMDR:'18:20',TRGR:'18:23',KILE:'18:26',SWDV:'18:28',NEU:'18:34'}},
-{no:99620,route:'U2N',stops:{URAN:'19:05',DRGI:'19:07',NESA:'19:10',SEMK:'19:13',GAVHAN:'19:17',KARP:'19:21',BMDR:'19:25',TRGR:'19:28',KILE:'19:31',SWDV:'19:33',NEU:'19:39'}},
-{no:99622,route:'U2N',stops:{URAN:'20:05',DRGI:'20:07',NESA:'20:10',SEMK:'20:13',GAVHAN:'20:17',KARP:'20:21',BMDR:'20:25',TRGR:'20:28',KILE:'20:31',SWDV:'20:33',NEU:'20:39'}},
-{no:99624,route:'U2N',stops:{URAN:'21:35',DRGI:'21:37',NESA:'21:40',SEMK:'21:43',GAVHAN:'21:47',KARP:'21:51',BMDR:'21:55',TRGR:'21:58',KILE:'22:01',SWDV:'22:03',NEU:'22:09'}},
+       return rows.slice(1).map(row=>{
+         const values = row.split(",");
+         let obj = {};
+         headers.forEach((h,i)=>{
+           obj[h.trim()] = values[i] ? values[i].trim() : "";
+         });
+         return obj;
+       });
+     }
+    async function loadAllTimetables(){
 
-/* N2U */
-{no:99601,route:'N2U',stops:{NEU:'06:15',SWDV:'06:19',KILE:'06:21',TRGR:'06:25',BMDR:'06:28',KARP:'06:32',GAVHAN:'06:36',SEMK:'06:40',NESA:'06:43',DRGI:'06:46',URAN:'06:49'}},
-{no:99603,route:'N2U',stops:{NEU:'07:15',SWDV:'07:19',KILE:'07:21',TRGR:'07:25',BMDR:'07:28',KARP:'07:32',GAVHAN:'07:36',SEMK:'07:40',NESA:'07:43',DRGI:'07:46',URAN:'07:49'}},
-{no:99605,route:'N2U',stops:{NEU:'08:15',SWDV:'08:19',KILE:'08:21',TRGR:'08:25',BMDR:'08:28',KARP:'08:32',GAVHAN:'08:36',SEMK:'08:40',NESA:'08:43',DRGI:'08:46',URAN:'08:49'}},
-{no:99607,route:'N2U',stops:{NEU:'09:15',SWDV:'09:19',KILE:'09:21',TRGR:'09:25',BMDR:'09:28',KARP:'09:32',GAVHAN:'09:36',SEMK:'09:40',NESA:'09:43',DRGI:'09:46',URAN:'09:49'}},
-{no:99609,route:'N2U',stops:{NEU:'10:45',SWDV:'10:49',KILE:'10:51',TRGR:'10:55',BMDR:'10:58',KARP:'11:02',GAVHAN:'11:06',SEMK:'11:10',NESA:'11:13',DRGI:'11:16',URAN:'11:19'}},
-{no:99611,route:'N2U',stops:{NEU:'13:45',SWDV:'13:49',KILE:'13:51',TRGR:'13:55',BMDR:'13:58',KARP:'14:02',GAVHAN:'14:06',SEMK:'14:10',NESA:'14:13',DRGI:'14:16',URAN:'14:19'}},
-{no:99613,route:'N2U',stops:{NEU:'15:45',SWDV:'15:49',KILE:'15:51',TRGR:'15:55',BMDR:'15:58',KARP:'16:02',GAVHAN:'16:06',SEMK:'16:10',NESA:'16:13',DRGI:'16:16',URAN:'16:19'}},
-{no:99615,route:'N2U',stops:{NEU:'17:30',SWDV:'17:34',KILE:'17:36',TRGR:'17:40',BMDR:'17:43',KARP:'17:47',GAVHAN:'17:51',SEMK:'17:55',NESA:'17:58',DRGI:'18:01',URAN:'18:04'}},
-{no:99617,route:'N2U',stops:{NEU:'18:00',SWDV:'18:04',KILE:'18:06',TRGR:'18:10',BMDR:'18:13',KARP:'18:17',GAVHAN:'18:21',SEMK:'18:25',NESA:'18:28',DRGI:'18:31',URAN:'18:34'}},
-{no:99619,route:'N2U',stops:{NEU:'19:00',SWDV:'19:04',KILE:'19:06',TRGR:'19:10',BMDR:'19:13',KARP:'19:17',GAVHAN:'19:21',SEMK:'19:25',NESA:'19:28',DRGI:'19:31',URAN:'19:34'}},
-{no:99621,route:'N2U',stops:{NEU:'20:00',SWDV:'20:04',KILE:'20:06',TRGR:'20:10',BMDR:'20:13',KARP:'20:17',GAVHAN:'20:21',SEMK:'20:25',NESA:'20:28',DRGI:'20:31',URAN:'20:34'}},
-{no:99623,route:'N2U',stops:{NEU:'21:30',SWDV:'21:34',KILE:'21:36',TRGR:'21:40',BMDR:'21:43',KARP:'21:47',GAVHAN:'21:51',SEMK:'21:55',NESA:'21:58',DRGI:'22:01',URAN:'22:04'}},
+  let allData = [];
 
-/* U2B */
-{no:99702,route:'U2B',stops:{URAN:'05:30',DRGI:'05:32',NESA:'05:35',SEMK:'05:38',GAVHAN:'05:42',KARP:'05:46',BMDR:'05:50',TRGR:'05:53',KILE:'05:57',BEPR:'06:03'}},
-{no:99704,route:'U2B',stops:{URAN:'06:40',DRGI:'06:42',NESA:'06:45',SEMK:'06:48',GAVHAN:'06:52',KARP:'06:56',BMDR:'07:00',TRGR:'07:03',KILE:'07:07',BEPR:'07:13'}},
-{no:99706,route:'U2B',stops:{URAN:'07:45',DRGI:'07:47',NESA:'07:50',SEMK:'07:53',GAVHAN:'07:57',KARP:'08:01',BMDR:'08:05',TRGR:'08:08',KILE:'08:12',BEPR:'08:18'}},
-{no:99708,route:'U2B',stops:{URAN:'08:45',DRGI:'08:47',NESA:'08:50',SEMK:'08:53',GAVHAN:'08:57',KARP:'09:01',BMDR:'09:05',TRGR:'09:08',KILE:'09:12',BEPR:'09:18'}},
-{no:99710,route:'U2B',stops:{URAN:'09:45',DRGI:'09:47',NESA:'09:50',SEMK:'09:53',GAVHAN:'09:57',KARP:'10:01',BMDR:'10:05',TRGR:'10:08',KILE:'10:12',BEPR:'10:18'}},
-{no:99712,route:'U2B',stops:{URAN:'11:15',DRGI:'11:17',NESA:'11:20',SEMK:'11:23',GAVHAN:'11:27',KARP:'11:31',BMDR:'11:35',TRGR:'11:38',KILE:'11:42',BEPR:'11:48'}},
-{no:99714,route:'U2B',stops:{URAN:'13:15',DRGI:'13:17',NESA:'13:20',SEMK:'13:23',GAVHAN:'13:27',KARP:'13:31',BMDR:'13:35',TRGR:'13:38',KILE:'13:42',BEPR:'13:48'}},
-{no:99716,route:'U2B',stops:{URAN:'15:15',DRGI:'15:17',NESA:'15:20',SEMK:'15:23',GAVHAN:'15:27',KARP:'15:31',BMDR:'15:35',TRGR:'15:38',KILE:'15:42',BEPR:'15:48'}},
-{no:99718,route:'U2B',stops:{URAN:'17:15',DRGI:'17:17',NESA:'17:20',SEMK:'17:23',GAVHAN:'17:27',KARP:'17:31',BMDR:'17:35',TRGR:'17:38',KILE:'17:42',BEPR:'17:48'}},
-{no:99720,route:'U2B',stops:{URAN:'18:35',DRGI:'18:37',NESA:'18:40',SEMK:'18:43',GAVHAN:'18:47',KARP:'18:51',BMDR:'18:55',TRGR:'18:58',KILE:'19:02',BEPR:'19:08'}},
-{no:99722,route:'U2B',stops:{URAN:'19:35',DRGI:'19:37',NESA:'19:40',SEMK:'19:43',GAVHAN:'19:47',KARP:'19:51',BMDR:'19:55',TRGR:'19:58',KILE:'20:02',BEPR:'20:08'}},
-{no:99724,route:'U2B',stops:{URAN:'20:50',DRGI:'20:52',NESA:'20:55',SEMK:'20:58',GAVHAN:'21:02',KARP:'21:06',BMDR:'21:10',TRGR:'21:13',KILE:'21:17',BEPR:'21:23'}},
-{no:99726,route:'U2B',stops:{URAN:'22:30',DRGI:'22:32',NESA:'22:35',SEMK:'22:38',GAVHAN:'22:42',KARP:'22:46',BMDR:'22:50',TRGR:'22:53',KILE:'22:57',BEPR:'23:03'}},
+  for(let i = 1; i <= 60; i++){
 
-/* B2U */
-{no:99701,route:'B2U',stops:{BEPR:'05:30',KILE:'05:35',TRGR:'05:39',BMDR:'05:42',KARP:'05:46',GAVHAN:'05:50',SEMK:'05:54',NESA:'05:57',DRGI:'06:00',URAN:'06:03'}},
-{no:99703,route:'B2U',stops:{BEPR:'06:45',KILE:'06:50',TRGR:'06:54',BMDR:'06:57',KARP:'07:01',GAVHAN:'07:05',SEMK:'07:09',NESA:'07:12',DRGI:'07:15',URAN:'07:18'}},
-{no:99705,route:'B2U',stops:{BEPR:'07:45',KILE:'07:50',TRGR:'07:54',BMDR:'07:57',KARP:'08:01',GAVHAN:'08:05',SEMK:'08:09',NESA:'08:12',DRGI:'08:15',URAN:'08:18'}},
-{no:99707,route:'B2U',stops:{BEPR:'08:45',KILE:'08:50',TRGR:'08:54',BMDR:'08:57',KARP:'09:01',GAVHAN:'09:05',SEMK:'09:09',NESA:'09:12',DRGI:'09:15',URAN:'09:18'}},
-{no:99709,route:'B2U',stops:{BEPR:'09:45',KILE:'09:50',TRGR:'09:54',BMDR:'09:57',KARP:'10:01',GAVHAN:'10:05',SEMK:'10:09',NESA:'10:12',DRGI:'10:15',URAN:'10:18'}},
-{no:99711,route:'B2U',stops:{BEPR:'11:30',KILE:'11:35',TRGR:'11:39',BMDR:'11:42',KARP:'11:46',GAVHAN:'11:50',SEMK:'11:54',NESA:'11:57',DRGI:'12:00',URAN:'12:03'}},
-{no:99713,route:'B2U',stops:{BEPR:'13:00',KILE:'13:05',TRGR:'13:09',BMDR:'13:12',KARP:'13:16',GAVHAN:'13:20',SEMK:'13:24',NESA:'13:27',DRGI:'13:30',URAN:'13:33'}},
-{no:99715,route:'B2U',stops:{BEPR:'14:45',KILE:'14:50',TRGR:'14:54',BMDR:'14:57',KARP:'15:01',GAVHAN:'15:05',SEMK:'15:09',NESA:'15:12',DRGI:'15:15',URAN:'15:18'}},
-{no:99717,route:'B2U',stops:{BEPR:'17:00',KILE:'17:05',TRGR:'17:09',BMDR:'17:12',KARP:'17:16',GAVHAN:'17:20',SEMK:'17:24',NESA:'17:27',DRGI:'17:30',URAN:'17:33'}},
-{no:99719,route:'B2U',stops:{BEPR:'18:30',KILE:'18:35',TRGR:'18:39',BMDR:'18:42',KARP:'18:46',GAVHAN:'18:50',SEMK:'18:54',NESA:'18:57',DRGI:'19:00',URAN:'19:03'}},
-{no:99721,route:'B2U',stops:{BEPR:'19:30',KILE:'19:35',TRGR:'19:39',BMDR:'19:42',KARP:'19:46',GAVHAN:'19:50',SEMK:'19:54',NESA:'19:57',DRGI:'20:00',URAN:'20:03'}},
-{no:99723,route:'B2U',stops:{BEPR:'20:45',KILE:'20:50',TRGR:'20:54',BMDR:'20:57',KARP:'21:01',GAVHAN:'21:05',SEMK:'21:09',NESA:'21:12',DRGI:'21:15',URAN:'21:18'}},
-{no:99725,route:'B2U',stops:{BEPR:'22:30',KILE:'22:35',TRGR:'22:39',BMDR:'22:42',KARP:'22:46',GAVHAN:'22:50',SEMK:'22:54',NESA:'22:57',DRGI:'23:00',URAN:'23:03'}}
-];
+    try{
+      const res = await fetch(`data/timetables/table-${i}.csv`);
 
-// ================= PLATFORM DATA =================
-// Route wise platform numbers
-const platforms = {
-  N2U: {   // Nerul → Uran
-    NEU:  '5/6 (Both)',SWDV: '3 (Both)',TRGR: '1 (Both)',BMDR: '1 (Both)',KARP: '1 (Both)',GAVHAN:'1 (Both)',SEMK: '1 (Both)',NESA: '1 (Both)',DRGI:  '1 (Both)',URAN: '1/2 (Both)'
-  },
-// Uran → Nerul
-  U2N: {
-    URAN:  '1/2 (Both)',DRGI:  '2 (Both)',NESA:  '2 (Both)',SEMK:  '2 (Both)',GAVHAN:'2 (Both)',KARP:  '2 (Both)',BMDR:  '2 (Both)',TRGR:  '2 (Both)',SWDV:  '4 (Both)',NEU:   '5/6 (Both)'
-  },
-// Uran → Belapur
-  U2B: {
-    URAN:  '1/2 (Both)',DRGI:  '2 (Both)',NESA:  '2 (Both)',SEMK:  '2 (Both)',GAVHAN:'2 (Both)',KARP:  '2 (Both)',BMDR:  '2 (Both)',TRGR:  '2 (Both)',BEPR:  '4 (Both)'
-  },
-// Belapur → Uran
-  B2U: {
-    BEPR:  '4 (Both)',TRGR:  '1 (Both)',BMDR:  '1 (Both)',KARP:  '1 (Both)',GAVHAN:'1 (Both)',SEMK:  '1 (Both)',NESA:  '1 (Both)',DRGI:  '1 (Both)',URAN:  '1/2 (Both)'
+      if(!res.ok){
+        console.log("❌ Missing file:", i);
+        continue;
+      }
+
+      const text = await res.text();
+      const parsed = parseCSV(text);
+
+      allData = allData.concat(parsed);
+
+    }catch(e){
+      console.log("❌ Error loading table:", i);
+    }
+
   }
 
-};
+  console.log("✅ Total timetable rows:", allData.length);
 
-const routeStations = {
-  U2N: ['URAN','DRGI','NESA','SEMK','GAVHAN','KARP','BMDR','TRGR','SWDV','NEU'],
-  N2U: ['NEU','SWDV','TRGR','BMDR','KARP','GAVHAN','SEMK','NESA','DRGI','URAN'],
-  U2B: ['URAN','DRGI','NESA','SEMK','GAVHAN','KARP','BMDR','TRGR','BEPR'],
-  B2U: ['BEPR','TRGR','BMDR','KARP','GAVHAN','SEMK','NESA','DRGI','URAN']
-};
-
-function updateStationsByRoute(){
-  station.innerHTML =
-    '<option value="">Boarding Station / स्टेशन निवडा</option>';
-
-  if(!route.value) return;
-
-  routeStations[route.value].forEach(code=>{
-    const opt=document.createElement('option');
-    opt.value=code;
-opt.textContent = stations[code][lang];
-    station.appendChild(opt);
-  });
+  return allData;
 }
+     /* ================= FULL TIMETABLE DATA ================= */
+     const trains = [
+     /* U2N */
+     {no:99602,route:'U2N',stops:{URAN:'06:10',DRGI:'06:12',NESA:'06:15',SEMK:'06:18',GAVHAN:'06:22',KARP:'06:26',BMDR:'06:30',TRGR:'06:33',KILE:'06:36',SWDV:'06:38',NEU:'06:44'}},
+     {no:99604,route:'U2N',stops:{URAN:'07:15',DRGI:'07:17',NESA:'07:20',SEMK:'07:23',GAVHAN:'07:27',KARP:'07:31',BMDR:'07:35',TRGR:'07:38',KILE:'07:41',SWDV:'07:43',NEU:'07:49'}},
+     {no:99606,route:'U2N',stops:{URAN:'08:15',DRGI:'08:17',NESA:'08:20',SEMK:'08:23',GAVHAN:'08:27',KARP:'08:31',BMDR:'08:35',TRGR:'08:38',KILE:'08:41',SWDV:'08:43',NEU:'08:49'}},
+     {no:99608,route:'U2N',stops:{URAN:'09:15',DRGI:'09:17',NESA:'09:20',SEMK:'09:23',GAVHAN:'09:27',KARP:'09:31',BMDR:'09:35',TRGR:'09:38',KILE:'09:41',SWDV:'09:43',NEU:'09:49'}},
+     {no:99610,route:'U2N',stops:{URAN:'10:15',DRGI:'10:17',NESA:'10:20',SEMK:'10:23',GAVHAN:'10:27',KARP:'10:31',BMDR:'10:35',TRGR:'10:38',KILE:'10:41',SWDV:'10:43',NEU:'10:49'}},
+     {no:99612,route:'U2N',stops:{URAN:'12:15',DRGI:'12:17',NESA:'12:20',SEMK:'12:23',GAVHAN:'12:27',KARP:'12:31',BMDR:'12:35',TRGR:'12:38',KILE:'12:41',SWDV:'12:43',NEU:'12:49'}},
+     {no:99614,route:'U2N',stops:{URAN:'14:15',DRGI:'14:17',NESA:'14:20',SEMK:'14:23',GAVHAN:'14:27',KARP:'14:31',BMDR:'14:35',TRGR:'14:38',KILE:'14:41',SWDV:'14:43',NEU:'14:49'}},
+     {no:99616,route:'U2N',stops:{URAN:'16:15',DRGI:'16:17',NESA:'16:20',SEMK:'16:23',GAVHAN:'16:27',KARP:'16:31',BMDR:'16:35',TRGR:'16:38',KILE:'16:41',SWDV:'16:43',NEU:'16:49'}},
+     {no:99618,route:'U2N',stops:{URAN:'18:00',DRGI:'18:02',NESA:'18:05',SEMK:'18:08',GAVHAN:'18:12',KARP:'18:16',BMDR:'18:20',TRGR:'18:23',KILE:'18:26',SWDV:'18:28',NEU:'18:34'}},
+     {no:99620,route:'U2N',stops:{URAN:'19:05',DRGI:'19:07',NESA:'19:10',SEMK:'19:13',GAVHAN:'19:17',KARP:'19:21',BMDR:'19:25',TRGR:'19:28',KILE:'19:31',SWDV:'19:33',NEU:'19:39'}},
+     {no:99622,route:'U2N',stops:{URAN:'20:05',DRGI:'20:07',NESA:'20:10',SEMK:'20:13',GAVHAN:'20:17',KARP:'20:21',BMDR:'20:25',TRGR:'20:28',KILE:'20:31',SWDV:'20:33',NEU:'20:39'}},
+     {no:99624,route:'U2N',stops:{URAN:'21:35',DRGI:'21:37',NESA:'21:40',SEMK:'21:43',GAVHAN:'21:47',KARP:'21:51',BMDR:'21:55',TRGR:'21:58',KILE:'22:01',SWDV:'22:03',NEU:'22:09'}},
 
-function stationExistsInRoute(routeCode, stationCode){
-  return (
-    routeStations[routeCode] &&
-    routeStations[routeCode].includes(stationCode)
-  );
-}
+     /* N2U */
+     {no:99601,route:'N2U',stops:{NEU:'06:15',SWDV:'06:19',KILE:'06:21',TRGR:'06:25',BMDR:'06:28',KARP:'06:32',GAVHAN:'06:36',SEMK:'06:40',NESA:'06:43',DRGI:'06:46',URAN:'06:49'}},
+     {no:99603,route:'N2U',stops:{NEU:'07:15',SWDV:'07:19',KILE:'07:21',TRGR:'07:25',BMDR:'07:28',KARP:'07:32',GAVHAN:'07:36',SEMK:'07:40',NESA:'07:43',DRGI:'07:46',URAN:'07:49'}},
+     {no:99605,route:'N2U',stops:{NEU:'08:15',SWDV:'08:19',KILE:'08:21',TRGR:'08:25',BMDR:'08:28',KARP:'08:32',GAVHAN:'08:36',SEMK:'08:40',NESA:'08:43',DRGI:'08:46',URAN:'08:49'}},
+     {no:99607,route:'N2U',stops:{NEU:'09:15',SWDV:'09:19',KILE:'09:21',TRGR:'09:25',BMDR:'09:28',KARP:'09:32',GAVHAN:'09:36',SEMK:'09:40',NESA:'09:43',DRGI:'09:46',URAN:'09:49'}},
+     {no:99609,route:'N2U',stops:{NEU:'10:45',SWDV:'10:49',KILE:'10:51',TRGR:'10:55',BMDR:'10:58',KARP:'11:02',GAVHAN:'11:06',SEMK:'11:10',NESA:'11:13',DRGI:'11:16',URAN:'11:19'}},
+     {no:99611,route:'N2U',stops:{NEU:'13:45',SWDV:'13:49',KILE:'13:51',TRGR:'13:55',BMDR:'13:58',KARP:'14:02',GAVHAN:'14:06',SEMK:'14:10',NESA:'14:13',DRGI:'14:16',URAN:'14:19'}},
+     {no:99613,route:'N2U',stops:{NEU:'15:45',SWDV:'15:49',KILE:'15:51',TRGR:'15:55',BMDR:'15:58',KARP:'16:02',GAVHAN:'16:06',SEMK:'16:10',NESA:'16:13',DRGI:'16:16',URAN:'16:19'}},
+     {no:99615,route:'N2U',stops:{NEU:'17:30',SWDV:'17:34',KILE:'17:36',TRGR:'17:40',BMDR:'17:43',KARP:'17:47',GAVHAN:'17:51',SEMK:'17:55',NESA:'17:58',DRGI:'18:01',URAN:'18:04'}},
+     {no:99617,route:'N2U',stops:{NEU:'18:00',SWDV:'18:04',KILE:'18:06',TRGR:'18:10',BMDR:'18:13',KARP:'18:17',GAVHAN:'18:21',SEMK:'18:25',NESA:'18:28',DRGI:'18:31',URAN:'18:34'}},
+     {no:99619,route:'N2U',stops:{NEU:'19:00',SWDV:'19:04',KILE:'19:06',TRGR:'19:10',BMDR:'19:13',KARP:'19:17',GAVHAN:'19:21',SEMK:'19:25',NESA:'19:28',DRGI:'19:31',URAN:'19:34'}},
+     {no:99621,route:'N2U',stops:{NEU:'20:00',SWDV:'20:04',KILE:'20:06',TRGR:'20:10',BMDR:'20:13',KARP:'20:17',GAVHAN:'20:21',SEMK:'20:25',NESA:'20:28',DRGI:'20:31',URAN:'20:34'}},
+     {no:99623,route:'N2U',stops:{NEU:'21:30',SWDV:'21:34',KILE:'21:36',TRGR:'21:40',BMDR:'21:43',KARP:'21:47',GAVHAN:'21:51',SEMK:'21:55',NESA:'21:58',DRGI:'22:01',URAN:'22:04'}},
 
-/* ===== FIND BEST ALTERNATIVE SAME PLATFORM TRAIN ===== */
-function findAlternativeTrain(){
+     /* U2B */
+     {no:99702,route:'U2B',stops:{URAN:'05:30',DRGI:'05:32',NESA:'05:35',SEMK:'05:38',GAVHAN:'05:42',KARP:'05:46',BMDR:'05:50',TRGR:'05:53',KILE:'05:57',BEPR:'06:03'}},
+     {no:99704,route:'U2B',stops:{URAN:'06:40',DRGI:'06:42',NESA:'06:45',SEMK:'06:48',GAVHAN:'06:52',KARP:'06:56',BMDR:'07:00',TRGR:'07:03',KILE:'07:07',BEPR:'07:13'}},
+     {no:99706,route:'U2B',stops:{URAN:'07:45',DRGI:'07:47',NESA:'07:50',SEMK:'07:53',GAVHAN:'07:57',KARP:'08:01',BMDR:'08:05',TRGR:'08:08',KILE:'08:12',BEPR:'08:18'}},
+     {no:99708,route:'U2B',stops:{URAN:'08:45',DRGI:'08:47',NESA:'08:50',SEMK:'08:53',GAVHAN:'08:57',KARP:'09:01',BMDR:'09:05',TRGR:'09:08',KILE:'09:12',BEPR:'09:18'}},
+     {no:99710,route:'U2B',stops:{URAN:'09:45',DRGI:'09:47',NESA:'09:50',SEMK:'09:53',GAVHAN:'09:57',KARP:'10:01',BMDR:'10:05',TRGR:'10:08',KILE:'10:12',BEPR:'10:18'}},
+     {no:99712,route:'U2B',stops:{URAN:'11:15',DRGI:'11:17',NESA:'11:20',SEMK:'11:23',GAVHAN:'11:27',KARP:'11:31',BMDR:'11:35',TRGR:'11:38',KILE:'11:42',BEPR:'11:48'}},
+     {no:99714,route:'U2B',stops:{URAN:'13:15',DRGI:'13:17',NESA:'13:20',SEMK:'13:23',GAVHAN:'13:27',KARP:'13:31',BMDR:'13:35',TRGR:'13:38',KILE:'13:42',BEPR:'13:48'}},
+     {no:99716,route:'U2B',stops:{URAN:'15:15',DRGI:'15:17',NESA:'15:20',SEMK:'15:23',GAVHAN:'15:27',KARP:'15:31',BMDR:'15:35',TRGR:'15:38',KILE:'15:42',BEPR:'15:48'}},
+     {no:99718,route:'U2B',stops:{URAN:'17:15',DRGI:'17:17',NESA:'17:20',SEMK:'17:23',GAVHAN:'17:27',KARP:'17:31',BMDR:'17:35',TRGR:'17:38',KILE:'17:42',BEPR:'17:48'}},
+     {no:99720,route:'U2B',stops:{URAN:'18:35',DRGI:'18:37',NESA:'18:40',SEMK:'18:43',GAVHAN:'18:47',KARP:'18:51',BMDR:'18:55',TRGR:'18:58',KILE:'19:02',BEPR:'19:08'}},
+     {no:99722,route:'U2B',stops:{URAN:'19:35',DRGI:'19:37',NESA:'19:40',SEMK:'19:43',GAVHAN:'19:47',KARP:'19:51',BMDR:'19:55',TRGR:'19:58',KILE:'20:02',BEPR:'20:08'}},
+     {no:99724,route:'U2B',stops:{URAN:'20:50',DRGI:'20:52',NESA:'20:55',SEMK:'20:58',GAVHAN:'21:02',KARP:'21:06',BMDR:'21:10',TRGR:'21:13',KILE:'21:17',BEPR:'21:23'}},
+     {no:99726,route:'U2B',stops:{URAN:'22:30',DRGI:'22:32',NESA:'22:35',SEMK:'22:38',GAVHAN:'22:42',KARP:'22:46',BMDR:'22:50',TRGR:'22:53',KILE:'22:57',BEPR:'23:03'}},
 
-  const selRoute = route.value;
-  const selStation = station.value;
-  const nowMin =
-    new Date().getHours()*60 + new Date().getMinutes();
+     /* B2U */
+     {no:99701,route:'B2U',stops:{BEPR:'05:30',KILE:'05:35',TRGR:'05:39',BMDR:'05:42',KARP:'05:46',GAVHAN:'05:50',SEMK:'05:54',NESA:'05:57',DRGI:'06:00',URAN:'06:03'}},
+     {no:99703,route:'B2U',stops:{BEPR:'06:45',KILE:'06:50',TRGR:'06:54',BMDR:'06:57',KARP:'07:01',GAVHAN:'07:05',SEMK:'07:09',NESA:'07:12',DRGI:'07:15',URAN:'07:18'}},
+     {no:99705,route:'B2U',stops:{BEPR:'07:45',KILE:'07:50',TRGR:'07:54',BMDR:'07:57',KARP:'08:01',GAVHAN:'08:05',SEMK:'08:09',NESA:'08:12',DRGI:'08:15',URAN:'08:18'}},
+     {no:99707,route:'B2U',stops:{BEPR:'08:45',KILE:'08:50',TRGR:'08:54',BMDR:'08:57',KARP:'09:01',GAVHAN:'09:05',SEMK:'09:09',NESA:'09:12',DRGI:'09:15',URAN:'09:18'}},
+     {no:99709,route:'B2U',stops:{BEPR:'09:45',KILE:'09:50',TRGR:'09:54',BMDR:'09:57',KARP:'10:01',GAVHAN:'10:05',SEMK:'10:09',NESA:'10:12',DRGI:'10:15',URAN:'10:18'}},
+     {no:99711,route:'B2U',stops:{BEPR:'11:30',KILE:'11:35',TRGR:'11:39',BMDR:'11:42',KARP:'11:46',GAVHAN:'11:50',SEMK:'11:54',NESA:'11:57',DRGI:'12:00',URAN:'12:03'}},
+     {no:99713,route:'B2U',stops:{BEPR:'13:00',KILE:'13:05',TRGR:'13:09',BMDR:'13:12',KARP:'13:16',GAVHAN:'13:20',SEMK:'13:24',NESA:'13:27',DRGI:'13:30',URAN:'13:33'}},
+     {no:99715,route:'B2U',stops:{BEPR:'14:45',KILE:'14:50',TRGR:'14:54',BMDR:'14:57',KARP:'15:01',GAVHAN:'15:05',SEMK:'15:09',NESA:'15:12',DRGI:'15:15',URAN:'15:18'}},
+     {no:99717,route:'B2U',stops:{BEPR:'17:00',KILE:'17:05',TRGR:'17:09',BMDR:'17:12',KARP:'17:16',GAVHAN:'17:20',SEMK:'17:24',NESA:'17:27',DRGI:'17:30',URAN:'17:33'}},
+     {no:99719,route:'B2U',stops:{BEPR:'18:30',KILE:'18:35',TRGR:'18:39',BMDR:'18:42',KARP:'18:46',GAVHAN:'18:50',SEMK:'18:54',NESA:'18:57',DRGI:'19:00',URAN:'19:03'}},
+     {no:99721,route:'B2U',stops:{BEPR:'19:30',KILE:'19:35',TRGR:'19:39',BMDR:'19:42',KARP:'19:46',GAVHAN:'19:50',SEMK:'19:54',NESA:'19:57',DRGI:'20:00',URAN:'20:03'}},
+     {no:99723,route:'B2U',stops:{BEPR:'20:45',KILE:'20:50',TRGR:'20:54',BMDR:'20:57',KARP:'21:01',GAVHAN:'21:05',SEMK:'21:09',NESA:'21:12',DRGI:'21:15',URAN:'21:18'}},
+     {no:99725,route:'B2U',stops:{BEPR:'22:30',KILE:'22:35',TRGR:'22:39',BMDR:'22:42',KARP:'22:46',GAVHAN:'22:50',SEMK:'22:54',NESA:'22:57',DRGI:'23:00',URAN:'23:03'}}
+     ];
 
-  const selPlatform =
-    (platforms[selRoute] || {})[selStation];
+     // ================= PLATFORM DATA =================
+     // Route wise platform numbers
+     const platforms = {
+       N2U: {   // Nerul → Uran
+         NEU:  '5/6 (Both)',SWDV: '3 (Both)',TRGR: '1 (Both)',BMDR: '1 (Both)',KARP: '1 (Both)',GAVHAN:'1 (Both)',SEMK: '1 (Both)',NESA: '1 (Both)',DRGI:  '1 (Both)',URAN: '1/2 (Both)'
+       },
+     // Uran → Nerul
+       U2N: {
+         URAN:  '1/2 (Both)',DRGI:  '2 (Both)',NESA:  '2 (Both)',SEMK:  '2 (Both)',GAVHAN:'2 (Both)',KARP:  '2 (Both)',BMDR:  '2 (Both)',TRGR:  '2 (Both)',SWDV:  '4 (Both)',NEU:   '5/6 (Both)'
+       },
+     // Uran → Belapur
+       U2B: {
+         URAN:  '1/2 (Both)',DRGI:  '2 (Both)',NESA:  '2 (Both)',SEMK:  '2 (Both)',GAVHAN:'2 (Both)',KARP:  '2 (Both)',BMDR:  '2 (Both)',TRGR:  '2 (Both)',BEPR:  '4 (Both)'
+       },
+     // Belapur → Uran
+       B2U: {
+         BEPR:  '4 (Both)',TRGR:  '1 (Both)',BMDR:  '1 (Both)',KARP:  '1 (Both)',GAVHAN:'1 (Both)',SEMK:  '1 (Both)',NESA:  '1 (Both)',DRGI:  '1 (Both)',URAN:  '1/2 (Both)'
+       }
 
-  if(!selPlatform) return null;
+     };
 
-  const selStops = routeStations[selRoute];
-  const selIdx = selStops.indexOf(selStation);
-  if(selIdx === -1) return null;
+     const routeStations = {
+       U2N: ['URAN','DRGI','NESA','SEMK','GAVHAN','KARP','BMDR','TRGR','SWDV','NEU'],
+       N2U: ['NEU','SWDV','TRGR','BMDR','KARP','GAVHAN','SEMK','NESA','DRGI','URAN'],
+       U2B: ['URAN','DRGI','NESA','SEMK','GAVHAN','KARP','BMDR','TRGR','BEPR'],
+       B2U: ['BEPR','TRGR','BMDR','KARP','GAVHAN','SEMK','NESA','DRGI','URAN']
+     };
 
-  const selForward = selStops.slice(selIdx + 1);
+     function updateStationsByRoute(){
+       station.innerHTML =
+         '<option value="">Boarding Station / स्टेशन निवडा</option>';
 
-  let bestAlt = null;
+       if(!route.value) return;
 
-  trains.forEach(t => {
+       routeStations[route.value].forEach(code=>{
+         const opt=document.createElement('option');
+         opt.value=code;
+     opt.textContent = stations[code][lang];
+         station.appendChild(opt);
+       });
+     }
 
-    if(t.route === selRoute) return;
-    if(!t.stops[selStation]) return;
+     function stationExistsInRoute(routeCode, stationCode){
+       return (
+         routeStations[routeCode] &&
+         routeStations[routeCode].includes(stationCode)
+       );
+     }
 
-    const pf =
-      (platforms[t.route] || {})[selStation];
-    if(pf !== selPlatform) return;
+     /* ===== FIND BEST ALTERNATIVE SAME PLATFORM TRAIN ===== */
+     function findAlternativeTrain(){
 
-    const timeMin = toMin(t.stops[selStation]);
-    if(timeMin < nowMin) return;
+       const selRoute = route.value;
+       const selStation = station.value;
+       const nowMin =
+         new Date().getHours()*60 + new Date().getMinutes();
 
-    const altStops = routeStations[t.route];
-    const altIdx = altStops.indexOf(selStation);
-    if(altIdx === -1) return;
+       const selPlatform =
+         (platforms[selRoute] || {})[selStation];
 
-    const altForward = altStops.slice(altIdx + 1);
+       if(!selPlatform) return null;
 
-    const useful = altForward.some(s =>
-      selForward.includes(s)
-    );
+       const selStops = routeStations[selRoute];
+       const selIdx = selStops.indexOf(selStation);
+       if(selIdx === -1) return null;
 
-    if(!useful) return;
+       const selForward = selStops.slice(selIdx + 1);
 
-    if(!bestAlt || timeMin < bestAlt.m){
-      bestAlt = {
-        route: t.route,
-        time: t.stops[selStation],
-        m: timeMin
-      };
+       let bestAlt = null;
+
+       trains.forEach(t => {
+
+         if(t.route === selRoute) return;
+         if(!t.stops[selStation]) return;
+
+         const pf =
+           (platforms[t.route] || {})[selStation];
+         if(pf !== selPlatform) return;
+
+         const timeMin = toMin(t.stops[selStation]);
+         if(timeMin < nowMin) return;
+
+         const altStops = routeStations[t.route];
+         const altIdx = altStops.indexOf(selStation);
+         if(altIdx === -1) return;
+
+         const altForward = altStops.slice(altIdx + 1);
+
+         const useful = altForward.some(s =>
+           selForward.includes(s)
+         );
+
+         if(!useful) return;
+
+         if(!bestAlt || timeMin < bestAlt.m){
+           bestAlt = {
+             route: t.route,
+             time: t.stops[selStation],
+             m: timeMin
+           };
+         }
+
+       });
+
+       return bestAlt;
+     }
+     function setTrainAlarm(trainTime, minutesBefore, el){
+
+       const [hh,mm] = trainTime.split(":").map(Number);
+
+       let alarm = new Date();
+
+       alarm.setHours(hh,mm,0,0);
+
+       const now = new Date();
+
+       if(alarm.getTime() < now.getTime()){
+         alarm.setDate(alarm.getDate()+1);
+       }
+
+       alarm = new Date(
+         alarm.getTime() - minutesBefore*60*1000
+       );
+
+       const trigger = alarm.getTime();
+
+       const title = "🚆 Uran Local Train";
+
+       const msg = "Train "+trainTime+" arriving soon";
+
+       if(window.Android && Android.setTrainAlarm){
+
+         Android.setTrainAlarm(trigger,title,msg);
+
+         if(window.Android && Android.showToast){
+           Android.showToast("🔔 Alarm set");
+         }
+
+         if(el){
+           el.style.color="#ff9800";
+         }
+
+       }else{
+
+         alert("Android bridge missing");
+
+       }
+
+     }
+         function openPhoneAlarm(trainTime){
+
+       const [hh,mm] = trainTime.split(":").map(Number);
+
+       const title = "🚆 Uran Local Train";
+
+       if(window.Android && Android.openSystemAlarm){
+
+          Android.openSystemAlarm(hh,mm,title);
+
+       }else{
+
+          alert("Android alarm not available");
+
+       }
+
+     }
+
+     function openAlarmMenu(trainTime, el){
+
+       const choice = prompt(
+         "Alarm before minutes?\n\n5 = 5 min\n10 = 10 min\nEnter custom minutes"
+       );
+
+       const min = parseInt(choice);
+
+       if(!min || min<=0) return;
+
+       setTrainAlarm(trainTime, min, el);
+
+     }
+         /* ================= RENDER ================= */
+     function render(){
+      if(!route.value || !station.value){
+        list.innerHTML='';
+        nextTrain.innerHTML='';
+        return;
+      }
+     const now = new Date();
+      const nowMin = now.getHours()*60 + now.getMinutes();
+
+     const rows = trains
+  .filter(t => {
+
+    // route match + station exist
+    if(!(t.route === route.value && t.stops[station.value])) return false;
+
+    // 🔥 destination check
+    const routeStops = routeStations[t.route];
+    const lastStop = routeStops[routeStops.length - 1];
+
+    if(station.value === lastStop){
+      return false; // ❌ skip destination trains
     }
 
-  });
+    return true;
+  })
+  .map(t => ({
+    no: t.no,
+    time: t.stops[station.value],
+    m: toMin(t.stops[station.value])
+  }))
+  .sort((a,b)=>a.m-b.m);
+         
+     const altTrain = findAlternativeTrain();
 
-  return bestAlt;
-}
-function setTrainAlarm(trainTime, minutesBefore, el){
+      if(rows.length === 0){
 
-  const [hh,mm] = trainTime.split(":").map(Number);
+  // 🔥 Check if selected station is destination
+  const routeStops = routeStations[route.value];
+  const lastStop = routeStops[routeStops.length - 1];
 
-  let alarm = new Date();
-
-  alarm.setHours(hh,mm,0,0);
-
-  const now = new Date();
-
-  if(alarm.getTime() < now.getTime()){
-    alarm.setDate(alarm.getDate()+1);
-  }
-
-  alarm = new Date(
-    alarm.getTime() - minutesBefore*60*1000
-  );
-
-  const trigger = alarm.getTime();
-
-  const title = "🚆 Uran Local Train";
-
-  const msg = "Train "+trainTime+" arriving soon";
-
-  if(window.Android && Android.setTrainAlarm){
-
-    Android.setTrainAlarm(trigger,title,msg);
-
-    if(window.Android && Android.showToast){
-      Android.showToast("🔔 Alarm set");
-    }
-
-    if(el){
-      el.style.color="#ff9800";
-    }
-
+  if(station.value === lastStop){
+    nextTrain.innerHTML = "🚫 This is a destination station. No incoming trains.";
   }else{
-
-    alert("Android bridge missing");
-
+    nextTrain.innerHTML = "No trains available";
   }
 
-}
-	function openPhoneAlarm(trainTime){
-
-  const [hh,mm] = trainTime.split(":").map(Number);
-
-  const title = "🚆 Uran Local Train";
-
-  if(window.Android && Android.openSystemAlarm){
-
-     Android.openSystemAlarm(hh,mm,title);
-
-  }else{
-
-     alert("Android alarm not available");
-
-  }
-
-}
-
-function openAlarmMenu(trainTime, el){
-
-  const choice = prompt(
-    "Alarm before minutes?\n\n5 = 5 min\n10 = 10 min\nEnter custom minutes"
-  );
-
-  const min = parseInt(choice);
-
-  if(!min || min<=0) return;
-
-  setTrainAlarm(trainTime, min, el);
-
-}
-	/* ================= RENDER ================= */
-function render(){
- if(!route.value || !station.value){
-   list.innerHTML='';
-   nextTrain.innerHTML='';
-   return;
- }
-const now = new Date();
- const nowMin = now.getHours()*60 + now.getMinutes();
-
- const rows = trains
-   .filter(t => t.route === route.value && t.stops[station.value])
-   .map(t => ({
-     no: t.no,
-     time: t.stops[station.value],
-     m: toMin(t.stops[station.value])
-   }))
-   .sort((a,b)=>a.m-b.m);
-const altTrain = findAlternativeTrain();
-
- if(rows.length === 0){
-   nextTrain.innerHTML='No trains available';
-   list.innerHTML='';
-   return;
- }
-
- let nextIdx = rows.findIndex(r => r.m >= nowMin);
- let isTomorrow = false;
-
- if(nextIdx === -1){
-   nextIdx = 0;        // उद्याची पहिली train
-   isTomorrow = true;
- }
-
-const isLastTrainToday = (!isTomorrow && nextIdx === rows.length - 1);
-
-setTimeout(()=>{
-
-const nextEl = document.querySelector('.rv-next');
-
-if(nextEl){
-  nextEl.scrollIntoView({
-    behavior: "smooth",
-    block: "center"
-  });
-}
-
-},200);
-
-const listHeader = `
-  <div class="rv-item" style="font-weight:700;background:#f5f5f5;border-bottom:2px solid #ddd">
-    <div class="rv-left">
-      <div class="rv-time">⏰ Time</div>
-    </div>
-    <div class="rv-no">🔔 Set Alarm</div>
-  </div>
-`;
-
- /* -------- LIST (FULL TIMETABLE) -------- */
-list.innerHTML =
-  listHeader +
-  rows.map((r,i)=>{
-
-    const isNext = i === nextIdx;
-   const showAlt =
-  altTrain &&
-  i === nextIdx &&
-  altTrain.m < r.m;
-
-return `
-${showAlt ? `
-<div class="rv-item alt-route"
-     onclick="applyAltRoute('${altTrain.route}')">
-  <div class="rv-left">
-    <div class="rv-time">
-      ${to12h(altTrain.time)}
-      <span class="badge">
-        ${getRouteText(altTrain.route)}
-      </span>
-    </div>
-  </div>
-</div>
-` : ''}
-
-<div class="rv-item ${isNext?'rv-next':''} ${isLastTrainToday && isNext ? 'last-train' : ''}"
-     onclick="openRouteDetail(${r.no}, '${route.value}')">
-  <div class="rv-left">
-    <div class="rv-time">
-      ${to12h(r.time)}
-      ${isNext ? '<span class="badge">⭐ NEXT</span>' : ''}
-    </div>
-    <div class="rv-sub">
-      ${stations[station.value][lang]} Station
-    </div>
-  </div>
-<div class="rv-no">
-    <span onclick="event.stopPropagation(); setNextTrainAlarmExact(20)"
-      style="cursor:pointer;font-size:20px;color:#2e7d32">
-🔔
-</span>
-  </div>
-</div>
-`;
-
-  }).join('');
-
- /* -------- NEXT TRAIN CARD -------- */
- const n = rows[nextIdx];
- const pf = (platforms[route.value]||{})[station.value] || '—';
-
-// Reset animation ONLY when train changes
-const trainKey = route.value + '-' + station.value + '-' + n.no;
-
-if (trainKey !== lastTrainKey) {
-  animatedProgress = 0;
-  lastTrainKey = trainKey;
-}
-
- const remainingMin = isTomorrow
-   ? (1440 - nowMin + n.m)
-   : (n.m - nowMin);
-
-const timeClass =
-  remainingMin <= 3
-    ? 'time-blink fast time-alert'
-    : remainingMin <= 10
-      ? 'time-blink time-alert'
-      : '';
-
-nextTrain.innerHTML = `
-<div class="next" style="${isLastTrainToday ? 'background:linear-gradient(135deg,#b71c1c,#e53935);border-left:5px solid #ffeb3b;' : ''}">
-  🚆 ${uiText[lang].nextTrain} ⭐ <b>${to12h(n.time)}</b>
-  ${isTomorrow ? (lang==='mr'?'(उद्या)':'(Tomorrow)') : ''}
-</div>
-
-${isLastTrainToday ? `
-<div style="margin-top:6px;font-size:14px;font-weight:600;color:#b71c1c">
-  ⚠️ ${lang==='mr'
-    ? 'आजची ही शेवटची ट्रेन आहे'
-    : 'This is the LAST train for today'}
-</div>` : ''}
-
-<small style="display:block;margin-top:6px;color:#555;font-size:15px">
-⏳ ${uiText[lang].arriving}
-   <span class="${timeClass}">
-     <b>${formatArrival(remainingMin)}</b>
-   </span><br>
-  🚉 ${uiText[lang].platform}: ${pf}
-</small>
-`;
-/* ===== PROGRESS BAR SIMULATION ===== */
-
-// 1️⃣ Find full train object
-const fullTrain = trains.find(t =>
-  t.no === n.no && t.route === route.value
-);
-
-if(fullTrain && !isTomorrow){
-
-  const stops = fullTrain.stops;
-  const stopCodes = Object.keys(stops);
-
-  // 2️⃣ Start & End time (USER-CENTRIC)
-const routeOrder = routeStations[route.value];
-const userIdx = routeOrder.indexOf(station.value);
-
-// Safety check
-if(userIdx <= 0) return;
-
-// journey only till USER station
-const journeyStops = routeOrder.slice(0, userIdx + 1);
-
-// start = route start, end = USER station
-const startTime = toMin(stops[journeyStops[0]]);
-const endTime   = toMin(stops[journeyStops[journeyStops.length - 1]]);
-
-  // 3️⃣ If train is between START and USER station
-if(nowMin >= startTime && nowMin <= endTime){
-
-    const total = endTime - startTime;
-    const elapsed = nowMin - startTime;
-
-    let progress = Math.round((elapsed / total) * 100);
-    progress = Math.max(0, Math.min(progress, 100));
-const targetProgress = progress;
-
-// Initialise animated progress on first load
-if (animatedProgress === 0) {
-  animatedProgress = targetProgress - 1; // start just behind
-  if (animatedProgress < 0) animatedProgress = 0;
-}
-
-   // 4️⃣ Last crossed station (only till USER station)
-let crossedStation = journeyStops[0];
-
-journeyStops.forEach(code => {
-  if(toMin(stops[code]) <= nowMin){
-    crossedStation = code;
-  }
-});
-
-    // 5️⃣ Append progress bar HTML
-    nextTrain.innerHTML += `
-    <div style="margin-top:10px">
-     <div style="font-size:13px;margin-bottom:4px">
-  🚦 ${uiText[lang].progress}:
-  	<span id="progressText">${Math.floor(animatedProgress)}%</span>
-	</div>
-
-      <div style="width:100%;height:8px;background:#e0e0e0;border-radius:6px;overflow:hidden">
-       <div id="progressFill" style="
-  width:0%;
-  height:100%;
-  background:linear-gradient(90deg,#4caf50,#81c784);">
-</div>
-      </div>
-
-<div style="font-size:12px;margin-top:4px;color:#444">
-  🚉 ${
-    remainingMin <= 0 && targetProgress >= 100
-      ? `${uiText[lang].arrived}: <b>${stations[station.value][lang]}</b>`
-      : `${uiText[lang].lastCrossed}: <b>${stations[crossedStation]?.[lang] || crossedStation}</b>`
-  }
-</div>
-
-<div style="font-size:11px;color:#777;margin-top:2px">
-  ⓘ ${uiText[lang].estimated}
-</div>
-    </div>
-    `;
-/* ===== SMOOTH CONTINUOUS ANIMATION ===== */
-
-clearInterval(progressTimer);
-
-const progressFill = document.getElementById('progressFill');
-
-// Smooth forward animation (no reset)
-progressTimer = setInterval(() => {
-
-  if (animatedProgress < targetProgress) {
-    animatedProgress += 0.2;
-    if (animatedProgress > targetProgress) {
-      animatedProgress = targetProgress;
-    }
-  }
-
-  progressFill.style.width = animatedProgress + '%';
-
-document.getElementById('progressText').innerText =
-  Math.floor(animatedProgress) + '%';
-
-  if (animatedProgress >= targetProgress) {
-    clearInterval(progressTimer);
-  }
-
-}, 1000);
-
-  }
-}
-
-}
-function setNextTrainAlarmExact(minBefore){
-  // Safety checks
-  if (!route.value || !station.value) {
-    alert("Please select route and station");
-    return;
-  }
-const customInput = document.getElementById("customMin");
-
-if (customInput) {
-  customInput.addEventListener("change", () => {
-    const m = parseInt(customInput.value);
-
-    if (isNaN(m) || m <= 0 || m > 60) {
-      alert("Please enter minutes between 1 and 60");
-      return;
-    }
-
-    setNextTrainAlarmExact(m);
-
-    // ✅ User confirmation (UX)
-    if (window.Android && Android.showToast) {
-      Android.showToast("🔔 Custom alarm set (" + m + " min before)");
-    }
-  });
-}
-  const now = new Date();
-  const nowMin = now.getHours()*60 + now.getMinutes();
-
-  const rows = trains
-    .filter(t => t.route === route.value && t.stops[station.value])
-    .map(t => ({
-      no: t.no,
-      time: t.stops[station.value],
-      m: toMin(t.stops[station.value])
-    }))
-    .sort((a,b)=>a.m-b.m);
-
-  if (!rows.length) {
-    alert("No trains available");
-    return;
-  }
-
-  let next = rows.find(r => r.m >= nowMin) || rows[0];
-
- alarmDate.setHours(hh, mm, 0, 0);
-
-  if (next.m < nowMin) {
-    alarmDate.setDate(alarmDate.getDate() + 1);
-  }
-
-  alarmDate = new Date(alarmDate.getTime() - minBefore*60*1000);
-
- // 🔥 Get full train object
-const fullTrain = trains.find(t =>
-  t.no === next.no && t.route === route.value
-);
-
-if(!fullTrain){
-  alert("Train data not found");
+  list.innerHTML='';
   return;
 }
 
-// 🔥 Route order
-const routeOrder = routeStations[route.value];
+      let nextIdx = rows.findIndex(r => r.m >= nowMin);
+      let isTomorrow = false;
 
-// 🔥 User station index
-const userIdx = routeOrder.indexOf(station.value);
+      if(nextIdx === -1){
+        nextIdx = 0;        // उद्याची पहिली train
+        isTomorrow = true;
+      }
 
-// 🔥 Stops till user station
-const journeyStops = routeOrder.slice(0, userIdx + 1);
+     const isLastTrainToday = (!isTomorrow && nextIdx === rows.length - 1);
 
-// 🔥 Prepare arrays
-const timesArr = [];
-const stationsArr = [];
+     setTimeout(()=>{
 
-journeyStops.forEach(code=>{
-  if(fullTrain.stops[code]){
-    timesArr.push(fullTrain.stops[code]);
-    stationsArr.push(code);
-  }
-});
+     const nextEl = document.querySelector('.rv-next');
 
-// 🔥 Convert to CSV
-const timesCsv = timesArr.join(",");
-const stationsCsv = stationsArr.join(",");
+     if(nextEl){
+       nextEl.scrollIntoView({
+         behavior: "smooth",
+         block: "center"
+       });
+     }
 
-// 🔥 Call Android tracking
-if(window.Android && Android.startTrainTracking){
+     },200);
 
-  Android.startTrainTracking(
-  timesArr.join(","),
-  stationsArr.join(","),
-  station.value,
-  minBefore,
-  "🚆 Uran Local"
-);
+     const listHeader = `
+       <div class="rv-item" style="font-weight:700;background:#f5f5f5;border-bottom:2px solid #ddd">
+         <div class="rv-left">
+           <div class="rv-time">⏰ Time</div>
+         </div>
+         <div class="rv-no">Boarding Station</div>
+       </div>
+     `;
 
-  if (Android.showToast) {
-    Android.showToast(
-      "🚆 Live tracking started (" + minBefore + " min before)"
-    );
-  }
+      /* -------- LIST (FULL TIMETABLE) -------- */
+     list.innerHTML =
+       listHeader +
+       rows.map((r,i)=>{
 
-}else{
-  alert("Android tracking not available");
-}
-}
-function applyAltRoute(newRoute){
+         const isNext = i === nextIdx;
+        const showAlt =
+       altTrain &&
+       i === nextIdx &&
+       altTrain.m < r.m;
 
-  const currentStation = station.value;
+     return `
+     ${showAlt ? `
+     <div class="rv-item alt-route"
+          onclick="applyAltRoute('${altTrain.route}')">
+       <div class="rv-left">
+         <div class="rv-time">
+           ${to12h(altTrain.time)}
+           <span class="badge">
+             ${getRouteText(altTrain.route)}
+           </span>
+         </div>
+       </div>
+     </div>
+     ` : ''}
 
-  route.value = newRoute;
-  updateStationsByRoute();
+     <div class="rv-item ${isNext?'rv-next':''} ${isLastTrainToday && isNext ? 'last-train' : ''}"
+          onclick="openRouteDetail(${r.no}, '${route.value}')">
+       <div class="rv-left">
+         <div class="rv-time">
+           ${to12h(r.time)}
+           ${isNext ? '<span class="badge">⭐ NEXT</span>' : ''}
+         </div>
+         <div class="rv-sub">
+           ${stations[station.value][lang]} Station
+         </div>
+       </div>
+          </div>
+     `;
 
-  // जर station त्या route मध्ये असेल तर keep करा
-  if (currentStation && stationExistsInRoute(newRoute, currentStation)) {
-    station.value = currentStation;
-  }
+       }).join('');
 
-  render();
-}
+      /* -------- NEXT TRAIN CARD -------- */
+      const n = rows[nextIdx];
+      const pf = (platforms[route.value]||{})[station.value] || '—';
 
-route.onchange = () => {
+     // Reset animation ONLY when train changes
+     const trainKey = route.value + '-' + station.value + '-' + n.no;
 
-  const prevStation = station.value; // आधी select केलेला station लक्षात ठेवा
+     if (trainKey !== lastTrainKey) {
+       animatedProgress = 0;
+       lastTrainKey = trainKey;
+     }
 
-  updateStationsByRoute();
+      const remainingMin = isTomorrow
+        ? (1440 - nowMin + n.m)
+        : (n.m - nowMin);
 
-  // जर तो station नवीन route मध्ये असेल तर reset करू नका
-  if (prevStation && stationExistsInRoute(route.value, prevStation)) {
-    station.value = prevStation;
-  }
+     const timeClass =
+       remainingMin <= 3
+         ? 'time-blink fast time-alert'
+         : remainingMin <= 10
+           ? 'time-blink time-alert'
+           : '';
 
-  render();
-};
+     nextTrain.innerHTML = `
+     <div class="next" style="${isLastTrainToday ? 'background:linear-gradient(135deg,#b71c1c,#e53935);border-left:5px solid #ffeb3b;' : ''}">
+       🚆 ${uiText[lang].nextTrain} ⭐ <b>${to12h(n.time)}</b>
+       ${isTomorrow ? (lang==='mr'?'(उद्या)':'(Tomorrow)') : ''}
+     </div>
 
-station.onchange = function(){
-  if(currentMode === "uran"){
-     render();
-  } 
-  else if(currentMode === "mumbai"){
-     loadMumbaiStationData();
-  }
-};
+     ${isLastTrainToday ? `
+     <div style="margin-top:6px;font-size:14px;font-weight:600;color:#b71c1c">
+       ⚠️ ${lang==='mr'
+         ? 'आजची ही शेवटची ट्रेन आहे'
+         : 'This is the LAST train for today'}
+     </div>` : ''}
 
-	function closeMenu(){
-  const box = document.getElementById('menuBox');
-  if(box){
-    box.style.display = 'none';
-  }
-}
-	
-/* ================= MENU ================= */
-// Hide menu when clicking outside
-document.addEventListener('click', function(e){
-  const menuBtn = document.getElementById('menuBtn');
-  const menuBox = document.getElementById('menuBox');
+     <small style="display:block;margin-top:6px;color:#555;font-size:15px">
+     ⏳ ${uiText[lang].arriving}
+        <span class="${timeClass}">
+          <b>${formatArrival(remainingMin)}</b>
+        </span><br>
+       🚉 ${uiText[lang].platform}: ${pf}
+     </small>
+     `;
+     /* ===== PROGRESS BAR SIMULATION ===== */
 
-if(!menuBtn.contains(e.target) && !menuBox.contains(e.target)){
-  menuBox.style.display = 'none';
-}
-});
+     // 1️⃣ Find full train object
+     const fullTrain = trains.find(t =>
+       t.no === n.no && t.route === route.value
+     );
 
-document.getElementById('menuBtn').onclick=(e)=>{
-  e.stopPropagation();
-  menuBox.style.display =
-    menuBox.style.display === 'block' ? 'none' : 'block';
-};
+     if(fullTrain && !isTomorrow){
 
-function enableNotification(){
- if("Notification"in window){
-  Notification.requestPermission().then(p=>{
-   if(p==="granted") new Notification("🚆 Notifications Enabled");
-  });
- }
-}
-function manualUpdate(){
- if('serviceWorker'in navigator){
-  navigator.serviceWorker.getRegistrations().then(r=>{
-   r.forEach(sw=>sw.unregister());
-   location.reload();
-  });
- }
-}
+       const stops = fullTrain.stops;
+       const stopCodes = Object.keys(stops);
 
-// ===== MUMBAI MODE =====
-function enableMumbaiMode(){
+       // 2️⃣ Start & End time (USER-CENTRIC)
+     const routeOrder = routeStations[route.value];
+     const userIdx = routeOrder.indexOf(station.value);
 
-  closeMenu(); // 🔥 FIRST CLOSE MENU
+     // Safety check
+     if(userIdx <= 0) return;
 
-  document.body.classList.add("mumbai-theme");
+     // journey only till USER station
+     const journeyStops = routeOrder.slice(0, userIdx + 1);
 
-  currentMode = "mumbai";
+     // start = route start, end = USER station
+     const startTime = toMin(stops[journeyStops[0]]);
+     const endTime   = toMin(stops[journeyStops[journeyStops.length - 1]]);
 
-   // Header text change
-  document.querySelector("header h2").innerText = 
-    "🚇 Mumbai Local Mode";
+       // 3️⃣ If train is between START and USER station
+     if(nowMin >= startTime && nowMin <= endTime){
 
-  // Hide Route dropdown
-  document.getElementById("route").style.display = "none";
+         const total = endTime - startTime;
+         const elapsed = nowMin - startTime;
 
-	// Hide normal station dropdown
-document.getElementById("station").style.display = "none";
+         let progress = Math.round((elapsed / total) * 100);
+         progress = Math.max(0, Math.min(progress, 100));
+     const targetProgress = progress;
 
-// Show new Mumbai search box
-document.getElementById("mumbaiStationBox").style.display = "block";
+     // Initialise animated progress on first load
+     if (animatedProgress === 0) {
+       animatedProgress = targetProgress - 1; // start just behind
+       if (animatedProgress < 0) animatedProgress = 0;
+     }
 
-  // Reset station dropdown
-  station.innerHTML = 
-    '<option value="">Select Mumbai Station</option>';
+        // 4️⃣ Last crossed station (only till USER station)
+     let crossedStation = journeyStops[0];
 
-  // Temporary demo stations
-  const demoStations = [
-{code:"CCG", name:"Churchgate"},
-{code:"MEL", name:"Marine Lines"},
-{code:"CRD", name:"Charni Road"},
-{code:"GTR", name:"Grant Road"},
-{code:"MMCT", name:"Mumbai Central"},
-{code:"MX", name:"Mahalakshmi"},
-{code:"LP", name:"Lower Parel"},
-{code:"PBHD", name:"Prabhadevi"},
-{code:"DR", name:"Dadar"},
-{code:"MRU", name:"Matunga Road"},
-{code:"MM", name:"Mahim Jn"},
-{code:"BA", name:"Bandra"},
-{code:"KHAR", name:"Khar Road"},
-{code:"STC", name:"Santacruz"},
-{code:"VLP", name:"Vile Parle"},
-{code:"ADH", name:"Andheri"},
-{code:"JOS", name:"Jogeshwari"},
-{code:"RMAR", name:"Ram Mandir"},
-{code:"GMN", name:"Goregaon"},
-{code:"MDD", name:"Malad"},
-{code:"KILE", name:"Kandivli"},
-{code:"BVI", name:"Borivali"},
-{code:"DIC", name:"Dahisar"},
-{code:"MIRA", name:"Mira Road"},
-{code:"BYR", name:"Bhayandar"},
-{code:"NIG", name:"Naigaon"},
-{code:"BSR", name:"Vasai Road"},
-{code:"NSP", name:"Nalla Sopara"},
-{code:"VR", name:"Virar"},
-{code:"VCSV", name:"Vaitarna"},
-{code:"SAH", name:"Saphale"},
-{code:"KLV", name:"Kelve Road"},
-{code:"PLG", name:"Palghar"},
-{code:"BOR", name:"Boisar"},
-{code:"VGN", name:"Vangaon"},
-{code:"DRD", name:"Dahanu Road"},
-{code:"CSMT", name:"CSMT"},
-{code:"MSD", name:"Masjid"},
-{code:"SNRD", name:"Sandhurst Road"},
-{code:"BY", name:"Byculla"},
-{code:"CHG", name:"Chinchpokli"},
-{code:"CRD", name:"Currey Road"},
-{code:"PR", name:"Parel"},
-{code:"DR", name:"Dadar"},
-{code:"MTN", name:"Matunga"},
-{code:"SIN", name:"Sion"},
-{code:"CLA", name:"Kurla"},
-{code:"VVH", name:"Vidyavihar"},
-{code:"GC", name:"Ghatkopar"},
-{code:"VK", name:"Vikhroli"},
-{code:"KJMG", name:"Kanjur Marg"},
-{code:"BND", name:"Bhandup"},
-{code:"NHU", name:"Nahur"},
-{code:"MLND", name:"Mulund"},
-{code:"TNA", name:"Thane"},
-{code:"KLVA", name:"Kalva"},
-{code:"MBQ", name:"Mumbra"},
-{code:"DIVA", name:"Diva"},
-{code:"KOPR", name:"Kopar"},
-{code:"DI", name:"Dombivli"},
-{code:"THK", name:"Thakurli"},
-{code:"KYN", name:"Kalyan"},
-{code:"VLDI", name:"Vithalwadi"},
-{code:"ULNR", name:"Ulhas Nagar"},
-{code:"ABH", name:"Ambernath"},
-{code:"BUD", name:"Badlapur"},
-{code:"VGI", name:"Vangani"},
-{code:"SHLU", name:"Shelu"},
-{code:"NRL", name:"Neral"},
-{code:"BVS", name:"Bhivpuri Road"},
-{code:"KJT", name:"Karjat"},
-{code:"PLD", name:"Palasdhari"},
-{code:"KLV", name:"Kelavli"},
-{code:"DLV", name:"Dolavli"},
-{code:"LWJ", name:"Lowjee"},
-{code:"KHPI", name:"Khopoli"},
-{code:"SHAD", name:"Shahad"},
-{code:"ABY", name:"Ambivli"},
-{code:"TLA", name:"Titwala"},
-{code:"KDV", name:"Khadavli"},
-{code:"VSD", name:"Vasind"},
-{code:"ASO", name:"Asangaon"},
-{code:"ATG", name:"Atgaon"},
-{code:"KRD", name:"Khardi"},
-{code:"KSRA", name:"Kasara"},
-{code:"CSMT", name:"CSMT"},
-{code:"MSD", name:"Masjid"},
-{code:"SNRD", name:"Sandhurst Road"},
-{code:"DKRD", name:"Dockyard Road"},
-{code:"RRD", name:"Reay Road"},
-{code:"CTGN", name:"Cotton Green"},
-{code:"SVE", name:"Sewri"},
-{code:"VDLR", name:"Vadala Road"},
-{code:"KCE", name:"Kings Circle"},
-{code:"MM", name:"Mahim Jn"},
-{code:"BA", name:"Bandra"},
-{code:"KHAR", name:"Khar Road"},
-{code:"STC", name:"Santacruz"},
-{code:"VLP", name:"Vile Parle"},
-{code:"ADH", name:"Andheri"},
-{code:"JOS", name:"Jogeshwari"},
-{code:"RMAR", name:"Ram Mandir"},
-{code:"GMN", name:"Goregaon"},
-{code:"GTBN", name:"GTB Nagar"},
-{code:"CHMB", name:"Chunabhatti"},
-{code:"CLA", name:"Kurla"},
-{code:"TKNG", name:"Tilaknagar"},
-{code:"CMBR", name:"Chembur"},
-{code:"GV", name:"Govandi"},
-{code:"MNKD", name:"Mankhurd"},
-{code:"VSH", name:"Vashi"},
-{code:"SNPD", name:"Sanpada"},
-{code:"JNJ", name:"Juinagar"},
-{code:"NEU", name:"Nerul"},
-{code:"SWDV", name:"Seawood Darave"},
-{code:"BEPR", name:"Belapur CBD"},
-{code:"KHAG", name:"Kharghar"},
-{code:"MANR", name:"Mansarovar"},
-{code:"KNDS", name:"Khandeshwar"},
-{code:"PNVL", name:"Panvel"},
-{code:"TUH", name:"Turbhe"},
-{code:"KPHN", name:"Kopar Khairane"},
-{code:"GNSL", name:"Ghansoli"},
-{code:"RABE", name:"Rabale"},
-{code:"AIRL", name:"Airoli"},
-{code:"DIGH", name:"Digha"},
-{code:"TRGR", name:"Targhar"},
-{code:"BMDR", name:"Baman Dongri"},
-{code:"KARP", name:"Kharkopar"},
-{code:"GAVHAN", name:"Gavhan"},
-{code:"SEMK", name:"Shemti Khar"},
-{code:"NESA", name:"Nhava Sheva"},
-{code:"DRGI", name:"Dronagiri"},
-{code:"URAN", name:"Uran"}
-];
+     journeyStops.forEach(code => {
+       if(toMin(stops[code]) <= nowMin){
+         crossedStation = code;
+       }
+     });
 
-demoStations.forEach(s=>{
+         // 5️⃣ Append progress bar HTML
+         nextTrain.innerHTML += `
+         <div style="margin-top:10px">
+          <div style="font-size:13px;margin-bottom:4px">
+       🚦 ${uiText[lang].progress}:
+           <span id="progressText">${Math.floor(animatedProgress)}%</span>
+         </div>
 
-  const opt = document.createElement("option");
-  opt.value = s.code;
-  opt.textContent = s.name;
-  station.appendChild(opt);
+           <div style="width:100%;height:8px;background:#e0e0e0;border-radius:6px;overflow:hidden">
+            <div id="progressFill" style="
+       width:0%;
+       height:100%;
+       background:linear-gradient(90deg,#4caf50,#81c784);">
+     </div>
+           </div>
 
-  // 🔥 station code → name map
-  mumbaiStationMap[s.code] = s.name;
+     <div style="font-size:12px;margin-top:4px;color:#444">
+       🚉 ${
+         remainingMin <= 0 && targetProgress >= 100
+           ? `${uiText[lang].arrived}: <b>${stations[station.value][lang]}</b>`
+           : `${uiText[lang].lastCrossed}: <b>${stations[crossedStation]?.[lang] || crossedStation}</b>`
+       }
+     </div>
 
-});
-  // Clear previous Uran data
-  nextTrain.innerHTML = "";
-  list.innerHTML = "";
-mumbaiStationsMaster = demoStationsMaster;
-renderStationList(mumbaiStationsMaster);
-}
+     <div style="font-size:11px;color:#777;margin-top:2px">
+       ⓘ ${uiText[lang].estimated}
+     </div>
+         </div>
+         `;
+     /* ===== SMOOTH CONTINUOUS ANIMATION ===== */
 
-function enableUranMode(){
+     clearInterval(progressTimer);
 
-  closeMenu(); // 🔥 FIRST CLOSE MENU
+     const progressFill = document.getElementById('progressFill');
 
-  document.body.classList.remove("mumbai-theme");
+     // Smooth forward animation (no reset)
+     progressTimer = setInterval(() => {
 
-  currentMode = "uran";
+       if (animatedProgress < targetProgress) {
+         animatedProgress += 0.2;
+         if (animatedProgress > targetProgress) {
+           animatedProgress = targetProgress;
+         }
+       }
 
-  // Header reset
-  document.querySelector("header h2").innerText = 
-    "🚆 Uran Local Timetable";
+       progressFill.style.width = animatedProgress + '%';
 
-  // Show route dropdown again
-  document.getElementById("route").style.display = "block";
-	document.getElementById("station").style.display = "block";
-document.getElementById("mumbaiStationBox").style.display = "none";
+     document.getElementById('progressText').innerText =
+       Math.floor(animatedProgress) + '%';
 
-  // Reset route selection
-  route.value = "";
+       if (animatedProgress >= targetProgress) {
+         clearInterval(progressTimer);
+       }
 
-  // Reset station dropdown
-  station.innerHTML = 
-    '<option value="">Boarding Station / स्टेशन निवडा</option>';
+     }, 1000);
 
-  // Clear data display
-  nextTrain.innerHTML = "";
-  list.innerHTML = "";
-}
+       }
+     }
 
-/* ================= CLOCK ================= */
-function updateClock(){
- clock.innerText='🕒 Current Time: '+
- new Date().toLocaleTimeString('en-IN',{hour12:true});
-}
-updateClock();
-setInterval(updateClock,1000);
+     }
+     function setNextTrainAlarmExact(minBefore){
+       // Safety checks
+       if (!route.value || !station.value) {
+         alert("Please select route and station");
+         return;
+       }
+       const now = new Date();
+       const nowMin = now.getHours()*60 + now.getMinutes();
 
-let lastMinute = new Date().getMinutes();
+       const rows = trains
+  .filter(t => {
 
-setInterval(() => {
-  const now = new Date();
-  if(now.getMinutes() !== lastMinute){
-    lastMinute = now.getMinutes();
+    // route match + station exist
+    if(!(t.route === route.value && t.stops[station.value])) return false;
 
-    if(currentMode === "uran"){
-      render();
-    } 
-    else if(currentMode === "mumbai" && !isFullDayView){
-  loadMumbaiStationData();
-}
+    // 🔥 destination check
+    const routeStops = routeStations[t.route];
+    const lastStop = routeStops[routeStops.length - 1];
 
-  }
-}, 1000);
+    if(station.value === lastStop){
+      return false; // ❌ skip destination trains
+    }
 
-// ===== MUMBAI STATION DATA LOADER =====
+    return true;
+  })
+  .map(t => ({
+    no: t.no,
+    time: t.stops[station.value],
+    m: toMin(t.stops[station.value])
+  }))
+  .sort((a,b)=>a.m-b.m);
+
+       if (!rows.length) {
+         alert("No trains available");
+         return;
+       }
+
+       let next = rows.find(r => r.m >= nowMin) || rows[0];
+
+     let [hh, mm] = next.time.split(":").map(Number);
+
+     let alarmDate = new Date();
+     alarmDate.setHours(hh, mm, 0, 0);
+
+     if (next.m < nowMin) {
+       alarmDate.setDate(alarmDate.getDate() + 1);
+     }
+
+     alarmDate = new Date(alarmDate.getTime() - minBefore*60*1000);
+      // 🔥 Get full train object
+     const fullTrain = trains.find(t =>
+       t.no === next.no && t.route === route.value
+     );
+
+     if(!fullTrain){
+       alert("Train data not found");
+       return;
+     }
+
+     // 🔥 Route order
+     const routeOrder = routeStations[route.value];
+
+     // 🔥 User station index
+     const userIdx = routeOrder.indexOf(station.value);
+
+     // 🔥 Stops till user station
+     const journeyStops = routeOrder.slice(0, userIdx + 1);
+
+     // 🔥 Prepare arrays
+     const timesArr = [];
+     const stationsArr = [];
+
+     journeyStops.forEach(code=>{
+       if(fullTrain.stops[code]){
+         timesArr.push(fullTrain.stops[code]);
+         stationsArr.push(code);
+       }
+     });
+
+     // 🔥 Convert to CSV
+     const timesCsv = timesArr.join(",");
+     const stationsCsv = stationsArr.join(",");
+
+     // 🔥 Call Android tracking
+     if(window.Android && Android.startTrainTracking){
+
+       Android.startTrainTracking(
+       timesArr.join(","),
+       stationsArr.join(","),
+       station.value,
+       minBefore,
+       "🚆 Uran Local"
+     );
+
+       if (Android.showToast) {
+         Android.showToast(
+           "🚆 Live tracking started (" + minBefore + " min before)"
+         );
+       }
+
+     }else{
+       alert("Android tracking not available");
+     }
+     }
+     function applyAltRoute(newRoute){
+
+       const currentStation = station.value;
+
+       route.value = newRoute;
+       updateStationsByRoute();
+
+       // जर station त्या route मध्ये असेल तर keep करा
+       if (currentStation && stationExistsInRoute(newRoute, currentStation)) {
+         station.value = currentStation;
+       }
+
+       render();
+     }
+
+     route.onchange = () => {
+
+       const prevStation = station.value; // आधी select केलेला station लक्षात ठेवा
+
+       updateStationsByRoute();
+
+       // जर तो station नवीन route मध्ये असेल तर reset करू नका
+       if (prevStation && stationExistsInRoute(route.value, prevStation)) {
+         station.value = prevStation;
+       }
+
+       render();
+     };
+
+     station.onchange = function(){
+       if(currentMode === "uran"){
+          render();
+       }
+       else if(currentMode === "mumbai"){
+          loadMumbaiStationData();
+       }
+     };
+
+         function closeMenu(){
+       const box = document.getElementById('menuBox');
+       if(box){
+         box.style.display = 'none';
+       }
+     }
+
+     /* ================= MENU ================= */
+     // Hide menu when clicking outside
+     document.addEventListener('click', function(e){
+       const menuBtn = document.getElementById('menuBtn');
+       const menuBox = document.getElementById('menuBox');
+
+     if(!menuBtn.contains(e.target) && !menuBox.contains(e.target)){
+       menuBox.style.display = 'none';
+     }
+     });
+
+     document.getElementById('menuBtn').onclick=(e)=>{
+       e.stopPropagation();
+       menuBox.style.display =
+         menuBox.style.display === 'block' ? 'none' : 'block';
+     };
+
+     function enableNotification(){
+      if("Notification"in window){
+       Notification.requestPermission().then(p=>{
+        if(p==="granted") new Notification("🚆 Notifications Enabled");
+       });
+      }
+     }
+     function manualUpdate(){
+      if('serviceWorker'in navigator){
+       navigator.serviceWorker.getRegistrations().then(r=>{
+        r.forEach(sw=>sw.unregister());
+        location.reload();
+       });
+      }
+     }
+
+     // ===== MUMBAI MODE =====
+     function enableMumbaiMode(){
+document.getElementById("smallAds").style.display = "none";
+       closeMenu(); // 🔥 FIRST CLOSE MENU
+
+       document.body.classList.add("mumbai-theme");
+
+       currentMode = "mumbai";
+
+        // Header text change
+       document.querySelector("header h2").innerText =
+         "🚇 Mumbai Local Mode";
+
+       // Hide Route dropdown
+       document.getElementById("route").style.display = "none";
+
+         // Hide normal station dropdown
+     document.getElementById("station").style.display = "none";
+
+     // Show new Mumbai search box
+     document.getElementById("mumbaiStationBox").style.display = "block";
+
+       // Reset station dropdown
+       station.innerHTML =
+         '<option value="">Select Mumbai Station</option>';
+
+       // Temporary demo stations
+       const demoStations = [
+     {code:"CCG", name:"Churchgate"},
+     {code:"MEL", name:"Marine Lines"},
+     {code:"CRD", name:"Charni Road"},
+     {code:"GTR", name:"Grant Road"},
+     {code:"MMCT", name:"Mumbai Central"},
+     {code:"MX", name:"Mahalakshmi"},
+     {code:"LP", name:"Lower Parel"},
+     {code:"PBHD", name:"Prabhadevi"},
+     {code:"DR", name:"Dadar"},
+     {code:"MRU", name:"Matunga Road"},
+     {code:"MM", name:"Mahim Jn"},
+     {code:"BA", name:"Bandra"},
+     {code:"KHAR", name:"Khar Road"},
+     {code:"STC", name:"Santacruz"},
+     {code:"VLP", name:"Vile Parle"},
+     {code:"ADH", name:"Andheri"},
+     {code:"JOS", name:"Jogeshwari"},
+     {code:"RMAR", name:"Ram Mandir"},
+     {code:"GMN", name:"Goregaon"},
+     {code:"MDD", name:"Malad"},
+     {code:"KILE", name:"Kandivli"},
+     {code:"BVI", name:"Borivali"},
+     {code:"DIC", name:"Dahisar"},
+     {code:"MIRA", name:"Mira Road"},
+     {code:"BYR", name:"Bhayandar"},
+     {code:"NIG", name:"Naigaon"},
+     {code:"BSR", name:"Vasai Road"},
+     {code:"NSP", name:"Nalla Sopara"},
+     {code:"VR", name:"Virar"},
+     {code:"VCSV", name:"Vaitarna"},
+     {code:"SAH", name:"Saphale"},
+     {code:"KLV", name:"Kelve Road"},
+     {code:"PLG", name:"Palghar"},
+     {code:"BOR", name:"Boisar"},
+     {code:"VGN", name:"Vangaon"},
+     {code:"DRD", name:"Dahanu Road"},
+     {code:"CSMT", name:"CSMT"},
+     {code:"MSD", name:"Masjid"},
+     {code:"SNRD", name:"Sandhurst Road"},
+     {code:"BY", name:"Byculla"},
+     {code:"CHG", name:"Chinchpokli"},
+     {code:"CRD", name:"Currey Road"},
+     {code:"PR", name:"Parel"},
+     {code:"DR", name:"Dadar"},
+     {code:"MTN", name:"Matunga"},
+     {code:"SIN", name:"Sion"},
+     {code:"CLA", name:"Kurla"},
+     {code:"VVH", name:"Vidyavihar"},
+     {code:"GC", name:"Ghatkopar"},
+     {code:"VK", name:"Vikhroli"},
+     {code:"KJMG", name:"Kanjur Marg"},
+     {code:"BND", name:"Bhandup"},
+     {code:"NHU", name:"Nahur"},
+     {code:"MLND", name:"Mulund"},
+     {code:"TNA", name:"Thane"},
+     {code:"KLVA", name:"Kalva"},
+     {code:"MBQ", name:"Mumbra"},
+     {code:"DIVA", name:"Diva"},
+     {code:"KOPR", name:"Kopar"},
+     {code:"DI", name:"Dombivli"},
+     {code:"THK", name:"Thakurli"},
+     {code:"KYN", name:"Kalyan"},
+     {code:"VLDI", name:"Vithalwadi"},
+     {code:"ULNR", name:"Ulhas Nagar"},
+     {code:"ABH", name:"Ambernath"},
+     {code:"BUD", name:"Badlapur"},
+     {code:"VGI", name:"Vangani"},
+     {code:"SHLU", name:"Shelu"},
+     {code:"NRL", name:"Neral"},
+     {code:"BVS", name:"Bhivpuri Road"},
+     {code:"KJT", name:"Karjat"},
+     {code:"PLD", name:"Palasdhari"},
+     {code:"KLV", name:"Kelavli"},
+     {code:"DLV", name:"Dolavli"},
+     {code:"LWJ", name:"Lowjee"},
+     {code:"KHPI", name:"Khopoli"},
+     {code:"SHAD", name:"Shahad"},
+     {code:"ABY", name:"Ambivli"},
+     {code:"TLA", name:"Titwala"},
+     {code:"KDV", name:"Khadavli"},
+     {code:"VSD", name:"Vasind"},
+     {code:"ASO", name:"Asangaon"},
+     {code:"ATG", name:"Atgaon"},
+     {code:"KRD", name:"Khardi"},
+     {code:"KSRA", name:"Kasara"},
+     {code:"CSMT", name:"CSMT"},
+     {code:"MSD", name:"Masjid"},
+     {code:"SNRD", name:"Sandhurst Road"},
+     {code:"DKRD", name:"Dockyard Road"},
+     {code:"RRD", name:"Reay Road"},
+     {code:"CTGN", name:"Cotton Green"},
+     {code:"SVE", name:"Sewri"},
+     {code:"VDLR", name:"Vadala Road"},
+     {code:"KCE", name:"Kings Circle"},
+     {code:"MM", name:"Mahim Jn"},
+     {code:"BA", name:"Bandra"},
+     {code:"KHAR", name:"Khar Road"},
+     {code:"STC", name:"Santacruz"},
+     {code:"VLP", name:"Vile Parle"},
+     {code:"ADH", name:"Andheri"},
+     {code:"JOS", name:"Jogeshwari"},
+     {code:"RMAR", name:"Ram Mandir"},
+     {code:"GMN", name:"Goregaon"},
+     {code:"GTBN", name:"GTB Nagar"},
+     {code:"CHMB", name:"Chunabhatti"},
+     {code:"CLA", name:"Kurla"},
+     {code:"TKNG", name:"Tilaknagar"},
+     {code:"CMBR", name:"Chembur"},
+     {code:"GV", name:"Govandi"},
+     {code:"MNKD", name:"Mankhurd"},
+     {code:"VSH", name:"Vashi"},
+     {code:"SNPD", name:"Sanpada"},
+     {code:"JNJ", name:"Juinagar"},
+     {code:"NEU", name:"Nerul"},
+     {code:"SWDV", name:"Seawood Darave"},
+     {code:"BEPR", name:"Belapur CBD"},
+     {code:"KHAG", name:"Kharghar"},
+     {code:"MANR", name:"Mansarovar"},
+     {code:"KNDS", name:"Khandeshwar"},
+     {code:"PNVL", name:"Panvel"},
+     {code:"TUH", name:"Turbhe"},
+     {code:"KPHN", name:"Kopar Khairane"},
+     {code:"GNSL", name:"Ghansoli"},
+     {code:"RABE", name:"Rabale"},
+     {code:"AIRL", name:"Airoli"},
+     {code:"DIGH", name:"Digha"},
+     {code:"TRGR", name:"Targhar"},
+     {code:"BMDR", name:"Baman Dongri"},
+     {code:"KARP", name:"Kharkopar"},
+     {code:"GAVHAN", name:"Gavhan"},
+     {code:"SEMK", name:"Shemti Khar"},
+     {code:"NESA", name:"Nhava Sheva"},
+     {code:"DRGI", name:"Dronagiri"},
+     {code:"URAN", name:"Uran"}
+     ];
+
+     demoStations.forEach(s=>{
+
+       const opt = document.createElement("option");
+       opt.value = s.code;
+       opt.textContent = s.name;
+       station.appendChild(opt);
+
+       // 🔥 station code → name map
+       mumbaiStationMap[s.code] = s.name;
+
+     });
+       // Clear previous Uran data
+       nextTrain.innerHTML = "";
+       list.innerHTML = "";
+     mumbaiStationsMaster = demoStationsMaster;
+     renderStationList(mumbaiStationsMaster);
+     }
+
+     function enableUranMode(){
+
+       closeMenu(); // 🔥 FIRST CLOSE MENU
+
+       document.body.classList.remove("mumbai-theme");
+
+       currentMode = "uran";
+
+       // Header reset
+       document.querySelector("header h2").innerText =
+         "🚆 Uran Local Timetable";
+
+       // Show route dropdown again
+       document.getElementById("route").style.display = "block";
+         document.getElementById("station").style.display = "block";
+     document.getElementById("mumbaiStationBox").style.display = "none";
+
+       // Reset route selection
+       route.value = "";
+
+       // Reset station dropdown
+       station.innerHTML =
+         '<option value="">Boarding Station / स्टेशन निवडा</option>';
+
+       // Clear data display
+       nextTrain.innerHTML = "";
+       list.innerHTML = "";
+     }
+
+     /* ================= CLOCK ================= */
+     function updateClock(){
+      clock.innerText='🕒 Current Time: '+
+      new Date().toLocaleTimeString('en-IN',{hour12:true});
+     }
+     updateClock();
+     setInterval(updateClock,1000);
+
+     let lastMinute = new Date().getMinutes();
+
+     setInterval(() => {
+       const now = new Date();
+       if(now.getMinutes() !== lastMinute){
+         lastMinute = now.getMinutes();
+
+         if(currentMode === "uran"){
+           render();
+         }
+         else if(currentMode === "mumbai" && !isFullDayView){
+       loadMumbaiStationData();
+     }
+
+       }
+     }, 1000);
+
+     // ===== MUMBAI STATION DATA LOADER =====
 function loadMumbaiStationData(){
 
   if(!station.value) return;
 
-  // 🔥 Prepare all timetable fetch promises (table-1 to table-14)
-  const timetableFiles = [];
-
-for(let i = 1; i <= 60; i++){   // 60 ठेवले future safe साठी
-  timetableFiles.push(
-    fetch(`data/timetables/table-${i}.csv`)
-      .then(r => r.ok ? r.text() : null)
-      .catch(()=> null)
-  );
-}
-
   Promise.all([
-    fetch("data/train_master.csv").then(r=>r.text()),
-    fetch("data/platform_master.csv").then(r=>r.text()),
-    ...timetableFiles
-  ])
-  .then(([trainCSV, platformCSV, ...timetableCSVs]) => {
+    fetch("data/train_master.csv").then(r=>r.text())
+   ])
+  .then(async ([trainCSV]) => {
 
     trainMaster = parseCSV(trainCSV);
-    platformMaster = parseCSV(platformCSV);
+   
+    // 🔥 इथे main change
+    timetableData = await loadAllTimetables();
 
-    // 🔥 Merge ALL timetable files
-    timetableData = [];
-
-    timetableCSVs.forEach(csv => {
-  if(!csv) return;   // Skip missing files
-  const parsed = parseCSV(csv);
-  timetableData = timetableData.concat(parsed);
-});
-
-// Render station list
-renderStationList(mumbaiStationsMaster);
     processMumbaiFromCSV();
   });
+
 }
+    function isTrainRunningToday(train){
 
-function isTrainRunningToday(train){
+       const today = new Date().getDay();
 
-  const today = new Date().getDay();
+       if(!train.runs_on || train.runs_on === "Daily"){
+         return true;
+       }
 
-  if(!train.runs_on || train.runs_on === "Daily"){
-    return true;
-  }
+       if(train.runs_on === "Mon-Sat"){
+         return today !== 0;
+       }
 
-  if(train.runs_on === "Mon-Sat"){
-    return today !== 0;
-  }
+       return true;
+     }
 
-  return true;
-}
-	
-function processMumbaiFromCSV(){
+    function processMumbaiFromCSV(){
 
   const selectedStation = station.value;
   const now = new Date();
@@ -1807,7 +1858,7 @@ function processMumbaiFromCSV(){
   let platformMap = {};
 
   const stationRows = timetableData.filter(
-    r => r["Train No."] === selectedStation
+    r => r["Station"] === selectedStation
   );
 
   if(stationRows.length === 0) return;
@@ -1816,16 +1867,19 @@ function processMumbaiFromCSV(){
 
     Object.keys(stationRow).forEach(trainNo => {
 
-      if(trainNo === "Train No.") return;
+      // ✅ skip headers
+      if(trainNo === "Station" || trainNo === "platform") return;
 
       const time = stationRow[trainNo];
-      if(!time) return;
+      if(!time || time === "-") return;
 
-      const trainMeta = trainMaster.find(
-        t => t.train_no == trainNo
-      );
-
+      const trainMeta = trainMaster.find(t => t.train_no == trainNo);
       if(!trainMeta) return;
+        const platform = stationRow["platform"] || "?";
+
+      // ❌ skip destination
+      const selectedStationName = mumbaiStationMap[selectedStation];
+      if(trainMeta.destination === selectedStationName) return;
 
       if(!isTrainRunningToday(trainMeta)) return;
 
@@ -1836,23 +1890,14 @@ function processMumbaiFromCSV(){
         trainMin += 1440;
       }
 
-     const platformRow = platformMaster.find(
-  p => p.route === trainMeta.route &&
-       p.station === selectedStation
-);
-
-      if(!platformRow) return;
-
-      const platform = platformRow.platform;
-
-      if(
+     if(
         !platformMap[platform] ||
         trainMin < platformMap[platform].timeMin
       ){
         platformMap[platform] = {
           trainNo: trainNo,
           route: trainMeta.route,
-          destination: trainMeta.destination, // 🔥 Direct from master
+          destination: trainMeta.destination,
           time: time,
           timeMin: trainMin
         };
@@ -1863,150 +1908,160 @@ function processMumbaiFromCSV(){
   });
 
   renderMumbaiPlatforms(platformMap);
-}	
-	function renderStationList(list){
+}         
+    function renderStationList(list){
 
-  const container = document.getElementById("stationList");
+       const container = document.getElementById("stationList");
 
-  container.innerHTML = list.map(st => {
+       container.innerHTML = list.map(st => {
 
-    // find matching option from dropdown
-    const option = Array.from(station.options)
-      .find(o => o.textContent === st);
+         // find matching option from dropdown
+         const option = Array.from(station.options)
+           .find(o => o.textContent === st);
 
-    if(!option) return "";
+         if(!option) return "";
 
-    return `
-      <div class="station-item"
-           onclick="selectMumbaiStation('${option.value}', '${st}')">
-        ${st}
-      </div>
-    `;
-  }).join('');
-}
-	function selectMumbaiStation(code, name){
+         return `
+           <div class="station-item"
+                onclick="selectMumbaiStation('${option.value}', '${st}')">
+             ${st}
+           </div>
+         `;
+       }).join('');
+     }
+         function selectMumbaiStation(code, name){
 
-  station.value = code;
+       station.value = code;
 
-  const searchInput = document.getElementById("stationSearch");
-  const stationList = document.getElementById("stationList");
+       const searchInput = document.getElementById("stationSearch");
+       const stationList = document.getElementById("stationList");
 
-  searchInput.value = name;
+       searchInput.value = name;
 
-  // 🔥 Collapse list after selection
-  stationList.style.display = "none";
+       // 🔥 Collapse list after selection
+       stationList.style.display = "none";
+             document.getElementById("smallAds").style.display = "block";
+  document.getElementById("rotatingAds").style.display = "block";
+  document.getElementById("runningAd").style.display = "flex";
 
-  loadMumbaiStationData();
-}
-function renderSingleMumbaiTrain(train){
+       loadMumbaiStationData();
+     }
+     function renderSingleMumbaiTrain(train){
 
-  if(!train){
+       if(!train){
 
-  let msg = "No more trains today";
+       let msg = "No more trains today";
 
-  if(sundayWarning){
-     msg += "<br><small style='color:red'>Will not run on Sunday / Holiday</small>";
+       if(sundayWarning){
+          msg += "<br><small style='color:red'>Will not run on Sunday / Holiday</small>";
+       }
+
+       nextTrain.innerHTML = msg;
+       list.innerHTML = "";
+       return;
+     }
+       const now = new Date();
+       const nowMin = now.getHours()*60 + now.getMinutes();
+       const remaining = train.timeMin - nowMin;
+
+       // 🔥 REMOVE NEXT TRAIN HEADER COMPLETELY
+       nextTrain.innerHTML = "";
+
+       list.innerHTML = `
+         <div class="rv-item rv-next"
+          onclick="openPlatformSchedule('${train.platform}')">
+           <div class="rv-left">
+             <div class="rv-time">
+               Platform ${train.platform}
+             </div>
+             <div class="rv-sub">
+               ${train.destination}
+             </div>
+           </div>
+           <div class="rv-no">
+             ${to12h(train.time)} <br>
+             <small>${formatArrival(remaining)}</small>
+           </div>
+         </div>
+       `;
+     }
+
+     function renderMumbaiPlatforms(platformMap){
+      isFullDayView = false;   // 🔥 back to overview screen
+         if(smallAds.length){
+    document.getElementById("smallAds").style.display = "block";
   }
+       if(Object.keys(platformMap).length === 0){
 
-  nextTrain.innerHTML = msg;
-  list.innerHTML = "";
-  return;
-}
-  const now = new Date();
-  const nowMin = now.getHours()*60 + now.getMinutes();
-  const remaining = train.timeMin - nowMin;
+         let msg = "No upcoming trains";
 
-  // 🔥 REMOVE NEXT TRAIN HEADER COMPLETELY
-  nextTrain.innerHTML = "";
+         if(sundayWarning){
+            msg += "<br><small style='color:red'>Will not run on Sunday / Holiday</small>";
+         }
 
-  list.innerHTML = `
-    <div class="rv-item rv-next"
-     onclick="openPlatformSchedule('${train.platform}')">
-      <div class="rv-left">
-        <div class="rv-time">
-          Platform ${train.platform}
-        </div>
-        <div class="rv-sub">
-          ${train.destination}
-        </div>
-      </div>
-      <div class="rv-no">
-        ${to12h(train.time)} <br>
-        <small>${formatArrival(remaining)}</small>
-      </div>
-    </div>
-  `;
-}
+         nextTrain.innerHTML = msg;
+         list.innerHTML = "";
+         return;
+       }
 
-function renderMumbaiPlatforms(platformMap){
- isFullDayView = false;   // 🔥 back to overview screen
-  if(Object.keys(platformMap).length === 0){
+      nextTrain.innerHTML = `
+     <div style="
+       font-size:16px;
+       font-weight:700;
+       margin-top:2px;
+       padding:4px 0;
+     ">
+       🚇 Platform Wise Next Trains
+     </div>
+     `;
 
-    let msg = "No upcoming trains";
+       const sortedPlatforms = Object.keys(platformMap)
+         .sort((a,b)=>a.localeCompare(b, undefined, {numeric:true}));
 
-    if(sundayWarning){
-       msg += "<br><small style='color:red'>Will not run on Sunday / Holiday</small>";
-    }
+       const now = new Date();
+       const nowMin = now.getHours()*60 + now.getMinutes();
 
-    nextTrain.innerHTML = msg;
-    list.innerHTML = "";
-    return;
-  }
+       list.innerHTML = sortedPlatforms.map(p=>{
 
- nextTrain.innerHTML = `
-<div style="
-  font-size:16px;
-  font-weight:700;
-  margin-top:2px;
-  padding:4px 0;
-">
-  🚇 Platform Wise Next Trains
-</div>
-`;
+         const t = platformMap[p];
 
-  const sortedPlatforms = Object.keys(platformMap)
-    .sort((a,b)=>a.localeCompare(b, undefined, {numeric:true}));
+         return `
+           <div class="rv-item rv-next"
+                onclick="openPlatformSchedule('${p}')">
 
-  const now = new Date();
-  const nowMin = now.getHours()*60 + now.getMinutes();
+             <div class="rv-left">
+               <div class="rv-time">
+                 Platform ${p}
+               </div>
 
-  list.innerHTML = sortedPlatforms.map(p=>{
+               <div class="rv-sub">
+                 ${t.destination}
+               </div>
+             </div>
 
-    const t = platformMap[p];
+            <div class="rv-no" style="text-align:right">
+       ${to12h(t.time)} <br>
+       <small>${formatArrival(t.timeMin - nowMin)}</small>
+     </div>
 
-    return `
-      <div class="rv-item rv-next"
-           onclick="openPlatformSchedule('${p}')">
+           </div>
+         `;
 
-        <div class="rv-left">
-          <div class="rv-time">
-            Platform ${p}
-          </div>
-
-          <div class="rv-sub">
-            ${t.destination}
-          </div>
-        </div>
-
-       <div class="rv-no" style="text-align:right">
-  ${to12h(t.time)} <br>
-  <small>${formatArrival(t.timeMin - nowMin)}</small>
-</div>
-
-      </div>
-    `;
-
-  }).join('');
-}
+       }).join('');
+     }
 function openPlatformSchedule(platformNo){
-isFullDayView = true;   // 🔥 user is in full day view
-	history.pushState({page:"fullDay"}, "");
+
+  isFullDayView = true;
+  document.getElementById("smallAds").style.display = "none";
+
+  history.pushState({page:"fullDay"}, "");
+
   const selectedStation = station.value;
   const now = new Date();
   const nowMin = now.getHours()*60 + now.getMinutes();
 
   const stationRows = timetableData.filter(
-    r => r["Train No."] === selectedStation
+    r => r["Station"] === selectedStation
   );
 
   if(stationRows.length === 0) return;
@@ -2017,10 +2072,11 @@ isFullDayView = true;   // 🔥 user is in full day view
 
     Object.keys(stationRow).forEach(trainNo => {
 
-      if(trainNo === "Train No.") return;
+      // ✅ correct header skip
+      if(trainNo === "Station" || trainNo === "platform") return;
 
       const time = stationRow[trainNo];
-      if(!time) return;
+      if(!time || time === "-") return;
 
       const trainMeta = trainMaster.find(
         t => t.train_no == trainNo
@@ -2028,447 +2084,451 @@ isFullDayView = true;   // 🔥 user is in full day view
 
       if(!trainMeta) return;
 
+      const selectedStationName = mumbaiStationMap[selectedStation];
+
+      // ❌ skip destination
+      if(trainMeta.destination === selectedStationName){
+        return;
+      }
+
       if(!isTrainRunningToday(trainMeta)) return;
 
-      const platformRow = platformMaster.find(
-        p => p.route === trainMeta.route &&
-             p.station === selectedStation
-      );
+      // ✅ NEW platform logic (CSV मधून)
+      const platform = stationRow["platform"] || "?";
 
-      if(!platformRow) return;
-
-      // 🔥 Only filter by platform
-      if(platformRow.platform != platformNo) return;
+      // 🔥 ONLY filter by clicked platform
+      if(platform != platformNo) return;
 
       const [h,m] = time.split(":").map(Number);
       const trainMin = h*60 + m;
 
-     fullList.push({
-  trainNo: trainNo,
-  time,
-  trainMin,
-  destination: trainMeta.destination,
-  route: trainMeta.route
-});
+      fullList.push({
+        trainNo: trainNo,
+        time,
+        trainMin,
+        destination: trainMeta.destination,
+        route: trainMeta.route
+      });
 
     });
 
   });
 
-  // 🔥 Sort by time
+  // sort
   fullList.sort((a,b)=>a.trainMin - b.trainMin);
 
   nextTrain.innerHTML = `
-<div style="
-  font-size:16px;
-  font-weight:700;
-  margin-top:2px;
-  padding:4px 0;
-">
- 🚇 Platform ${platformNo} – Full Day Schedule
+    <div style="font-size:16px;font-weight:700;margin-top:2px;padding:4px 0;">
+      🚇 Platform ${platformNo} – Full Day Schedule
     </div>
   `;
 
- list.innerHTML = fullList.map((t,i)=>{
+  list.innerHTML = fullList.map((t,i)=>{
 
-  const isPast = t.trainMin < nowMin;
+    const isPast = t.trainMin < nowMin;
 
-  const isCurrent =
-    i === fullList.findIndex(x => x.trainMin >= nowMin);
+    const isCurrent =
+      i === fullList.findIndex(x => x.trainMin >= nowMin);
 
-  return `
-   <div class="rv-item"
-     id="${isCurrent ? 'currentTrainItem' : ''}"
-     style="${isPast?'opacity:.5':''}"
-     onclick="openMumbaiRouteDetail('${t.trainNo}','${t.route}')">
-      <div class="rv-left">
-        <div class="rv-time">
-          ${to12h(t.time)}
-        </div>
-        <div class="rv-sub">
-          ${t.destination}
-        </div>
-      </div>
-    </div>
-  `;
-}).join('');
-	setTimeout(()=>{
-  const el = document.getElementById("currentTrainItem");
-  if(el){
-    el.scrollIntoView({
-      behavior:"smooth",
-      block:"center"
-    });
-  }
-},200);
-}
-	function openRouteDetail(trainNo, routeCode){
+    return `
+      <div class="rv-item"
+        id="${isCurrent ? 'currentTrainItem' : ''}"
+        style="${isPast?'opacity:.5':''}"
+        onclick="openMumbaiRouteDetail('${t.trainNo}','${t.route}','${platformNo}')">
 
-  const screen = document.getElementById('routeDetailScreen');
-  const content = document.getElementById('routeDetailContent');
-
-  const train = trains.find(t =>
-    t.no == trainNo && t.route === routeCode
-  );
-
-  if(!train) return;
-
-  const routeOrder = routeStations[routeCode];
-
-  const now = new Date();
-  const nowMin = now.getHours()*60 + now.getMinutes();
-
-  content.innerHTML = `
-    <div style="position:relative;">
-
-    <!-- Vertical Line -->
-<div style="
-  position:absolute;
-  left:50%;
-  top:18px;
-  bottom:18px;
-  width:2px;
-  background:#bbb;
-  transform:translateX(-50%);
-"></div>
-
-		${routeOrder.map((code,idx) => {
-
-  if(!train.stops[code]) return '';
-
-  const timeMin = toMin(train.stops[code]);
-  const time = to12h(train.stops[code]);
-
- const isFirst = idx === 0;
-const isLast = idx === routeOrder.length - 1;
-
-let dotColor = "#fff";
-let textColor = "#fff";
-
-/* FIRST & LAST STATION COLORS */
-if(isFirst){
-  dotColor = "#00c853";   // green
-}
-
-if(isLast){
-  dotColor = "#ff1744";   // red
-}
-
-/* PAST STATION FADE */
-if(timeMin < nowMin){
-  dotColor = "#777";
-  textColor = "#888";
-}
-
-/* CURRENT TRAIN POSITION */
-if(Math.abs(timeMin - nowMin) <= 1){
-  dotColor = "#00ff00";
-  textColor = "#00ff00";
-}
- 
-	return `
-  <div style="
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    margin:18px 0;
-    position:relative;
-  ">
-
-    ${!isFirst ? `
-    <div style="
-      position:absolute;
-      left:50%;
-      top:-18px;
-      height:18px;
-      width:2px;
-      background:#bbb;
-      transform:translateX(-50%);
-    "></div>` : ``}
-
-    ${!isLast ? `
-    <div style="
-      position:absolute;
-      left:50%;
-      bottom:-18px;
-      height:18px;
-      width:2px;
-      background:#bbb;
-      transform:translateX(-50%);
-    "></div>` : ``}
-
-    <div style="
-      width:45%;
-      text-align:right;
-      padding-right:15px;
-      font-size:14px;
-      color:${textColor};
-    ">
-      ${time}
-    </div>
-
-    <div style="
-width:14px;
-height:14px;
-background:${dotColor};
-border-radius:50%;
-border:2px solid #000;
-z-index:2;
-opacity:${timeMin < nowMin ? 0.5 : 1};
-"></div>
-
-    <div style="
-      width:45%;
-      padding-left:15px;
-    ">
-      <div style="
-        font-size:17px;
-        font-weight:600;
-        color:${textColor};
-      ">
-        ${stations[code]?.[lang] || code}
-      </div>
-
-      <div style="
-        font-size:12px;
-        color:#aaa;
-        margin-top:3px;
-      ">
-        PF ${(platforms[routeCode]||{})[code] || ''}
-      </div>
-    </div>
-
-  </div>
-  `;
-}).join('')}
-
-    </div>
-  `;
-
-  screen.style.display = 'block';
-  history.pushState({page:"routeDetail"}, "");
-}
-
-function openMumbaiRouteDetail(trainNo, routeCode){
-
-  const screen = document.getElementById('routeDetailScreen');
-  const content = document.getElementById('routeDetailContent');
-
-  const trainMeta = trainMaster.find(t => t.train_no == trainNo);
-  if(!trainMeta) return;
-
-  const now = new Date();
-  const nowMin = now.getHours()*60 + now.getMinutes();
-
-  // Find all timetable rows where this train appears
-  const routeStops = [];
-
-  timetableData.forEach(row => {
-
-    const time = row[trainNo];
-    if(!time) return;
-
-    const stationCode = row["Train No."];
-
-    routeStops.push({
-      code: stationCode,
-      time: time,
-      timeMin: toMin(time)
-    });
-
-  });
-
-  // sort by time
-  routeStops.sort((a,b)=>a.timeMin - b.timeMin);
-
-  content.innerHTML = `
-  <div style="text-align:center;font-size:18px;margin-bottom:20px">
-    Train ${trainNo} → ${trainMeta.destination}
-  </div>
-
-  <div style="position:relative;">
-
-    <div style="
-  position:absolute;
-  left:50%;
-  top:18px;
-  bottom:18px;
-  width:2px;
-  background:#bbb;
-  transform:translateX(-50%);
-"></div>
-
-    ${routeStops.map((stop,idx)=>{
-
-      const time = to12h(stop.time);
-
-     const isFirst = idx === 0;
-const isLast = idx === routeStops.length - 1;
-
-let dotColor = "#fff";
-let textColor = "#fff";
-
-/* FIRST STATION GREEN */
-if(isFirst){
-  dotColor = "#00c853";
-}
-
-/* LAST STATION RED */
-if(isLast){
-  dotColor = "#ff1744";
-}
-
-/* PAST STATION FADE */
-if(stop.timeMin < nowMin){
-  dotColor = "#777";
-  textColor = "#888";
-}
-
-/* CURRENT TRAIN POSITION */
-if(Math.abs(stop.timeMin - nowMin) <= 1){
-  dotColor = "#00ff00";
-  textColor = "#00ff00";
-}
-// 🔥 Find platform number
-let pf = "";
-
-const platformRow = platformMaster.find(
-  p => p.route === routeCode &&
-       p.station === stop.code
-);
-
-if(platformRow){
-  pf = platformRow.platform;
-}
-      return `
-      <div style="
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        margin:18px 0;
-        position:relative;
-      ">
-
-        <div style="
-          width:45%;
-          text-align:right;
-          padding-right:15px;
-          font-size:14px;
-          color:${textColor};
-        ">
-          ${time}
-        </div>
-
-        <div style="
-  width:14px;
-  height:14px;
-  background:${dotColor};
-  border-radius:50%;
-  border:2px solid #000;
-  z-index:2;
-  opacity:${stop.timeMin < nowMin ? 0.5 : 1};
-"></div>
-
-        <div style="
-          width:45%;
-          padding-left:15px;
-        ">
-
-          <div style="
-            font-size:17px;
-            font-weight:600;
-            color:${textColor};
-          ">
-           ${mumbaiStationMap[stop.code] || stop.code}
-		   <div style="
-  font-size:12px;
-  color:#aaa;
-  margin-top:3px;
-">
-  PF ${pf || ''}
-</div>
+        <div class="rv-left">
+          <div class="rv-time">
+            ${to12h(t.time)}
           </div>
-
+          <div class="rv-sub">
+            ${t.destination}
+          </div>
         </div>
 
       </div>
-      `;
+    `;
 
-    }).join("")}
+  }).join('');
 
-  </div>
-  `;
+  setTimeout(()=>{
+    const el = document.getElementById("currentTrainItem");
+    if(el){
+      el.scrollIntoView({
+        behavior:"smooth",
+        block:"center"
+      });
+    }
+  },200);
+}       
+    function openRouteDetail(trainNo, routeCode){
 
-  screen.style.display='block';
-  history.pushState({page:"routeDetail"}, "");
-}	
-function closeRouteDetail(){
-  document.getElementById('routeDetailScreen').style.display = 'none';
-  history.back();
-}
-window.onpopstate = function(event){
+       const screen = document.getElementById('routeDetailScreen');
+       const content = document.getElementById('routeDetailContent');
 
-  // If route detail open
-  const screen = document.getElementById('routeDetailScreen');
-  if(screen.style.display === 'block'){
-    screen.style.display = 'none';
-    return;
+       const train = trains.find(t =>
+         t.no == trainNo && t.route === routeCode
+       );
+
+       if(!train) return;
+
+       const routeOrder = routeStations[routeCode];
+
+       const now = new Date();
+       const nowMin = now.getHours()*60 + now.getMinutes();
+
+       content.innerHTML = `
+         <div style="position:relative;">
+
+         <!-- Vertical Line -->
+     <div style="
+       position:absolute;
+       left:50%;
+       top:18px;
+       bottom:18px;
+       width:2px;
+       background:#bbb;
+       transform:translateX(-50%);
+     "></div>
+
+             ${routeOrder.map((code,idx) => {
+
+       if(!train.stops[code]) return '';
+
+       const timeMin = toMin(train.stops[code]);
+       const time = to12h(train.stops[code]);
+
+      const isFirst = idx === 0;
+     const isLast = idx === routeOrder.length - 1;
+
+     let dotColor = "#fff";
+     let textColor = "#fff";
+
+     /* FIRST & LAST STATION COLORS */
+     if(isFirst){
+       dotColor = "#00c853";   // green
+     }
+
+     if(isLast){
+       dotColor = "#ff1744";   // red
+     }
+
+     /* PAST STATION FADE */
+     if(timeMin < nowMin){
+       dotColor = "#777";
+       textColor = "#888";
+     }
+
+     /* CURRENT TRAIN POSITION */
+     if(Math.abs(timeMin - nowMin) <= 1){
+       dotColor = "#00ff00";
+       textColor = "#00ff00";
+     }
+
+         return `
+       <div style="
+         display:flex;
+         align-items:center;
+         justify-content:center;
+         margin:18px 0;
+         position:relative;
+       ">
+
+         ${!isFirst ? `
+         <div style="
+           position:absolute;
+           left:50%;
+           top:-18px;
+           height:18px;
+           width:2px;
+           background:#bbb;
+           transform:translateX(-50%);
+         "></div>` : ``}
+
+         ${!isLast ? `
+         <div style="
+           position:absolute;
+           left:50%;
+           bottom:-18px;
+           height:18px;
+           width:2px;
+           background:#bbb;
+           transform:translateX(-50%);
+         "></div>` : ``}
+
+         <div style="
+           width:45%;
+           text-align:right;
+           padding-right:15px;
+           font-size:14px;
+           color:${textColor};
+         ">
+           ${time}
+         </div>
+
+         <div style="
+     width:14px;
+     height:14px;
+     background:${dotColor};
+     border-radius:50%;
+     border:2px solid #000;
+     z-index:2;
+     opacity:${timeMin < nowMin ? 0.5 : 1};
+     "></div>
+
+         <div style="
+           width:45%;
+           padding-left:15px;
+         ">
+           <div style="
+             font-size:17px;
+             font-weight:600;
+             color:${textColor};
+           ">
+             ${stations[code]?.[lang] || code}
+           </div>
+
+           <div style="
+             font-size:12px;
+             color:#aaa;
+             margin-top:3px;
+           ">
+             PF ${(platforms[routeCode]||{})[code] || ''}
+           </div>
+         </div>
+
+       </div>
+       `;
+     }).join('')}
+
+         </div>
+       `;
+
+       screen.style.display = 'block';
+       history.pushState({page:"routeDetail"}, "");
+     }
+
+    function openMumbaiRouteDetail(trainNo, route, platformNo){
+        
+
+       const screen = document.getElementById('routeDetailScreen');
+       const content = document.getElementById('routeDetailContent');
+
+       const trainMeta = trainMaster.find(t => t.train_no == trainNo);
+       if(!trainMeta) return;
+
+       const now = new Date();
+       const nowMin = now.getHours()*60 + now.getMinutes();
+
+       // Find all timetable rows where this train appears
+       const routeStops = [];
+
+       timetableData.forEach(row => {
+
+         const time = row[trainNo];
+         if(!time) return;
+
+         const stationCode = row["Station"];
+
+         routeStops.push({
+           code: stationCode,
+           time: time,
+           timeMin: toMin(time)
+         });
+
+       });
+
+       // sort by time
+        for(let i = 1; i < routeStops.length; i++){
+
+  if(routeStops[i].timeMin < routeStops[i-1].timeMin){
+    routeStops[i].timeMin += 1440;
   }
 
-  // If full day schedule open
-  if(isFullDayView){
-    isFullDayView = false;
-    loadMumbaiStationData();   // go back to platform overview
-    return;
-  }
-
-};
-
-/* ================= SERVICE WORKER ================= */
-if('serviceWorker'in navigator){
- window.addEventListener('load',()=>{
-  navigator.serviceWorker.register('sw.js');
- });
 }
+       routeStops.sort((a,b)=>a.timeMin - b.timeMin);
 
-/* ===== ADS.JSON RUNNING BANNER ===== */
+       content.innerHTML = `
+       <div style="text-align:center;font-size:18px;margin-bottom:20px">
+         Train ${trainNo} → ${trainMeta.destination}
+       </div>
 
-let adsData = [];
-let currentAdIndex = 0;
+       <div style="position:relative;">
 
-function loadAds(){
+         <div style="
+       position:absolute;
+       left:50%;
+       top:18px;
+       bottom:18px;
+       width:2px;
+       background:#bbb;
+       transform:translateX(-50%);
+     "></div>
 
-fetch("ads.json")
-.then(res => res.json())
-.then(data => {
+         ${routeStops.map((stop,idx)=>{
 
-adsData = data.runningText || [];
+           const time = to12h(stop.time);
 
-loadExtraAds(data);
+          const isFirst = idx === 0;
+     const isLast = idx === routeStops.length - 1;
 
-rotatingAds = data.rotatingAds || [];
+     let dotColor = "#fff";
+     let textColor = "#fff";
 
-if(adsData.length){
-showAd();
-}
+     /* FIRST STATION GREEN */
+     if(isFirst){
+       dotColor = "#00c853";
+     }
 
-if(rotatingAds.length){
-startRotatingAds();
-}
+     /* LAST STATION RED */
+     if(isLast){
+       dotColor = "#ff1744";
+     }
 
+     /* PAST STATION FADE */
+     if(stop.timeMin < nowMin){
+       dotColor = "#777";
+       textColor = "#888";
+     }
+
+     /* CURRENT TRAIN POSITION */
+     if(Math.abs(stop.timeMin - nowMin) <= 1){
+       dotColor = "#00ff00";
+       textColor = "#00ff00";
+     }
+  const row = timetableData.find(r => {
+  return (
+    r["Station"] === stop.code &&
+    r[trainNo] &&
+    r[trainNo] !== "-"
+  );
 });
 
-}
+const pf = row ? (row["platform"] || "?") : "?";
+           return `
+           <div style="
+             display:flex;
+             align-items:center;
+             justify-content:center;
+             margin:18px 0;
+             position:relative;
+           ">
 
-function showAd(){
+             <div style="
+               width:45%;
+               text-align:right;
+               padding-right:15px;
+               font-size:14px;
+               color:${textColor};
+             ">
+               ${time}
+             </div>
 
-const ad = adsData[currentAdIndex];
+             <div style="
+       width:14px;
+       height:14px;
+       background:${dotColor};
+       border-radius:50%;
+       border:2px solid #000;
+       z-index:2;
+       opacity:${stop.timeMin < nowMin ? 0.5 : 1};
+     "></div>
 
-const textEl = document.getElementById("adText");
+             <div style="
+               width:45%;
+               padding-left:15px;
+             ">
 
-textEl.style.animation = "none";
+               <div style="
+                 font-size:17px;
+                 font-weight:600;
+                 color:${textColor};
+               ">
+                ${mumbaiStationMap[stop.code] || stop.code}
+                <div style="
+       font-size:12px;
+       color:#aaa;
+       margin-top:3px;
+     ">
+       PF ${pf || ''}
+     </div>
+               </div>
 
-void textEl.offsetWidth;
+             </div>
+
+           </div>
+           `;
+
+         }).join("")}
+
+       </div>
+       `;
+
+       screen.style.display='block';
+       history.pushState({page:"routeDetail"}, "");
+     }
+     function closeRouteDetail(){
+       document.getElementById('routeDetailScreen').style.display = 'none';
+       history.back();
+     }
+     window.onpopstate = function(event){
+
+       // If route detail open
+       const screen = document.getElementById('routeDetailScreen');
+       if(screen.style.display === 'block'){
+         screen.style.display = 'none';
+         return;
+       }
+
+       // If full day schedule open
+       if(isFullDayView){
+         isFullDayView = false;
+         loadMumbaiStationData();   // go back to platform overview
+         return;
+       }
+
+     };
+
+     /* ================= SERVICE WORKER ================= */
+     if('serviceWorker'in navigator){
+      window.addEventListener('load',()=>{
+       navigator.serviceWorker.register('sw.js');
+      });
+     }
+
+     /* ===== ADS.JSON RUNNING BANNER ===== */
+
+     let adsData = [];
+     let currentAdIndex = 0;
+
+     function loadAds(){
+
+     fetch("ads.json")
+     .then(res => res.json())
+     .then(data => {
+
+     adsData = data.runningText || [];
+
+     loadExtraAds(data);
+
+     rotatingAds = data.rotatingAds || [];
+
+     if(adsData.length){
+     showAd();
+     }
+
+     if(rotatingAds.length){
+     startRotatingAds();
+     }
+
+     });
+
+     }
+
+     function showAd(){
+
+     const ad = adsData[currentAdIndex];
+
+    const textEl = document.getElementById("adText");
 
 textEl.innerText = ad.text;
 
@@ -2476,102 +2536,164 @@ document.getElementById("adLink").href = "tel:" + ad.phone;
 
 document.getElementById("runningAd").style.display = "flex";
 
-/* ===== SMART SPEED CALCULATION ===== */
+/* ===== SPEED CALCULATION ===== */
 
 const screenWidth = window.innerWidth;
 const textLength = ad.text.length;
 
-/* base speed */
 let duration = 20;
-
-/* adjust for text length */
 duration += textLength / 8;
 
-/* adjust for mobile screen */
 if(screenWidth < 600){
-duration += 5;
+  duration += 5;
 }
 
-textEl.style.animation = `tickerScroll ${duration}s linear infinite`;
+/* 🔥 FIX START */
+textEl.style.animation = "none";
 
-/* rotate ad */
+/* 🔥 position reset */
+textEl.style.transform = "translateX(0)";
+
+void textEl.offsetWidth; // force reflow
+
 setTimeout(()=>{
+  textEl.style.animation = `tickerScroll ${duration}s linear infinite`;
+},10);
+/* 🔥 FIX END */
+     textEl.style.animation = `tickerScroll ${duration}s linear infinite`;
 
-currentAdIndex++;
+     /* rotate ad */
+     setTimeout(()=>{
 
-if(currentAdIndex >= adsData.length){
-currentAdIndex = 0;
+     currentAdIndex++;
+
+     if(currentAdIndex >= adsData.length){
+     currentAdIndex = 0;
+     }
+
+     showAd();
+
+     },duration * 1000);
+
+     }
+         document.addEventListener("DOMContentLoaded", loadAds);
+         let smallAds=[];
+
+     function loadExtraAds(data){
+
+     smallAds = data.smallAds || [];
+
+  if(smallAds.length){
+  showSmallAds();
+  autoScrollSmallAds(); // 🔥 ADD THIS
 }
+     }
+     function showSmallAds(){
 
-showAd();
+     const container = document.getElementById("adsSlider");
 
-},duration * 1000);
+     container.innerHTML="";
 
-}
-	document.addEventListener("DOMContentLoaded", loadAds);
-	let smallAds=[];
+  const shuffled = [...smallAds].sort(()=>Math.random()-0.5); // 🔥 shuffle
+const allAds = [...shuffled, ...shuffled]; // duplicate for infinite
 
-function loadExtraAds(data){
+allAds.forEach(ad=>{
 
-smallAds = data.smallAds || [];
-
-if(smallAds.length){
-showSmallAds();
-}
-
-}
-function showSmallAds(){
-
-const container = document.getElementById("adsSlider");
-
-container.innerHTML="";
-
-smallAds.forEach(ad=>{
-
-container.innerHTML += `
-<a href="${ad.link}" target="_blank">
-<img src="${ad.image}">
-</a>
-`;
+  container.innerHTML += `
+  <a href="${ad.link}" target="_blank">
+  <img src="${ad.image}">
+  </a>
+  `;
 
 });
 
-document.getElementById("smallAds").style.display="block";
+     document.getElementById("smallAds").style.display="block";
 
-}
+     }
 
-let rotatingAds = [];
-let rotatingIndex = 0;
+     let rotatingAds = [];
+     let rotatingIndex = 0;
 
-function startRotatingAds(){
+     function startRotatingAds(){
 
-document.getElementById("rotatingAds").style.display="block";
+     document.getElementById("rotatingAds").style.display="block";
 
-showRotatingAd();
+     showRotatingAd();
 
-setInterval(()=>{
+     setInterval(()=>{
 
-rotatingIndex++;
+     rotatingIndex++;
 
-if(rotatingIndex >= rotatingAds.length){
-rotatingIndex = 0;
-}
+     if(rotatingIndex >= rotatingAds.length){
+     rotatingIndex = 0;
+     }
 
-showRotatingAd();
+     showRotatingAd();
 
-},6000);
+     },6000);
 
-}
+     }
 
-function showRotatingAd(){
+     function showRotatingAd(){
 
-const ad = rotatingAds[rotatingIndex];
+     const ad = rotatingAds[rotatingIndex];
 
-document.getElementById("rotatingAdImg").src = ad.image;
+     document.getElementById("rotatingAdImg").src = ad.image;
 
-document.getElementById("rotatingAdLink").href = ad.link;
+     document.getElementById("rotatingAdLink").href = ad.link;
 
-document.getElementById("rotatingAdTitle").innerText = ad.title;
+     document.getElementById("rotatingAdTitle").innerText = ad.title;
+
+     }
+    
+function autoScrollSmallAds(){
+
+  const slider = document.getElementById("adsSlider");
+
+  let index = 0;
+
+  function scrollAds(){
+
+    const allImages = slider.querySelectorAll("img");
+
+    if(allImages.length === 0) return;
+
+    const total = allImages.length / 2;
+
+    index++;
+
+    allImages[index].scrollIntoView({
+      behavior: "smooth",
+      inline: "center"
+    });
+
+    if(index >= total){
+
+      setTimeout(()=>{
+
+        slider.scrollTo({
+          left: 0,
+          behavior: "auto"
+        });
+
+        index = 0;
+
+      },500);
+    }
+  }
+
+  // 🔥 start auto scroll
+  autoScrollInterval = setInterval(scrollAds, 4000);
+
+  // 🔥 pause on touch
+  slider.addEventListener("touchstart", ()=>{
+    clearInterval(autoScrollInterval);
+  });
+
+  // 🔥 resume on touch end
+  slider.addEventListener("touchend", ()=>{
+    autoScrollInterval = setInterval(scrollAds, 4000);
+  });
 
 }
 </script>
@@ -2588,13 +2710,13 @@ document.getElementById("rotatingAdTitle").innerText = ad.title;
   padding:20px;
 ">
 
-  <div style="font-size:18px;font-weight:700;margin-bottom:20px">
+    <div style="font-size:18px;font-weight:700;margin-bottom:20px">
     <span onclick="closeRouteDetail()" style="cursor:pointer;color:#00ff00">
       ⬅ Back
     </span>
-  </div>
+    </div>
 
-  <div id="routeDetailContent"></div>
+    <div id="routeDetailContent"></div>
 
 </div>
 
