@@ -615,7 +615,7 @@
     </div>
 
     <select id="station">
-        <option value="">Boarding Station / स्टेशन निवडा</option>
+        <option value="">Boarding Station</option>
         <option value="URAN">Uran</option>
         <option value="DRGI">Dronagiri</option>
         <option value="NESA">Nhava Sheva</option>
@@ -997,7 +997,9 @@ let sundayWarning = false;
     
      function updateStationsByRoute(){
        station.innerHTML =
-         '<option value="">Boarding Station / स्टेशन निवडा</option>';
+         `<option value="">${
+  lang === 'mr' ? 'स्टेशन निवडा' : 'Boarding Station'
+}</option>`;
 
        if(!route.value) return;
 
@@ -1633,7 +1635,9 @@ document.getElementById("smallAds").style.display = "none";
 
        // Reset station dropdown
        station.innerHTML =
-         '<option value="">Select Mumbai Station</option>';
+         `<option value="">${
+  lang === 'mr' ? 'स्टेशन निवडा' : 'Boarding Station'
+}</option>`;
 
        // Temporary demo stations
        const demoStations = [
@@ -1747,7 +1751,7 @@ document.getElementById("smallAds").style.display = "none";
 
        // Reset station dropdown
        station.innerHTML =
-         '<option value="">Boarding Station / स्टेशन निवडा</option>';
+         '<option value="">Boarding Station</option>';
 
        // Clear data display
        nextTrain.innerHTML = "";
