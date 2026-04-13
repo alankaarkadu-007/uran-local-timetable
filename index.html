@@ -588,9 +588,9 @@
     <select id="route">
         <option value="">Select Route / रूट निवडा</option>
         <option value="U2N">Uran → Nerul</option>
-        <option value="U2B">Uran → Belapur</option>
+        <option value="U2B">Uran → Belapur CBD</option>
         <option value="N2U">Nerul → Uran</option>
-        <option value="B2U">Belapur → Uran</option>
+        <option value="B2U">Belapur CBD → Uran</option>
     </select>
 
     <!-- ===== MUMBAI STATION SEARCH UI ===== -->
@@ -809,14 +809,24 @@ let sundayWarning = false;
      };
 
      function getRouteText(routeCode){
-       const map = {
-         U2N: 'Uran → Nerul',
-         N2U: 'Nerul → Uran',
-         U2B: 'Uran → Belapur',
-         B2U: 'Belapur → Uran'
-       };
-       return map[routeCode] || routeCode;
-     }
+
+  const map = {
+    en: {
+      U2N: 'Uran → Nerul',
+      N2U: 'Nerul → Uran',
+      U2B: 'Uran → Belapur CBD',
+      B2U: 'Belapur CBD → Uran'
+    },
+    mr: {
+      U2N: 'उरण → नेरूळ',
+      N2U: 'नेरूळ → उरण',
+      U2B: 'उरण → बेलापूर सीबीडी',
+      B2U: 'बेलापूर सीबीडी → उरण'
+    }
+  };
+
+  return map[lang][routeCode] || routeCode;
+}
 
      function toMin(t){
        const [h,m]=t.split(':').map(Number);
