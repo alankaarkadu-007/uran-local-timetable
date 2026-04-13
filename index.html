@@ -625,13 +625,13 @@
         <option value="URAN">Uran</option>
         <option value="DRGI">Dronagiri</option>
         <option value="NESA">Nhava Sheva</option>
-        <option value="SEMK">Shemti Khar</option>
+        <option value="SEMK">Shemtikhar</option>
         <option value="GAVHAN">Gavhan</option>
         <option value="KARP">Kharkopar</option>
-        <option value="BMDR">Baman Dongri</option>
+        <option value="BMDR">Bamandongri</option>
         <option value="TRGR">Targhar</option>
         <option value="BEPR">Belapur CBD</option>
-        <option value="SWDV">Seawood Darave Karave</option>
+        <option value="SWDV">Seawoods-Darave</option>
         <option value="NEU">Nerul</option>
     </select>
 
@@ -784,10 +784,10 @@
          let mumbaiStationMap = {};
          let demoStationsMaster = [
  
-"Airoli","Andheri","Baman Dongri","Bandra","Belapur CBD","Bhayandar","Boisar","Borivali","Charni Road","Chembur","Chunabhatti","Churchgate","Cotton Green","Dahanu Road","Dahisar","Digha","Dockyard Road",
-"Dronagiri","Elphinstone Road","Gavhan","Ghansoli","Govandi","Goregaon","Grant Road","GTB Nagar","Jogeshwari","Juinagar","Kandivli","Khandeshwar","Khar Road","Kharghar","Kharkopar","Kings Circle",
-"Kopar Khairane","Lower Parel","Mahalakshmi","Mahim Jn","Malad","Mankhurd","Mansarovar","Marine Lines","Masjid","Matunga Road","Mira Road","Mumbai Central","Naigaon","Nalla Sopara","Nerul","Nhava Sheva","Palghar",
-"Panvel","Prabhadevi","Rabale","Ram Mandir","Reay Road","Saphale","Sandhurst Road","Sanpada","Santacruz","Seawood Darave","Sewri","Targhar","Tilaknagar","Turbhe","Uran","Vadala Road","Vaitarna","Vangaon",
+"Airoli","Andheri","Bamandongri","Bandra","Belapur CBD","Bhayandar","Borivali","Charni Road","Chembur","Chunabhatti","Churchgate","Cotton Green","CSMT","Dadar","Dahisar","Digha","Dockyard Road",
+"Dronagiri","Gavhan","Ghansoli","Govandi","Goregaon","Grant Road","GTB Nagar","Jogeshwari","Juinagar","Kandivli","Khandeshwar","Khar Road","Kharghar","Kharkopar","Kings Circle",
+"Kopar Khairane","Kurla","Lower Parel","Mahalakshmi","Mahim Jn","Malad","Mankhurd","Mansarovar","Marine Lines","Masjid","Matunga Road","Mira Road","Mumbai Central","Naigaon","Nalla Sopara","Nerul","Nhava Sheva",
+"Panvel","Prabhadevi","Rabale","Ram Mandir","Reay Road","Sandhurst Road","Sanpada","Santacruz","Seawoods-Darave","Sewri",""Shemtikhar","Targhar","Tilaknagar","Turbhe","Uran","Vadala Road",
 "Vashi","Vasai Road","Vile Parle","Virar"
 ]
      
@@ -797,13 +797,13 @@ let sundayWarning = false;
       URAN:{en:'Uran (उरण)',mr:'उरण (Uran)'},
       DRGI:{en:'Dronagiri (द्रोणागिरी)',mr:'द्रोणागिरी (Dronagiri)'},
       NESA:{en:'Nhava Sheva (न्हावा शेवा)',mr:'न्हावा शेवा (Nhava Sheva)'},
-      SEMK:{en:'Shemti Khar (शेमटी खार)',mr:'शेमटी खार (Shemti Khar)'},
+      SEMK:{en:'Shemtikhar (शेमटीखार)',mr:'शेमटीखार (Shemtikhar)'},
       GAVHAN:{en:'Gavhan (गव्हाण)',mr:'गव्हाण (Gavhan)'},
       KARP:{en:'Kharkopar (खारकोपर)',mr:'खारकोपर (Kharkopar)'},
-      BMDR:{en:'Baman Dongri (बामण डोंगरी)',mr:'बामण डोंगरी (Baman Dongri)'},
+      BMDR:{en:'Bamandongri (बामणडोंगरी)',mr:'बामणडोंगरी (Bamandongri)'},
       TRGR:{en:'Targhar (तरघर)',mr:'तरघर (Targhar)'},
       BEPR:{en:'Belapur CBD',mr:'बेलापूर CBD'},
-      SWDV:{en:'Seawood Darave Karave',mr:'सीवूड दारावे करावे'},
+      SWDV:{en:'Seawoods-Darave',mr:'सीवूड दारावे'},
       NEU:{en:'Nerul (नेरूळ)',mr:'नेरूळ (Nerul)'}
      };
 
@@ -1635,13 +1635,6 @@ document.getElementById("smallAds").style.display = "none";
     {code:"BSR", name:"Vasai Road"},
     {code:"NSP", name:"Nalla Sopara"},
     {code:"VR", name:"Virar"},
-    {code:"VTN", name:"Vaitarna"},
-    {code:"SAH", name:"Saphale"},
-    {code:"KLV", name:"Kelve Road"},
-    {code:"PLG", name:"Palghar"},
-    {code:"BOR", name:"Boisar"},
-    {code:"VGN", name:"Vangaon"},
-    {code:"DRD", name:"Dahanu Road"},
     {code:"CSMT", name:"CSMT"},
     {code:"MSD", name:"Masjid"},
     {code:"SNRD", name:"Sandhurst Road"},
@@ -1662,7 +1655,7 @@ document.getElementById("smallAds").style.display = "none";
     {code:"SNPD", name:"Sanpada"},
     {code:"JNJ", name:"Juinagar"},
     {code:"NEU", name:"Nerul"},
-    {code:"SWDV", name:"Seawood Darave"},
+    {code:"SWDV", name:"Seawoods-Darave"},
     {code:"BEPR", name:"Belapur CBD"},
     {code:"KHAG", name:"Kharghar"},
     {code:"MANR", name:"Mansarovar"},
@@ -1675,10 +1668,10 @@ document.getElementById("smallAds").style.display = "none";
     {code:"KPHN", name:"Kopar Khairane"},
     {code:"TUH", name:"Turbhe"},
     {code:"TRGR", name:"Targhar"},
-    {code:"BMDR", name:"Baman Dongri"},
+    {code:"BMDR", name:"Bamandongri"},
     {code:"KARP", name:"Kharkopar"},
     {code:"GAVHAN", name:"Gavhan"},
-    {code:"SEMK", name:"Shemti Khar"},
+    {code:"SEMK", name:"Shemtikhar"},
     {code:"NESA", name:"Nhava Sheva"},
     {code:"DRGI", name:"Dronagiri"},
     {code:"URAN", name:"Uran"}
