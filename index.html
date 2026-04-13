@@ -585,7 +585,7 @@
 
 <div class="container">
 
-    <select id="route">
+    <select id="route"></select>
         <option value="">Select Route / रूट निवडा</option>
         <option value="U2N">Uran → Nerul</option>
         <option value="U2B">Uran → Belapur CBD</option>
@@ -714,7 +714,7 @@
 
        document.getElementById('langLabel').innerText =
          lang === 'en' ? 'English' : 'मराठी';
-
+       updateRouteDropdown();
        updateStationsByRoute();
        render();
      }
@@ -723,7 +723,7 @@
      document.addEventListener('DOMContentLoaded', () => {
        document.getElementById('langLabel').innerText =
          lang === 'en' ? 'English' : 'मराठी';
-
+       updateRouteDropdown();
        updateStationsByRoute();
          const searchInput = document.getElementById("stationSearch");
          // 🔥 Show station list when clicking search box
@@ -975,6 +975,32 @@ let sundayWarning = false;
        B2U: ['BEPR','TRGR','BMDR','KARP','GAVHAN','SEMK','NESA','DRGI','URAN']
      };
 
+    function updateRouteDropdown(){
+
+  const routeSelect = document.getElementById("route");
+
+  routeSelect.innerHTML = "";
+
+  // Default option
+  const opt = document.createElement("option");
+  opt.value = "";
+  opt.textContent = lang === 'mr'
+    ? "रूट निवडा"
+    : "Select Route";
+
+  routeSelect.appendChild(opt);
+
+  const routes = ["U2N","U2B","N2U","B2U"];
+
+  routes.forEach(r => {
+    const o = document.createElement("option");
+    o.value = r;
+    o.textContent = getRouteText(r);
+    routeSelect.appendChild(o);
+  });
+
+}
+    
      function updateStationsByRoute(){
        station.innerHTML =
          '<option value="">Boarding Station / स्टेशन निवडा</option>';
