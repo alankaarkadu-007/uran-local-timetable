@@ -1969,7 +1969,7 @@ async function loadMumbaiStationData(){
                Platform ${train.platform}
              </div>
              <div class="rv-sub">
-               ${train.destination}
+               ${mumbaiStationMap[train.destination] || train.destination}
              </div>
            </div>
            <div class="rv-no">
@@ -2029,8 +2029,8 @@ async function loadMumbaiStationData(){
                </div>
 
                <div class="rv-sub">
-                 ${t.destination}
-               </div>
+  ${mumbaiStationMap[t.destination] || t.destination}
+</div>
              </div>
 
             <div class="rv-no" style="text-align:right">
@@ -2114,8 +2114,8 @@ timetableData.forEach(train => {
     </div>
 
     <div class="rv-sub">
-      ${t.destination}
-    </div>
+  ${mumbaiStationMap[t.destination] || t.destination}
+</div>
   </div>
 
   <!-- 🔥 RIGHT SIDE REMAINING TIME -->
@@ -2355,13 +2355,7 @@ timetableData.forEach(train => {
        dotColor = "#00ff00";
        textColor = "#00ff00";
      }
-  const row = timetableData.find(r => {
-  return (
-    r["Station"] === stop.code &&
-    r[trainNo] &&
-    r[trainNo] !== "-"
-  );
-});
+ const pf = "?";
 
 const pf = row ? (row["platform"] || "?") : "?";
            return `
