@@ -675,7 +675,7 @@
      const uiText = {
       en:{
        selectRoute:'Select Route',
-       selectStation:'Boarding Station',
+       selectStation:'Select Boarding Station',
        nextTrain:'Next Train',
        arriving:'Arriving in',
        platform:'Platform No.',
@@ -1228,7 +1228,7 @@ let sundayWarning = false;
          <div class="rv-left">
            <div class="rv-time">⏰ Time</div>
          </div>
-         <div class="rv-no">Boarding Station</div>
+         <div class="rv-no">Platform No.</div>
        </div>
      `;
 
@@ -1636,7 +1636,7 @@ document.getElementById("smallAds").style.display = "none";
        // Reset station dropdown
        station.innerHTML =
          `<option value="">${
-  lang === 'mr' ? 'स्टेशन निवडा' : 'Boarding Station'
+  lang === 'mr' ? 'स्टेशन निवडा' : 'Select Boarding Station'
 }</option>`;
 
        // Temporary demo stations
