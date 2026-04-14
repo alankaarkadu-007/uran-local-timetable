@@ -670,7 +670,21 @@
      // ===== LANGUAGE (remembered) =====
      let lang = localStorage.getItem('appLang') || 'en'; // default English
      let trainMaster = [];
-      let timetableData = null;
+      let timetableData = [];
+    async function loadMumbaiJSON(){
+
+  if(timetableData.length) return;
+
+  try{
+    const res = await fetch("data/timetable.json");
+    timetableData = await res.json();
+
+    console.log("✅ JSON loaded:", timetableData.length);
+
+  }catch(e){
+    console.log("❌ JSON load error", e);
+  }
+}
      let autoScrollInterval;
      const uiText = {
       en:{
@@ -837,50 +851,8 @@ let sundayWarning = false;
        const h=Math.floor(min/60),m=min%60;
        return h+" hr "+(m?m+" min":"");
      }
-     /* ===== CSV PARSER ===== */
-     function parseCSV(text){
-       const rows = text.trim().split("\n");
-       const headers = rows[0].split(",");
-
-       return rows.slice(1).map(row=>{
-         const values = row.split(",");
-         let obj = {};
-         headers.forEach((h,i)=>{
-           obj[h.trim()] = values[i] ? values[i].trim() : "";
-         });
-         return obj;
-       });
-     }
-    async function loadAllTimetables(){
-
-  let allData = [];
-
-  for(let i = 1; i <= 60; i++){
-
-    try{
-      const res = await fetch(`data/timetables/table-${i}.csv`);
-
-      if(!res.ok){
-        console.log("❌ Missing file:", i);
-        continue;
-      }
-
-      const text = await res.text();
-      const parsed = parseCSV(text);
-
-      allData = allData.concat(parsed);
-
-    }catch(e){
-      console.log("❌ Error loading table:", i);
-    }
-
-  }
-
-  console.log("✅ Total timetable rows:", allData.length);
-
-  return allData;
-}
-     /* ================= FULL TIMETABLE DATA ================= */
+    
+    /* ================= FULL TIMETABLE DATA ================= */
      const trains = [
      /* U2N */
      {no:99602,route:'U2N',stops:{URAN:'06:10',DRGI:'06:12',NESA:'06:15',SEMK:'06:18',GAVHAN:'06:22',KARP:'06:26',BMDR:'06:30',TRGR:'06:33',KILE:'06:36',SWDV:'06:38',NEU:'06:44'}},
@@ -1789,23 +1761,13 @@ document.getElementById("smallAds").style.display = "none";
      }, 1000);
 
      // ===== MUMBAI STATION DATA LOADER =====
-function loadMumbaiStationData(){
+async function loadMumbaiStationData(){
 
   if(!station.value) return;
 
-  Promise.all([
-    fetch("data/train_master.csv").then(r=>r.text())
-   ])
-  .then(async ([trainCSV]) => {
+  await loadMumbaiJSON();
 
-    trainMaster = parseCSV(trainCSV);
-   
-    // 🔥 इथे main change
-    timetableData = await loadAllTimetables();
-
-    processMumbaiFromCSV();
-  });
-
+  renderMumbaiFromJSON();
 }
     function isTrainRunningToday(train){
 
@@ -1822,7 +1784,7 @@ function loadMumbaiStationData(){
        return true;
      }
 
-    function processMumbaiFromCSV(){
+    function renderMumbaiFromJSON(){
 
   const selectedStation = station.value;
   const now = new Date();
@@ -1830,53 +1792,38 @@ function loadMumbaiStationData(){
 
   let platformMap = {};
 
-  const stationRows = timetableData.filter(
-    r => r["Station"] === selectedStation
-  );
+  timetableData.forEach(train => {
 
-  if(stationRows.length === 0) return;
+    const stopIndex = train.stops.findIndex(s => s.station === selectedStation);
 
-  stationRows.forEach(stationRow => {
+    if(stopIndex === -1) return;
 
-    Object.keys(stationRow).forEach(trainNo => {
+    // ❌ destination skip
+    if(stopIndex === train.stops.length - 1) return;
 
-      // ✅ skip headers
-      if(trainNo === "Station" || trainNo === "platform") return;
+    const stop = train.stops[stopIndex];
 
-      const time = stationRow[trainNo];
-      if(!time || time === "-") return;
+    let [h,m] = stop.time.split(":").map(Number);
+    let trainMin = h*60 + m;
 
-      const trainMeta = trainMaster.find(t => t.train_no == trainNo);
-      if(!trainMeta) return;
-        const platform = stationRow["platform"] || "?";
+    if(trainMin < nowMin){
+      trainMin += 1440;
+    }
 
-      // ❌ skip destination
-      const selectedStationName = mumbaiStationMap[selectedStation];
-      if(trainMeta.destination === selectedStationName) return;
+    const platform = stop.pf || "?";
 
-      if(!isTrainRunningToday(trainMeta)) return;
-
-      const [h,m] = time.split(":").map(Number);
-      let trainMin = h*60 + m;
-
-      if(trainMin < nowMin){
-        trainMin += 1440;
-      }
-
-     if(
-        !platformMap[platform] ||
-        trainMin < platformMap[platform].timeMin
-      ){
-        platformMap[platform] = {
-          trainNo: trainNo,
-          route: trainMeta.route,
-          destination: trainMeta.destination,
-          time: time,
-          timeMin: trainMin
-        };
-      }
-
-    });
+    if(
+      !platformMap[platform] ||
+      trainMin < platformMap[platform].timeMin
+    ){
+      platformMap[platform] = {
+        trainNo: train.train_no,
+        route: train.route,
+        destination: train.stops[train.stops.length - 1].station,
+        time: stop.time,
+        timeMin: trainMin
+      };
+    }
 
   });
 
