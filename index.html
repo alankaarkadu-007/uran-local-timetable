@@ -1688,17 +1688,91 @@ document.getElementById("smallAds").style.display = "none";
     {code:"DRGI", name:"Dronagiri"},
     {code:"URAN", name:"Uran"}
   ];
-    demoStations.forEach(s=>{
+    // ✅ Dropdown fill (same as before)
+demoStations.forEach(s => {
+  const opt = document.createElement("option");
+  opt.value = s.code;
+  opt.textContent = s.name;
+  station.appendChild(opt);
+});
 
-       const opt = document.createElement("option");
-       opt.value = s.code;
-       opt.textContent = s.name;
-       station.appendChild(opt);
+// 🔥 FIXED FULL STATION MAP (IMPORTANT)
+mumbaiStationMap = {
+  CCG:"Churchgate",
+  MEL:"Marine Lines",
+  CRD:"Charni Road",
+  GTR:"Grant Road",
+  MMCT:"Mumbai Central",
+  MX:"Mahalakshmi",
+  LP:"Lower Parel",
+  PBHD:"Prabhadevi",
+  DR:"Dadar",
+  MRU:"Matunga Road",
+  MM:"Mahim Jn",
+  BA:"Bandra",
+  KHAR:"Khar Road",
+  STC:"Santacruz",
+  VLP:"Vile Parle",
+  ADH:"Andheri",
+  JOS:"Jogeshwari",
+  RMAR:"Ram Mandir",
+  GMN:"Goregaon",
+  MDD:"Malad",
+  KILE:"Kandivli",
+  BVI:"Borivali",
+  DIC:"Dahisar",
+  MIRA:"Mira Road",
+  BYR:"Bhayandar",
+  NIG:"Naigaon",
+  BSR:"Vasai Road",
+  NSP:"Nalla Sopara",
+  VR:"Virar",
 
-       // 🔥 station code → name map
-       mumbaiStationMap[s.code] = s.name;
+  CSMT:"CSMT",
+  MSD:"Masjid",
+  SNRD:"Sandhurst Road",
+  DKRD:"Dockyard Road",
+  RRD:"Reay Road",
+  CTGN:"Cotton Green",
+  SVE:"Sewri",
+  VDLR:"Vadala Road",
+  KCE:"Kings Circle",
+  GTBN:"GTB Nagar",
+  CHMB:"Chunabhatti",
+  CLA:"Kurla",
+  TKNG:"Tilaknagar",
+  CMBR:"Chembur",
+  GV:"Govandi",
+  MNKD:"Mankhurd",
+  VSH:"Vashi",
+  SNPD:"Sanpada",
+  JNJ:"Juinagar",
+  NEU:"Nerul",
+  SWDV:"Seawoods-Darave",
+  BEPR:"Belapur CBD",
+  KHAG:"Kharghar",
+  MANR:"Mansarovar",
+  KNDS:"Khandeshwar",
+  PNVL:"Panvel",
 
-     });
+  TNA:"Thane",
+  DIGH:"Digha",
+  AIRL:"Airoli",
+  RABE:"Rabale",
+  GNSL:"Ghansoli",
+  KPHN:"Kopar Khairane",
+  TUH:"Turbhe",
+
+  // Uran line
+  TRGR:"Targhar",
+  BMDR:"Bamandongri",
+  KARP:"Kharkopar",
+  GAVHAN:"Gavhan",
+  SEMK:"Shemtikhar",
+  NESA:"Nhava Sheva",
+  DRGI:"Dronagiri",
+  URAN:"Uran"
+};
        // Clear previous Uran data
        nextTrain.innerHTML = "";
        list.innerHTML = "";
@@ -1980,59 +2054,36 @@ function openPlatformSchedule(platformNo){
   const now = new Date();
   const nowMin = now.getHours()*60 + now.getMinutes();
 
-  const stationRows = timetableData.filter(
-    r => r["Station"] === selectedStation
-  );
-
-  if(stationRows.length === 0) return;
-
   let fullList = [];
 
-  stationRows.forEach(stationRow => {
+timetableData.forEach(train => {
 
-    Object.keys(stationRow).forEach(trainNo => {
+  const stopIndex = train.stops.findIndex(
+    s => s.station === selectedStation
+  );
 
-      // ✅ correct header skip
-      if(trainNo === "Station" || trainNo === "platform") return;
+  if(stopIndex === -1) return;
 
-      const time = stationRow[trainNo];
-      if(!time || time === "-") return;
+  const stop = train.stops[stopIndex];
 
-      const trainMeta = trainMaster.find(
-        t => t.train_no == trainNo
-      );
+  const platform = stop.pf || "?";
 
-      if(!trainMeta) return;
+  if(platform != platformNo) return;
 
-      const selectedStationName = mumbaiStationMap[selectedStation];
+  const [h,m] = stop.time.split(":").map(Number);
+  let trainMin = h*60 + m;
 
-      // ❌ skip destination
-      if(trainMeta.destination === selectedStationName){
-        return;
-      }
-
-      if(!isTrainRunningToday(trainMeta)) return;
-
-      // ✅ NEW platform logic (CSV मधून)
-      const platform = stationRow["platform"] || "?";
-
-      // 🔥 ONLY filter by clicked platform
-      if(platform != platformNo) return;
-
-      const [h,m] = time.split(":").map(Number);
-      const trainMin = h*60 + m;
-
-      fullList.push({
-        trainNo: trainNo,
-        time,
-        trainMin,
-        destination: trainMeta.destination,
-        route: trainMeta.route
-      });
-
-    });
-
+  fullList.push({
+    trainNo: train.train_no,
+    time: stop.time,
+    trainMin,
+    destination: mumbaiStationMap[
+  train.stops[train.stops.length - 1].station
+] || train.stops[train.stops.length - 1].station,
+    route: train.route
   });
+
+});
 
   // sort
   fullList.sort((a,b)=>a.trainMin - b.trainMin);
@@ -2240,31 +2291,13 @@ function openPlatformSchedule(platformNo){
        const screen = document.getElementById('routeDetailScreen');
        const content = document.getElementById('routeDetailContent');
 
-       const trainMeta = trainMaster.find(t => t.train_no == trainNo);
-       if(!trainMeta) return;
-
        const now = new Date();
        const nowMin = now.getHours()*60 + now.getMinutes();
 
        // Find all timetable rows where this train appears
        const routeStops = [];
 
-       timetableData.forEach(row => {
-
-         const time = row[trainNo];
-         if(!time) return;
-
-         const stationCode = row["Station"];
-
-         routeStops.push({
-           code: stationCode,
-           time: time,
-           timeMin: toMin(time)
-         });
-
-       });
-
-       // sort by time
+      // sort by time
         for(let i = 1; i < routeStops.length; i++){
 
   if(routeStops[i].timeMin < routeStops[i-1].timeMin){
