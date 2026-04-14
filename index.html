@@ -2659,7 +2659,7 @@ function autoScrollSmallAds(){
   }
 
   // 🔥 start auto scroll
-  autoScrollInterval = setInterval(scrollAds, 4000);
+  autoScrollInterval = setInterval(scrollAds, 5000);
 
   // 🔥 pause on touch
   slider.addEventListener("touchstart", ()=>{
@@ -2668,7 +2668,7 @@ function autoScrollSmallAds(){
 
   // 🔥 resume on touch end
   slider.addEventListener("touchend", ()=>{
-    autoScrollInterval = setInterval(scrollAds, 4000);
+    autoScrollInterval = setInterval(scrollAds, 5000);
   });
 
 }
