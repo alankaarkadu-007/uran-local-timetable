@@ -1236,8 +1236,8 @@ let sundayWarning = false;
      list.innerHTML =
        listHeader +
        rows.map((r,i)=>{
-
-         const isNext = i === nextIdx;
+        const pf = (platforms[route.value]||{})[station.value] || '—';
+        const isNext = i === nextIdx;
         const showAlt =
        altTrain &&
        i === nextIdx &&
@@ -1269,8 +1269,12 @@ let sundayWarning = false;
            ${stations[station.value][lang]} Station
          </div>
        </div>
-          </div>
-     `;
+       <div class="rv-no">
+    ${pf}
+  </div>
+
+</div>
+         `;
 
        }).join('');
 
