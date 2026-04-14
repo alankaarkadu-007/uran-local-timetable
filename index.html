@@ -2326,7 +2326,11 @@ train.stops.forEach(s => {
 
        content.innerHTML = `
        <div style="text-align:center;font-size:18px;margin-bottom:20px">
-Train ${trainNo} → ${route}
+Train ${trainNo} → ${
+  mumbaiStationMap[
+    train.stops[train.stops.length - 1].station
+  ] || train.stops[train.stops.length - 1].station
+}
        </div>
 
        <div style="position:relative;">
