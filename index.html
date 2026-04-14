@@ -2097,6 +2097,7 @@ function openPlatformSchedule(platformNo){
 
   list.innerHTML = fullList.map((t,i)=>{
 
+    const remaining = t.trainMin - nowMin;  
     const isPast = t.trainMin < nowMin;
 
     const isCurrent =
@@ -2104,20 +2105,26 @@ function openPlatformSchedule(platformNo){
 
     return `
       <div class="rv-item"
-        id="${isCurrent ? 'currentTrainItem' : ''}"
-        style="${isPast?'opacity:.5':''}"
-        onclick="openMumbaiRouteDetail('${t.trainNo}','${t.route}','${platformNo}')">
+  id="${isCurrent ? 'currentTrainItem' : ''}"
+  style="${isPast?'opacity:.5':''}"
+  onclick="openMumbaiRouteDetail('${t.trainNo}','${t.route}','${platformNo}')">
 
-        <div class="rv-left">
-          <div class="rv-time">
-            ${to12h(t.time)}
-          </div>
-          <div class="rv-sub">
-            ${t.destination}
-          </div>
-        </div>
+  <div class="rv-left">
+    <div class="rv-time">
+      ${to12h(t.time)}
+    </div>
 
-      </div>
+    <div class="rv-sub">
+      ${t.destination}
+    </div>
+  </div>
+
+  <!-- 🔥 RIGHT SIDE REMAINING TIME -->
+  <div class="rv-no">
+    ${!isPast ? `<b>${formatArrival(remaining)}</b>` : ''}
+  </div>
+
+</div>
     `;
 
   }).join('');
