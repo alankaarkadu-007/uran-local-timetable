@@ -2296,6 +2296,17 @@ timetableData.forEach(train => {
 
        // Find all timetable rows where this train appears
        const routeStops = [];
+        const train = timetableData.find(t => t.train_no == trainNo);
+
+if(!train) return;
+
+train.stops.forEach(s => {
+  routeStops.push({
+    code: s.station,
+    time: s.time,
+    timeMin: toMin(s.time)
+  });
+});
 
       // sort by time
         for(let i = 1; i < routeStops.length; i++){
@@ -2309,7 +2320,7 @@ timetableData.forEach(train => {
 
        content.innerHTML = `
        <div style="text-align:center;font-size:18px;margin-bottom:20px">
-         Train ${trainNo} → ${trainMeta.destination}
+Train ${trainNo} → ${route}
        </div>
 
        <div style="position:relative;">
@@ -2357,8 +2368,7 @@ timetableData.forEach(train => {
      }
  const pf = "?";
 
-const pf = row ? (row["platform"] || "?") : "?";
-           return `
+      return `
            <div style="
              display:flex;
              align-items:center;
