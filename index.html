@@ -1884,7 +1884,10 @@ async function loadMumbaiStationData(){
       trainMin += 1440;
     }
 
-    const platform = stop.pf || "?";
+   const platform =
+  stop.pf ||
+  (platforms[train.route]?.[selectedStation]) ||
+  "?";
 
     if(
       !platformMap[platform] ||
@@ -2066,7 +2069,10 @@ timetableData.forEach(train => {
 
   const stop = train.stops[stopIndex];
 
-  const platform = stop.pf || "?";
+ const platform =
+  stop.pf ||
+  (platforms[train.route]?.[selectedStation]) ||
+  "?";
 
   if(platform != platformNo) return;
 
