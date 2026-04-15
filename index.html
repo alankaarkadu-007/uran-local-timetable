@@ -1893,7 +1893,7 @@ async function loadMumbaiStationData(){
       platformMap[platform] = {
         trainNo: train.train_no,
         route: train.route,
-        destination: train.stops[train.stops.length - 1].station,
+        destination: destination,
         time: stop.time,
         timeMin: trainMin
       };
@@ -2065,6 +2065,11 @@ timetableData.forEach(train => {
   if(stopIndex === -1) return;
 
   const stop = train.stops[stopIndex];
+    const destination =
+  train.stops[train.stops.length - 1].station;
+
+// ❌ same station skip करा
+if(destination === selectedStation) return;
 
  const platform = stop.platform || stop.pf || "?";
 
