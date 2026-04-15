@@ -1893,7 +1893,8 @@ async function loadMumbaiStationData(){
       platformMap[platform] = {
         trainNo: train.train_no,
         route: train.route,
-        destination: destination,
+        destination:
+  train.stops[train.stops.length - 1].station,
         time: stop.time,
         timeMin: trainMin
       };
