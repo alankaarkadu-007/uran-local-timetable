@@ -1884,10 +1884,7 @@ async function loadMumbaiStationData(){
       trainMin += 1440;
     }
 
-   const platform =
-  stop.pf ||
-  (platforms[train.route]?.[selectedStation]) ||
-  "?";
+   const platform = stop.platform || stop.pf || "?";
 
     if(
       !platformMap[platform] ||
@@ -2069,10 +2066,7 @@ timetableData.forEach(train => {
 
   const stop = train.stops[stopIndex];
 
- const platform =
-  stop.pf ||
-  (platforms[train.route]?.[selectedStation]) ||
-  "?";
+ const platform = stop.platform || stop.pf || "?";
 
   if(platform != platformNo) return;
 
@@ -2376,7 +2370,10 @@ Train ${trainNo} → ${
        dotColor = "#00ff00";
        textColor = "#00ff00";
      }
- const pf = "?";
+ const pf =
+  train.stops.find(s => s.station === stop.code)?.platform ||
+  train.stops.find(s => s.station === stop.code)?.pf ||
+  "?";
 
       return `
            <div style="
