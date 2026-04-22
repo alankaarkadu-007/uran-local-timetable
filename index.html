@@ -547,8 +547,7 @@
             </div>
 
             <div onclick="toggleLanguage()">🌐 Language: <span id="langLabel">English</span></div>
-            <div onclick="manualUpdate()">🔄 Update App</div>
-        </div>
+           </div>
     </div>
 
 </header>
@@ -1578,15 +1577,7 @@ let sundayWarning = false;
        });
       }
      }
-     function manualUpdate(){
-      if('serviceWorker'in navigator){
-       navigator.serviceWorker.getRegistrations().then(r=>{
-        r.forEach(sw=>sw.unregister());
-        location.reload();
-       });
-      }
-     }
-
+    
      // ===== MUMBAI MODE =====
      function enableMumbaiMode(){
 document.getElementById("smallAds").style.display = "none";
