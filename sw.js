@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'v6'; // 🔥 always increase
+const CACHE_VERSION = 'v7'; // 🔥 always increase
 const CACHE_NAME = `uran-local-${CACHE_VERSION}`;
 
 // Static files (rarely change)
