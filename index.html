@@ -675,7 +675,7 @@
   if(timetableData.length) return;
 
   try{
-    const res = await fetch("data/timetable.json");
+    const res = await fetch("timetable.json");
     timetableData = await res.json();
 
     console.log("✅ JSON loaded:", timetableData.length);
