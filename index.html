@@ -737,8 +737,20 @@ else if(currentMode === "mumbai"){
        updateRouteDropdown();
        updateStationsByRoute();
        render();
-         if(currentMode === "mumbai"){
-  initMumbaiMode();   // 🔥 re-load Mumbai data
+        if(currentMode === "mumbai"){
+  
+  // 🔥 1. Search box reset
+  const searchInput = document.getElementById("stationSearch");
+  searchInput.value = "";
+
+  // 🔥 2. Re-bind search event (VERY IMPORTANT)
+  searchInput.oninput = function(){
+    filterMumbaiStations();
+  };
+
+  // 🔥 3. Station list पुन्हा load कर
+  loadMumbaiStations();
+
 }
      }
 
