@@ -719,10 +719,18 @@
        // remember selection
        localStorage.setItem('appLang', lang);
 
-         document.getElementById("appTitle").innerText =
-  lang === 'mr'
-    ? "🚆 उरण लोकल वेळापत्रक"
-    : "🚆 Uran Local Timetable";
+         if(currentMode === "uran"){
+  document.getElementById("appTitle").innerText =
+    lang === 'mr'
+      ? "🚆 उरण लोकल वेळापत्रक"
+      : "🚆 Uran Local Timetable";
+}
+else if(currentMode === "mumbai"){
+  document.getElementById("appTitle").innerText =
+    lang === 'mr'
+      ? "🚇 मुंबई लोकल मोड"
+      : "🚇 Mumbai Local Mode";
+}
 
        document.getElementById('langLabel').innerText =
          lang === 'en' ? 'English' : 'मराठी';
