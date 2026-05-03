@@ -591,7 +591,7 @@
 
         <input type="text"
                id="stationSearch"
-               placeholder="Search Station..."
+               placeholder=""
                style="
            width:100%;
            padding:12px;
@@ -733,6 +733,8 @@
        updateRouteDropdown();
        updateStationsByRoute();
          const searchInput = document.getElementById("stationSearch");
+         document.getElementById("stationSearch").placeholder =
+  lang === 'mr' ? 'स्टेशन शोधा...' : 'Search Station...';
          // 🔥 Show station list when clicking search box
      if(searchInput){
   searchInput.addEventListener("focus", function(){
@@ -1589,7 +1591,9 @@ document.getElementById("smallAds").style.display = "none";
 
         // Header text change
        document.querySelector("header h2").innerText =
-         "🚇 Mumbai Local Mode";
+  lang === 'mr'
+    ? "🚇 मुंबई लोकल मोड"
+    : "🚇 Mumbai Local Mode";
 
        // Hide Route dropdown
        document.getElementById("route").style.display = "none";
@@ -1995,7 +1999,9 @@ async function loadMumbaiStationData(){
        margin-top:2px;
        padding:4px 0;
      ">
-       🚇 Platform Wise Next Trains
+       ${lang === 'mr'
+  ? '🚇 प्लॅटफॉर्मनुसार पुढील ट्रेन'
+  : '🚇 Platform Wise Next Trains'}
      </div>
      `;
 
@@ -2015,7 +2021,7 @@ async function loadMumbaiStationData(){
 
              <div class="rv-left">
                <div class="rv-time">
-                 Platform ${p}
+                ${lang === 'mr' ? 'प्लॅटफॉर्म' : 'Platform'} ${p}
                </div>
 
                <div class="rv-sub">
@@ -2085,7 +2091,9 @@ if(destination === selectedStation) return;
 
   nextTrain.innerHTML = `
     <div style="font-size:16px;font-weight:700;margin-top:2px;padding:4px 0;">
-      🚇 Platform ${platformNo} – Full Day Schedule
+      🚇 Platform ${platformNo} – ${
+  lang === 'mr' ? 'पूर्ण दिवस वेळापत्रक' : 'Full Day Schedule'
+}
     </div>
   `;
 
