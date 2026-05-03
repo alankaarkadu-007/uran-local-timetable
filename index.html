@@ -529,7 +529,7 @@
 <body>
 
 <header>
-    <h2>🚆 Uran Local Timetable</h2>
+    <h2 id="appTitle">🚆 Uran Local Timetable</h2>
     <div class="credit">
         Designed & Developed by Dr. Alankar Kadu. (Sonari, Uran)
     </div>
@@ -719,6 +719,11 @@
        // remember selection
        localStorage.setItem('appLang', lang);
 
+         document.getElementById("appTitle").innerText =
+  lang === 'mr'
+    ? "🚆 उरण लोकल वेळापत्रक"
+    : "🚆 Uran Local Timetable";
+
        document.getElementById('langLabel').innerText =
          lang === 'en' ? 'English' : 'मराठी';
        updateRouteDropdown();
@@ -730,6 +735,10 @@
      document.addEventListener('DOMContentLoaded', () => {
        document.getElementById('langLabel').innerText =
          lang === 'en' ? 'English' : 'मराठी';
+         document.getElementById("appTitle").innerText =
+  lang === 'mr'
+    ? "🚆 उरण लोकल वेळापत्रक"
+    : "🚆 Uran Local Timetable";
        updateRouteDropdown();
        updateStationsByRoute();
          const searchInput = document.getElementById("stationSearch");
