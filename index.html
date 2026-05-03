@@ -737,6 +737,9 @@ else if(currentMode === "mumbai"){
        updateRouteDropdown();
        updateStationsByRoute();
        render();
+         if(currentMode === "mumbai"){
+  initMumbaiMode();   // 🔥 re-load Mumbai data
+}
      }
 
      // Apply saved language on load
