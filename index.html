@@ -1951,6 +1951,25 @@ async function loadMumbaiStationData(){
          `;
        }).join('');
      }
+
+    function filterMumbaiStations(){
+
+  const search = document.getElementById("stationSearch").value.toLowerCase();
+
+  let filtered;
+
+  if(search === ""){
+    filtered = mumbaiStationsMaster;
+  }else{
+    filtered = mumbaiStationsMaster.filter(st =>
+      st.toLowerCase().includes(search)
+    );
+  }
+
+  renderStationList(filtered);
+
+  document.getElementById("stationList").style.display = "block";
+}
          function selectMumbaiStation(code, name){
 
        station.value = code;
