@@ -737,20 +737,26 @@ else if(currentMode === "mumbai"){
        updateRouteDropdown();
        updateStationsByRoute();
        render();
-        if(currentMode === "mumbai"){
+       if(currentMode === "mumbai"){
   
-  // 🔥 1. Search box reset
   const searchInput = document.getElementById("stationSearch");
+
+  // 🔥 reset
   searchInput.value = "";
 
-  // 🔥 2. Re-bind search event (VERY IMPORTANT)
+  // 🔥 placeholder fix (language wise)
+  searchInput.placeholder =
+    lang === 'mr' ? 'स्टेशन शोधा...' : 'Search Station...';
+
+  // 🔥 FULL LIST FORCE SHOW (IMPORTANT)
+  renderStationList(mumbaiStationsMaster);
+
+  document.getElementById("stationList").style.display = "block";
+
+  // 🔥 rebind search
   searchInput.oninput = function(){
     filterMumbaiStations();
   };
-
-  // 🔥 3. Station list पुन्हा load कर
-  loadMumbaiStations();
-
 }
      }
 
