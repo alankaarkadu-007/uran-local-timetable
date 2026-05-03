@@ -735,8 +735,35 @@ else if(currentMode === "mumbai"){
        document.getElementById('langLabel').innerText =
          lang === 'en' ? 'English' : 'मराठी';
        updateRouteDropdown();
-       updateStationsByRoute();
-       render();
+
+// 🔥 ONLY Uran mode साठी station update
+if(currentMode === "uran"){
+  updateStationsByRoute();
+  render();
+}
+
+// 🔥 Mumbai mode साठी वेगळा flow
+if(currentMode === "mumbai"){
+
+  const searchInput = document.getElementById("stationSearch");
+
+  searchInput.value = "";
+
+  searchInput.placeholder =
+    lang === 'mr' ? 'स्टेशन शोधा...' : 'Search Station...';
+
+  renderStationList(mumbaiStationsMaster);
+  document.getElementById("stationList").style.display = "block";
+
+  searchInput.oninput = function(){
+    filterMumbaiStations();
+  };
+
+  // 🔥 IMPORTANT → reload current selected station
+  if(station.value){
+    loadMumbaiStationData();
+  }
+}
        if(currentMode === "mumbai"){
   
   const searchInput = document.getElementById("stationSearch");
