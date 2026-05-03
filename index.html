@@ -1968,6 +1968,7 @@ async function loadMumbaiStationData(){
   if(!code) return;
 
   station.value = code;
+        station.dispatchEvent(new Event('change'));
 
   const searchInput = document.getElementById("stationSearch");
   const stationList = document.getElementById("stationList");
