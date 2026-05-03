@@ -2052,14 +2052,7 @@ async function loadMumbaiStationData(){
    ${lang === 'mr' ? (mumbaiStationMapMR[st] || st) : st}
   </div>
 `;
-
-         return `
-           <div class="station-item"
-                onclick="selectMumbaiStation('${option.value}', '${st}')">
-             ${st}
-           </div>
-         `;
-       }).join('');
+ }).join('');
      }
 
     function selectMumbaiStationByName(name){
@@ -2096,13 +2089,15 @@ async function loadMumbaiStationData(){
   if(search === ""){
     filtered = mumbaiStationsMaster;
   }else{
-    filtered = mumbaiStationsMaster.filter(st =>
-      const name = lang === 'mr'
-  ? (mumbaiStationMapMR[st] || st)
-  : st;
+  let filtered = mumbaiStationsMaster.filter(st => {
 
-return name.toLowerCase().includes(search);
-    );
+  const name = lang === 'mr'
+    ? (mumbaiStationMapMR[st] || st)
+    : st;
+
+  return name.toLowerCase().includes(search);
+
+});
   }
 
   renderStationList(filtered);
