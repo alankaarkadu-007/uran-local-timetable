@@ -856,6 +856,82 @@ if(currentMode === "mumbai"){
      let mumbaiData = null;
          let mumbaiStationsMaster = [];
          let mumbaiStationMap = {};
+    const mumbaiStationMapMR = {
+
+  "Churchgate":"चर्चगेट",
+  "Marine Lines":"मरीन लाईन्स",
+  "Charni Road":"चार्नी रोड",
+  "Grant Road":"ग्रँट रोड",
+  "Mumbai Central":"मुंबई सेंट्रल",
+  "Mahalakshmi":"महालक्ष्मी",
+  "Lower Parel":"लोअर परळ",
+  "Prabhadevi":"प्रभादेवी",
+  "Dadar":"दादर",
+  "Matunga Road":"माटुंगा रोड",
+  "Mahim Jn":"माहीम जंक्शन",
+  "Bandra":"बांद्रा",
+  "Khar Road":"खार रोड",
+  "Santacruz":"सांताक्रूझ",
+  "Vile Parle":"विले पार्ले",
+  "Andheri":"अंधेरी",
+  "Jogeshwari":"जोगेश्वरी",
+  "Ram Mandir":"राम मंदिर",
+  "Goregaon":"गोरेगाव",
+  "Malad":"मालाड",
+  "Kandivli":"कांदिवली",
+  "Borivali":"बोरीवली",
+  "Dahisar":"दहिसर",
+  "Mira Road":"मीरा रोड",
+  "Bhayandar":"भाईंदर",
+  "Naigaon":"नायगाव",
+  "Vasai Road":"वसई रोड",
+  "Nalla Sopara":"नालासोपारा",
+  "Virar":"विरार",
+
+  "CSMT":"छत्रपती शिवाजी महाराज टर्मिनस",
+  "Masjid":"मस्जिद",
+  "Sandhurst Road":"सँडहर्स्ट रोड",
+  "Dockyard Road":"डॉकयार्ड रोड",
+  "Reay Road":"रे रोड",
+  "Cotton Green":"कॉटन ग्रीन",
+  "Sewri":"शिवडी",
+  "Vadala Road":"वडाळा रोड",
+  "Kings Circle":"किंग्स सर्कल",
+  "GTB Nagar":"जीटीबी नगर",
+  "Chunabhatti":"चुनाभट्टी",
+  "Kurla":"कुर्ला",
+  "Tilaknagar":"टिळकनगर",
+  "Chembur":"चेंबूर",
+  "Govandi":"गोवंडी",
+  "Mankhurd":"मानखुर्द",
+  "Vashi":"वाशी",
+  "Sanpada":"सानपाडा",
+  "Juinagar":"जुईनगर",
+  "Nerul":"नेरूळ",
+  "Seawoods-Darave":"सीवुड्स-दारावे",
+  "Belapur CBD":"बेलापूर सीबीडी",
+  "Kharghar":"खारघर",
+  "Mansarovar":"मानसरावर",
+  "Khandeshwar":"खांदेश्वर",
+  "Panvel":"पनवेल",
+
+  "Thane":"ठाणे",
+  "Digha":"दिघा",
+  "Airoli":"ऐरोली",
+  "Rabale":"रबाळे",
+  "Ghansoli":"घणसोली",
+  "Kopar Khairane":"कोपरखैराणे",
+  "Turbhe":"तुर्भे",
+
+  "Targhar":"तरघर",
+  "Bamandongri":"बामणडोंगरी",
+  "Kharkopar":"खारकोपर",
+  "Gavhan":"गव्हाण",
+  "Shemtikhar":"शेमटीखार",
+  "Nhava Sheva":"न्हावा शेवा",
+  "Dronagiri":"द्रोणागिरी",
+  "Uran":"उरण"
+};
          let demoStationsMaster = [
  
 "Airoli","Andheri","Bamandongri","Bandra","Belapur CBD","Bhayandar","Borivali","Charni Road","Chembur","Chunabhatti","Churchgate","Cotton Green","CSMT",
@@ -1973,7 +2049,7 @@ async function loadMumbaiStationData(){
         return `
   <div class="station-item"
        onclick="selectMumbaiStationByName('${st}')">
-    ${st}
+   ${lang === 'mr' ? (mumbaiStationMapMR[st] || st) : st}
   </div>
 `;
 
@@ -2000,7 +2076,9 @@ async function loadMumbaiStationData(){
   const searchInput = document.getElementById("stationSearch");
   const stationList = document.getElementById("stationList");
 
-  searchInput.value = name;
+ searchInput.value = lang === 'mr'
+  ? (mumbaiStationMapMR[name] || name)
+  : name;
 
   stationList.style.display = "none";
 
@@ -2019,7 +2097,11 @@ async function loadMumbaiStationData(){
     filtered = mumbaiStationsMaster;
   }else{
     filtered = mumbaiStationsMaster.filter(st =>
-      st.toLowerCase().includes(search)
+      const name = lang === 'mr'
+  ? (mumbaiStationMapMR[st] || st)
+  : st;
+
+return name.toLowerCase().includes(search);
     );
   }
 
