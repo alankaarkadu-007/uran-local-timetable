@@ -1791,10 +1791,8 @@ mumbaiStationMap = {
        // Reset route selection
        route.value = "";
 
-       // Reset station dropdown
-       station.innerHTML =
-         '<option value="">Boarding Station</option>';
-
+      updateStationsByRoute();
+         
        // Clear data display
        nextTrain.innerHTML = "";
        list.innerHTML = "";
