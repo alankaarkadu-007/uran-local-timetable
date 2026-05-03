@@ -1943,11 +1943,12 @@ async function loadMumbaiStationData(){
 
        container.innerHTML = list.map(st => {
 
-         // find matching option from dropdown
-         const option = Array.from(station.options)
-           .find(o => o.textContent === st);
-
-         if(!option) return "";
+        return `
+  <div class="station-item"
+       onclick="selectMumbaiStationByName('${st}')">
+    ${st}
+  </div>
+`;
 
          return `
            <div class="station-item"
@@ -1958,6 +1959,29 @@ async function loadMumbaiStationData(){
        }).join('');
      }
 
+    function selectMumbaiStationByName(name){
+
+  // 🔥 code शोध map मधून
+  let code = Object.keys(mumbaiStationMap)
+    .find(k => mumbaiStationMap[k] === name);
+
+  if(!code) return;
+
+  station.value = code;
+
+  const searchInput = document.getElementById("stationSearch");
+  const stationList = document.getElementById("stationList");
+
+  searchInput.value = name;
+
+  stationList.style.display = "none";
+
+  document.getElementById("smallAds").style.display = "block";
+  document.getElementById("rotatingAds").style.display = "block";
+  document.getElementById("runningAd").style.display = "flex";
+
+  loadMumbaiStationData();
+}
     function filterMumbaiStations(){
 
   const search = document.getElementById("stationSearch").value.toLowerCase();
