@@ -857,10 +857,15 @@ if(currentMode === "mumbai"){
          let mumbaiStationsMaster = [];
          let mumbaiStationMap = {};
     const mumbaiStationMapMR = {
-
+function getStationName(st){
+  return lang === 'mr'
+    ? (mumbaiStationMapMR[st] || st)
+    : st;
+}
+        
   "Churchgate":"चर्चगेट",
   "Marine Lines":"मरीन लाईन्स",
-  "Charni Road":"चार्नी रोड",
+  "Charni Road":"चर्नी रोड",
   "Grant Road":"ग्रँट रोड",
   "Mumbai Central":"मुंबई सेंट्रल",
   "Mahalakshmi":"महालक्ष्मी",
@@ -911,7 +916,7 @@ if(currentMode === "mumbai"){
   "Seawoods-Darave":"सीवुड्स-दारावे",
   "Belapur CBD":"बेलापूर सीबीडी",
   "Kharghar":"खारघर",
-  "Mansarovar":"मानसरावर",
+  "Mansarovar":"मानसरोवर",
   "Khandeshwar":"खांदेश्वर",
   "Panvel":"पनवेल",
 
@@ -920,7 +925,7 @@ if(currentMode === "mumbai"){
   "Airoli":"ऐरोली",
   "Rabale":"रबाळे",
   "Ghansoli":"घणसोली",
-  "Kopar Khairane":"कोपरखैराणे",
+  "Kopar Khairane":"कोपरखैरणे",
   "Turbhe":"तुर्भे",
 
   "Targhar":"तरघर",
@@ -2089,7 +2094,7 @@ async function loadMumbaiStationData(){
   if(search === ""){
     filtered = mumbaiStationsMaster;
   }else{
-  let filtered = mumbaiStationsMaster.filter(st => {
+      filtered = mumbaiStationsMaster.filter(st => {
 
   const name = lang === 'mr'
     ? (mumbaiStationMapMR[st] || st)
@@ -2150,7 +2155,7 @@ async function loadMumbaiStationData(){
                Platform ${train.platform}
              </div>
              <div class="rv-sub">
-               ${mumbaiStationMap[train.destination] || train.destination}
+               ${getStationName(mumbaiStationMap[train.destination] || train.destination)}
              </div>
            </div>
            <div class="rv-no">
@@ -2212,7 +2217,7 @@ async function loadMumbaiStationData(){
                </div>
 
                <div class="rv-sub">
-  ${mumbaiStationMap[t.destination] || t.destination}
+ ${getStationName(mumbaiStationMap[t.destination] || t.destination)}
 </div>
              </div>
 
@@ -2304,7 +2309,7 @@ if(destination === selectedStation) return;
     </div>
 
     <div class="rv-sub">
-  ${mumbaiStationMap[t.destination] || t.destination}
+  ${getStationName(t.destination)}
 </div>
   </div>
 
@@ -2511,9 +2516,11 @@ train.stops.forEach(s => {
        content.innerHTML = `
        <div style="text-align:center;font-size:18px;margin-bottom:20px">
 Train ${trainNo} → ${
+  getStationName(
   mumbaiStationMap[
     train.stops[train.stops.length - 1].station
   ] || train.stops[train.stops.length - 1].station
+)
 }
        </div>
 
@@ -2604,7 +2611,7 @@ Train ${trainNo} → ${
                  font-weight:600;
                  color:${textColor};
                ">
-                ${mumbaiStationMap[stop.code] || stop.code}
+               ${getStationName(mumbaiStationMap[stop.code] || stop.code)}
                 <div style="
        font-size:12px;
        color:#aaa;
