@@ -857,11 +857,6 @@ if(currentMode === "mumbai"){
          let mumbaiStationsMaster = [];
          let mumbaiStationMap = {};
     const mumbaiStationMapMR = {
-function getStationName(st){
-  return lang === 'mr'
-    ? (mumbaiStationMapMR[st] || st)
-    : st;
-}
         
   "Churchgate":"चर्चगेट",
   "Marine Lines":"मरीन लाईन्स",
@@ -937,6 +932,11 @@ function getStationName(st){
   "Dronagiri":"द्रोणागिरी",
   "Uran":"उरण"
 };
+    function getStationName(st){
+  return lang === 'mr'
+    ? (mumbaiStationMapMR[st] || st)
+    : st;
+}
          let demoStationsMaster = [
  
 "Airoli","Andheri","Bamandongri","Bandra","Belapur CBD","Bhayandar","Borivali","Charni Road","Chembur","Chunabhatti","Churchgate","Cotton Green","CSMT",
