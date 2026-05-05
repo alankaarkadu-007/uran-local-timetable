@@ -2855,20 +2855,21 @@ function autoScrollSmallAds(){
 
     index++;
 
-    allImages[index].scrollIntoView({
-      behavior: "smooth",
-      inline: "center"
-    });
+    const imgWidth = allImages[index].offsetWidth + 10; // gap = 10px
+slider.scrollBy({
+  left: imgWidth,
+  behavior: "smooth"
+});
 
-   if(index >= total){
-
-  // 🔥 INSTANT RESET (NO DELAY)
-  slider.scrollTo({
-    left: 0,
-    behavior: "auto"
-  });
-
+  if(index >= total){
   index = 0;
+
+  setTimeout(()=>{
+    slider.scrollTo({
+      left: 0,
+      behavior: "auto"
+    });
+  }, 300);
 }
   }
 
