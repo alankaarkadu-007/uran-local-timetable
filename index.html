@@ -2297,6 +2297,8 @@ if(destination === selectedStation) return;
     const isCurrent =
       i === fullList.findIndex(x => x.trainMin >= nowMin);
 
+      const isUrgent = remaining <= 10;
+
     return `
       <div class="rv-item"
   id="${isCurrent ? 'currentTrainItem' : ''}"
@@ -2314,9 +2316,15 @@ if(destination === selectedStation) return;
   </div>
 
   <!-- 🔥 RIGHT SIDE REMAINING TIME -->
-  <div class="rv-no">
-    ${!isPast ? `<b>${formatArrival(remaining)}</b>` : ''}
-  </div>
+ <div class="rv-no">
+  ${!isPast ? `
+    <b style="
+      color:${isUrgent ? '#e53935' : '#000'};
+    ">
+      ${formatArrival(remaining)}
+    </b>
+  ` : ''}
+</div>
 
 </div>
     `;
