@@ -994,10 +994,28 @@ let sundayWarning = false;
        return `${h}:${m.toString().padStart(2,'0')} ${ap}`;
      }
      function formatArrival(min){
-       if(min<60) return min+" min";
-       const h=Math.floor(min/60),m=min%60;
-       return h+" hr "+(m?m+" min":"");
-     }
+
+  // 🔥 Marathi mode
+  if(lang === 'mr'){
+
+    if(min < 60){
+      return min + " मिनिटे";
+    }
+
+    const h = Math.floor(min/60),
+          m = min%60;
+
+    return h + " तास " + (m ? m + " मिनिटे" : "");
+  }
+
+  // 🔥 English mode
+  if(min < 60) return min + " min";
+
+  const h = Math.floor(min/60),
+        m = min%60;
+
+  return h + " hr " + (m ? m + " min" : "");
+}
     
     /* ================= FULL TIMETABLE DATA ================= */
      const trains = [
