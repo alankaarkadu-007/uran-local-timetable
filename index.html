@@ -2298,6 +2298,7 @@ if(destination === selectedStation) return;
       i === fullList.findIndex(x => x.trainMin >= nowMin);
 
       const isUrgent = remaining <= 10;
+      const isBlink = remaining <= 5;
 
     return `
       <div class="rv-item"
@@ -2320,6 +2321,7 @@ if(destination === selectedStation) return;
   ${!isPast ? `
     <b style="
       color:${isUrgent ? '#e53935' : '#000'};
+      animation:${isBlink ? 'timeBlinkFast 0.8s infinite' : 'none'};
     ">
       ${formatArrival(remaining)}
     </b>
