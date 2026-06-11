@@ -2285,14 +2285,18 @@ if(destination === selectedStation) return;
   let trainMin = h*60 + m;
 
   fullList.push({
-    trainNo: train.train_no,
-    time: stop.time,
-    trainMin,
-    destination: mumbaiStationMap[
-  train.stops[train.stops.length - 1].station
-] || train.stops[train.stops.length - 1].station,
-    route: train.route
-  });
+  trainNo: train.train_no,
+  time: stop.time,
+  trainMin,
+  destination: mumbaiStationMap[
+    train.stops[train.stops.length - 1].station
+  ] || train.stops[train.stops.length - 1].station,
+  route: train.route,
+
+  isAC: String(train.train_no)
+    .toUpperCase()
+    .includes("AC")
+});
 
 });
 
@@ -2318,10 +2322,14 @@ if(destination === selectedStation) return;
       const isUrgent = remaining <= 10;
       const isBlink = remaining <= 5;
 
-    return `
-      <div class="rv-item"
+    const acStyle = t.isAC
+  ? "background:#d9f3ff;border-left:5px solid #2196f3;"
+  : "";
+
+return `
+  <div class="rv-item"
   id="${isCurrent ? 'currentTrainItem' : ''}"
-  style="${isPast?'opacity:.5':''}"
+  style="${isPast?'opacity:.5;':''}${acStyle}"
   onclick="openMumbaiRouteDetail('${t.trainNo}','${t.route}','${platformNo}')">
 
   <div class="rv-left">
