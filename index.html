@@ -2335,6 +2335,19 @@ return `
   <div class="rv-left">
     <div class="rv-time">
       ${to12h(t.time)}
+      ${t.isAC ? `
+    <span style="
+      background:#2196f3;
+      color:#fff;
+      font-size:11px;
+      padding:2px 6px;
+      border-radius:10px;
+      margin-left:6px;
+      font-weight:700;
+    ">
+      AC
+    </span>
+  ` : ''}
     </div>
 
     <div class="rv-sub">
